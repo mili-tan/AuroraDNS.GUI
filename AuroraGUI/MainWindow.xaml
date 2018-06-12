@@ -1,0 +1,104 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Class="AuroraGUI.MainWindow"
+        Background="{DynamicResource MaterialDesignPaper}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Opacity="0.8"
+        BorderThickness="0.2"
+        BorderBrush="#00655B"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Normal"
+        TextElement.FontSize="13"     
+
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Aurora DNS" Height="200" Width="300" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="147*"/>
+            <ColumnDefinition Width="146*"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:ColorZone
+            Mode="PrimaryDark"
+            Padding="16"
+            materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="0,0,-0.4,0" Grid.ColumnSpan="2" Height="55">
+            <DockPanel>
+                <TextBlock
+                    VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    FontSize="18" FontWeight="Bold"
+                    FontFamily="Microsoft YaHei UI"
+                    DockPanel.Dock="Left">
+                    AURORA DNS
+                </TextBlock>
+
+                <ToggleButton
+                    Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                    VerticalAlignment="Center"
+                    ToolTip="启用 / 停用"
+                    DockPanel.Dock="Right" HorizontalAlignment="Right" />
+            </DockPanel>
+        </materialDesign:ColorZone>
+        <Grid Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0">
+
+            <ToggleButton x:Name="IsSysDns"
+                Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                Height="40"
+                Width="40"
+                ToolTip="设为系统 DNS"
+                IsChecked="False" HorizontalAlignment="Left" >
+                <materialDesign:PackIcon
+                    Kind="Dns"
+                    Height="20"
+                    Width="20"  />
+            </ToggleButton>
+
+            <ToggleButton x:Name="IsGlobal"
+                Style="{StaticResource MaterialDesignActionToggleButton}"
+                Height="40"
+                Width="40"
+                ToolTip="局域网 / 广域网"
+                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                IsChecked="False" HorizontalAlignment="Center">
+                <ToggleButton.Content>
+                    <materialDesign:PackIcon
+                        Kind="Lan"
+                        Height="20"
+                        Width="20"/>
+                </ToggleButton.Content>
+                <materialDesign:ToggleButtonAssist.OnContent>
+                    <materialDesign:PackIcon
+                        Kind="Web"
+                        Height="25"
+                        Width="25"/>
+                </materialDesign:ToggleButtonAssist.OnContent>
+
+            </ToggleButton>
+
+            <ToggleButton x:Name="IsLog"
+                          Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                          Height="40"
+                          Width="40"
+                          ToolTip="记录日志"
+                          IsChecked="False" HorizontalAlignment="Right" >
+                <materialDesign:PackIcon
+                    Kind="FormatAlignLeft"
+                    Height="20"
+                    Width="20"  />
+            </ToggleButton>
+        </Grid>
+
+        <Button
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Grid.ColumnSpan="2" Grid.Column="0"
+            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+            Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal">
+            设置
+        </Button>
+    </Grid>
+</Window>

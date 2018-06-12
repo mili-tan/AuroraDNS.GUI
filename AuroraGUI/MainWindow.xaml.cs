@@ -56,11 +56,8 @@ namespace AuroraGUI
         internal void EnableBlur()
         {
             var windowHelper = new WindowInteropHelper(this);
-
             var accent = new AccentPolicy {AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND};
-
             var accentStructSize = Marshal.SizeOf(accent);
-
             var accentPtr = Marshal.AllocHGlobal(accentStructSize);
             Marshal.StructureToPtr(accent, accentPtr, false);
 
@@ -72,9 +69,18 @@ namespace AuroraGUI
             };
 
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
             Marshal.FreeHGlobal(accentPtr);
         
+        }
+
+        private void IsSysDns_Checked(object sender, RoutedEventArgs e)
+        {
+            SysDnsSet.SetDns("1.1.1.1","1.0.0.1");
+        }
+
+        private void IsSysDns_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SysDnsSet.ResetDns();
         }
     }
 }

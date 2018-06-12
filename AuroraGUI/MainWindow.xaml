@@ -51,7 +51,7 @@
                 Height="40"
                 Width="40"
                 ToolTip="设为系统 DNS"
-                IsChecked="False" HorizontalAlignment="Left" >
+                IsChecked="False" HorizontalAlignment="Left" Checked="IsSysDns_Checked" Unchecked="IsSysDns_Unchecked" >
                 <materialDesign:PackIcon
                     Kind="Dns"
                     Height="20"

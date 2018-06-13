@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -70,7 +71,6 @@ namespace AuroraGUI
 
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
-        
         }
 
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
@@ -81,6 +81,26 @@ namespace AuroraGUI
         private void IsSysDns_Unchecked(object sender, RoutedEventArgs e)
         {
             SysDnsSet.ResetDns();
+        }
+
+        private void IsGlobal_Checked(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.ListenIp = IPAddress.Any;
+        }
+
+        private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.ListenIp = IPAddress.Loopback;
+        }
+
+        private void IsLog_Checked(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.DebugLog = true;
+        }
+
+        private void IsLog_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.DebugLog = false;
         }
     }
 }

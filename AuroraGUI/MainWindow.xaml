@@ -64,7 +64,7 @@
                 Width="40"
                 ToolTip="局域网 / 广域网"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                IsChecked="False" HorizontalAlignment="Center">
+                IsChecked="False" HorizontalAlignment="Center" Checked="IsGlobal_Checked" Unchecked="IsGlobal_Unchecked">
                 <ToggleButton.Content>
                     <materialDesign:PackIcon
                         Kind="Lan"
@@ -85,7 +85,7 @@
                           Height="40"
                           Width="40"
                           ToolTip="记录日志"
-                          IsChecked="False" HorizontalAlignment="Right" >
+                          IsChecked="False" HorizontalAlignment="Right" Checked="IsLog_Checked" Unchecked="IsLog_Unchecked" >
                 <materialDesign:PackIcon
                     Kind="FormatAlignLeft"
                     Height="20"

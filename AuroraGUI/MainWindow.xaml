@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         x:Class="AuroraGUI.MainWindow"
-        Background="{DynamicResource MaterialDesignPaper}"
-        Opacity="0.85"
+        Background="#C8FFFFFF"
         BorderThickness="0.2"
         BorderBrush="#00655B"
         WindowStartupLocation="CenterScreen"
@@ -22,10 +21,11 @@
         WindowStyle="None">
 
     <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="1" />
+        <WindowChrome 
+            GlassFrameThickness="1"/>
     </WindowChrome.WindowChrome>
 
-    <Grid>
+    <Grid Opacity="0.8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="147*"/>
             <ColumnDefinition Width="146*"/>

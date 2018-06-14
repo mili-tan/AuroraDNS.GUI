@@ -6,9 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         x:Class="AuroraGUI.MainWindow"
         Background="{DynamicResource MaterialDesignPaper}"
-        AllowsTransparency="True"
-        WindowStyle="None"
-        Opacity="0.8"
+        Opacity="0.85"
         BorderThickness="0.2"
         BorderBrush="#00655B"
         WindowStartupLocation="CenterScreen"
@@ -18,7 +16,15 @@
         TextElement.FontSize="13"     
 
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Aurora DNS" Height="200" Width="300" Loaded="Window_Loaded">
+        Title="Aurora DNS" 
+        MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
+        Height="200" Width="300" Loaded="Window_Loaded" 
+        WindowStyle="None">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="1" />
+    </WindowChrome.WindowChrome>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="147*"/>

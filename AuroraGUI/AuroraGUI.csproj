@@ -64,6 +64,7 @@
     <Compile Include="DnsSettings.cs" />
     <Compile Include="SysDnsSet.cs" />
     <Compile Include="WindowBlur.cs" />
+    <Compile Include="WindowFx.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

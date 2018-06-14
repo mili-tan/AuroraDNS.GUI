@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net;
-using System.Runtime.InteropServices;
+﻿using System.Net;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Shell;
 
 namespace AuroraGUI
 {
@@ -15,11 +12,11 @@ namespace AuroraGUI
         public MainWindow()
         {
             InitializeComponent();
+            WindowBlur.SetEnabled(this, true);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            WindowBlur.SetEnabled(this,true);
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 5;
             Top = desktopWorkingArea.Bottom - Height - 5;
@@ -53,6 +50,11 @@ namespace AuroraGUI
         private void IsLog_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = false;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

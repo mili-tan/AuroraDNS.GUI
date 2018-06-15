@@ -9,17 +9,19 @@ namespace AuroraGUI
     {
         public static void BgwLog(string log)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += (o, ea) =>
+            using (BackgroundWorker worker = new BackgroundWorker())
             {
-                if (!Directory.Exists("Log"))
+                worker.DoWork += (o, ea) =>
                 {
-                    Directory.CreateDirectory("Log");
-                }
-                File.AppendAllText($"./Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
-            };
+                    if (!Directory.Exists("Log"))
+                    {
+                        Directory.CreateDirectory("Log");
+                    }
+                    File.AppendAllText($"./Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
+                };
 
-            worker.RunWorkerAsync();
+                worker.RunWorkerAsync();
+            }
         }
 
     }

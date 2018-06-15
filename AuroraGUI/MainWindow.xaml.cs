@@ -44,16 +44,9 @@ namespace AuroraGUI
             Left = desktopWorkingArea.Right - Width - 5;
             Top = desktopWorkingArea.Bottom - Height - 5;
 
-            try
-            {
-                MyDnsServer.Start();
-                DnsEnable.IsChecked = true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw;
-            }
+
+            //MyDnsServer.Start();
+            DnsEnable.IsChecked = true;
         }
 
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
@@ -86,9 +79,14 @@ namespace AuroraGUI
             DnsSettings.DebugLog = false;
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        private void DnsEnable_Checked(object sender, RoutedEventArgs e)
         {
+            MyDnsServer.Start();
+        }
 
+        private void DnsEnable_Unchecked(object sender, RoutedEventArgs e)
+        {
+            MyDnsServer.Stop();
         }
     }
 }

@@ -18,7 +18,7 @@
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
         Height="200" Width="300" Loaded="Window_Loaded" 
-        WindowStyle="None" Closing="Window_Closing">
+        WindowStyle="None">
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
@@ -47,7 +47,7 @@
                     Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
                     VerticalAlignment="Center"
                     ToolTip="启用 / 停用"
-                    DockPanel.Dock="Right" HorizontalAlignment="Right" />
+                    DockPanel.Dock="Right" HorizontalAlignment="Right" Checked="DnsEnable_Checked" Unchecked="DnsEnable_Unchecked" />
             </DockPanel>
         </materialDesign:ColorZone>
         <Grid Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0">

@@ -43,7 +43,7 @@
                     AURORA DNS
                 </TextBlock>
 
-                <ToggleButton
+                <ToggleButton x:Name="DnsEnable"
                     Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
                     VerticalAlignment="Center"
                     ToolTip="启用 / 停用"

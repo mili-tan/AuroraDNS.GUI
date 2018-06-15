@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using MojoUnity;
+#pragma warning disable 1998
 
 namespace AuroraGUI
 {
-    class QueryResolve
+    static class QueryResolve
     {
         public static List<DomainName> BlackList;
         public static Dictionary<DomainName, IPAddress> WhiteList;
@@ -39,7 +40,7 @@ namespace AuroraGUI
 
                         if (DnsSettings.DebugLog)
                         {
-                            //Console.WriteLine($@"| {DateTime.Now} {clientAddress} : { dnsQuestion.Name}");
+                            BackDo.BgwLog($@"| {DateTime.Now} {clientAddress} : { dnsQuestion.Name}");
                         }
 
                         if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name))
@@ -49,7 +50,7 @@ namespace AuroraGUI
                             response.AnswerRecords.Add(blackRecord);
                             if (DnsSettings.DebugLog)
                             {
-                                //Console.WriteLine(@"|- BlackList");
+                                BackDo.BgwLog(@"|- BlackList");
                             }
                         }
 
@@ -60,7 +61,7 @@ namespace AuroraGUI
                             response.AnswerRecords.Add(blackRecord);
                             if (DnsSettings.DebugLog)
                             {
-                                //Console.WriteLine(@"|- WhiteList");
+                                BackDo.BgwLog(@"|- WhiteList");
                             }
                         }
 
@@ -86,7 +87,7 @@ namespace AuroraGUI
                             catch (Exception ex)
                             {
                                 response.ReturnCode = ReturnCode.ServerFailure;
-                                //Console.WriteLine(@"| " + ex);
+                                BackDo.BgwLog(@"| " + ex);
                             }
                         }
 

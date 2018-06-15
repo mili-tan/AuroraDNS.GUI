@@ -23,13 +23,9 @@ namespace AuroraGUI
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             if (Thread.CurrentThread.CurrentCulture.Name == "zh-CN")
-            {
                 MyIPAddr = IPAddress.Parse(new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim());
-            }
             else
-            {
                 MyIPAddr = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org").Trim());
-            }
 
             MyDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             MyDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
@@ -39,54 +35,36 @@ namespace AuroraGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Topmost = true;
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 5;
             Top = desktopWorkingArea.Bottom - Height - 5;
 
-
-            //MyDnsServer.Start();
+            Topmost = true;
             DnsEnable.IsChecked = true;
-        }
-
-        private void IsSysDns_Checked(object sender, RoutedEventArgs e)
-        {
-            SysDnsSet.SetDns("1.1.1.1","1.0.0.1");
-        }
-
-        private void IsSysDns_Unchecked(object sender, RoutedEventArgs e)
-        {
-            SysDnsSet.ResetDns();
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
             DnsSettings.ListenIp = IPAddress.Any;
+            DnsEnable.IsChecked = false;
         }
 
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.ListenIp = IPAddress.Loopback;
+            DnsEnable.IsChecked = false;
         }
 
-        private void IsLog_Checked(object sender, RoutedEventArgs e)
-        {
-            DnsSettings.DebugLog = true;
-        }
+        private void IsSysDns_Checked(object sender, RoutedEventArgs e) => SysDnsSet.SetDns("127.0.0.1","1.0.0.1");
 
-        private void IsLog_Unchecked(object sender, RoutedEventArgs e)
-        {
-            DnsSettings.DebugLog = false;
-        }
+        private void IsSysDns_Unchecked(object sender, RoutedEventArgs e) => SysDnsSet.ResetDns();
 
-        private void DnsEnable_Checked(object sender, RoutedEventArgs e)
-        {
-            MyDnsServer.Start();
-        }
+        private void IsLog_Checked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = true;
 
-        private void DnsEnable_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MyDnsServer.Stop();
-        }
+        private void IsLog_Unchecked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = false;
+
+        private void DnsEnable_Checked(object sender, RoutedEventArgs e) => MyDnsServer.Start();
+
+        private void DnsEnable_Unchecked(object sender, RoutedEventArgs e) => MyDnsServer.Stop();
     }
 }

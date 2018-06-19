@@ -50,7 +50,7 @@
                     DockPanel.Dock="Right" HorizontalAlignment="Right" Checked="DnsEnable_Checked" Unchecked="DnsEnable_Unchecked" />
             </DockPanel>
         </materialDesign:ColorZone>
-        <Grid Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0">
+        <Grid Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0" Opacity="0.95">
 
             <ToggleButton x:Name="IsSysDns"
                 Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
@@ -103,8 +103,13 @@
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Grid.ColumnSpan="2" Grid.Column="0"
             materialDesign:ShadowAssist.ShadowDepth="Depth1"
-            Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal">
+            Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Click="Button_Click">
             设置
         </Button>
+        <materialDesign:Snackbar Name="Snackbar"
+            Grid.ColumnSpan="2" Grid.Column="0" 
+            MessageQueue="{materialDesign:MessageQueue}" 
+            HorizontalContentAlignment="Center" Opacity="0.925">
+        </materialDesign:Snackbar>
     </Grid>
 </Window>

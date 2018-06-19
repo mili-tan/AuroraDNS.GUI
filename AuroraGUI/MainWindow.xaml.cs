@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using ARSoft.Tools.Net.Dns;
 
 namespace AuroraGUI
@@ -46,12 +48,14 @@ namespace AuroraGUI
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
             DnsSettings.ListenIp = IPAddress.Any;
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Any });
             DnsEnable.IsChecked = false;
         }
 
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.ListenIp = IPAddress.Loopback;
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Loopback });
             DnsEnable.IsChecked = false;
         }
 
@@ -59,12 +63,33 @@ namespace AuroraGUI
 
         private void IsSysDns_Unchecked(object sender, RoutedEventArgs e) => SysDnsSet.ResetDns();
 
-        private void IsLog_Checked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = true;
+        private void IsLog_Checked(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.DebugLog = true;
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "记录日志:" + DnsSettings.DebugLog });
+        }
 
-        private void IsLog_Unchecked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = false;
+        private void IsLog_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.DebugLog = false;
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "记录日志:" + DnsSettings.DebugLog });
+        }
 
-        private void DnsEnable_Checked(object sender, RoutedEventArgs e) => MyDnsServer.Start();
+        private void DnsEnable_Checked(object sender, RoutedEventArgs e)
+        {
+            MyDnsServer.Start();
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
+        }
 
-        private void DnsEnable_Unchecked(object sender, RoutedEventArgs e) => MyDnsServer.Stop();
+        private void DnsEnable_Unchecked(object sender, RoutedEventArgs e)
+        {
+            MyDnsServer.Stop();
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Snackbar.MessageQueue.Enqueue(new TextBlock(){Text = "未完成"});
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using ARSoft.Tools.Net.Dns;
+using MaterialDesignThemes.Wpf;
 
 namespace AuroraGUI
 {
@@ -23,11 +24,11 @@ namespace AuroraGUI
             InitializeComponent();
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
-            if (Thread.CurrentThread.CurrentCulture.Name == "zh-CN")
-                MyIPAddr = IPAddress.Parse(new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim());
-            else
-                MyIPAddr = IPAddress.Parse(new WebClient().DownloadString("https://api.ipify.org").Trim());
+            MyIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN" 
+                ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim() 
+                : new WebClient().DownloadString("https://api.ipify.org").Trim());
 
             MyDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             MyDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
@@ -42,7 +43,18 @@ namespace AuroraGUI
             Top = desktopWorkingArea.Bottom - Height - 5;
 
             Topmost = true;
-            DnsEnable.IsChecked = true;
+
+            if (!Tools.PortIsUse(53))
+            {
+                DnsEnable.IsChecked = true;
+            }
+            else
+            {
+                Snackbar.IsActive = true;
+                Snackbar.Message = new SnackbarMessage(){Content = "DNS 服务器无法启动:端口被占用" };
+                DnsEnable.IsEnabled = false;
+                IsEnabled = false;
+            }
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
@@ -73,7 +85,7 @@ namespace AuroraGUI
             }
             else
             {
-                var snackbarMsg = new MaterialDesignThemes.Wpf.SnackbarMessage()
+                var snackbarMsg = new SnackbarMessage()
                 {
                     Content = "权限不足",
                     ActionContent = "Administrator权限运行",

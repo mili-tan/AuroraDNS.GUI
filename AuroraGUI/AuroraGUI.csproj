@@ -81,7 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="DnsSettings.cs" />
     <Compile Include="MojoUnityJson.cs" />
-    <Compile Include="BackDo.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="QueryResolve.cs" />
     <Compile Include="SysDnsSet.cs" />
     <Compile Include="IpTools.cs" />

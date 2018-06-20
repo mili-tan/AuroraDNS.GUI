@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace AuroraGUI
 {
-    static class BackDo
+    static class Tools
     {
         public static void BgwLog(string log)
         {
@@ -21,6 +24,15 @@ namespace AuroraGUI
 
                 worker.RunWorkerAsync();
             }
+        }
+
+        public static bool PortIsUse(int port)
+        {
+            IPEndPoint[] ipEndPointsTcp = IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners();
+            IPEndPoint[] ipEndPointsUdp = IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners();
+
+            return ipEndPointsTcp.Any(endPoint => endPoint.Port == port)
+                   || ipEndPointsUdp.Any(endPoint => endPoint.Port == port);
         }
 
     }

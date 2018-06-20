@@ -106,6 +106,7 @@
             Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Click="Button_Click">
             设置
         </Button>
+
         <materialDesign:Snackbar Name="Snackbar"
             Grid.ColumnSpan="2" Grid.Column="0" 
             MessageQueue="{materialDesign:MessageQueue}" 

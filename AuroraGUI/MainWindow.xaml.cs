@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.Net;
+using System.Security.Principal;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using ARSoft.Tools.Net.Dns;
@@ -59,9 +59,39 @@ namespace AuroraGUI
             DnsEnable.IsChecked = false;
         }
 
-        private void IsSysDns_Checked(object sender, RoutedEventArgs e) => SysDnsSet.SetDns("127.0.0.1","1.0.0.1");
+        private void IsSysDns_Checked(object sender, RoutedEventArgs e)
+        {
+            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                SysDnsSet.SetDns("127.0.0.1", "1.0.0.1");
+                Snackbar.MessageQueue.Enqueue(new TextBlock()
+                {
+                    Text = "主DNS:" + IPAddress.Loopback + 
+                           Environment.NewLine + 
+                           "辅DNS:1.0.0.1"
+                });
+            }
+            else
+            {
+                var snackbarMsg = new MaterialDesignThemes.Wpf.SnackbarMessage()
+                {
+                    Content = "权限不足",
+                    ActionContent = "Administrator权限运行",
+                };
+                snackbarMsg.ActionClick += RunAsAdmin_OnActionClick;
+                Snackbar.MessageQueue.Enqueue(snackbarMsg);
+                IsSysDns.IsChecked = false;
+            }
+        }
 
-        private void IsSysDns_Unchecked(object sender, RoutedEventArgs e) => SysDnsSet.ResetDns();
+        private void IsSysDns_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                SysDnsSet.ResetDns();
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已将 DNS 重置为自动获取" });
+            }
+        }
 
         private void IsLog_Checked(object sender, RoutedEventArgs e)
         {
@@ -90,6 +120,18 @@ namespace AuroraGUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Snackbar.MessageQueue.Enqueue(new TextBlock(){Text = "未完成"});
+        }
+
+        private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)
+        {
+            DnsEnable.IsChecked = false;
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = GetType().Assembly.Location,
+                Verb = "runas"
+            };
+            Process.Start(startInfo);
+            Environment.Exit(Environment.ExitCode);
         }
     }
 }

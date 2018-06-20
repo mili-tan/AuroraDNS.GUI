@@ -5,6 +5,8 @@ using System.Security.Principal;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using MaterialDesignThemes.Wpf;
 
@@ -32,17 +34,24 @@ namespace AuroraGUI
 
             MyDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             MyDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
-
-            WindowBlur.SetEnabled(this, true);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Visibility = Visibility.Hidden;
+            WindowBlur.SetEnabled(this, true);
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 5;
             Top = desktopWorkingArea.Bottom - Height - 5;
-
             Topmost = true;
+
+            var fadeInStoryboard = new Storyboard();
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.50)));
+            Storyboard.SetTarget(fadeInAnimation, this);
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(OpacityProperty));
+            fadeInStoryboard.Children.Add(fadeInAnimation);
+            Dispatcher.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
+            Visibility = Visibility.Visible;
 
             if (!Tools.PortIsUse(53))
             {

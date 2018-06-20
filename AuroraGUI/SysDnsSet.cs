@@ -1,10 +1,11 @@
 ﻿using System.Management;
+#pragma warning disable IDE0044
 
 namespace AuroraGUI
 {
     static class SysDnsSet
     {
-        private static ManagementClass mgClass = new ManagementClass("Win32_NetworkAdapterConfiguration");
+        private static ManagementClass mgClass = new ManagementClass("Win32_NetworkAdapterConfiguration"); 
         private static ManagementObjectCollection mgCollection = mgClass.GetInstances();
         public static void SetDns(string dnsAddr,string backupDnsAddr)
         {

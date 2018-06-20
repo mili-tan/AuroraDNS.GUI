@@ -18,7 +18,7 @@
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
         Height="200" Width="300" Loaded="Window_Loaded" 
-        WindowStyle="None">
+        WindowStyle="None" >
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
@@ -110,7 +110,7 @@
         <materialDesign:Snackbar Name="Snackbar"
             Grid.ColumnSpan="2" Grid.Column="0" 
             MessageQueue="{materialDesign:MessageQueue}" 
-            HorizontalContentAlignment="Center" Opacity="0.925">
+            HorizontalContentAlignment="Center" Opacity="0.95" Background="Black">
         </materialDesign:Snackbar>
     </Grid>
 </Window>

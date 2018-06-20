@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using MojoUnity;
+// ReSharper disable CollectionNeverUpdated.Global
 #pragma warning disable 649
 #pragma warning disable 1998
 

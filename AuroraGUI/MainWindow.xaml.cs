@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
 using System.Security.Principal;
@@ -19,10 +20,10 @@ namespace AuroraGUI
     /// </summary>
     public partial class MainWindow
     {
-        public static DnsServer MyDnsServer;
         public static IPAddress MyIPAddr;
         public static IPAddress LocIPAddr;
-        private NotifyIcon NotifyIcon;
+        private static NotifyIcon NotifyIcon;
+        private static BackgroundWorker DnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
 
         public MainWindow()
         {
@@ -36,8 +37,10 @@ namespace AuroraGUI
                 ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim() 
                 : new WebClient().DownloadString("https://api.ipify.org").Trim());
 
-            MyDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
-            MyDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
+            DnsServer myDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
+            myDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
+            DnsSvrWorker.DoWork += (sender, args) => myDnsServer.Start();
+            DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = System.Drawing.Icon.ExtractAssociatedIcon(GetType().Assembly.Location) };
             NotifyIcon.DoubleClick += NotifyIconOnDoubleClick;
@@ -71,16 +74,18 @@ namespace AuroraGUI
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
+            DnsSvrWorker.Dispose();
             DnsSettings.ListenIp = IPAddress.Any;
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Any });
-            DnsEnable.IsChecked = false;
+            DnsSvrWorker.RunWorkerAsync();
         }
 
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
+            DnsSvrWorker.Dispose();
             DnsSettings.ListenIp = IPAddress.Loopback;
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Loopback });
-            DnsEnable.IsChecked = false;
+            DnsSvrWorker.RunWorkerAsync();
         }
 
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
@@ -131,16 +136,22 @@ namespace AuroraGUI
 
         private void DnsEnable_Checked(object sender, RoutedEventArgs e)
         {
-            MyDnsServer.Start();
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
-            NotifyIcon.Text = @"AuroraDNS - Running";
+            DnsSvrWorker.RunWorkerAsync();
+            if (DnsSvrWorker.IsBusy)
+            {
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
+                NotifyIcon.Text = @"AuroraDNS - Running";
+            }
         }
 
         private void DnsEnable_Unchecked(object sender, RoutedEventArgs e)
         {
-            MyDnsServer.Stop();
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
-            NotifyIcon.Text = @"AuroraDNS - Stop";
+            DnsSvrWorker.Dispose();
+            if (!DnsSvrWorker.IsBusy)
+            {
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
+                NotifyIcon.Text = @"AuroraDNS - Stop";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -150,7 +161,7 @@ namespace AuroraGUI
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)
         {
-            DnsEnable.IsChecked = false;
+            DnsSvrWorker.Dispose();
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = GetType().Assembly.Location,

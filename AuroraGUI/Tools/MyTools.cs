@@ -7,7 +7,7 @@ using System.Net.NetworkInformation;
 
 namespace AuroraGUI
 {
-    static class Tools
+    static class MyTools
     {
         public static void BgwLog(string log)
         {

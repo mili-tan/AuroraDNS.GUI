@@ -84,14 +84,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DnsSettings.cs" />
-    <Compile Include="MojoUnityJson.cs" />
-    <Compile Include="Tools.cs" />
-    <Compile Include="QueryResolve.cs" />
-    <Compile Include="SysDnsSet.cs" />
-    <Compile Include="IpTools.cs" />
-    <Compile Include="WindowBlur.cs" />
-    <Compile Include="WindowFx.cs" />
+    <Compile Include="DnsSvr\DnsSettings.cs" />
+    <Compile Include="Tools\MojoUnityJson.cs" />
+    <Compile Include="Tools\MyTools.cs" />
+    <Compile Include="DnsSvr\QueryResolve.cs" />
+    <Compile Include="Tools\SysDnsSet.cs" />
+    <Compile Include="Tools\IpTools.cs" />
+    <Compile Include="Fx\WindowBlur.cs" />
+    <Compile Include="Fx\WindowFx.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

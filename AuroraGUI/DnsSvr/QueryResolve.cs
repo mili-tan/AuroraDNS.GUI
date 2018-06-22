@@ -42,7 +42,7 @@ namespace AuroraGUI
 
                         if (DnsSettings.DebugLog)
                         {
-                            Tools.BgwLog($@"| {DateTime.Now} {clientAddress} : { dnsQuestion.Name}");
+                            MyTools.BgwLog($@"| {DateTime.Now} {clientAddress} : { dnsQuestion.Name}");
                         }
 
                         if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name))
@@ -52,7 +52,7 @@ namespace AuroraGUI
                             response.AnswerRecords.Add(blackRecord);
                             if (DnsSettings.DebugLog)
                             {
-                                Tools.BgwLog(@"|- BlackList");
+                                MyTools.BgwLog(@"|- BlackList");
                             }
                         }
 
@@ -63,7 +63,7 @@ namespace AuroraGUI
                             response.AnswerRecords.Add(blackRecord);
                             if (DnsSettings.DebugLog)
                             {
-                                Tools.BgwLog(@"|- WhiteList");
+                                MyTools.BgwLog(@"|- WhiteList");
                             }
                         }
 
@@ -89,7 +89,7 @@ namespace AuroraGUI
                             catch (Exception ex)
                             {
                                 response.ReturnCode = ReturnCode.ServerFailure;
-                                Tools.BgwLog(@"| " + ex);
+                                MyTools.BgwLog(@"| " + ex);
                             }
                         }
 

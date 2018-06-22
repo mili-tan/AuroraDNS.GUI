@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Text;
 using System;
 
+#pragma warning disable IDE0044
+
 // ReSharper disable once CheckNamespace
 namespace MojoUnity
 {

@@ -27,7 +27,6 @@ namespace AuroraGUI
 
         public MainWindow()
         {
-
             InitializeComponent();
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -58,7 +57,7 @@ namespace AuroraGUI
             FadeIn(0.50);
             Visibility = Visibility.Visible;
 
-            if (!Tools.PortIsUse(53))
+            if (!MyTools.PortIsUse(53))
             {
                 DnsEnable.IsChecked = true;
             }

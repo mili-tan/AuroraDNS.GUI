@@ -5,10 +5,12 @@ using System.Security.Principal;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using MaterialDesignThemes.Wpf;
+// ReSharper disable NotAccessedField.Local
 
 namespace AuroraGUI
 {
@@ -20,9 +22,11 @@ namespace AuroraGUI
         public static DnsServer MyDnsServer;
         public static IPAddress MyIPAddr;
         public static IPAddress LocIPAddr;
+        private NotifyIcon NotifyIcon;
 
         public MainWindow()
         {
+
             InitializeComponent();
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -34,6 +38,9 @@ namespace AuroraGUI
 
             MyDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             MyDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
+            
+            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = System.Drawing.Icon.ExtractAssociatedIcon(GetType().Assembly.Location) };
+            NotifyIcon.DoubleClick += NotifyIconOnDoubleClick;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -45,12 +52,7 @@ namespace AuroraGUI
             Top = desktopWorkingArea.Bottom - Height - 5;
             Topmost = true;
 
-            var fadeInStoryboard = new Storyboard();
-            DoubleAnimation fadeInAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(0.50)));
-            Storyboard.SetTarget(fadeInAnimation, this);
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(OpacityProperty));
-            fadeInStoryboard.Children.Add(fadeInAnimation);
-            Dispatcher.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
+            FadeIn(0.50);
             Visibility = Visibility.Visible;
 
             if (!Tools.PortIsUse(53))
@@ -61,6 +63,7 @@ namespace AuroraGUI
             {
                 Snackbar.IsActive = true;
                 Snackbar.Message = new SnackbarMessage(){Content = "DNS 服务器无法启动:端口被占用" };
+                NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
                 DnsEnable.IsEnabled = false;
                 IsEnabled = false;
             }
@@ -130,12 +133,14 @@ namespace AuroraGUI
         {
             MyDnsServer.Start();
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
+            NotifyIcon.Text = @"AuroraDNS - Running";
         }
 
         private void DnsEnable_Unchecked(object sender, RoutedEventArgs e)
         {
             MyDnsServer.Stop();
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
+            NotifyIcon.Text = @"AuroraDNS - Stop";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -153,6 +158,36 @@ namespace AuroraGUI
             };
             Process.Start(startInfo);
             Environment.Exit(Environment.ExitCode);
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                FadeIn(0.25);
+                ShowInTaskbar = true;
+            }
+            else if (WindowState == WindowState.Minimized)
+                ShowInTaskbar = false;
+        }
+
+        private void FadeIn(double sec)
+        {
+            var fadeInStoryboard = new Storyboard();
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(0.0, 1.0, new Duration(TimeSpan.FromSeconds(sec)));
+            Storyboard.SetTarget(fadeInAnimation, this);
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(OpacityProperty));
+            fadeInStoryboard.Children.Add(fadeInAnimation);
+
+            Dispatcher.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
+        }
+
+        private void NotifyIconOnDoubleClick(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+                WindowState = WindowState.Minimized;
+            else if (WindowState == WindowState.Minimized)
+                WindowState = WindowState.Normal;
         }
     }
 }

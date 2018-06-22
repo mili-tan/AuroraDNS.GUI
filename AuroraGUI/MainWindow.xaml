@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         x:Class="AuroraGUI.MainWindow"
+
         Background="#C8FFFFFF"
         BorderThickness="0.2"
         BorderBrush="#00655B"
@@ -18,7 +19,7 @@
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
         Height="200" Width="300" Loaded="Window_Loaded" 
-        WindowStyle="None" >
+        WindowStyle="None" StateChanged="Window_StateChanged" >
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
@@ -106,7 +107,7 @@
             Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Click="Button_Click">
             设置
         </Button>
-
+ 
         <materialDesign:Snackbar Name="Snackbar"
             Grid.ColumnSpan="2" Grid.Column="0" 
             MessageQueue="{materialDesign:MessageQueue}" 

@@ -46,12 +46,12 @@ namespace AuroraGUI
             DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
-            WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复",MinimizedMinimized);
+            WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复",MinimizedNormal);
             WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => 
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "AuroraDNS GUI Alpha" }));
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Close());
             NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, exitItem});
-            NotifyIcon.DoubleClick += MinimizedMinimized;
+            NotifyIcon.DoubleClick += MinimizedNormal;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -201,12 +201,12 @@ namespace AuroraGUI
             Dispatcher.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
         }
 
-        private void MinimizedMinimized(object sender, EventArgs e)
+        private void MinimizedNormal(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Normal)
                 WindowState = WindowState.Minimized;
             else if (WindowState == WindowState.Minimized)
-                WindowState = WindowState.Minimized;
+                WindowState = WindowState.Normal;
         }
     }
 }

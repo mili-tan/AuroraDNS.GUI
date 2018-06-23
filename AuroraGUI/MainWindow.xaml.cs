@@ -11,6 +11,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using MaterialDesignThemes.Wpf;
+using MessageBox = System.Windows.MessageBox;
+using WinFormMenuItem = System.Windows.Forms.MenuItem;
+using WinFormContextMenu = System.Windows.Forms.ContextMenu;
+using WinFormIcon = System.Drawing.Icon;
+
 // ReSharper disable NotAccessedField.Local
 
 namespace AuroraGUI
@@ -41,8 +46,13 @@ namespace AuroraGUI
             DnsSvrWorker.DoWork += (sender, args) => myDnsServer.Start();
             DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
-            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = System.Drawing.Icon.ExtractAssociatedIcon(GetType().Assembly.Location) };
-            NotifyIcon.DoubleClick += NotifyIconOnDoubleClick;
+            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
+            WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复",MinimizedMinimized);
+            WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => 
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "AuroraDNS GUI Alpha" }));
+            WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Close());
+            NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, exitItem});
+            NotifyIcon.DoubleClick += MinimizedMinimized;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -192,12 +202,12 @@ namespace AuroraGUI
             Dispatcher.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
         }
 
-        private void NotifyIconOnDoubleClick(object sender, EventArgs e)
+        private void MinimizedMinimized(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Normal)
                 WindowState = WindowState.Minimized;
             else if (WindowState == WindowState.Minimized)
-                WindowState = WindowState.Normal;
+                WindowState = WindowState.Minimized;
         }
     }
 }

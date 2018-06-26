@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DnsSvr\DnsSettings.cs" />
     <Compile Include="Tools\MojoUnityJson.cs" />
     <Compile Include="Tools\MyTools.cs" />
@@ -92,6 +95,10 @@
     <Compile Include="Tools\IpTools.cs" />
     <Compile Include="Fx\WindowBlur.cs" />
     <Compile Include="Fx\WindowFx.cs" />
+    <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -137,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Aurora.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="aurora.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -25,7 +25,7 @@ namespace AuroraGUI
     /// </summary>
     public partial class MainWindow
     {
-        public static IPAddress MyIPAddr;
+        public static IPAddress IntIPAddr;
         public static IPAddress LocIPAddr;
         private static NotifyIcon NotifyIcon;
         private static BackgroundWorker DnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
@@ -37,7 +37,7 @@ namespace AuroraGUI
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
-            MyIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN" 
+            IntIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN" 
                 ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim() 
                 : new WebClient().DownloadString("https://api.ipify.org").Trim());
 
@@ -46,10 +46,10 @@ namespace AuroraGUI
             DnsSvrWorker.DoWork += (sender, args) => myDnsServer.Start();
             DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
-            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
+            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,
+                Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
-            WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => 
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "AuroraDNS GUI Alpha" }));
+            WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => new AboutWindow().ShowDialog());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Close());
             NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, exitItem});
             NotifyIcon.DoubleClick += MinimizedNormal;

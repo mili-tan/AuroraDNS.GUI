@@ -1,0 +1,82 @@
+﻿<Window x:Class="AuroraGUI.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+        mc:Ignorable="d"
+        Background="#F1F1F1"
+
+        Title="关于" Height="380" Width="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="关于AuroraDNS GUI" HorizontalAlignment="Left" Margin="25,10,0,0" 
+               VerticalAlignment="Top" Foreground="#616161"/>
+
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Padding="0"
+                             Margin="12,22,12,10"
+                             >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Margin="16 16 16 4" Height="50" Width="50" HorizontalAlignment="Left" Source="Aurora.png"/>
+                <TextBlock Grid.Row="0" Margin="70,25,14,15" VerticalAlignment="Center"
+                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" Foreground="#FF333333">
+                    AuroraDNS
+                </TextBlock>
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="2" Margin="16 0 16 8" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF555555" Name="VerText">
+                    版本 ：
+                    </TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                        <materialDesign:PackIcon Kind="Information" ToolTip="访问项目主页" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Padding="0"
+                             Margin="12,92,12,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="16,16,0,6" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF757575">
+                    © 2018 AuroraDNS Proj. All rights reserved. / 使用MIT许可证开放源代码。
+                </TextBlock>
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="2" Margin="16 0 16 8" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF757575">
+                    没有他们，就没有 AuroraDNS 的诞生。请查阅鸣谢与开源许可。
+                </TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                        <materialDesign:PackIcon Kind="FileDocument" ToolTip="鸣谢与开源许可" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+    </Grid>
+</Window>

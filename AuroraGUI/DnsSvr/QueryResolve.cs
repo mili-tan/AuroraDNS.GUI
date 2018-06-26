@@ -25,7 +25,7 @@ namespace AuroraGUI
             if (DnsSettings.EDnsCustomize)
                 clientAddress = DnsSettings.EDnsIp;
             else if (Equals(clientAddress, IPAddress.Loopback) || IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
-                clientAddress = MainWindow.MyIPAddr;
+                clientAddress = MainWindow.IntIPAddr;
 
             DnsMessage response = query.CreateResponseInstance();
 

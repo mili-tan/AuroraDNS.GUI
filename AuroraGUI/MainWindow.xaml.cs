@@ -36,6 +36,9 @@ namespace AuroraGUI
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
+            if (File.Exists("config.json"))
+                DnsSettings.ReadConfig("config.json");
+
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             IntIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN" 
                 ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim() 
@@ -50,14 +53,9 @@ namespace AuroraGUI
                 Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => new AboutWindow().ShowDialog());
-            WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Close());
+            WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Environment.Exit(Environment.ExitCode));
             NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, exitItem});
             NotifyIcon.DoubleClick += MinimizedNormal;
-
-            if (File.Exists("config.json"))
-                DnsSettings.ReadConfig("config.json");
-            else
-                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "没有配置文件,使用默认配置"});
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

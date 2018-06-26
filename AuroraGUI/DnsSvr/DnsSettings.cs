@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using MojoUnity;
 
@@ -21,8 +22,15 @@ namespace AuroraGUI
         {
             JsonValue configJson = Json.Parse(File.ReadAllText(path));
 
+            try
+            {
+                SecondDnsIp = IPAddress.Parse(configJson.AsObjectGetString("SecondDns"));
+            }
+            catch
+            {
+                SecondDnsIp = IPAddress.Parse("1.1.1.1");
+            }
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
-            SecondDnsIp = IPAddress.Parse(configJson.AsObjectGetString("SecondDns"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");
             WhiteListEnable = configJson.AsObjectGetBool("WhiteList");
             ProxyEnable = configJson.AsObjectGetBool("ProxyEnable");
@@ -31,7 +39,7 @@ namespace AuroraGUI
             HttpsDnsUrl = configJson.AsObjectGetString("HttpsDns");
 
             if (EDnsCustomize)
-                EDnsIp = IPAddress.Parse(configJson.AsObjectGetString("EDnsClientIP"));
+                EDnsIp = IPAddress.Parse(configJson.AsObjectGetString("EDnsClientIp"));
             if (ProxyEnable)
                 WProxy = new WebProxy(configJson.AsObjectGetString("Proxy"));
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Security.Principal;
 using System.Threading;
@@ -46,12 +47,17 @@ namespace AuroraGUI
             DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
-            WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复",MinimizedNormal);
+            WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => 
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "AuroraDNS GUI Alpha" }));
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Close());
             NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, exitItem});
             NotifyIcon.DoubleClick += MinimizedNormal;
+
+            if (File.Exists("config.json"))
+                DnsSettings.ReadConfig("config.json");
+            else
+                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "没有配置文件,使用默认配置"});
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -100,12 +106,12 @@ namespace AuroraGUI
         {
             if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
             {
-                SysDnsSet.SetDns("127.0.0.1", "1.0.0.1");
+                SysDnsSet.SetDns("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
                 Snackbar.MessageQueue.Enqueue(new TextBlock()
                 {
                     Text = "主DNS:" + IPAddress.Loopback + 
                            Environment.NewLine + 
-                           "辅DNS:1.0.0.1"
+                           "辅DNS:" + DnsSettings.SecondDnsIp
                 });
             }
             else

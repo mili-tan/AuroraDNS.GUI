@@ -22,7 +22,7 @@ namespace AuroraGUI
                 return;
 
             IPAddress clientAddress = e.RemoteEndpoint.Address;
-            if (DnsSettings.EDnsPrivacy)
+            if (DnsSettings.EDnsCustomize)
                 clientAddress = DnsSettings.EDnsIp;
             else if (Equals(clientAddress, IPAddress.Loopback) || IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
                 clientAddress = MainWindow.MyIPAddr;

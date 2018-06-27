@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Background="#F1F1F1"
 
-        Title="关于" Height="380" Width="600" WindowStartupLocation="CenterScreen">
+        Title="关于" Height="380" Width="600" WindowStartupLocation="CenterScreen"
+        MinWidth="550" MinHeight="350" ResizeMode="NoResize">
     <Grid>
         <Label Content="关于AuroraDNS GUI" HorizontalAlignment="Left" Margin="25,10,0,0" 
                VerticalAlignment="Top" Foreground="#616161"/>

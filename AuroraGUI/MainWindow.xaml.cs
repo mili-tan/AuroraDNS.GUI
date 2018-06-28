@@ -72,6 +72,10 @@ namespace AuroraGUI
 
             if (!MyTools.PortIsUse(53))
             {
+                IsLog.IsChecked = DnsSettings.DebugLog;
+                if (Equals(DnsSettings.ListenIp, IPAddress.Any))
+                    IsGlobal.IsChecked = true;
+
                 DnsEnable.IsChecked = true;
             }
             else
@@ -86,18 +90,24 @@ namespace AuroraGUI
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
-            DnsSvrWorker.Dispose();
             DnsSettings.ListenIp = IPAddress.Any;
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Any });
-            DnsSvrWorker.RunWorkerAsync();
+            if (DnsSvrWorker.IsBusy)
+            {
+                DnsSvrWorker.Dispose();
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Any });
+                DnsSvrWorker.RunWorkerAsync();
+            }
         }
 
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
-            DnsSvrWorker.Dispose();
             DnsSettings.ListenIp = IPAddress.Loopback;
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Loopback });
-            DnsSvrWorker.RunWorkerAsync();
+            if (DnsSvrWorker.IsBusy)
+            {
+                DnsSvrWorker.Dispose();
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Loopback });
+                DnsSvrWorker.RunWorkerAsync();
+            }
         }
 
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
@@ -137,13 +147,15 @@ namespace AuroraGUI
         private void IsLog_Checked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = true;
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "记录日志:" + DnsSettings.DebugLog });
+            if (DnsSvrWorker.IsBusy)
+                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:" + DnsSettings.DebugLog});
         }
 
         private void IsLog_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = false;
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "记录日志:" + DnsSettings.DebugLog });
+            if (DnsSvrWorker.IsBusy)
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "记录日志:" + DnsSettings.DebugLog });
         }
 
         private void DnsEnable_Checked(object sender, RoutedEventArgs e)

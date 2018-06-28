@@ -61,7 +61,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                            Foreground="#FF757575">
-                    © 2018 AuroraDNS Proj. All rights reserved. / 使用MIT许可证开放源代码。
+                    © 2018 AuroraDNS Proj. All rights reserved. 使用MIT许可证开放源代码。
                 </TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="2" Margin="16 0 16 8" 

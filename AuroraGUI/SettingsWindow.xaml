@@ -3,10 +3,199 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AuroraGUI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="450" Width="800">
+        Title="设置" Height="800" Width="450">
     <Grid>
-        
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Padding="0"
+                             Margin="12,12,12,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="33" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="16,10,0,16" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF757575" Grid.RowSpan="2">
+                    基本设置
+                </TextBlock>
+
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" Height="0.1"/>
+                <TextBlock Grid.Row="2" Margin="16,6,0,4" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    默认记录日志
+                </TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ToggleButton
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="Default ToggleButton Style" VerticalAlignment="Center" Margin="0,5,0,-5" />
+                </StackPanel>
+
+                <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    EDNS Customize
+                </TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ToggleButton
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="Default ToggleButton Style" VerticalAlignment="Center" Margin="0,5,0,-5" />
+                </StackPanel>
+
+                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="6" Margin="16,6,0,4" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    黑名单
+                </TextBlock>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ToggleButton
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="Default ToggleButton Style" Margin="0,5,0,-5"  />
+                </StackPanel>
+
+                <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="8" Margin="16,5,0,14" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    白名单
+                </TextBlock>
+                <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ToggleButton
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="Default ToggleButton Style"  />
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Padding="0"
+                             Margin="12,120,12,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="33" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="16,10,0,16" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF757575" Grid.RowSpan="2">
+                    HTTPS 查询设置
+                </TextBlock>
+
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="2" Margin="16,6,0,4" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    DNS over HTTPS 查询接口
+                </TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <TextBox
+                        materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="170" />
+                </StackPanel>
+
+                <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    使用代理服务器 (仅支持HTTP代理)
+                </TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ToggleButton
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="Default ToggleButton Style" VerticalAlignment="Center" Margin="0,5,0,-5" />
+                </StackPanel>
+
+                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="6" Margin="16,5,0,14" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    代理服务器
+                </TextBlock>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <TextBox
+                        materialDesign:HintAssist.Hint="服务器 127.0.0.1" Height="30" Margin="0,-5,0,-0.2" VerticalAlignment="Top" Width="105" />
+                    <TextBlock Margin="5,5,5,-5">:</TextBlock>
+                    <TextBox
+                        materialDesign:HintAssist.Hint="端口 88" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="51" />
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Padding="0"
+                             Margin="12,210,12,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="33" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Margin="16,10,0,16" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF757575" Grid.RowSpan="2">
+                    IP 设置
+            </TextBlock>
+
+            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+            <TextBlock Grid.Row="2" Margin="16,6,0,4" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    辅 DNS 服务器
+            </TextBlock>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                <TextBox
+                        materialDesign:HintAssist.Hint="101.101.101.101" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
+            </StackPanel>
+
+            <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
+            <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    自定义 EDNS Client IP
+            </TextBlock>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                <TextBox
+                    materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
+            </StackPanel>
+
+                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
+            <TextBlock Grid.Row="6" Margin="16,5,0,14" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    自定义监听 IP 地址
+            </TextBlock>
+            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                <TextBox
+                    materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
+            </StackPanel>
+
+            </Grid>
+        </materialDesign:Card>
+
     </Grid>
 </Window>

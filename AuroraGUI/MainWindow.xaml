@@ -104,7 +104,7 @@
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Grid.ColumnSpan="2" Grid.Column="0"
             materialDesign:ShadowAssist.ShadowDepth="Depth1"
-            Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Click="Button_Click">
+            Margin="-10,160,-10,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Click="SettingButton_Click">
             设置
         </Button>
  

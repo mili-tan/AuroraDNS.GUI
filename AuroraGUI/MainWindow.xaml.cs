@@ -178,10 +178,7 @@ namespace AuroraGUI
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Snackbar.MessageQueue.Enqueue(new TextBlock(){Text = "未完成"});
-        }
+        private void SettingButton_Click(object sender, RoutedEventArgs e) => new SettingsWindow().Show();
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)
         {

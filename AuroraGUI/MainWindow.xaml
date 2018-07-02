@@ -19,7 +19,7 @@
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
         Height="200" Width="300" Loaded="Window_Loaded" 
-        WindowStyle="None" StateChanged="Window_StateChanged" >
+        WindowStyle="None" StateChanged="Window_StateChanged" ResizeMode="NoResize">
 
     <WindowChrome.WindowChrome>
         <WindowChrome 

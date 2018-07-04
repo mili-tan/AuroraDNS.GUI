@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="设置" Height="700" Width="450" Background="#F1F1F1"
-        MinHeight="700" MinWidth="430" >
+        Title="设置" Height="670" Width="450" Background="#F1F1F1"
+        MinHeight="660" MinWidth="430" WindowStartupLocation="CenterScreen" >
     <Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
@@ -40,7 +40,7 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        ToolTip="Default ToggleButton Style" VerticalAlignment="Center" Margin="0,5,0,-5" />
+                         VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
@@ -52,7 +52,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        ToolTip="Default ToggleButton Style" VerticalAlignment="Center" Margin="0,5,0,-5" />
+                         VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
@@ -64,7 +64,7 @@
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        ToolTip="Default ToggleButton Style" Margin="0,5,0,-5"  />
+                         Margin="0,5,0,-5"  />
                 </StackPanel>
 
                 <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
@@ -76,7 +76,7 @@
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        ToolTip="Default ToggleButton Style"  />
+                          />
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
@@ -122,7 +122,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        ToolTip="Default ToggleButton Style" VerticalAlignment="Center" Margin="0,5,0,-5" />
+                         VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
@@ -144,59 +144,71 @@
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
                              Margin="12,210,12,0">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="15" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="15" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="15" />
-                <RowDefinition Height="33" />
-            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="33" />
+                </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Margin="16,10,0,16" 
+                <TextBlock Grid.Row="0" Margin="16,10,0,16" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                            Foreground="#FF757575" Grid.RowSpan="2">
                     IP 设置
-            </TextBlock>
+                </TextBlock>
 
-            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
-            <TextBlock Grid.Row="2" Margin="16,6,0,4" 
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="2" Margin="16,6,0,4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
                     辅 DNS 服务器
-            </TextBlock>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                <TextBox
+                </TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <TextBox
                         materialDesign:HintAssist.Hint="101.101.101.101" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
-            </StackPanel>
+                </StackPanel>
 
-            <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
-            <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
                     自定义 EDNS Client IP
-            </TextBlock>
-            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                <TextBox
+                </TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <TextBox
                     materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
-            </StackPanel>
+                </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
-            <TextBlock Grid.Row="6" Margin="16,5,0,14" 
+                <TextBlock Grid.Row="6" Margin="16,5,0,14" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
                     自定义监听 IP 地址
-            </TextBlock>
-            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                <TextBox
+                </TextBlock>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <TextBox
                     materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
-            </StackPanel>
+                </StackPanel>
 
             </Grid>
         </materialDesign:Card>
 
+        <Button
+            Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
+            ToolTip="保存设置" Margin="340,590,30.2,15.8" >
+            保存
+        </Button>
+
+        <Button
+            Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
+            Margin="25,590,310.2,15.8" Content="导入黑名单" Foreground="#FFCB4B16" />
+        <Button
+            Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
+            Margin="115,590,245.2,15.8" Content="白名单" Foreground="#FF599A07" />
     </Grid>
 </Window>

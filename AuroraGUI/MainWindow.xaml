@@ -15,6 +15,7 @@
         TextElement.FontWeight="Normal"
         TextElement.FontSize="13"     
 
+        Topmost="True"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"

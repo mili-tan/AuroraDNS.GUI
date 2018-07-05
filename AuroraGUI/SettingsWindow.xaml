@@ -50,7 +50,7 @@
                     EDNS Customize
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="EDNSCustomize"
+                    <ToggleButton Name="EDNSCustomize" Checked="EDNSCustomize_OnChecked" Unchecked="EDNSCustomize_OnUnchecked"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
@@ -62,7 +62,7 @@
                     黑名单
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="BlackList"
+                    <ToggleButton Name="BlackList" Checked="BlackList_OnChecked" Unchecked="BlackList_OnUnchecked"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          Margin="0,5,0,-5"  />
                 </StackPanel>
@@ -74,7 +74,7 @@
                     白名单
                 </TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="WhiteList"
+                    <ToggleButton Name="WhiteList" Checked="WhiteList_OnChecked" Unchecked="WhiteList_OnUnchecked"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           />
                 </StackPanel>
@@ -109,7 +109,7 @@
                     DNS over HTTPS 查询接口
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="DoHUrlText"
+                    <TextBox Name="DoHUrlText" TextChanged="DoHUrlText_OnTextChanged"
                         materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="170" />
                 </StackPanel>
 
@@ -120,7 +120,7 @@
                     使用代理 (仅HTTP代理)
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="Proxy"
+                    <ToggleButton Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
@@ -132,10 +132,10 @@
                     代理服务器
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="ProxyServer"
+                    <TextBox Name="ProxyServer" TextChanged="ProxyServer_OnTextChanged"
                         materialDesign:HintAssist.Hint="服务器 127.0.0.1" Height="30" Margin="0,-5,0,-0.2" VerticalAlignment="Top" Width="105" />
                     <TextBlock Margin="5,5,5,-5">:</TextBlock>
-                    <TextBox Name="ProxyServerPort"
+                    <TextBox Name="ProxyServerPort" TextChanged="ProxyServerPort_OnTextChanged"
                         materialDesign:HintAssist.Hint="端口 80" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="51" />
                 </StackPanel>
             </Grid>
@@ -169,7 +169,7 @@
                     辅 DNS 服务器
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="BackupDNS"
+                    <TextBox Name="BackupDNS" TextChanged="BackupDNS_OnTextChanged"
                         materialDesign:HintAssist.Hint="101.101.101.101" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
                 </StackPanel>
 
@@ -180,18 +180,18 @@
                     自定义 EDNS Client IP
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="EDNSClientIP"
+                    <TextBox Name="EDNSClientIP" IsEnabled="False" TextChanged="EDNSClientIP_OnTextChanged"
                     materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="6" Margin="16,5,0,14" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                           Style="{StaticResource MaterialDesignBody2TextBlock}" MouseRightButtonDown="TextBlock_MouseRightButtonDown">
                     自定义监听 IP 地址
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="ListenIP"
+                    <TextBox Name="ListenIP" IsEnabled="False" TextChanged="ListenIP_OnTextChanged"
                     materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
                 </StackPanel>
 

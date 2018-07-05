@@ -4,7 +4,7 @@ using MojoUnity;
 
 namespace AuroraGUI
 {
-    static class DnsSettings
+    class DnsSettings
     {
         public static string HttpsDnsUrl = "https://1.0.0.1/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;

@@ -23,5 +23,9 @@ namespace AuroraGUI
         {
             InitializeComponent();
         }
+
+        private void Log_OnChecked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = true;
+
+        private void Log_OnUnchecked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = false;
     }
 }

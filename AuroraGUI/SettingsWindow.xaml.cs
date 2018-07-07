@@ -16,6 +16,20 @@ namespace AuroraGUI
         {
             InitializeComponent();
             EnableVisualStyles();
+
+            Log.IsChecked = DnsSettings.DebugLog;
+            EDNSCustomize.IsChecked = DnsSettings.EDnsCustomize;
+            WhiteList.IsChecked = DnsSettings.WhiteListEnable;
+            BlackList.IsChecked = DnsSettings.BlackListEnable;
+            Proxy.IsChecked = DnsSettings.ProxyEnable;
+
+            DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
+            BackupDNS.Text =  DnsSettings.SecondDnsIp.ToString();
+            EDNSClientIP.Text = DnsSettings.EDnsIp.ToString();
+            ListenIP.Text = DnsSettings.ListenIp.ToString();
+
+            ProxyServer.Text = DnsSettings.WProxy.Address.Host;
+            ProxyServerPort.Text = DnsSettings.WProxy.Address.Port.ToString();
         }
 
         private void EDNSCustomize_OnChecked(object sender, RoutedEventArgs e) => EDNSClientIP.IsEnabled = true;
@@ -25,8 +39,6 @@ namespace AuroraGUI
         {
             ProxyServer.IsEnabled = true;
             ProxyServerPort.IsEnabled = true;
-            ProxyServer.Text = "127.0.0.1";
-            ProxyServerPort.Text = "80";
         }
 
         private void Proxy_OnUnchecked(object sender, RoutedEventArgs e)

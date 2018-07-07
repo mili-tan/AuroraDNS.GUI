@@ -177,7 +177,13 @@ namespace AuroraGUI
             }
         }
 
-        private void SettingButton_Click(object sender, RoutedEventArgs e) => new SettingsWindow().Show();
+        private void SettingButton_Click(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().ShowDialog();
+
+            IsLog.IsChecked = DnsSettings.DebugLog;
+            IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
+        }
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)
         {

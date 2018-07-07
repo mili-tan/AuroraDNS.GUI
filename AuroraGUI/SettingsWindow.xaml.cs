@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
@@ -63,7 +64,7 @@ namespace AuroraGUI
                 !string.IsNullOrWhiteSpace(EDNSClientIP.Text) &&
                 !string.IsNullOrWhiteSpace(ListenIP.Text))
             {
-                DnsSettings.HttpsDnsUrl = DoHUrlText.Text;
+                DnsSettings.HttpsDnsUrl = DoHUrlText.Text.Trim();
                 DnsSettings.SecondDnsIp = IPAddress.Parse(BackupDNS.Text);
                 DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
@@ -77,6 +78,19 @@ namespace AuroraGUI
             else
                 WinFormMessageBox.Show(@"不应为空,请填写完全");
             
+            File.WriteAllText("config.json", 
+                "{\n  " +
+                $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n  " +
+                $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n  " +
+                $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n  " +
+                $"\"WhiteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n  " +
+                $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n  " +
+                $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n  " +
+                $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n  " +
+                $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n  " +
+                $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n  " +
+                $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\" \n" +
+                "}");
         }
 
     }

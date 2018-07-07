@@ -35,7 +35,7 @@ namespace AuroraGUI
             ProxyEnable = configJson.AsObjectGetBool("ProxyEnable");
             EDnsCustomize = configJson.AsObjectGetBool("EDnsCustomize");
             DebugLog = configJson.AsObjectGetBool("DebugLog");
-            HttpsDnsUrl = configJson.AsObjectGetString("HttpsDns");
+            HttpsDnsUrl = configJson.AsObjectGetString("HttpsDns").Trim();
 
             if (EDnsCustomize)
                 EDnsIp = IPAddress.Parse(configJson.AsObjectGetString("EDnsClientIp"));

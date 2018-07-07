@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using static System.Windows.Forms.Application;
+using WinFormMessageBox = System.Windows.Forms.MessageBox;
 
 namespace AuroraGUI
 {
@@ -13,62 +15,57 @@ namespace AuroraGUI
         public SettingsWindow()
         {
             InitializeComponent();
+            EnableVisualStyles();
         }
 
-        private void Log_OnChecked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = true;
-        private void Log_OnUnchecked(object sender, RoutedEventArgs e) => DnsSettings.DebugLog = false;
-
-        private void EDNSCustomize_OnChecked(object sender, RoutedEventArgs e)
-        {
-            DnsSettings.EDnsCustomize = true;
-            EDNSClientIP.IsEnabled = true;
-        }
-
-        private void EDNSCustomize_OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            DnsSettings.EDnsCustomize = false;
-            EDNSClientIP.IsEnabled = false;
-        }
-
-        private void BlackList_OnChecked(object sender, RoutedEventArgs e) => DnsSettings.BlackListEnable = true;
-        private void BlackList_OnUnchecked(object sender, RoutedEventArgs e) => DnsSettings.BlackListEnable = false;
-
-        private void WhiteList_OnChecked(object sender, RoutedEventArgs e) => DnsSettings.WhiteListEnable = true;
-        private void WhiteList_OnUnchecked(object sender, RoutedEventArgs e) => DnsSettings.WhiteListEnable = false;
-
-        private void DoHUrlText_OnTextChanged(object sender, TextChangedEventArgs e) => DnsSettings.HttpsDnsUrl = DoHUrlText.Text;
+        private void EDNSCustomize_OnChecked(object sender, RoutedEventArgs e) => EDNSClientIP.IsEnabled = true;
+        private void EDNSCustomize_OnUnchecked(object sender, RoutedEventArgs e) => EDNSClientIP.IsEnabled = false;
 
         private void Proxy_OnChecked(object sender, RoutedEventArgs e)
         {
-            DnsSettings.ProxyEnable = true;
             ProxyServer.IsEnabled = true;
             ProxyServerPort.IsEnabled = true;
+            ProxyServer.Text = "127.0.0.1";
+            ProxyServerPort.Text = "80";
         }
 
         private void Proxy_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            DnsSettings.ProxyEnable = false;
             ProxyServer.IsEnabled = false;
             ProxyServerPort.IsEnabled = false;
         }
 
-        private void ProxyServer_OnTextChanged(object sender, TextChangedEventArgs e) =>
-            DnsSettings.WProxy = new WebProxy(ProxyServer.Text);
-
-        private void ProxyServerPort_OnTextChanged(object sender, TextChangedEventArgs e) =>
-            DnsSettings.WProxy = new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text);
-
-        private void BackupDNS_OnTextChanged(object sender, TextChangedEventArgs e) =>
-            DnsSettings.SecondDnsIp = IPAddress.Parse(BackupDNS.Text);
-
-        private void EDNSClientIP_OnTextChanged(object sender, TextChangedEventArgs e) =>
-            DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
-
-        private void ListenIP_OnTextChanged(object sender, TextChangedEventArgs e) =>
-            DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
-
         private void TextBlock_MouseRightButtonDown(object sender, MouseButtonEventArgs e) =>
             ListenIP.IsEnabled = true;
+
+        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            DnsSettings.DebugLog = Convert.ToBoolean(Log.IsChecked);
+            DnsSettings.EDnsCustomize = Convert.ToBoolean(EDNSCustomize.IsChecked);
+            DnsSettings.BlackListEnable = Convert.ToBoolean(BlackList.IsChecked);
+            DnsSettings.WhiteListEnable = Convert.ToBoolean(WhiteList.IsChecked);
+            DnsSettings.ProxyEnable = Convert.ToBoolean(Proxy.IsChecked);
+
+            if (!string.IsNullOrWhiteSpace(DoHUrlText.Text) &&
+                !string.IsNullOrWhiteSpace(BackupDNS.Text) &&
+                !string.IsNullOrWhiteSpace(EDNSClientIP.Text) &&
+                !string.IsNullOrWhiteSpace(ListenIP.Text))
+            {
+                DnsSettings.HttpsDnsUrl = DoHUrlText.Text;
+                DnsSettings.SecondDnsIp = IPAddress.Parse(BackupDNS.Text);
+                DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
+                DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
+
+                if (Proxy.IsChecked == true)
+                    DnsSettings.WProxy = new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text);
+                else
+                    DnsSettings.WProxy = new WebProxy("127.0.0.1:80");
+                
+            }
+            else
+                WinFormMessageBox.Show(@"不应为空,请填写完全");
+            
+        }
 
     }
 }

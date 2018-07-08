@@ -189,6 +189,12 @@ namespace AuroraGUI
 
             IsLog.IsChecked = DnsSettings.DebugLog;
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
+
+            if (DnsSettings.BlackListEnable && File.Exists("black.list"))
+                DnsSettings.ReadBlackList();
+
+            if (DnsSettings.BlackListEnable && File.Exists("white.list"))
+                DnsSettings.ReadWhiteList();
         }
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)

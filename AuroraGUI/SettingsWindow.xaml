@@ -62,7 +62,7 @@
                     黑名单
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="BlackList" 
+                    <ToggleButton Name="BlackList" IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          Margin="0,5,0,-5"  />
                 </StackPanel>
@@ -74,7 +74,7 @@
                     白名单
                 </TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="WhiteList" 
+                    <ToggleButton Name="WhiteList" IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           />
                 </StackPanel>

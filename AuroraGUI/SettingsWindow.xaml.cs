@@ -31,6 +31,11 @@ namespace AuroraGUI
 
             ProxyServer.Text = DnsSettings.WProxy.Address.Host;
             ProxyServerPort.Text = DnsSettings.WProxy.Address.Port.ToString();
+
+            if (File.Exists("black.list"))
+                BlackList.IsEnabled = true;
+            if (File.Exists("white.list"))
+                WhiteList.IsEnabled = true;
         }
 
         private void EDNSCustomize_OnChecked(object sender, RoutedEventArgs e) => EDNSClientIP.IsEnabled = true;

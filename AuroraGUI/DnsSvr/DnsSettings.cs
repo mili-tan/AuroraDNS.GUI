@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Net;
+using ARSoft.Tools.Net;
 using MojoUnity;
 
 namespace AuroraGUI
@@ -42,6 +45,21 @@ namespace AuroraGUI
             if (ProxyEnable)
                 WProxy = new WebProxy(configJson.AsObjectGetString("Proxy"));
 
+        }
+
+        public static void ReadBlackList(string path = "black.list")
+        {
+            string[] blackListStrs = File.ReadAllLines(path);
+            QueryResolve.BlackList = Array.ConvertAll(blackListStrs, DomainName.Parse).ToList();
+        }
+
+        public static void ReadWhiteList(string path = "white.list")
+        {
+            string[] whiteListStrs = File.ReadAllLines(path);
+            QueryResolve.WhiteList = whiteListStrs.Select(
+                itemStr => itemStr.Split(' ', ',', '\t')).ToDictionary(
+                whiteSplit => DomainName.Parse(whiteSplit[1]),
+                whiteSplit => IPAddress.Parse(whiteSplit[0]));
         }
     }
 }

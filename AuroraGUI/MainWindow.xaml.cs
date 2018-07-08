@@ -39,6 +39,12 @@ namespace AuroraGUI
             if (File.Exists("config.json"))
                 DnsSettings.ReadConfig("config.json");
 
+            if (DnsSettings.BlackListEnable && File.Exists("black.list"))
+                DnsSettings.ReadBlackList();
+
+            if (DnsSettings.BlackListEnable && File.Exists("white.list"))
+                DnsSettings.ReadWhiteList();
+
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             IntIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN" 
                 ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim() 

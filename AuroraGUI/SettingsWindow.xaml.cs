@@ -3,8 +3,11 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using static System.Windows.Forms.Application;
 using WinFormMessageBox = System.Windows.Forms.MessageBox;
+
+// ReSharper disable LocalizableElement
 
 namespace AuroraGUI
 {
@@ -98,5 +101,64 @@ namespace AuroraGUI
                 "}");
         }
 
+        private void BlackListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "list files (*.list)|*.list|txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
+                        WinFormMessageBox.Show("Error: 无效的空文件。");
+                    else
+                    {
+                        File.Copy(openFileDialog.FileName, "black.list");
+                        WinFormMessageBox.Show("导入成功!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. \n\rOriginal error: " + ex.Message);
+                }
+            }
+
+            if (File.Exists("black.list"))
+                BlackList.IsEnabled = true;
+        }
+
+        private void WhiteListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "list files (*.list)|*.list|Hosts file|hosts|txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
+                        WinFormMessageBox.Show("Error: 无效的空文件。");
+                    else
+                    {
+                        File.Copy(openFileDialog.FileName, "white.list");
+                        WinFormMessageBox.Show("导入成功!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. \n\rOriginal error: " + ex.Message);
+                }
+            }
+
+            if (File.Exists("white.list"))
+                BlackList.IsEnabled = true;
+        }
     }
 }

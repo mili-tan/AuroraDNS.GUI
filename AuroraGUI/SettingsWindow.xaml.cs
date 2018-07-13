@@ -158,7 +158,7 @@ namespace AuroraGUI
             }
 
             if (File.Exists("white.list"))
-                BlackList.IsEnabled = true;
+                WhiteList.IsEnabled = true;
         }
     }
 }

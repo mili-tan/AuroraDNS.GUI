@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Windows;
 
 namespace AuroraGUI
 {
@@ -14,5 +15,11 @@ namespace AuroraGUI
             VerText.Text += FileVersionInfo.GetVersionInfo(GetType().Assembly.Location).FileVersion;
             VerText.Text += $" ({File.GetLastWriteTime(GetType().Assembly.Location)})";
         }
+
+        private void ButtonCredits_OnClick(object sender, RoutedEventArgs e) 
+            => Process.Start($"https://github.com/mili-tan/AuroraDNS.GUI/raw/master/CREDITS");
+
+        private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
+            => Process.Start($"https://dns.mili.one");
     }
 }

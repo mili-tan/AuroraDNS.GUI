@@ -41,7 +41,7 @@
                     </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
+                            materialDesign:RippleAssist.IsCentered="True" Click="ButtonAbout_OnClick">
                         <materialDesign:PackIcon Kind="Information" ToolTip="访问项目主页" />
                     </Button>
                 </StackPanel>
@@ -73,7 +73,7 @@
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
+                            materialDesign:RippleAssist.IsCentered="True" Click="ButtonCredits_OnClick">
                         <materialDesign:PackIcon Kind="FileDocument" ToolTip="鸣谢与开源许可" />
                     </Button>
                 </StackPanel>

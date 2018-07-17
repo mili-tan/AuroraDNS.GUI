@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using MaterialDesignThemes.Wpf;
+using MessageBox = System.Windows.MessageBox;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
 using WinFormIcon = System.Drawing.Icon;
@@ -33,7 +34,6 @@ namespace AuroraGUI
         public MainWindow()
         {
             InitializeComponent();
-
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             if (File.Exists("config.json"))
@@ -46,9 +46,17 @@ namespace AuroraGUI
                 DnsSettings.ReadWhiteList();
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
-            IntIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN" 
-                ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim() 
-                : new WebClient().DownloadString("https://api.ipify.org").Trim());
+            try
+            {
+                IntIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN"
+                    ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim()
+                    : new WebClient().DownloadString("https://api.ipify.org").Trim());
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: 尝试获取公网IP地址失败 \n\rOriginal error: " + ex.Message);
+                IntIPAddr = IPAddress.Any;
+            }
 
             DnsServer myDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             myDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;

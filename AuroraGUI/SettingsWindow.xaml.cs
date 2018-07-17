@@ -123,7 +123,7 @@ namespace AuroraGUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. \n\rOriginal error: " + ex.Message);
+                    MessageBox.Show("Error: 无法写入文件 \n\rOriginal error: " + ex.Message);
                 }
             }
 
@@ -153,7 +153,7 @@ namespace AuroraGUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. \n\rOriginal error: " + ex.Message);
+                    MessageBox.Show("Error: 无法写入文件 \n\rOriginal error: " + ex.Message);
                 }
             }
 

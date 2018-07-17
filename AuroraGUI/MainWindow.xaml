@@ -70,18 +70,18 @@
                 Style="{StaticResource MaterialDesignActionToggleButton}"
                 Height="40"
                 Width="40"
-                ToolTip="局域网 / 广域网"
+                ToolTip="本地 / 局域网"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
                 IsChecked="False" HorizontalAlignment="Center" Checked="IsGlobal_Checked" Unchecked="IsGlobal_Unchecked">
                 <ToggleButton.Content>
                     <materialDesign:PackIcon
-                        Kind="Lan"
+                        Kind="ServerNetwork"
                         Height="20"
                         Width="20"/>
                 </ToggleButton.Content>
                 <materialDesign:ToggleButtonAssist.OnContent>
                     <materialDesign:PackIcon
-                        Kind="Web"
+                        Kind="Lan"
                         Height="25"
                         Width="25"/>
                 </materialDesign:ToggleButtonAssist.OnContent>

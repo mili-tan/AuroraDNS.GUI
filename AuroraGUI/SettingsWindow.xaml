@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" ResizeMode="NoResize"
         Title="设置" Height="670" Width="450" Background="#F1F1F1"
-        MinHeight="660" MinWidth="430" WindowStartupLocation="CenterScreen" Topmost="True" >
+        MinHeight="660" MinWidth="430" WindowStartupLocation="CenterScreen" Topmost="True" Loaded="Window_Loaded" >
     <Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
@@ -109,7 +109,7 @@
                     DNS over HTTPS 查询接口
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="DoHUrlText" 
+                    <ComboBox Name="DoHUrlText" IsEditable="True"
                         materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="170" />
                 </StackPanel>
 
@@ -169,8 +169,8 @@
                     辅 DNS 服务器
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="BackupDNS" 
-                        materialDesign:HintAssist.Hint="101.101.101.101" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
+                    <ComboBox Name="BackupDNS" IsEditable="True"
+                        materialDesign:HintAssist.Hint="101.101.101.101" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
@@ -181,7 +181,7 @@
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <TextBox Name="EDNSClientIP" IsEnabled="False" 
-                    materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
+                    materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
@@ -192,7 +192,7 @@
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <TextBox Name="ListenIP" IsEnabled="False" 
-                    materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="100" />
+                    materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 
             </Grid>

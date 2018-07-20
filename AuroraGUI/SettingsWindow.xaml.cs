@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Windows;
@@ -20,6 +21,9 @@ namespace AuroraGUI
         {
             InitializeComponent();
             EnableVisualStyles();
+
+            BackupDNS.Items.Add("1.1.1.1");
+            BackupDNS.Items.Add("8.8.8.8");
 
             Log.IsChecked = DnsSettings.DebugLog;
             EDNSCustomize.IsChecked = DnsSettings.EDnsCustomize;
@@ -159,6 +163,20 @@ namespace AuroraGUI
 
             if (File.Exists("white.list"))
                 WhiteList.IsEnabled = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string[] dohListStrings = null;
+            var bgw = new BackgroundWorker();
+            bgw.DoWork += (o, args) => 
+                dohListStrings = new WebClient().DownloadString("https://dns.mili.one/DoH.list").Split('\n');
+            bgw.RunWorkerCompleted += (o, args) =>
+            {
+                foreach (var dohUrlString in dohListStrings)
+                    DoHUrlText.Items.Add(dohUrlString);
+            };
+            bgw.RunWorkerAsync();
         }
     }
 }

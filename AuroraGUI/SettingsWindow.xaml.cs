@@ -22,9 +22,6 @@ namespace AuroraGUI
             InitializeComponent();
             EnableVisualStyles();
 
-            BackupDNS.Items.Add("1.1.1.1");
-            BackupDNS.Items.Add("8.8.8.8");
-
             Log.IsChecked = DnsSettings.DebugLog;
             EDNSCustomize.IsChecked = DnsSettings.EDnsCustomize;
             WhiteList.IsChecked = DnsSettings.WhiteListEnable;
@@ -167,14 +164,19 @@ namespace AuroraGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string[] dohListStrings = null;
+            string[] dohListStrings = null,dnsListStrings = null;
             var bgw = new BackgroundWorker();
-            bgw.DoWork += (o, args) => 
+            bgw.DoWork += (o, args) =>
+            {
                 dohListStrings = new WebClient().DownloadString("https://dns.mili.one/DoH.list").Split('\n');
+                dnsListStrings = new WebClient().DownloadString("https://dns.mili.one/DNS.list").Split('\n');
+            };
             bgw.RunWorkerCompleted += (o, args) =>
             {
                 foreach (var dohUrlString in dohListStrings)
                     DoHUrlText.Items.Add(dohUrlString);
+                foreach (var dnsAddrString in dnsListStrings)
+                    BackupDNS.Items.Add(dnsAddrString);
             };
             bgw.RunWorkerAsync();
         }

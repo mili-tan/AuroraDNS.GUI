@@ -207,14 +207,22 @@ namespace AuroraGUI
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)
         {
-            DnsSvrWorker.Dispose();
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            try
             {
-                FileName = GetType().Assembly.Location,
-                Verb = "runas"
-            };
-            Process.Start(startInfo);
-            Environment.Exit(Environment.ExitCode);
+                DnsSvrWorker.Dispose();
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = GetType().Assembly.Location,
+                    Verb = "runas"
+                };
+
+                Process.Start(startInfo);
+                Environment.Exit(Environment.ExitCode);
+            }
+            catch (Exception exception)
+            {
+                MyTools.BgwLog(exception.ToString());
+            }
         }
 
         private void Window_StateChanged(object sender, EventArgs e)

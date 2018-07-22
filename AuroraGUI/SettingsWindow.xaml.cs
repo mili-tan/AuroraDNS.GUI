@@ -197,8 +197,15 @@ namespace AuroraGUI
                     FileName = GetType().Assembly.Location,
                     Verb = "runas"
                 };
-                Process.Start(startInfo);
-                Environment.Exit(Environment.ExitCode);
+                try
+                {
+                    Process.Start(startInfo);
+                    Environment.Exit(Environment.ExitCode);
+                }
+                catch (Exception exception)
+                {
+                    MyTools.BgwLog(exception.ToString());
+                }
             }
         }
     }

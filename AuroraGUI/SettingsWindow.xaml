@@ -47,12 +47,12 @@
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    登录时自启动
+                    登录时自启动（需要管理员权限运行）
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton Name="RunWithStart" 
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                  VerticalAlignment="Center" Margin="0,5,0,-5" />
+                                  VerticalAlignment="Center" Margin="0,5,0,-5" Checked="RunWithStart_Checked" Unchecked="RunWithStart_Unchecked" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />

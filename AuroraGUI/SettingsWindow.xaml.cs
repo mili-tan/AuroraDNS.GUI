@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -35,6 +36,11 @@ namespace AuroraGUI
 
             ProxyServer.Text = DnsSettings.WProxy.Address.Host;
             ProxyServerPort.Text = DnsSettings.WProxy.Address.Port.ToString();
+
+            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                RunWithStart.IsChecked = MyTools.GetRunWithStart("AuroraDNS");
+            else
+                RunWithStart.IsEnabled = false;
 
             if (File.Exists("black.list"))
                 BlackList.IsEnabled = true;
@@ -177,5 +183,11 @@ namespace AuroraGUI
             };
             bgw.RunWorkerAsync();
         }
+
+        private void RunWithStart_Checked(object sender, RoutedEventArgs e) =>
+            MyTools.SetRunWithStart(true, "AuroraDNS", GetType().Assembly.Location);
+
+        private void RunWithStart_Unchecked(object sender, RoutedEventArgs e) =>
+            MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
     }
 }

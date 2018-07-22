@@ -52,7 +52,14 @@ namespace AuroraGUI
         public static bool GetRunWithStart(string name)
         {
             RegistryKey Reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
-            return !string.IsNullOrWhiteSpace(Reg.GetValue(name).ToString());
+            try
+            {
+                return !string.IsNullOrWhiteSpace(Reg.GetValue(name).ToString());
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

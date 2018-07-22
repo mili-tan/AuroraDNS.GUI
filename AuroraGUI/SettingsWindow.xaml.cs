@@ -42,9 +42,6 @@ namespace AuroraGUI
                 WhiteList.IsEnabled = true;
         }
 
-        private void EDNSCustomize_OnChecked(object sender, RoutedEventArgs e) => EDNSClientIP.IsEnabled = true;
-        private void EDNSCustomize_OnUnchecked(object sender, RoutedEventArgs e) => EDNSClientIP.IsEnabled = false;
-
         private void Proxy_OnChecked(object sender, RoutedEventArgs e)
         {
             ProxyServer.IsEnabled = true;

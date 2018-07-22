@@ -47,12 +47,12 @@
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    EDNS Customize
+                    登录时自启动
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="EDNSCustomize" Checked="EDNSCustomize_OnChecked" Unchecked="EDNSCustomize_OnUnchecked"
-                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                         VerticalAlignment="Center" Margin="0,5,0,-5" />
+                    <ToggleButton Name="RunWithStart" 
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                  VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
@@ -180,7 +180,10 @@
                     自定义 EDNS Client IP
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="EDNSClientIP" IsEnabled="False" 
+                    <ToggleButton Name="EDNSCustomize"
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                  VerticalAlignment="Center" Margin="5,5,5,-5.2" />
+                    <TextBox Name="EDNSClientIP" IsEnabled="{Binding ElementName=EDNSCustomize, Path=IsChecked}" 
                     materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 
@@ -191,7 +194,10 @@
                     自定义监听 IP 地址
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="ListenIP" IsEnabled="False" 
+                    <ToggleButton Name="ListenIPCustomize" IsChecked="False"
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                  VerticalAlignment="Center" Margin="5,2,5,-2" />
+                    <TextBox Name="ListenIP" IsEnabled="{Binding ElementName=ListenIPCustomize, Path=IsChecked}" 
                     materialDesign:HintAssist.Hint="0.0.0.0" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using Microsoft.Win32;
 
 namespace AuroraGUI
 {
@@ -33,6 +34,25 @@ namespace AuroraGUI
 
             return ipEndPointsTcp.Any(endPoint => endPoint.Port == port)
                    || ipEndPointsUdp.Any(endPoint => endPoint.Port == port);
+        }
+
+        public static void SetRunWithStart(bool started, string name, string path)
+        {
+            RegistryKey Reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+            if (started)
+            {
+                Reg.SetValue(name,path);
+            }
+            else
+            {
+                Reg.DeleteValue(name);
+            }
+        }
+
+        public static bool GetRunWithStart(string name)
+        {
+            RegistryKey Reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+            return !string.IsNullOrWhiteSpace(Reg.GetValue(name).ToString());
         }
 
     }

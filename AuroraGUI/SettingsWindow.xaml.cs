@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
@@ -59,9 +60,6 @@ namespace AuroraGUI
             ProxyServer.IsEnabled = false;
             ProxyServerPort.IsEnabled = false;
         }
-
-        private void TextBlock_MouseRightButtonDown(object sender, MouseButtonEventArgs e) =>
-            ListenIP.IsEnabled = true;
 
         private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
         {
@@ -189,5 +187,19 @@ namespace AuroraGUI
 
         private void RunWithStart_Unchecked(object sender, RoutedEventArgs e) =>
             MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
+
+        private void RunAsAdmin_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = GetType().Assembly.Location,
+                    Verb = "runas"
+                };
+                Process.Start(startInfo);
+                Environment.Exit(Environment.ExitCode);
+            }
+        }
     }
 }

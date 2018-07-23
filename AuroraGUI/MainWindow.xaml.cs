@@ -35,6 +35,7 @@ namespace AuroraGUI
         {
             InitializeComponent();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            WindowStyle = WindowStyle.SingleBorderWindow;
 
             if (File.Exists("config.json"))
                 DnsSettings.ReadConfig("config.json");

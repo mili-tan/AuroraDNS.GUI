@@ -34,6 +34,7 @@ namespace AuroraGUI
         public MainWindow()
         {
             InitializeComponent();
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             WindowStyle = WindowStyle.SingleBorderWindow;
 

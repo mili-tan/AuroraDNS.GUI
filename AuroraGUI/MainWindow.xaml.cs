@@ -252,9 +252,15 @@ namespace AuroraGUI
         private void MinimizedNormal(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Normal)
+            {
                 WindowState = WindowState.Minimized;
+                Hide();
+            }
             else if (WindowState == WindowState.Minimized)
+            {
+                Show();
                 WindowState = WindowState.Normal;
+            }
         }
     }
 }

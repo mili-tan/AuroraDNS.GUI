@@ -21,7 +21,8 @@ namespace AuroraGUI
             if (e.IsTerminating)
             {
                 MessageBox.Show(
-                    "发生了可能致命的严重错误，请从以下错误信息汲取灵感。\n\r程序即将中止运行。\n\r" + e.ExceptionObject,
+                    $"发生了可能致命的严重错误，请从以下错误信息汲取灵感。{Environment.NewLine}" +
+                    $"程序即将中止运行。{Environment.NewLine}" + e.ExceptionObject,
                     "意外的错误。", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -30,7 +31,8 @@ namespace AuroraGUI
         {
             MyTools.BgwLog(e.Exception.ToString());
             MessageBoxResult msgResult = MessageBox.Show(
-                "未经处理的异常错误，请从以下错误信息汲取灵感。\n\r点击取消中止程序运行。\n\r" + e.Exception,
+                $"未经处理的异常错误，请从以下错误信息汲取灵感。{Environment.NewLine}" +
+                $"点击取消中止程序运行。{Environment.NewLine}" + e.Exception,
                 "意外的错误。", MessageBoxButton.OKCancel, MessageBoxImage.Error);
 
             if (MessageBoxResult.OK == msgResult)

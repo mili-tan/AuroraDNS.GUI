@@ -92,6 +92,12 @@ namespace AuroraGUI
                     IsGlobal.IsChecked = true;
 
                 DnsEnable.IsChecked = true;
+
+                if (File.Exists("config.json"))
+                {
+                    WindowState = WindowState.Minimized;
+                    Hide();
+                }
             }
             else
             {
@@ -101,6 +107,7 @@ namespace AuroraGUI
                 DnsEnable.IsEnabled = false;
                 IsEnabled = false;
             }
+
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)

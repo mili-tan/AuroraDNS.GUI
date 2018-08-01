@@ -22,7 +22,7 @@ namespace AuroraGUI
             {
                 MessageBox.Show(
                     $"发生了可能致命的严重错误，请从以下错误信息汲取灵感。{Environment.NewLine}" +
-                    $"程序即将中止运行。{Environment.NewLine}" + e.ExceptionObject,
+                    $"程序可能即将中止运行。{Environment.NewLine}" + e.ExceptionObject,
                     "意外的错误。", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

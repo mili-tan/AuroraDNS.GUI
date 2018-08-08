@@ -94,10 +94,8 @@ namespace AuroraGUI
                 DnsEnable.IsChecked = true;
 
                 if (File.Exists("config.json"))
-                {
                     WindowState = WindowState.Minimized;
-                    Hide();
-                }
+                
             }
             else
             {

@@ -47,6 +47,9 @@ namespace AuroraGUI
                 BlackList.IsEnabled = true;
             if (File.Exists("white.list"))
                 WhiteList.IsEnabled = true;
+
+            if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                RunAsAdmin.Visibility = Visibility.Visible;
         }
 
         private void Proxy_OnChecked(object sender, RoutedEventArgs e)
@@ -188,24 +191,21 @@ namespace AuroraGUI
         private void RunWithStart_Unchecked(object sender, RoutedEventArgs e) =>
             MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
 
-        private void RunAsAdmin_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void RunAsAdmin_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = GetType().Assembly.Location,
-                    Verb = "runas"
-                };
-                try
-                {
-                    Process.Start(startInfo);
-                    Environment.Exit(Environment.ExitCode);
-                }
-                catch (Exception exception)
-                {
-                    MyTools.BgwLog(exception.ToString());
-                }
+                FileName = GetType().Assembly.Location,
+                Verb = "runas"
+            };
+            try
+            {
+                Process.Start(startInfo);
+                Environment.Exit(Environment.ExitCode);
+            }
+            catch (Exception exception)
+            {
+                MyTools.BgwLog(exception.ToString());
             }
         }
     }

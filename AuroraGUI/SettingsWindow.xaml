@@ -46,11 +46,15 @@
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}" 
-                           MouseLeftButtonUp="RunAsAdmin_MouseLeftButtonUp">
+                           Style="{StaticResource MaterialDesignBody2TextBlock}" >
                     登录时自启动（需要管理员权限运行）
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"
+                        HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Margin="0,-3,5,-13">
+                        <materialDesign:PackIcon Kind="ShieldOutline" ToolTip="以管理员权限运行" />
+                    </Button>
                     <ToggleButton Name="RunWithStart" 
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   VerticalAlignment="Center" Margin="0,5,0,-5" Checked="RunWithStart_Checked" Unchecked="RunWithStart_Unchecked" />

@@ -24,7 +24,8 @@ namespace AuroraGUI
             IPAddress clientAddress = e.RemoteEndpoint.Address;
             if (DnsSettings.EDnsCustomize)
                 clientAddress = DnsSettings.EDnsIp;
-            else if (Equals(clientAddress, IPAddress.Loopback) || IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
+            else if (Equals(clientAddress, IPAddress.Loopback) ||
+                     IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
                 clientAddress = MainWindow.IntIPAddr;
 
             DnsMessage response = query.CreateResponseInstance();
@@ -34,66 +35,64 @@ namespace AuroraGUI
 
             else
             {
-                if (query.Questions[0].RecordType == RecordType.A)
+                foreach (DnsQuestion dnsQuestion in query.Questions)
                 {
-                    foreach (DnsQuestion dnsQuestion in query.Questions)
-                    {
-                        response.ReturnCode = ReturnCode.NoError;
+                    response.ReturnCode = ReturnCode.NoError;
 
+                    if (DnsSettings.DebugLog)
+                    {
+                        MyTools.BgwLog($@"| {DateTime.Now} {clientAddress} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
+                    }
+
+                    if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    {
+                        //BlackList
+                        ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
+                        response.AnswerRecords.Add(blackRecord);
                         if (DnsSettings.DebugLog)
                         {
-                            MyTools.BgwLog($@"| {DateTime.Now} {clientAddress} : { dnsQuestion.Name}");
+                            MyTools.BgwLog(@"|- BlackList");
                         }
-
-                        if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name))
-                        {
-                            //BlackList
-                            ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
-                            response.AnswerRecords.Add(blackRecord);
-                            if (DnsSettings.DebugLog)
-                            {
-                                MyTools.BgwLog(@"|- BlackList");
-                            }
-                        }
-
-                        else if (DnsSettings.WhiteListEnable && WhiteList.ContainsKey(dnsQuestion.Name))
-                        {
-                            //WhiteList
-                            ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
-                            response.AnswerRecords.Add(blackRecord);
-                            if (DnsSettings.DebugLog)
-                            {
-                                MyTools.BgwLog(@"|- WhiteList");
-                            }
-                        }
-
-                        else
-                        {
-                            //Resolve
-                            try
-                            {
-                                var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(), dnsQuestion.Name.ToString(),
-                                    DnsSettings.ProxyEnable, DnsSettings.WProxy);
-                                if (resolvedDnsList != null)
-                                {
-                                    foreach (var item in resolvedDnsList)
-                                    {
-                                        response.AnswerRecords.Add(item);
-                                    }
-                                }
-                                else
-                                {
-                                    response.ReturnCode = (ReturnCode)statusCode;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                response.ReturnCode = ReturnCode.ServerFailure;
-                                MyTools.BgwLog(@"| " + ex);
-                            }
-                        }
-
                     }
+
+                    else if (DnsSettings.WhiteListEnable && WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    {
+                        //WhiteList
+                        ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
+                        response.AnswerRecords.Add(blackRecord);
+                        if (DnsSettings.DebugLog)
+                        {
+                            MyTools.BgwLog(@"|- WhiteList");
+                        }
+                    }
+
+                    else
+                    {
+                        //Resolve
+                        try
+                        {
+                            var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
+                                dnsQuestion.Name.ToString(),
+                                DnsSettings.ProxyEnable, DnsSettings.WProxy);
+                            if (resolvedDnsList != null)
+                            {
+                                foreach (var item in resolvedDnsList)
+                                {
+                                    response.AnswerRecords.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                response.ReturnCode = (ReturnCode) statusCode;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            response.ReturnCode = ReturnCode.ServerFailure;
+                            MyTools.BgwLog(@"| " + ex);
+                        }
+                    }
+
                 }
             }
 

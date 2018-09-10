@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Windows;
 using Microsoft.Win32;
 using static System.Windows.Forms.Application;
+using static System.AppDomain;
 using WinFormMessageBox = System.Windows.Forms.MessageBox;
 
 // ReSharper disable LocalizableElement
@@ -42,9 +43,9 @@ namespace AuroraGUI
             else
                 RunWithStart.IsEnabled = false;
 
-            if (File.Exists("black.list"))
+            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}black.list"))
                 BlackList.IsEnabled = true;
-            if (File.Exists("white.list"))
+            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}white.list"))
                 WhiteList.IsEnabled = true;
 
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
@@ -90,7 +91,7 @@ namespace AuroraGUI
             else
                 WinFormMessageBox.Show(@"不应为空,请填写完全");
             
-            File.WriteAllText("config.json", 
+            File.WriteAllText($"{CurrentDomain.SetupInformation.ApplicationBase}config.json", 
                 "{\n  " +
                 $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n  " +
                 $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n  " +
@@ -121,7 +122,7 @@ namespace AuroraGUI
                         WinFormMessageBox.Show("Error: 无效的空文件。");
                     else
                     {
-                        File.Copy(openFileDialog.FileName, "black.list");
+                        File.Copy(openFileDialog.FileName, $"{CurrentDomain.SetupInformation.ApplicationBase}black.list");
                         WinFormMessageBox.Show("导入成功!");
                     }
                 }
@@ -131,7 +132,7 @@ namespace AuroraGUI
                 }
             }
 
-            if (File.Exists("black.list"))
+            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}black.list"))
                 BlackList.IsEnabled = true;
         }
 
@@ -151,7 +152,7 @@ namespace AuroraGUI
                         WinFormMessageBox.Show("Error: 无效的空文件。");
                     else
                     {
-                        File.Copy(openFileDialog.FileName, "white.list");
+                        File.Copy(openFileDialog.FileName, $"{CurrentDomain.SetupInformation.ApplicationBase}white.list");
                         WinFormMessageBox.Show("导入成功!");
                     }
                 }
@@ -161,7 +162,7 @@ namespace AuroraGUI
                 }
             }
 
-            if (File.Exists("white.list"))
+            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}white.list"))
                 WhiteList.IsEnabled = true;
         }
 

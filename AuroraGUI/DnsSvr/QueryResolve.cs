@@ -73,8 +73,8 @@ namespace AuroraGUI
                         {
                             var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
                                 dnsQuestion.Name.ToString(),
-                                DnsSettings.ProxyEnable, DnsSettings.WProxy);
-                            if (resolvedDnsList != null)
+                                DnsSettings.ProxyEnable, DnsSettings.WProxy, dnsQuestion.RecordType);
+                            if (resolvedDnsList != null && resolvedDnsList != new List<dynamic>())
                             {
                                 foreach (var item in resolvedDnsList)
                                 {

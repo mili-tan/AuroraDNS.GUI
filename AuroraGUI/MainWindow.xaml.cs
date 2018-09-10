@@ -16,6 +16,7 @@ using MessageBox = System.Windows.MessageBox;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
 using WinFormIcon = System.Drawing.Icon;
+using static System.AppDomain;
 
 // ReSharper disable NotAccessedField.Local
 
@@ -35,17 +36,19 @@ namespace AuroraGUI
         {
             InitializeComponent();
 
+            string setupBasePath = CurrentDomain.SetupInformation.ApplicationBase;
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             WindowStyle = WindowStyle.SingleBorderWindow;
 
-            if (File.Exists("config.json"))
-                DnsSettings.ReadConfig("config.json");
+            if (File.Exists($"{setupBasePath}config.json"))
+                DnsSettings.ReadConfig($"{setupBasePath}config.json");
 
-            if (DnsSettings.BlackListEnable && File.Exists("black.list"))
-                DnsSettings.ReadBlackList();
+            if (DnsSettings.BlackListEnable && File.Exists($"{setupBasePath}black.list"))
+                DnsSettings.ReadBlackList($"{setupBasePath}black.list");
 
-            if (DnsSettings.BlackListEnable && File.Exists("white.list"))
-                DnsSettings.ReadWhiteList();
+            if (DnsSettings.BlackListEnable && File.Exists($"{setupBasePath}white.list"))
+                DnsSettings.ReadWhiteList($"{setupBasePath}white.list");
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             try

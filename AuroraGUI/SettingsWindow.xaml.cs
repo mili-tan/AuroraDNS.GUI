@@ -5,7 +5,6 @@ using System.IO;
 using System.Net;
 using System.Security.Principal;
 using System.Windows;
-using System.Windows.Input;
 using Microsoft.Win32;
 using static System.Windows.Forms.Application;
 using WinFormMessageBox = System.Windows.Forms.MessageBox;

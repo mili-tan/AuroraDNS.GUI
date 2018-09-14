@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using Microsoft.Win32;
+using static System.AppDomain;
 
 namespace AuroraGUI
 {
@@ -20,7 +21,7 @@ namespace AuroraGUI
                     {
                         Directory.CreateDirectory("Log");
                     }
-                    File.AppendAllText($"./Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
+                    File.AppendAllText($"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
                 };
 
                 worker.RunWorkerAsync();

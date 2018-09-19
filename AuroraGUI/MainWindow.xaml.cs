@@ -71,9 +71,15 @@ namespace AuroraGUI
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,
                 Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
+            WinFormMenuItem restartItem = new WinFormMenuItem("重启", (sender, args) =>
+            {
+                DnsSvrWorker.Dispose();
+                Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
+                Environment.Exit(Environment.ExitCode);
+            });
             WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => new AboutWindow().ShowDialog());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Environment.Exit(Environment.ExitCode));
-            NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, exitItem});
+            NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, restartItem, exitItem});
             NotifyIcon.DoubleClick += MinimizedNormal;
         }
 

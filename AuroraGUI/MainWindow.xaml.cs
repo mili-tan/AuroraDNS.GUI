@@ -47,8 +47,11 @@ namespace AuroraGUI
             if (DnsSettings.BlackListEnable && File.Exists($"{setupBasePath}black.list"))
                 DnsSettings.ReadBlackList($"{setupBasePath}black.list");
 
-            if (DnsSettings.BlackListEnable && File.Exists($"{setupBasePath}white.list"))
+            if (DnsSettings.WhiteListEnable && File.Exists($"{setupBasePath}white.list"))
                 DnsSettings.ReadWhiteList($"{setupBasePath}white.list");
+
+            if (DnsSettings.WhiteListEnable && File.Exists($"{setupBasePath}rewrite.list"))
+                DnsSettings.ReadWhiteList($"{setupBasePath}rewrite.list");
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             try

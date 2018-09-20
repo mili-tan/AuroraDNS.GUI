@@ -34,7 +34,7 @@ namespace AuroraGUI
             }
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");
-            WhiteListEnable = configJson.AsObjectGetBool("WhiteList");
+            WhiteListEnable = configJson.AsObjectGetBool("RewriteList");
             ProxyEnable = configJson.AsObjectGetBool("ProxyEnable");
             EDnsCustomize = configJson.AsObjectGetBool("EDnsCustomize");
             DebugLog = configJson.AsObjectGetBool("DebugLog");

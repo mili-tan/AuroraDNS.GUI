@@ -220,8 +220,11 @@ namespace AuroraGUI
             if (DnsSettings.BlackListEnable && File.Exists("black.list"))
                 DnsSettings.ReadBlackList();
 
-            if (DnsSettings.BlackListEnable && File.Exists("white.list"))
+            if (DnsSettings.WhiteListEnable && File.Exists("white.list"))
                 DnsSettings.ReadWhiteList();
+
+            if (DnsSettings.WhiteListEnable && File.Exists("rewrite.list"))
+                DnsSettings.ReadWhiteList("rewrite.list");
         }
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)

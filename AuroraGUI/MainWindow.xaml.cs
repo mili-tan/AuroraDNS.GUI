@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
@@ -72,7 +73,7 @@ namespace AuroraGUI
             DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,
-                Icon = WinFormIcon.ExtractAssociatedIcon(GetType().Assembly.Location) };
+                Icon = Properties.Resources.AuroraWhite};
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem restartItem = new WinFormMenuItem("重启", (sender, args) =>
             {

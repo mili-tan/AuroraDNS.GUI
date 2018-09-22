@@ -24,8 +24,16 @@ namespace AuroraGUI
             {
                 using (TcpClient tcpClient = new TcpClient())
                 {
-                    tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 443);
-                    //MessageBox.Show(tcpClient.Client.LocalEndPoint.ToString());
+                    try
+                    {
+                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/', ':')[3], 443);
+                    }
+                    catch
+                    {
+                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/', ':')[3],
+                            Convert.ToInt32(DnsSettings.HttpsDnsUrl.Split('/', ':')[4]));
+                    }
+                    //MessageBox.Show(DtcpClient.Client.LocalEndPoint).Address.ToString());
                     return ((IPEndPoint) tcpClient.Client.LocalEndPoint).Address.ToString();
                 }
             }

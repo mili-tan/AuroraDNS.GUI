@@ -80,9 +80,20 @@ namespace AuroraGUI
                 Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
                 Environment.Exit(Environment.ExitCode);
             });
+            WinFormMenuItem notepadLogItem = new WinFormMenuItem("查阅日志", (sender, args) =>
+            {
+                if (File.Exists(
+                    $"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log")
+                )
+                    Process.Start(new ProcessStartInfo("notepad.exe",
+                        $"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log"));
+            });
             WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => new AboutWindow().ShowDialog());
+            WinFormMenuItem settingsItem = new WinFormMenuItem("设置", (sender, args) => new SettingsWindow().ShowDialog());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Environment.Exit(Environment.ExitCode));
-            NotifyIcon.ContextMenu = new WinFormContextMenu(new[] {showItem, abootItem, restartItem, exitItem});
+            NotifyIcon.ContextMenu =
+                new WinFormContextMenu(new[]
+                    {showItem, notepadLogItem, abootItem, settingsItem, restartItem, exitItem});
             NotifyIcon.DoubleClick += MinimizedNormal;
         }
 

@@ -23,7 +23,15 @@ namespace AuroraGUI
 
             IPAddress clientAddress = e.RemoteEndpoint.Address;
             if (DnsSettings.EDnsCustomize)
-                clientAddress = DnsSettings.EDnsIp;
+                if (Equals(DnsSettings.EDnsIp, IPAddress.Parse("0.0.0.1")))
+                {
+                    clientAddress = IPAddress.Parse(MainWindow.IntIPAddr.ToString().Substring(0,
+                                                         MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) +".0");
+                }
+                else
+                {
+                    clientAddress = DnsSettings.EDnsIp;
+                }
             else if (Equals(clientAddress, IPAddress.Loopback) ||
                      IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
                 clientAddress = MainWindow.IntIPAddr;

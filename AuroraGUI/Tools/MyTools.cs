@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Windows;
 using Microsoft.Win32;
 using static System.AppDomain;
 
@@ -61,6 +63,14 @@ namespace AuroraGUI
             {
                 return false;
             }
+        }
+
+        public static bool GetNslookupDNSisLoc()
+        {
+            var p = Process.Start(new ProcessStartInfo("nslookup.exe", "sjtu.edu.cn")
+                {UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true});
+            p.WaitForExit();
+            return p.StandardOutput.ReadToEnd().Contains("127.0.0.1");
         }
 
     }

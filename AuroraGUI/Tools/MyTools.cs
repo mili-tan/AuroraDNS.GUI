@@ -65,7 +65,7 @@ namespace AuroraGUI
             }
         }
 
-        public static bool GetNslookupDNSisLoc()
+        public static bool isNslookupLocDNS()
         {
             var p = Process.Start(new ProcessStartInfo("nslookup.exe", "sjtu.edu.cn")
                 {UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true});

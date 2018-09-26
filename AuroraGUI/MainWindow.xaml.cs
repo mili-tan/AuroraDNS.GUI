@@ -116,7 +116,7 @@ namespace AuroraGUI
 
                 DnsEnable.IsChecked = true;
 
-                if (MyTools.GetNslookupDNSisLoc())
+                if (MyTools.isNslookupLocDNS())
                     IsSysDns.ToolTip = "已设为系统 DNS";
 
                 if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}config.json"))
@@ -168,7 +168,7 @@ namespace AuroraGUI
                            "辅DNS:" + DnsSettings.SecondDnsIp
                 });
 
-                if (MyTools.GetNslookupDNSisLoc())
+                if (MyTools.isNslookupLocDNS())
                     IsSysDns.ToolTip = "已设为系统 DNS";
                 else
                     IsSysDns.ToolTip = "设为系统 DNS";
@@ -194,7 +194,7 @@ namespace AuroraGUI
                 SysDnsSet.ResetDns();
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已将 DNS 重置为自动获取" });
 
-                if (MyTools.GetNslookupDNSisLoc())
+                if (MyTools.isNslookupLocDNS())
                     IsSysDns.ToolTip = "已设为系统 DNS";
                 else
                     IsSysDns.ToolTip = "设为系统 DNS";

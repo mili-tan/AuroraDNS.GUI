@@ -30,7 +30,7 @@ namespace AuroraGUI
                         tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/', ':')[3],
                             Convert.ToInt32(DnsSettings.HttpsDnsUrl.Split('/', ':')[4]));
                     else
-                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 5555);
+                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 443);
                     
 
                     //MessageBox.Show(DtcpClient.Client.LocalEndPoint).Address.ToString());
@@ -40,12 +40,8 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 MyTools.BgwLog("Try Connect:" + e);
-                if (MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: "
-                                    + e.Message,"错误",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                {
-                    return GetLocIp();
-                }
-                return "192.168.0.1";
+                return MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: "
+                                       + e.Message,"错误",MessageBoxButton.OKCancel) == MessageBoxResult.OK ? GetLocIp() : "192.168.0.1";
             }
         }
 
@@ -60,12 +56,8 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 MyTools.BgwLog("Try Connect:" + e);
-                if (MessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: " 
-                                    + e.Message) == MessageBoxResult.OK)
-                {
-                    return GetIntIp();
-                }
-                return IPAddress.Any.ToString();
+                return MessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: " 
+                                       + e.Message) == MessageBoxResult.OK ? GetIntIp() : IPAddress.Any.ToString();
             }
         }
     }

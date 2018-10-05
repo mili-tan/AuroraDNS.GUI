@@ -40,7 +40,7 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 MyTools.BgwLog("Try Connect:" + e);
-                if (MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r请检查 DNS over HTTPS 服务器是否有效\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址\n\rOriginal error: "
+                if (MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: "
                                     + e.Message,"错误",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     return GetLocIp();
@@ -60,7 +60,7 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 MyTools.BgwLog("Try Connect:" + e);
-                if (MessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址\n\rOriginal error: " 
+                if (MessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: " 
                                     + e.Message) == MessageBoxResult.OK)
                 {
                     return GetIntIp();

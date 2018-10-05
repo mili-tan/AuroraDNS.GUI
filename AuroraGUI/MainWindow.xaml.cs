@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -12,10 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using MaterialDesignThemes.Wpf;
-using MessageBox = System.Windows.MessageBox;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
-using WinFormIcon = System.Drawing.Icon;
 using static System.AppDomain;
 
 // ReSharper disable NotAccessedField.Local
@@ -54,17 +51,7 @@ namespace AuroraGUI
                 DnsSettings.ReadWhiteList($"{setupBasePath}rewrite.list");
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
-            try
-            {
-                IntIPAddr = IPAddress.Parse(Thread.CurrentThread.CurrentCulture.Name == "zh-CN"
-                    ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim()
-                    : new WebClient().DownloadString("https://api.ipify.org").Trim());
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error: 尝试获取公网IP地址失败 \n\rOriginal error: " + ex.Message);
-                IntIPAddr = IPAddress.Any;
-            }
+            IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
 
             DnsServer myDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             myDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;

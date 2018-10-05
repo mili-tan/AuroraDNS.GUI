@@ -32,7 +32,7 @@ namespace AuroraGUI
                     }
                     else
                     {
-                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 443);
+                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 5555);
                     }
 
                     //MessageBox.Show(DtcpClient.Client.LocalEndPoint).Address.ToString());
@@ -41,7 +41,7 @@ namespace AuroraGUI
             }
             catch (Exception e)
             {
-                if (MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r请检查 DoH 接口是否有效\n\r点击“确定”以重试连接\n\rOriginal error: " 
+                if (MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r请检查 DNS over HTTPS 服务器是否有效\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址\n\rOriginal error: "
                                     + e.Message,"错误",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     GetLocIp();

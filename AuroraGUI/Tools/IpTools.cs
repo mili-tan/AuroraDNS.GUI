@@ -31,7 +31,6 @@ namespace AuroraGUI
                             Convert.ToInt32(DnsSettings.HttpsDnsUrl.Split('/', ':')[4]));
                     else
                         tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 443);
-                    
 
                     //MessageBox.Show(DtcpClient.Client.LocalEndPoint).Address.ToString());
                     return ((IPEndPoint) tcpClient.Client.LocalEndPoint).Address.ToString();

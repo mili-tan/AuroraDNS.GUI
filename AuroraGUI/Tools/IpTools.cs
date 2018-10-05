@@ -41,7 +41,11 @@ namespace AuroraGUI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r请检查 DoH 接口是否有效\n\rOriginal error: " + e.Message);
+                if (MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r请检查 DoH 接口是否有效\n\r点击“确定”以重试连接\n\rOriginal error: " 
+                                    + e.Message,"错误",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                {
+                    GetLocIp();
+                }
                 MyTools.BgwLog("Try Connect:" + e);
                 return "192.168.0.1";
             }

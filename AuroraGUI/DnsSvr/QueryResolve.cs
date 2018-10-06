@@ -116,6 +116,8 @@ namespace AuroraGUI
 
             using (WebClient webClient = new WebClient())
             {
+                webClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+
                 if (proxyEnable)
                     webClient.Proxy = wProxy;
 

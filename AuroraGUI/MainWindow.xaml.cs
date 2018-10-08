@@ -61,7 +61,7 @@ namespace AuroraGUI
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,
                 Icon = Properties.Resources.AuroraWhite};
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
-            WinFormMenuItem restartItem = new WinFormMenuItem("重启", (sender, args) =>
+            WinFormMenuItem restartItem = new WinFormMenuItem("重新启动", (sender, args) =>
             {
                 DnsSvrWorker.Dispose();
                 Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
@@ -75,12 +75,16 @@ namespace AuroraGUI
                     Process.Start(new ProcessStartInfo("notepad.exe",
                         $"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log"));
             });
-            WinFormMenuItem abootItem = new WinFormMenuItem("关于", (sender, args) => new AboutWindow().ShowDialog());
-            WinFormMenuItem settingsItem = new WinFormMenuItem("设置", (sender, args) => new SettingsWindow().ShowDialog());
+            WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
+            WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().ShowDialog());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Environment.Exit(Environment.ExitCode));
+
             NotifyIcon.ContextMenu =
                 new WinFormContextMenu(new[]
-                    {showItem, notepadLogItem, abootItem, settingsItem, restartItem, exitItem});
+                {
+                    showItem, notepadLogItem, new WinFormMenuItem("-"), abootItem, settingsItem, new WinFormMenuItem("-"), restartItem, exitItem
+                });
+
             NotifyIcon.DoubleClick += MinimizedNormal;
         }
 

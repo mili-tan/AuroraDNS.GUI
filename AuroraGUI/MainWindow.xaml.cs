@@ -76,13 +76,14 @@ namespace AuroraGUI
                         $"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log"));
             });
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
+            WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
             WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().ShowDialog());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Environment.Exit(Environment.ExitCode));
 
             NotifyIcon.ContextMenu =
                 new WinFormContextMenu(new[]
                 {
-                    showItem, notepadLogItem, new WinFormMenuItem("-"), abootItem, settingsItem, new WinFormMenuItem("-"), restartItem, exitItem
+                    showItem, notepadLogItem, new WinFormMenuItem("-"), abootItem, updateItem, settingsItem, new WinFormMenuItem("-"), restartItem, exitItem
                 });
 
             NotifyIcon.DoubleClick += MinimizedNormal;

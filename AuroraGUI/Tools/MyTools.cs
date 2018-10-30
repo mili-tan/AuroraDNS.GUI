@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows;
 using Microsoft.Win32;
+using MojoUnity;
 using static System.AppDomain;
 
 namespace AuroraGUI
@@ -73,5 +74,18 @@ namespace AuroraGUI
             return p.StandardOutput.ReadToEnd().Contains("127.0.0.1");
         }
 
+        public static void CheckUpdate(string filePath)
+        {
+            var assets = Json.Parse(new WebClient() { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } }.DownloadString(
+                    "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest"))
+                .AsObjectGetArray("assets");
+            var fileTime = File.GetLastWriteTime(filePath);
+            string downloadUrl = assets[0].AsObjectGetString("browser_download_url");
+            if (Convert.ToInt32(downloadUrl.Split('/')[7]) >
+                Convert.ToInt32((fileTime.Year - 2000).ToString() + fileTime.Month + fileTime.Day))
+                Process.Start(downloadUrl);
+            else
+                MessageBox.Show($"当前AuroraDNS.GUI({Convert.ToInt32((fileTime.Year - 2000).ToString() + fileTime.Month + fileTime.Day)})已是最新版本,无需更新。");
+        }
     }
 }

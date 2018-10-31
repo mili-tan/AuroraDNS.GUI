@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Security.Principal;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Win32;
 using static System.Windows.Forms.Application;
 using static System.AppDomain;
@@ -89,7 +90,7 @@ namespace AuroraGUI
                 
             }
             else
-                WinFormMessageBox.Show(@"不应为空,请填写完全");
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"不应为空,请填写完全。" });
             
             File.WriteAllText($"{CurrentDomain.SetupInformation.ApplicationBase}config.json", 
                 "{\n  " +
@@ -104,6 +105,7 @@ namespace AuroraGUI
                 $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n  " +
                 $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\" \n" +
                 "}");
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
         }
 
         private void BlackListButton_OnClick(object sender, RoutedEventArgs e)
@@ -119,11 +121,11 @@ namespace AuroraGUI
                 try
                 {
                     if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
-                        WinFormMessageBox.Show("Error: 无效的空文件。");
+                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
                     else
                     {
                         File.Copy(openFileDialog.FileName, $"{CurrentDomain.SetupInformation.ApplicationBase}black.list");
-                        WinFormMessageBox.Show("导入成功!");
+                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
                     }
                 }
                 catch (Exception ex)

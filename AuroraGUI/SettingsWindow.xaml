@@ -221,5 +221,9 @@
         <Button Click="WhiteListButton_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
             Margin="115,590,213.2,15.8" Content="重定向名单" Foreground="#FF599A07" />
+        <materialDesign:Snackbar Name="Snackbar"
+                                 MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">
+        </materialDesign:Snackbar>
     </Grid>
 </Window>

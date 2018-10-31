@@ -87,25 +87,25 @@ namespace AuroraGUI
                     DnsSettings.WProxy = new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text);
                 else
                     DnsSettings.WProxy = new WebProxy("127.0.0.1:80");
-                
+
+                File.WriteAllText($"{CurrentDomain.SetupInformation.ApplicationBase}config.json",
+                    "{\n  " +
+                    $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n  " +
+                    $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n  " +
+                    $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n  " +
+                    $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n  " +
+                    $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n  " +
+                    $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n  " +
+                    $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n  " +
+                    $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n  " +
+                    $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n  " +
+                    $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\" \n" +
+                    "}");
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
             }
             else
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"不应为空,请填写完全。" });
             
-            File.WriteAllText($"{CurrentDomain.SetupInformation.ApplicationBase}config.json", 
-                "{\n  " +
-                $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n  " +
-                $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n  " +
-                $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n  " +
-                $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n  " +
-                $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n  " +
-                $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n  " +
-                $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n  " +
-                $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n  " +
-                $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n  " +
-                $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\" \n" +
-                "}");
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
         }
 
         private void BlackListButton_OnClick(object sender, RoutedEventArgs e)

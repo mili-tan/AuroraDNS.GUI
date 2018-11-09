@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Principal;
 using System.Windows;
@@ -170,12 +173,16 @@ namespace AuroraGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string[] dohListStrings = null,dnsListStrings = null;
+            List<string> dohListStrings = null,dnsListStrings = null;
             var bgw = new BackgroundWorker();
             bgw.DoWork += (o, args) =>
             {
-                dohListStrings = new WebClient().DownloadString("https://dns.mili.one/DoH.list").Split('\n');
-                dnsListStrings = new WebClient().DownloadString("https://dns.mili.one/DNS.list").Split('\n');
+                dohListStrings = new WebClient().DownloadString("https://dns.mili.one/DoH.list").Split('\n').ToList();
+                dnsListStrings = new WebClient().DownloadString("https://dns.mili.one/DNS.list").Split('\n').ToList();
+                if (string.IsNullOrWhiteSpace(dohListStrings[dohListStrings.Count - 1]))
+                    dohListStrings.RemoveAt(dohListStrings.Count - 1);
+                if (string.IsNullOrWhiteSpace(dnsListStrings[dnsListStrings.Count - 1]))
+                    dnsListStrings.RemoveAt(dnsListStrings.Count - 1);
             };
             bgw.RunWorkerCompleted += (o, args) =>
             {

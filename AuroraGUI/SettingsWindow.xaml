@@ -122,7 +122,7 @@
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    使用代理 (仅HTTP代理)
+                    使用代理 (仅 HTTP 代理)
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"

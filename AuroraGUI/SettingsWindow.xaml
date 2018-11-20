@@ -52,7 +52,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"
                         HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                        Margin="0,-3,5,-13">
+                        Margin="0,2,0,-8.2" Height="Auto">
                         <materialDesign:PackIcon Kind="ShieldOutline" ToolTip="以管理员权限运行" />
                     </Button>
                     <ToggleButton Name="RunWithStart" 
@@ -88,66 +88,6 @@
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="12,120,12,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="15" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="15" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="15" />
-                    <RowDefinition Height="33" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Margin="16,10,0,16" 
-                           VerticalAlignment="Center" HorizontalAlignment="Left"
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575" Grid.RowSpan="2">
-                    HTTPS 查询设置
-                </TextBlock>
-
-                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="2" Margin="16,6,0,4" 
-                           VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    DNS over HTTPS 查询接口
-                </TextBlock>
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ComboBox Name="DoHUrlText" IsEditable="True"
-                        materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="170" />
-                </StackPanel>
-
-                <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="4" Margin="16,6,0,4"  
-                           VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    使用代理 (仅 HTTP 代理)
-                </TextBlock>
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"
-                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                         VerticalAlignment="Center" Margin="0,5,0,-5" />
-                </StackPanel>
-
-                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="6" Margin="16,5,0,14" 
-                           VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    代理服务器
-                </TextBlock>
-                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <TextBox Name="ProxyServer" IsEnabled="False"
-                        materialDesign:HintAssist.Hint="服务器 127.0.0.1" Height="30" Margin="0,-5,0,-0.2" VerticalAlignment="Top" Width="105" />
-                    <TextBlock Margin="5,5,5,-5">:</TextBlock>
-                    <TextBox Name="ProxyServerPort" IsEnabled="False"
-                        materialDesign:HintAssist.Hint="端口 80" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="51" />
-                </StackPanel>
-            </Grid>
-        </materialDesign:Card>
-
-        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                             Padding="0"
                              Margin="12,210,12,0">
             <Grid>
                 <Grid.RowDefinitions>
@@ -174,6 +114,11 @@
                     辅 DNS 服务器
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button x:Name="SpeedTestDNS" Click="SpeedTestDoH_OnClick"
+                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                            Margin="0,-2,0,-6.2" Height="Auto">
+                        <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
+                    </Button>
                     <ComboBox Name="BackupDNS" IsEditable="True"
                         Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
@@ -225,5 +170,61 @@
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
                                  HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">
         </materialDesign:Snackbar>
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Padding="0"
+                             Margin="12,120,12,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="33" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="16,10,0,16" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="#FF757575" Grid.RowSpan="2"><Run Text="HTTPS 查询设置"/></TextBlock>
+
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="2" Margin="16,6,0,4" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="DNS over HTTPS 查询接口"/></TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button x:Name="SpeedTestDoH" Click="SpeedTestDoH_OnClick"
+                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                            Margin="0,-2,0,-6.2" Height="Auto">
+                        <materialDesign:PackIcon Kind="FlagCheckered" ToolTip="测速" />
+                    </Button>
+                    <ComboBox x:Name="DoHUrlText" IsEditable="True"
+                        materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="160" />
+                </StackPanel>
+
+                <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="使用代理 (仅 HTTP 代理)"/></TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ToggleButton x:Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                         VerticalAlignment="Center" Margin="0,5,0,-5" />
+                </StackPanel>
+
+                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="6" Margin="16,5,0,14" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="代理服务器"/></TextBlock>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <TextBox x:Name="ProxyServer" IsEnabled="False"
+                        materialDesign:HintAssist.Hint="服务器 127.0.0.1" Height="30" Margin="0,-5,0,-0.2" VerticalAlignment="Top" Width="105" />
+                    <TextBlock Margin="5,5,5,-5"><Run Text=":"/></TextBlock>
+                    <TextBox x:Name="ProxyServerPort" IsEnabled="False"
+                        materialDesign:HintAssist.Hint="端口 80" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="51" />
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </Window>

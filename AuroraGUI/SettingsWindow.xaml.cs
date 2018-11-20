@@ -216,5 +216,10 @@ namespace AuroraGUI
                 MyTools.BgwLog(exception.ToString());
             }
         }
+
+        private void SpeedTestDoH_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("test");
+        }
     }
 }

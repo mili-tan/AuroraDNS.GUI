@@ -12,7 +12,7 @@ namespace EasyChecker
         public static List<int> Tcping(string ip,int port)
         {
             var times = new List<int>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Socket socks = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp){ Blocking = true };
 
@@ -51,10 +51,10 @@ namespace EasyChecker
             byte[] bufferBytes = { 00, 01, 00, 01, 00, 01, 00, 01 };
 
             var times = new List<int>();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
                 times.Add(Convert.ToInt32(ping.Send(ipStr, 50, bufferBytes).RoundtripTime));
-                Thread.Sleep(100);
+                Thread.Sleep(50);
             }
 
             return times;

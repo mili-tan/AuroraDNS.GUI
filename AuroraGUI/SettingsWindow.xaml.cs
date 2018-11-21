@@ -224,7 +224,7 @@ namespace AuroraGUI
 
         private void SpeedTestDNS_OnClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("test");
+            new SpeedWindow(true).ShowDialog();
         }
     }
 }

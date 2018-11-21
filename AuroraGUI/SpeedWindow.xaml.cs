@@ -33,9 +33,16 @@ namespace AuroraGUI
                 int i = 0;
                 foreach (SpeedList item in mItems)
                 {
-                    Debug.WriteLine(item.Server);
-                    var mList = new SpeedList {Server = item.Server,DelayTime = Ping.Tcping(item.Server, TypeDNS ? 53 : 443).Average().ToString("0.0")};
-                    bgWorker.ReportProgress(i++, mList);
+                    double delayTime;
+                    if (TypeDNS)
+                    {
+                        delayTime = Ping.MPing(item.Server).Average();
+                        if (delayTime == 0)
+                            delayTime = Ping.Tcping(item.Server,53).Average();
+                    }
+                    else
+                        delayTime = Ping.Tcping(item.Server,443).Average();
+                    bgWorker.ReportProgress(i++, new SpeedList { Server = item.Server, DelayTime = delayTime.ToString("0ms") });
                 }
             };
             bgWorker.ProgressChanged += (o, args) => { SpeedListView.Items.Add((SpeedList) args.UserState); };

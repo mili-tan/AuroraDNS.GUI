@@ -9,7 +9,7 @@
         Background="#FAFAFA"
         Topmost="True"
 
-        Title="测速" Height="450" Width="600" WindowStartupLocation="CenterScreen"
+        Title="测速" Height="480" Width="600" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <Grid HorizontalAlignment="Center" Height="48" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Background="White">
@@ -43,7 +43,7 @@
         <Button
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             materialDesign:ShadowAssist.ShadowDepth="Depth1"
-            Margin="-2,367,-2.4,-2" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Content="开始测试" Click="Button_Click"/>
+            Margin="-2,400,-2.4,-2.6" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Content="开始测试" Click="Button_Click"/>
 
     </Grid>
 </Window>

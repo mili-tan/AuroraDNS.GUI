@@ -97,6 +97,7 @@
     <Compile Include="Tools\MojoUnityJson.cs" />
     <Compile Include="Tools\MyTools.cs" />
     <Compile Include="DnsSvr\QueryResolve.cs" />
+    <Compile Include="Tools\Ping.cs" />
     <Compile Include="Tools\SysDnsSet.cs" />
     <Compile Include="Tools\IpTools.cs" />
     <Compile Include="Fx\WindowBlur.cs" />

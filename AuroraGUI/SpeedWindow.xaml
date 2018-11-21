@@ -12,7 +12,7 @@
         Title="测速" Height="450" Width="600" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <Grid HorizontalAlignment="Center" Height="87" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Background="White">
+        <Grid HorizontalAlignment="Center" Height="48" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Background="White">
             <Grid.Effect>
                 <DropShadowEffect Color="WhiteSmoke"  ShadowDepth="1" Opacity="1" />
             </Grid.Effect>

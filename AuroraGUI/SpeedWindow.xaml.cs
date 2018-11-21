@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace AuroraGUI
 {
@@ -12,31 +14,44 @@ namespace AuroraGUI
     /// </summary>
     public partial class SpeedWindow
     {
-        public SpeedWindow()
+        private bool TypeDNS;
+        public SpeedWindow(bool typeDNS = false)
         {
             InitializeComponent();
-            
+            TypeDNS = typeDNS;
+            IsEnabled = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(SpeedListView.Items[0]);
+            var bgw = new BackgroundWorker();
+            bgw.DoWork += (o, args) =>
+            {
+                foreach (SpeedList item in SpeedListView.Items)
+                {
+                    Debug.WriteLine(item.Server);
+                }
+            };
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<string> dohListStrings = null;
+            List<string> mListStrings = null;
             var bgw = new BackgroundWorker();
             bgw.DoWork += (o, args) =>
             {
-                dohListStrings = new WebClient().DownloadString("https://dns.mili.one/DoH.list").Split('\n').ToList();
-                if (string.IsNullOrWhiteSpace(dohListStrings[dohListStrings.Count - 1]))
-                    dohListStrings.RemoveAt(dohListStrings.Count - 1);
+                mListStrings = new WebClient().DownloadString(TypeDNS ? "https://dns.mili.one/DNS.list" 
+                    : "https://dns.mili.one/DoH.list").Split('\n').ToList();
+                if (string.IsNullOrWhiteSpace(mListStrings[mListStrings.Count - 1]))
+                    mListStrings.RemoveAt(mListStrings.Count - 1);
             };
             bgw.RunWorkerCompleted += (o, args) =>
             {
-                foreach (var dohUrlString in dohListStrings)
-                    SpeedListView.Items.Add(new SpeedList { Server = dohUrlString.Split('/', ':')[3] });
+                foreach (var item in mListStrings)
+                    SpeedListView.Items.Add(!TypeDNS
+                        ? new SpeedList {Server = item.Split('/', ':')[3]}
+                        : new SpeedList {Server = item});
+                IsEnabled = true;
             };
             bgw.RunWorkerAsync();
         }
@@ -46,5 +61,10 @@ namespace AuroraGUI
         public string Server { get; set; }
         public string DelayTime { get; set; }
         public string ASN { get; set; }
+
+        public static explicit operator SpeedList(ItemCollection v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

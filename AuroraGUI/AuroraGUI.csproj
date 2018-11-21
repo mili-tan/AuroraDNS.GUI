@@ -91,6 +91,9 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SpeedWindow.xaml.cs">
+      <DependentUpon>SpeedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tools\MojoUnityJson.cs" />
     <Compile Include="Tools\MyTools.cs" />
     <Compile Include="DnsSvr\QueryResolve.cs" />
@@ -115,6 +118,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpeedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

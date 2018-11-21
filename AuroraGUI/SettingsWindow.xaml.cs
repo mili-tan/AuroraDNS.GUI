@@ -221,5 +221,10 @@ namespace AuroraGUI
         {
             MessageBox.Show("test");
         }
+
+        private void SpeedTestDNS_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("test");
+        }
     }
 }

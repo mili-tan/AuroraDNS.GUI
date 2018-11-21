@@ -114,7 +114,7 @@
                     辅 DNS 服务器
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <Button x:Name="SpeedTestDNS" Click="SpeedTestDoH_OnClick"
+                    <Button x:Name="SpeedTestDNS" Click="SpeedTestDNS_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                             Margin="0,-2,0,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />

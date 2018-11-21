@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Windows.Controls;
+using EasyChecker;
 
 namespace AuroraGUI
 {
@@ -24,14 +23,27 @@ namespace AuroraGUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var bgw = new BackgroundWorker();
+            var bgw = new BackgroundWorker { WorkerReportsProgress = true};
+            List<SpeedList> mItems = SpeedListView.Items.Cast<SpeedList>().ToList();
+            SpeedListView.Items.Clear();
+
             bgw.DoWork += (o, args) =>
             {
-                foreach (SpeedList item in SpeedListView.Items)
+                int i = 0;
+                foreach (SpeedList item in mItems)
                 {
                     Debug.WriteLine(item.Server);
+                    var mList = new SpeedList {Server = item.Server,DelayTime = Ping.Tcping(item.Server,443).Average().ToString("0.0")};
+                    bgw.ReportProgress(i++,mList);
                 }
             };
+
+            bgw.ProgressChanged += (o, args) =>
+            {
+                SpeedListView.Items.Add((SpeedList)args.UserState);
+            };
+
+            bgw.RunWorkerAsync();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -62,9 +74,5 @@ namespace AuroraGUI
         public string DelayTime { get; set; }
         public string ASN { get; set; }
 
-        public static explicit operator SpeedList(ItemCollection v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

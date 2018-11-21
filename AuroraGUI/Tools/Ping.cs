@@ -12,11 +12,13 @@ namespace EasyChecker
         public static List<int> Tcping(string ip,int port)
         {
             var times = new List<int>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Socket socks = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
                 {
-                    Blocking = true
+                    Blocking = true,
+                    SendTimeout = 250,
+                    ReceiveTimeout = 250
                 };
 
                 IPEndPoint point;
@@ -28,10 +30,7 @@ namespace EasyChecker
                 {
                     point = new IPEndPoint(Dns.GetHostAddresses(ip)[0], port);
                 }
-
-
                 Stopwatch stopWatch = new Stopwatch();
-
                 stopWatch.Start();
                 try
                 {
@@ -43,12 +42,9 @@ namespace EasyChecker
                     return times;
                 }
                 stopWatch.Stop();
-
-                double time = stopWatch.Elapsed.TotalMilliseconds;
-                times.Add(Convert.ToInt32(time));
+                times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));
                 socks.Close();
-
-                Thread.Sleep(100);
+                Thread.Sleep(50);
             }
 
             return times;

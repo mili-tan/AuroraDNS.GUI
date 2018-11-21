@@ -173,8 +173,8 @@ namespace AuroraGUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> dohListStrings = null,dnsListStrings = null;
-            var bgw = new BackgroundWorker();
-            bgw.DoWork += (o, args) =>
+            var bgWorker = new BackgroundWorker();
+            bgWorker.DoWork += (o, args) =>
             {
                 dohListStrings = new WebClient().DownloadString("https://dns.mili.one/DoH.list").Split('\n').ToList();
                 dnsListStrings = new WebClient().DownloadString("https://dns.mili.one/DNS.list").Split('\n').ToList();
@@ -183,14 +183,14 @@ namespace AuroraGUI
                 if (string.IsNullOrWhiteSpace(dnsListStrings[dnsListStrings.Count - 1]))
                     dnsListStrings.RemoveAt(dnsListStrings.Count - 1);
             };
-            bgw.RunWorkerCompleted += (o, args) =>
+            bgWorker.RunWorkerCompleted += (o, args) =>
             {
                 foreach (var dohUrlString in dohListStrings)
                     DoHUrlText.Items.Add(dohUrlString);
                 foreach (var dnsAddrString in dnsListStrings)
                     BackupDNS.Items.Add(dnsAddrString);
             };
-            bgw.RunWorkerAsync();
+            bgWorker.RunWorkerAsync();
         }
 
         private void RunWithStart_Checked(object sender, RoutedEventArgs e) =>

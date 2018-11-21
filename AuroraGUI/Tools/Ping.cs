@@ -14,12 +14,7 @@ namespace EasyChecker
             var times = new List<int>();
             for (int i = 0; i < 1; i++)
             {
-                Socket socks = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
-                {
-                    Blocking = true,
-                    SendTimeout = 250,
-                    ReceiveTimeout = 250
-                };
+                Socket socks = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp){ Blocking = true };
 
                 IPEndPoint point;
                 try

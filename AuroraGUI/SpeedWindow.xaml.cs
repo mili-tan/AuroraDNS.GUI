@@ -23,41 +23,39 @@ namespace AuroraGUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var bgw = new BackgroundWorker { WorkerReportsProgress = true};
+            var bgWorker = new BackgroundWorker { WorkerReportsProgress = true};
             List<SpeedList> mItems = SpeedListView.Items.Cast<SpeedList>().ToList();
+            IsEnabled = false;
             SpeedListView.Items.Clear();
 
-            bgw.DoWork += (o, args) =>
+            bgWorker.DoWork += (o, args) =>
             {
                 int i = 0;
                 foreach (SpeedList item in mItems)
                 {
                     Debug.WriteLine(item.Server);
-                    var mList = new SpeedList {Server = item.Server,DelayTime = Ping.Tcping(item.Server,443).Average().ToString("0.0")};
-                    bgw.ReportProgress(i++,mList);
+                    var mList = new SpeedList {Server = item.Server,DelayTime = Ping.Tcping(item.Server, TypeDNS ? 53 : 443).Average().ToString("0.0")};
+                    bgWorker.ReportProgress(i++, mList);
                 }
             };
+            bgWorker.ProgressChanged += (o, args) => { SpeedListView.Items.Add((SpeedList) args.UserState); };
+            bgWorker.RunWorkerCompleted += (o, args) => { IsEnabled = true; };
 
-            bgw.ProgressChanged += (o, args) =>
-            {
-                SpeedListView.Items.Add((SpeedList)args.UserState);
-            };
-
-            bgw.RunWorkerAsync();
+            bgWorker.RunWorkerAsync();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> mListStrings = null;
-            var bgw = new BackgroundWorker();
-            bgw.DoWork += (o, args) =>
+            var bgWorker = new BackgroundWorker();
+            bgWorker.DoWork += (o, args) =>
             {
                 mListStrings = new WebClient().DownloadString(TypeDNS ? "https://dns.mili.one/DNS.list" 
                     : "https://dns.mili.one/DoH.list").Split('\n').ToList();
                 if (string.IsNullOrWhiteSpace(mListStrings[mListStrings.Count - 1]))
                     mListStrings.RemoveAt(mListStrings.Count - 1);
             };
-            bgw.RunWorkerCompleted += (o, args) =>
+            bgWorker.RunWorkerCompleted += (o, args) =>
             {
                 foreach (var item in mListStrings)
                     SpeedListView.Items.Add(!TypeDNS
@@ -65,7 +63,7 @@ namespace AuroraGUI
                         : new SpeedList {Server = item});
                 IsEnabled = true;
             };
-            bgw.RunWorkerAsync();
+            bgWorker.RunWorkerAsync();
         }
     }
     public class SpeedList

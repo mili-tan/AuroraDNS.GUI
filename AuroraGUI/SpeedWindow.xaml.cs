@@ -42,7 +42,13 @@ namespace AuroraGUI
                     }
                     else
                         delayTime = Ping.Tcping(item.Server,443).Average();
-                    bgWorker.ReportProgress(i++, new SpeedList { Server = item.Server, DelayTime = delayTime.ToString("0ms") });
+
+                    bgWorker.ReportProgress(i++,
+                        new SpeedList
+                        {
+                            Server = item.Server, DelayTime = delayTime.ToString("0ms"),
+                            ASN = IpTools.GeoIpLocal(item.Server)
+                        });
                 }
             };
             bgWorker.ProgressChanged += (o, args) => { SpeedListView.Items.Add((SpeedList) args.UserState); };

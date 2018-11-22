@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using MojoUnity;
 
 namespace AuroraGUI
 {
@@ -57,6 +58,14 @@ namespace AuroraGUI
                 return MessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: " 
                                        + e.Message, "错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK ? GetIntIp() : IPAddress.Any.ToString();
             }
+        }
+
+        public static string GeoIpLocal(string ipStr)
+        {
+            string locStr = new WebClient().DownloadString(IsIp(ipStr) ? $"https://api.ip.sb/geoip/{ipStr}" :
+                $"https://api.ip.sb/geoip/{Dns.GetHostAddresses(ipStr)[0]}");
+            JsonValue json = Json.Parse(locStr);
+            return json.AsObjectGetString("country_code") + ", " + json.AsObjectGetString("organization");
         }
     }
 }

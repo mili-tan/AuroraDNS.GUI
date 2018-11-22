@@ -114,7 +114,7 @@
                     辅 DNS 服务器
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <Button x:Name="SpeedTestDNS" Click="SpeedTestDNS_OnClick"
+                    <Button Click="SpeedTestDNS_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                             Margin="0,-2,0,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
@@ -194,10 +194,10 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="DNS over HTTPS 查询接口"/></TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <Button x:Name="SpeedTestDoH" Click="SpeedTestDoH_OnClick"
+                    <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                             Margin="0,-2,0,-6.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="FlagCheckered" ToolTip="测速" />
+                        <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
                     </Button>
                     <ComboBox x:Name="DoHUrlText" IsEditable="True"
                         materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="160" />

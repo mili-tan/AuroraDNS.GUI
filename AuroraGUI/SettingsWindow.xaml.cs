@@ -219,12 +219,12 @@ namespace AuroraGUI
 
         private void SpeedTestDoH_OnClick(object sender, RoutedEventArgs e)
         {
-            new SpeedWindow().ShowDialog();
+            new SpeedWindow().Show();
         }
 
         private void SpeedTestDNS_OnClick(object sender, RoutedEventArgs e)
         {
-            new SpeedWindow(true).ShowDialog();
+            new SpeedWindow(true).Show();
         }
     }
 }

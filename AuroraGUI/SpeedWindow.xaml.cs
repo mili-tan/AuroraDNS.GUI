@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -34,6 +35,15 @@ namespace AuroraGUI
                 foreach (SpeedList item in mItems)
                 {
                     double delayTime;
+                    if (item.Server.Contains("google.com") &&
+                        !DnsSettings.ProxyEnable && TimeZoneInfo.Local.Id.Contains("China Standard Time"))
+                    {
+                        bgWorker.ReportProgress(i++,
+                            new SpeedList
+                                {Server = item.Server, DelayTime = "PASS", ASN = IpTools.GeoIpLocal(item.Server)});
+                        continue;
+                    }
+
                     if (TypeDNS)
                     {
                         delayTime = Ping.MPing(item.Server).Average();

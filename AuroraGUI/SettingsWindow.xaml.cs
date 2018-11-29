@@ -54,6 +54,9 @@ namespace AuroraGUI
             if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}doh.list"))
                 foreach (var item in File.ReadAllLines($"{CurrentDomain.SetupInformation.ApplicationBase}doh.list"))
                     DoHUrlText.Items.Add(item);
+            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}dns.list"))
+                foreach (var item in File.ReadAllLines($"{CurrentDomain.SetupInformation.ApplicationBase}dns.list"))
+                    BackupDNS.Items.Add(item);
 
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
@@ -189,10 +192,10 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                foreach (var dohUrlString in dohListStrings)
-                    DoHUrlText.Items.Add(dohUrlString);
-                foreach (var dnsAddrString in dnsListStrings)
-                    BackupDNS.Items.Add(dnsAddrString);
+                foreach (var item in dohListStrings)
+                    DoHUrlText.Items.Add(item);
+                foreach (var item in dnsListStrings)
+                    BackupDNS.Items.Add(item);
             };
             bgWorker.RunWorkerAsync();
         }

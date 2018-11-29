@@ -51,6 +51,10 @@ namespace AuroraGUI
             if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}white.list"))
                 WhiteList.IsEnabled = true;
 
+            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}doh.list"))
+                foreach (var item in File.ReadAllLines($"{CurrentDomain.SetupInformation.ApplicationBase}doh.list"))
+                    DoHUrlText.Items.Add(item);
+
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
         }

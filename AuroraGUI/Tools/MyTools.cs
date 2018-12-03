@@ -87,5 +87,10 @@ namespace AuroraGUI
             else
                 MessageBox.Show($"当前AuroraDNS.GUI({Convert.ToInt32((fileTime.Year - 2000).ToString() + fileTime.Month + fileTime.Day)})已是最新版本,无需更新。");
         }
+
+        public static string IsoCountryCodeToFlagEmoji(string country)
+        {
+            return string.Concat(country.ToUpper().Select(x => char.ConvertFromUtf32(x + 0x1F1A5)));
+        }
     }
 }

@@ -59,5 +59,32 @@ namespace EasyChecker
 
             return times;
         }
+
+        public static List<int> Curl(string url)
+        {
+            var times = new List<int>();
+            for (int i = 0; i < 2; i++)
+            {
+                Socket socks = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { Blocking = true };
+
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
+                try
+                {
+                    new WebClient().DownloadString(url + "?ct=application/dns-json&name=fast.com");
+                }
+                catch
+                {
+                    times.Add(0);
+                    return times;
+                }
+                stopWatch.Stop();
+                times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));
+                socks.Close();
+                Thread.Sleep(50);
+            }
+
+            return times;
+        }
     }
 }

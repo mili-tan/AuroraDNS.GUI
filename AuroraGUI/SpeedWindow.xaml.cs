@@ -13,6 +13,7 @@ namespace AuroraGUI
     /// </summary>
     public partial class SpeedWindow
     {
+        
         private bool TypeDNS;
         public SpeedWindow(bool typeDNS = false)
         {

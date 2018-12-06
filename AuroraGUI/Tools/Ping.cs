@@ -60,7 +60,7 @@ namespace EasyChecker
             return times;
         }
 
-        public static List<int> Curl(string url)
+        public static List<int> Curl(string urlStr,string name)
         {
             var times = new List<int>();
             for (int i = 0; i < 2; i++)
@@ -71,7 +71,7 @@ namespace EasyChecker
                 stopWatch.Start();
                 try
                 {
-                    new WebClient().DownloadString(url + "?ct=application/dns-json&name=fast.com");
+                    new WebClient().DownloadString(urlStr + "?ct=application/dns-json&name=" + name);
                 }
                 catch
                 {

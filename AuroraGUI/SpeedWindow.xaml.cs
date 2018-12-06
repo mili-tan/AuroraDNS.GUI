@@ -13,7 +13,7 @@ namespace AuroraGUI
     /// </summary>
     public partial class SpeedWindow
     {
-        
+        List<string> mListStrings;
         private bool TypeDNS;
         public SpeedWindow(bool typeDNS = false)
         {
@@ -48,10 +48,10 @@ namespace AuroraGUI
                     {
                         delayTime = Ping.MPing(item.Server).Average();
                         if (delayTime == 0)
-                            delayTime = Ping.Tcping(item.Server,53).Average();
+                            delayTime = Ping.Tcping(item.Server, 53).Average();
                     }
                     else
-                        delayTime = Ping.Tcping(item.Server,443).Average();
+                        delayTime = Ping.Curl(mListStrings[i], item.Server).Average();
 
                     bgWorker.ReportProgress(i++,
                         new SpeedList
@@ -69,7 +69,6 @@ namespace AuroraGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<string> mListStrings = null;
             var bgWorker = new BackgroundWorker();
             bgWorker.DoWork += (o, args) =>
             {

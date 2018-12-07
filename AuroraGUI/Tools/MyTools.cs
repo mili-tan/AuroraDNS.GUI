@@ -81,11 +81,13 @@ namespace AuroraGUI
                 .AsObjectGetArray("assets");
             var fileTime = File.GetLastWriteTime(filePath);
             string downloadUrl = assets[0].AsObjectGetString("browser_download_url");
+            //MessageBox.Show(Convert.ToInt32(downloadUrl.Split('/')[7]).ToString());
+            //MessageBox.Show(Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")).ToString());
             if (Convert.ToInt32(downloadUrl.Split('/')[7]) >
-                Convert.ToInt32((fileTime.Year - 2000).ToString() + fileTime.Month + fileTime.Day))
+                Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")))
                 Process.Start(downloadUrl);
             else
-                MessageBox.Show($"当前AuroraDNS.GUI({Convert.ToInt32((fileTime.Year - 2000).ToString() + fileTime.Month + fileTime.Day)})已是最新版本,无需更新。");
+                MessageBox.Show($"当前AuroraDNS.GUI({fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")})已是最新版本,无需更新。");
         }
 
         public static string IsoCountryCodeToFlagEmoji(string country)

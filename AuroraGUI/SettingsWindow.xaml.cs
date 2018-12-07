@@ -9,9 +9,7 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-using static System.Windows.Forms.Application;
 using static System.AppDomain;
-using WinFormMessageBox = System.Windows.Forms.MessageBox;
 
 // ReSharper disable LocalizableElement
 
@@ -25,7 +23,6 @@ namespace AuroraGUI
         public SettingsWindow()
         {
             InitializeComponent();
-            EnableVisualStyles();
 
             Log.IsChecked = DnsSettings.DebugLog;
             EDNSCustomize.IsChecked = DnsSettings.EDnsCustomize;
@@ -160,11 +157,11 @@ namespace AuroraGUI
                 try
                 {
                     if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
-                        WinFormMessageBox.Show("Error: 无效的空文件。");
+                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
                     else
                     {
                         File.Copy(openFileDialog.FileName, $"{CurrentDomain.SetupInformation.ApplicationBase}white.list");
-                        WinFormMessageBox.Show("导入成功!");
+                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
                     }
                 }
                 catch (Exception ex)

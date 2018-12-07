@@ -1,20 +1,48 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Media.Animation;
 
 namespace AuroraGUI
 {
-    class WindowFx
+    static class WindowFx
     {
-            [DllImport("user32.dll", EntryPoint = "AnimateWindow")]
-            public static extern bool AnimateWindows(IntPtr handle, int effectsTime, int effectsFlags);
-            public const Int32 AW_HOR_POSITIVE = 0x00000001;
-            public const Int32 AW_HOR_NEGATIVE = 0x00000002;
-            public const Int32 AW_VER_POSITIVE = 0x00000004;
-            public const Int32 AW_VER_NEGATIVE = 0x00000008;
-            public const Int32 AW_CENTER = 0x00000010;
-            public const Int32 AW_HIDE = 0x00010000;
-            public const Int32 AW_ACTIVATE = 0x00020000;
-            public const Int32 AW_SLIDE = 0x00040000;
-            public const Int32 AW_BLEND = 0x00080000;
+        public static UIElement FadeFromTo(this UIElement uiElement,
+            double fromOpacity, double toOpacity,
+            int durationInMilliseconds, bool loopAnimation, bool showOnStart, bool collapseOnFinish)
+        {
+            var timeSpan = TimeSpan.FromMilliseconds(durationInMilliseconds);
+            var doubleAnimation =
+                new DoubleAnimation(fromOpacity, toOpacity,
+                    new Duration(timeSpan));
+            if (loopAnimation)
+                doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            uiElement.BeginAnimation(UIElement.OpacityProperty, doubleAnimation);
+            if (showOnStart)
+            {
+                uiElement.ApplyAnimationClock(UIElement.VisibilityProperty, null);
+                uiElement.Visibility = Visibility.Visible;
+            }
+
+            if (collapseOnFinish)
+            {
+                var keyAnimation = new ObjectAnimationUsingKeyFrames {Duration = new Duration(timeSpan)};
+                keyAnimation.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed,
+                    KeyTime.FromTimeSpan(timeSpan)));
+                uiElement.BeginAnimation(UIElement.VisibilityProperty, keyAnimation);
+            }
+
+            return uiElement;
+        }
+
+        public static UIElement FadeIn(this UIElement uiElement, int durationInMilliseconds)
+        {
+            return uiElement.FadeFromTo(0, 1, durationInMilliseconds, false, true, false);
+        }
+
+        public static UIElement FadeOut(this UIElement uiElement, int durationInMilliseconds)
+        {
+            return uiElement.FadeFromTo(1, 0, durationInMilliseconds, false, false, true);
+        }
     }
 }

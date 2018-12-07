@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows;
+using System.Windows.Forms;
 using MojoUnity;
+using WinFormMessageBox = System.Windows.Forms.MessageBox;
 
 namespace AuroraGUI
 {
@@ -39,8 +39,10 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 MyTools.BgwLog("Try Connect:" + e);
-                return MessageBox.Show("Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: "
-                                       + e.Message,"错误",MessageBoxButton.OKCancel) == MessageBoxResult.OK ? GetLocIp() : "192.168.0.1";
+                return WinFormMessageBox.Show(
+                           "Error: 尝试连接远端 DNS over HTTPS 服务器发生错误\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: "
+                           + e.Message, @"错误", MessageBoxButtons.OKCancel) == DialogResult.OK
+                    ? GetLocIp() : "192.168.0.1";
             }
         }
 
@@ -56,8 +58,9 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 MyTools.BgwLog("Try Connect:" + e);
-                return MessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: " 
-                                       + e.Message, "错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK ? GetIntIp() : IPAddress.Any.ToString();
+                return WinFormMessageBox.Show("Error: 尝试获取公网IP地址失败\n\r点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。\n\rOriginal error: "
+                                              + e.Message, @"错误", MessageBoxButtons.OKCancel) == DialogResult.OK
+                    ? GetIntIp() : IPAddress.Any.ToString();
             }
         }
 

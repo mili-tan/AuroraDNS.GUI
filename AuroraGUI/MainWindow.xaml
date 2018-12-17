@@ -39,10 +39,9 @@
             <DockPanel>
                 <TextBlock
                     VerticalAlignment="Center" HorizontalAlignment="Center" 
-                    FontSize="18" FontWeight="Bold"
-                    FontFamily="Microsoft YaHei UI"
-                    DockPanel.Dock="Left">
-                    AURORA DNS
+                    FontSize="20" FontWeight="Medium"
+                    DockPanel.Dock="Left" Margin="0,0,0,-0.8" >
+                    <Italic>A</Italic>uroraDNS
                 </TextBlock>
 
                 <ToggleButton x:Name="DnsEnable"

@@ -35,7 +35,7 @@
 
                 <Image Grid.Row="0" Margin="16 16 16 4" Height="50" Width="50" HorizontalAlignment="Left" Source="Aurora.png"/>
                 <TextBlock Grid.Row="0" Margin="70,25,14,15" VerticalAlignment="Center"
-                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" Foreground="#FF333333"><Run Text="AuroraDNS"/></TextBlock>
+                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" Foreground="#FF333333" FontFamily="Roboto"><Italic>A</Italic>uroraDNS</TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="2" Margin="16 0 16 8" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 

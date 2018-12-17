@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Win32;
 using MojoUnity;
@@ -76,9 +78,9 @@ namespace AuroraGUI
 
         public static void CheckUpdate(string filePath)
         {
-            var assets = Json.Parse(new WebClient() { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } }.DownloadString(
-                    "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest"))
-                .AsObjectGetArray("assets");
+            var jsonStr = Regex.Replace(Encoding.UTF8.GetString(new WebClient { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } }.DownloadData(
+                "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest")), @"[\u4e00-\u9fa5|\u3002|\uff0c]", "");
+            var assets = Json.Parse(jsonStr).AsObjectGetArray("assets");
             var fileTime = File.GetLastWriteTime(filePath);
             string downloadUrl = assets[0].AsObjectGetString("browser_download_url");
 

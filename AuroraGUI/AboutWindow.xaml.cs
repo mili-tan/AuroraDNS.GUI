@@ -22,9 +22,7 @@ namespace AuroraGUI
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
             => Process.Start($"https://dns.mili.one");
 
-        private void Hyperlink_OnClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        private void Hyperlink_OnClick(object sender, RoutedEventArgs e) 
+            => Process.Start($"https://dns.mili.one");
     }
 }

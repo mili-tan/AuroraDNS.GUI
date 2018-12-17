@@ -77,7 +77,7 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
-        <TextBlock Margin="0,305,5.6,0" 
+        <TextBlock Margin="0,307,5.6,0" 
             VerticalAlignment="Top" Foreground="#BBB" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20">
             Made With ❤ By Milkey Tan. | <Hyperlink Click="Hyperlink_OnClick" NavigateUri="http://milione.cc">支持我</Hyperlink>
         </TextBlock>

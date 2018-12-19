@@ -44,7 +44,6 @@ namespace AuroraGUI
                 EDnsIp = IPAddress.Parse(configJson.AsObjectGetString("EDnsClientIp"));
             if (ProxyEnable)
                 WProxy = new WebProxy(configJson.AsObjectGetString("Proxy"));
-
         }
 
         public static void ReadBlackList(string path = "black.list")

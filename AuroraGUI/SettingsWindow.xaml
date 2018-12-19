@@ -226,5 +226,9 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
+        <Button Click="Expert_OnClick" 
+            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+            Margin="0,0,310.2,628.8" Height="Auto" Width="133">
+        </Button>
     </Grid>
 </Window>

@@ -230,5 +230,10 @@ namespace AuroraGUI
         {
             new SpeedWindow(true).Show();
         }
+
+        private void Expert_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ExpertWindow().Show();
+        }
     }
 }

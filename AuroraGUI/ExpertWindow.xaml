@@ -19,18 +19,18 @@
             <Label Grid.Column="0"  Content="Expert Mode" HorizontalAlignment="Center" Margin="-42,78,-45,0" FontSize="24"
                 VerticalAlignment="Top" Width="574" HorizontalContentAlignment="Center" Height="38"/>
             <Label Grid.Column="0" HorizontalAlignment="Center" Margin="-41,121,-43,0" FontSize="16"
-                VerticalAlignment="Top" Width="574" HorizontalContentAlignment="Center" Height="30" Content="这里是一些不稳定的实验特征和被隐藏的高级参数"/>
+                VerticalAlignment="Top" Width="574" HorizontalContentAlignment="Center" Height="30" Content="这里是一些不稳定的实验特征和被隐藏的高级设置"/>
             <Label Grid.Column="0" HorizontalAlignment="Center" Margin="-42,153,-42,0" FontSize="14"
                 VerticalAlignment="Top" Foreground="LightSalmon" Width="574" HorizontalContentAlignment="Center" Height="32" Content="【如果您不知道这是什么，请不要进行任何更改】"/>
         </Grid>
         <Label Grid.Column="0" HorizontalAlignment="Center" Margin="0,651,0,0" FontSize="14"
             VerticalAlignment="Top" Foreground="LightCoral" Width="282" HorizontalContentAlignment="Center" Height="30" Content="【请注意您任何改动都将导致失去质量保证】" Grid.ColumnSpan="2" />
-        <materialDesign:Card IsEnabled="False"  materialDesign:ShadowAssist.ShadowDepth="Depth0"
+        <materialDesign:Card Name="Card" IsEnabled="False"  materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Padding="0" Background="#FFFFFF" Opacity="0.6"
             Margin="5,125,5,0" Grid.ColumnSpan="2" Grid.Column="0" Height="521">
             <Grid>
                 <Grid.Effect>
-                    <BlurEffect Radius="7.5"/>
+                    <BlurEffect Radius="0"/>
                 </Grid.Effect>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -52,34 +52,33 @@
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" Height="0.1"/>
                 <TextBlock Grid.Row="2" Margin="16,6,0,4" 
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认记录日志"/></TextBlock>
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton x:Name="Log" 
-                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        VerticalAlignment="Center" Margin="0,5,0,-5" />
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="导入自定义 DNS over HTTPS 接口列表"/></TextBlock>
+                <StackPanel Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5.8,16,9.8" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2">
+                    <Button 
+                        HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Margin="0,-8,7,0" Height="Auto">
+                        <materialDesign:PackIcon Kind="FolderOpen" ToolTip="导入" Height="24" Width="21" />
+                    </Button>
                 </StackPanel>
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
-                    Style="{StaticResource MaterialDesignBody2TextBlock}" ><Run Text="登录时自启动（需要管理员权限运行）"/></TextBlock>
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <Button x:Name="RunAsAdmin" Visibility="Collapsed"
-                        HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                        Margin="0,2,0,-8.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="ShieldOutline" ToolTip="以管理员权限运行" />
+                    Style="{StaticResource MaterialDesignBody2TextBlock}" ><Run Text="导入自定义辅 DNS 服务器列表"/></TextBlock>
+                <StackPanel Grid.Row="4" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5.8,16,9.8" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2">
+                    <Button 
+                        HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Margin="0,-8,7,0" Height="Auto">
+                        <materialDesign:PackIcon Kind="FolderOpen" ToolTip="导入" Height="24" Width="21" />
                     </Button>
-                    <ToggleButton x:Name="RunWithStart" 
-                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="6" Margin="16,6,0,4" 
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="黑名单"/></TextBlock>
+                    Style="{StaticResource MaterialDesignBody2TextBlock}">忽略 TLS 证书安全性问题 (强烈不建议)</TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton x:Name="BlackList" IsEnabled="False"
+                    <ToggleButton IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                         Margin="0,5,0,-5"  />
                 </StackPanel>
@@ -87,14 +86,23 @@
                 <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="8" Margin="16,5,0,14" 
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="重定向名单"/></TextBlock>
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="PRChina 名单 (将使用 DNSPOD D+ HTTPDNS 解析)"/></TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton x:Name="WhiteList" IsEnabled="False"
+                    <ToggleButton IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           />
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
+        <materialDesign:Snackbar x:Name="Snackbar"
+            IsActive="False" VerticalAlignment="Center" VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center" Opacity="0.75" Background="Black" Width="365" Grid.ColumnSpan="2"
+                                 Grid.Column="0" Margin="40,0">
+            <materialDesign:SnackbarMessage
+                    Content="请注意,这将导致失去质量保证！" Foreground="LightCoral"
+                    ActionContent="我明白了" ActionClick="SnackbarMessage_OnActionClick"
+                />
+        </materialDesign:Snackbar>
 
     </Grid>
 </Window>

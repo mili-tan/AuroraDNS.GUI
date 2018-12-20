@@ -94,8 +94,8 @@ namespace AuroraGUI
             Visibility = Visibility.Hidden;
             WindowBlur.SetEnabled(this, true);
             var desktopWorkingArea = SystemParameters.WorkArea;
-            Left = desktopWorkingArea.Right - Width - 5;
-            Top = desktopWorkingArea.Bottom - Height - 5;
+            Left = desktopWorkingArea.Right - Width - 1;
+            Top = desktopWorkingArea.Bottom - Height - 0;
 
             FadeIn(0.50);
             Visibility = Visibility.Visible;

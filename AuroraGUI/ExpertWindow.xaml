@@ -24,7 +24,7 @@
                 VerticalAlignment="Top" Foreground="LightSalmon" Width="574" HorizontalContentAlignment="Center" Height="32" Content="【如果您不知道这是什么，请不要进行任何更改】"/>
         </Grid>
         <Label Grid.Column="0" HorizontalAlignment="Center" Margin="0,651,0,0" FontSize="14"
-            VerticalAlignment="Top" Foreground="LightCoral" Width="282" HorizontalContentAlignment="Center" Height="30" Content="【请注意您任何改动都将导致失去质量保证】" Grid.ColumnSpan="2" />
+            VerticalAlignment="Top" Foreground="LightCoral" Width="282" HorizontalContentAlignment="Center" Height="30" Content="【请注意,您任何改动都将导致失去质量保证】" Grid.ColumnSpan="2" />
         <materialDesign:Card Name="Card" IsEnabled="False"  materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Padding="0" Background="#FFFFFF" Opacity="0.6"
             Margin="5,125,5,0" Grid.ColumnSpan="2" Grid.Column="0" Height="521">

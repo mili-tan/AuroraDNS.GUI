@@ -159,12 +159,7 @@ namespace AuroraGUI
                            Environment.NewLine +
                            "辅DNS:" + DnsSettings.SecondDnsIp
                 });
-
-                if (MyTools.IsNslookupLocDns())
-                    IsSysDns.ToolTip = "已设为系统 DNS";
-                else
-                    IsSysDns.ToolTip = "设为系统 DNS";
-                
+                IsSysDns.ToolTip = "已设为系统 DNS";
             }
             else
             {
@@ -185,11 +180,7 @@ namespace AuroraGUI
             {
                 SysDnsSet.ResetDns();
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已将 DNS 重置为自动获取" });
-
-                if (MyTools.IsNslookupLocDns())
-                    IsSysDns.ToolTip = "已设为系统 DNS";
-                else
-                    IsSysDns.ToolTip = "设为系统 DNS";
+                IsSysDns.ToolTip = "设为系统 DNS";
             }
         }
 

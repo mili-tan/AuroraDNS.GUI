@@ -71,11 +71,11 @@
                 <TextBlock Grid.Row="2" Margin="16,5.6,0,2.2" 
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
                     Style="{StaticResource MaterialDesignBody2TextBlock}" Grid.ColumnSpan="4" Grid.Column="0"><Run Text="导入自定义 DNS over HTTPS 接口列表"/></TextBlock>
-                <StackPanel Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,2.6,16.4,7.4" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2" Grid.Column="4">
+                <StackPanel Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,16.4,7.4" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2" Grid.Column="4">
                     <Button 
                         HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                         Margin="0,-8,7,0" Height="Auto">
-                        <materialDesign:PackIcon Kind="FolderOpen" ToolTip="导入" Height="24" Width="21" />
+                        <materialDesign:PackIcon Kind="FolderOpen" ToolTip="导入" Height="25" Width="21" />
                     </Button>
                 </StackPanel>
 
@@ -113,9 +113,10 @@
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   Margin="0,5,0,-5"  />
                 </StackPanel>
-                <Separator Grid.Row="9" Style="{StaticResource MaterialDesignSeparator}" Grid.ColumnSpan="5" Margin="0,2.2,0.4,22.6" Grid.RowSpan="2" />
+                <Separator Grid.Row="9" Style="{StaticResource MaterialDesignSeparator}" Grid.ColumnSpan="5"
+                           Grid.Column="0" Margin="0,2.2,0.4,22.6" Grid.RowSpan="2" />
 
-                <TextBlock Grid.Row="10" Margin="16,5.2,0,2.6" 
+                <TextBlock Grid.Row="10" Grid.Column="0" Margin="16,5.2,0,2.6" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">导入 PRChina 域名列表</TextBlock>
                 <StackPanel Grid.Row="10" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,4.2,16.4,6.6" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2" Grid.Column="4">

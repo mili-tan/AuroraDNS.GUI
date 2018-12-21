@@ -24,6 +24,7 @@ namespace AuroraGUI
     /// </summary>
     public partial class MainWindow
     {
+        public static string SetupBasePath = CurrentDomain.SetupInformation.ApplicationBase;
         public static IPAddress IntIPAddr;
         public static IPAddress LocIPAddr;
         private static NotifyIcon NotifyIcon;
@@ -33,22 +34,20 @@ namespace AuroraGUI
         {
             InitializeComponent();
 
-            string setupBasePath = CurrentDomain.SetupInformation.ApplicationBase;
-
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             WindowStyle = WindowStyle.SingleBorderWindow;
 
-            if (File.Exists($"{setupBasePath}config.json"))
-                DnsSettings.ReadConfig($"{setupBasePath}config.json");
+            if (File.Exists($"{SetupBasePath}config.json"))
+                DnsSettings.ReadConfig($"{SetupBasePath}config.json");
 
-            if (DnsSettings.BlackListEnable && File.Exists($"{setupBasePath}black.list"))
-                DnsSettings.ReadBlackList($"{setupBasePath}black.list");
+            if (DnsSettings.BlackListEnable && File.Exists($"{SetupBasePath}black.list"))
+                DnsSettings.ReadBlackList($"{SetupBasePath}black.list");
 
-            if (DnsSettings.WhiteListEnable && File.Exists($"{setupBasePath}white.list"))
-                DnsSettings.ReadWhiteList($"{setupBasePath}white.list");
+            if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}white.list"))
+                DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
 
-            if (DnsSettings.WhiteListEnable && File.Exists($"{setupBasePath}rewrite.list"))
-                DnsSettings.ReadWhiteList($"{setupBasePath}rewrite.list");
+            if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
+                DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
@@ -70,10 +69,10 @@ namespace AuroraGUI
             WinFormMenuItem notepadLogItem = new WinFormMenuItem("查阅日志", (sender, args) =>
             {
                 if (File.Exists(
-                    $"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log")
+                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log")
                 )
                     Process.Start(new ProcessStartInfo("notepad.exe",
-                        $"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log"));
+                        $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log"));
             });
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
@@ -111,7 +110,7 @@ namespace AuroraGUI
                 if (MyTools.IsNslookupLocDns())
                     IsSysDns.ToolTip = "已设为系统 DNS";
 
-                if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}config.json"))
+                if (File.Exists($"{SetupBasePath}config.json"))
                     WindowState = WindowState.Minimized;
                 
             }

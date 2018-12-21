@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Win32;
 using MojoUnity;
-using static System.AppDomain;
 
 namespace AuroraGUI
 {
@@ -26,7 +25,7 @@ namespace AuroraGUI
                     {
                         Directory.CreateDirectory("Log");
                     }
-                    File.AppendAllText($"{CurrentDomain.SetupInformation.ApplicationBase}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
+                    File.AppendAllText($"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
                 };
 
                 worker.RunWorkerAsync();

@@ -72,7 +72,7 @@
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
                     Style="{StaticResource MaterialDesignBody2TextBlock}" Grid.ColumnSpan="4" Grid.Column="0"><Run Text="导入自定义 DNS over HTTPS 接口列表"/></TextBlock>
                 <StackPanel Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,16.4,7.4" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2" Grid.Column="4">
-                    <Button 
+                    <Button Click="ButtonReadDoHList_OnClick"
                         HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                         Margin="0,-8,7,0" Height="Auto">
                         <materialDesign:PackIcon Kind="FolderOpen" ToolTip="导入" Height="25" Width="21" />

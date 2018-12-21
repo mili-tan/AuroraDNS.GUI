@@ -43,16 +43,16 @@ namespace AuroraGUI
             else
                 RunWithStart.IsEnabled = false;
 
-            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}black.list"))
+            if (File.Exists($"{MainWindow.SetupBasePath}black.list"))
                 BlackList.IsEnabled = true;
-            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}white.list"))
+            if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
                 WhiteList.IsEnabled = true;
 
-            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}doh.list"))
-                foreach (var item in File.ReadAllLines($"{CurrentDomain.SetupInformation.ApplicationBase}doh.list"))
+            if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
+                foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
                     DoHUrlText.Items.Add(item);
-            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}dns.list"))
-                foreach (var item in File.ReadAllLines($"{CurrentDomain.SetupInformation.ApplicationBase}dns.list"))
+            if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
+                foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
                     BackupDNS.Items.Add(item);
 
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
@@ -94,7 +94,7 @@ namespace AuroraGUI
                 else
                     DnsSettings.WProxy = new WebProxy("127.0.0.1:80");
 
-                File.WriteAllText($"{CurrentDomain.SetupInformation.ApplicationBase}config.json",
+                File.WriteAllText($"{MainWindow.SetupBasePath}config.json",
                     "{\n  " +
                     $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n  " +
                     $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n  " +
@@ -130,7 +130,7 @@ namespace AuroraGUI
                         Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
                     else
                     {
-                        File.Copy(openFileDialog.FileName, $"{CurrentDomain.SetupInformation.ApplicationBase}black.list");
+                        File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}black.list");
                         Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
                     }
                 }
@@ -140,7 +140,7 @@ namespace AuroraGUI
                 }
             }
 
-            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}black.list"))
+            if (File.Exists($"{MainWindow.SetupBasePath}black.list"))
                 BlackList.IsEnabled = true;
         }
 
@@ -160,7 +160,7 @@ namespace AuroraGUI
                         Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
                     else
                     {
-                        File.Copy(openFileDialog.FileName, $"{CurrentDomain.SetupInformation.ApplicationBase}white.list");
+                        File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}white.list");
                         Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
                     }
                 }
@@ -170,7 +170,7 @@ namespace AuroraGUI
                 }
             }
 
-            if (File.Exists($"{CurrentDomain.SetupInformation.ApplicationBase}white.list"))
+            if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
                 WhiteList.IsEnabled = true;
         }
 

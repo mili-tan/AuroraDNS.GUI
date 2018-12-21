@@ -24,14 +24,11 @@ namespace AuroraGUI
             IPAddress clientAddress = e.RemoteEndpoint.Address;
             if (DnsSettings.EDnsCustomize)
                 if (Equals(DnsSettings.EDnsIp, IPAddress.Parse("0.0.0.1")))
-                {
                     clientAddress = IPAddress.Parse(MainWindow.IntIPAddr.ToString().Substring(0,
                                                          MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) +".0");
-                }
                 else
-                {
                     clientAddress = DnsSettings.EDnsIp;
-                }
+                
             else if (Equals(clientAddress, IPAddress.Loopback) ||
                      IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
                 clientAddress = MainWindow.IntIPAddr;
@@ -48,9 +45,7 @@ namespace AuroraGUI
                     response.ReturnCode = ReturnCode.NoError;
 
                     if (DnsSettings.DebugLog)
-                    {
                         MyTools.BgwLog($@"| {DateTime.Now} {clientAddress} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
-                    }
 
                     if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
@@ -58,9 +53,7 @@ namespace AuroraGUI
                         ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
                         response.AnswerRecords.Add(blackRecord);
                         if (DnsSettings.DebugLog)
-                        {
                             MyTools.BgwLog(@"|- BlackList");
-                        }
                     }
 
                     else if (DnsSettings.WhiteListEnable && WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
@@ -69,9 +62,7 @@ namespace AuroraGUI
                         ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
                         response.AnswerRecords.Add(blackRecord);
                         if (DnsSettings.DebugLog)
-                        {
                             MyTools.BgwLog(@"|- WhiteList");
-                        }
                     }
 
                     else
@@ -83,16 +74,10 @@ namespace AuroraGUI
                                 dnsQuestion.Name.ToString(),
                                 DnsSettings.ProxyEnable, DnsSettings.WProxy, dnsQuestion.RecordType);
                             if (resolvedDnsList != null && resolvedDnsList != new List<dynamic>())
-                            {
                                 foreach (var item in resolvedDnsList)
-                                {
                                     response.AnswerRecords.Add(item);
-                                }
-                            }
                             else
-                            {
                                 response.ReturnCode = (ReturnCode) statusCode;
-                            }
                         }
                         catch (Exception ex)
                         {

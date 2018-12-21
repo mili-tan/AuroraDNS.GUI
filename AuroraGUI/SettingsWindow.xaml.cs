@@ -9,7 +9,6 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-using static System.AppDomain;
 
 // ReSharper disable LocalizableElement
 

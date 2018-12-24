@@ -122,7 +122,7 @@
                 <StackPanel Grid.Row="10" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,4.2,16.4,6.6" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2" Grid.Column="4">
                     <Button 
                         HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                        Margin="0,-8,7,0" Height="Auto">
+                        Margin="0,-8,7,0" Height="Auto" Click="ReadChinaListButton_OnClick">
                         <materialDesign:PackIcon Kind="FolderOpen" ToolTip="导入" Height="24" Width="21" />
                     </Button>
                 </StackPanel>

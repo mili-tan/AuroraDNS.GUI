@@ -7,13 +7,13 @@ using System.Windows;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("AuroraGUI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("AuroraDNS.GUI")]
+[assembly: AssemblyDescription("纯净抗污染，简单轻量级")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AuroraGUI")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Milkey Tan")]
+[assembly: AssemblyProduct("AuroraDNS.GUI")]
+[assembly: AssemblyCopyright("Copyright © Milkey Tan. All Rights Reserved.")]
+[assembly: AssemblyTrademark("AuroraDNS")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型

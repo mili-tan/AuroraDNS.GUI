@@ -34,7 +34,6 @@ namespace AuroraGUI
         {
             InitializeComponent();
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             WindowStyle = WindowStyle.SingleBorderWindow;
 
             if (File.Exists($"{SetupBasePath}config.json"))
@@ -48,6 +47,29 @@ namespace AuroraGUI
 
             if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
                 DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            #pragma warning disable CS0162 //未实装
+            if (false)
+                ServicePointManager.ServerCertificateValidationCallback +=
+                    (sender, cert, chain, sslPolicyErrors) => true;
+
+            switch (1.2F)
+            {
+                case 1:
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+                    break;
+                case 1.1F:
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
+                    break;
+                case 1.2F:
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    break;
+                default:
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    break;
+            }
+            #pragma warning restore CS0162
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());

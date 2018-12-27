@@ -72,8 +72,8 @@ namespace AuroraGUI
             var bgWorker = new BackgroundWorker();
             bgWorker.DoWork += (o, args) =>
             {
-                mListStrings = new WebClient().DownloadString(TypeDNS ? "https://dns.mili.one/DNS.list" 
-                    : "https://dns.mili.one/DoH.list").Split('\n').ToList();
+                mListStrings = new WebClient().DownloadString(TypeDNS ? "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list"
+                    : "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list").Split('\n').ToList();
                 if (string.IsNullOrWhiteSpace(mListStrings[mListStrings.Count - 1]))
                     mListStrings.RemoveAt(mListStrings.Count - 1);
             };

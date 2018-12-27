@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" ResizeMode="CanMinimize"
-        Title="设置" Height="670" Width="450" Background="#F1F1F1"
-        MinHeight="660" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+        Title="设置" Height="640" Width="450" Background="#F1F1F1"
+        MinHeight="640" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
     <Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="12,12,10.2,0">
+                             Margin="12,12,12,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -88,7 +88,7 @@
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="12,199,10.2,0">
+                             Margin="12,388,12,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -156,24 +156,24 @@
 
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
-            ToolTip="保存设置" Margin="350,590,20,15.8" >
+            ToolTip="保存设置" Margin="362,560,13.5,16" >
             保存
         </Button>
 
         <Button Click="BlackListButton_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
-            Margin="25,590,310,15.8" Content="导入黑名单" Foreground="#FFCB4B16" />
+            Margin="14,560,319.2,15.4" Content="导入黑名单" Foreground="#FFCB4B16" />
         <Button Click="WhiteListButton_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
-            Margin="115,590,215,15.8" Content="重定向名单" Foreground="#FF599A07" />
+            Margin="114,560,219.2,15.4" Content="重定向名单" Foreground="#FF599A07" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
                                  HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">
         </materialDesign:Snackbar>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="12,115,10.2,0">
-            <Grid>
+                             Margin="12,220,12,0">
+            <Grid Margin="1,0,-1.2,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="15" />

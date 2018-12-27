@@ -18,12 +18,12 @@
             </Grid.Effect>
         </Grid>
 
-        <Label Content="关于AuroraDNS GUI" HorizontalAlignment="Left" Margin="25,10,0,0" 
+        <Label Content="关于AuroraDNS GUI" HorizontalAlignment="Left" Margin="20,10,0,0" 
                VerticalAlignment="Top" Foreground="#616161"/>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="12,22,12,10"
+                             Margin="15,50,15,0"
                              >
             <Grid>
                 <Grid.RowDefinitions>
@@ -52,7 +52,7 @@
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="12,92,11.6,0">
+                             Margin="15,190,15,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

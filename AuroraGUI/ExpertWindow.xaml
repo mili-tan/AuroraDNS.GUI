@@ -27,7 +27,7 @@
             VerticalAlignment="Top" Foreground="LightCoral" Width="341" HorizontalContentAlignment="Center" Height="30" Content="【请注意,您的改动可能将导致失去质量保证】" Grid.ColumnSpan="2" />
         <materialDesign:Card Name="Card"   materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Padding="0" Background="#FFFFFF" Opacity="0.6"
-            Margin="5,125,5,0" Grid.ColumnSpan="2" Grid.Column="0" Height="530">
+            Margin="5,245,5,0" Grid.ColumnSpan="2" Grid.Column="0" Height="411">
             <Grid Margin="0,1,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="211*"/>

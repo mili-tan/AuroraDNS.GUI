@@ -52,7 +52,7 @@ namespace AuroraGUI
                 //Thread.CurrentThread.CurrentCulture.Name == "zh-CN"
                 return TimeZoneInfo.Local.Id.Contains("China Standard Time")
                     ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim()
-                    : new WebClient().DownloadString("https://api.ipify.org").Trim();
+                    : new WebClient().DownloadString("http://whatismyip.akamai.com/").Trim();
             }
             catch (Exception e)
             {

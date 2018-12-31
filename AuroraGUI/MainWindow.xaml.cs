@@ -111,6 +111,9 @@ namespace AuroraGUI
                 });
 
             NotifyIcon.DoubleClick += MinimizedNormal;
+
+            if (MyTools.IsNslookupLocDns())
+                IsSysDns.ToolTip = "已设为系统 DNS";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -132,12 +135,8 @@ namespace AuroraGUI
 
                 DnsEnable.IsChecked = true;
 
-                if (MyTools.IsNslookupLocDns())
-                    IsSysDns.ToolTip = "已设为系统 DNS";
-
                 if (File.Exists($"{SetupBasePath}config.json"))
                     WindowState = WindowState.Minimized;
-                
             }
             else
             {

@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace EasyChecker
+namespace AuroraGUI.Tools
 {
     static class Ping
     {

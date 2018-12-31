@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using EasyChecker;
+using AuroraGUI.DnsSvr;
+using AuroraGUI.Tools;
 
 namespace AuroraGUI
 {
@@ -13,8 +14,9 @@ namespace AuroraGUI
     /// </summary>
     public partial class SpeedWindow
     {
-        List<string> mListStrings;
+        List<string> ListStrings;
         private bool TypeDNS;
+
         public SpeedWindow(bool typeDNS = false)
         {
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace AuroraGUI
                     {
                         bgWorker.ReportProgress(i++,
                             new SpeedList
-                                {Server = item.Server, DelayTime = "PASS", ASN = IpTools.GeoIpLocal(item.Server)});
+                                {Server = item.Server, DelayTime = "PASS", Asn = IpTools.GeoIpLocal(item.Server)});
                         continue;
                     }
 
@@ -51,13 +53,13 @@ namespace AuroraGUI
                             delayTime = Ping.Tcping(item.Server, 53).Average();
                     }
                     else
-                        delayTime = Ping.Curl(mListStrings[i], item.Server).Average();
+                        delayTime = Ping.Curl(ListStrings[i], item.Server).Average();
 
                     bgWorker.ReportProgress(i++,
                         new SpeedList
                         {
                             Server = item.Server, DelayTime = delayTime.ToString("0ms"),
-                            ASN = IpTools.GeoIpLocal(item.Server)
+                            Asn = IpTools.GeoIpLocal(item.Server)
                         });
                 }
             };
@@ -72,14 +74,14 @@ namespace AuroraGUI
             var bgWorker = new BackgroundWorker();
             bgWorker.DoWork += (o, args) =>
             {
-                mListStrings = new WebClient().DownloadString(TypeDNS ? "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list"
+                ListStrings = new WebClient().DownloadString(TypeDNS ? "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list"
                     : "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list").Split('\n').ToList();
-                if (string.IsNullOrWhiteSpace(mListStrings[mListStrings.Count - 1]))
-                    mListStrings.RemoveAt(mListStrings.Count - 1);
+                if (string.IsNullOrWhiteSpace(ListStrings[ListStrings.Count - 1]))
+                    ListStrings.RemoveAt(ListStrings.Count - 1);
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                foreach (var item in mListStrings)
+                foreach (var item in ListStrings)
                     SpeedListView.Items.Add(!TypeDNS
                         ? new SpeedList {Server = item.Split('/', ':')[3]}
                         : new SpeedList {Server = item});
@@ -88,11 +90,12 @@ namespace AuroraGUI
             bgWorker.RunWorkerAsync();
         }
     }
+
+    // ReSharper disable UnusedAutoPropertyAccessor.Global
     public class SpeedList
     {
         public string Server { get; set; }
         public string DelayTime { get; set; }
-        public string ASN { get; set; }
-
+        public string Asn { get; set; }
     }
 }

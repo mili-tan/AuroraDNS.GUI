@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace AuroraGUI
+namespace AuroraGUI.Fx
 {
     static class WindowFx
     {

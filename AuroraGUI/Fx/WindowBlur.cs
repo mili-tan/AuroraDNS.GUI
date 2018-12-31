@@ -2,9 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
-using AuroraGUI.Native;
+using AuroraGUI.Fx.Native;
 
-namespace AuroraGUI
+namespace AuroraGUI.Fx
 {
         public class WindowBlur
         {

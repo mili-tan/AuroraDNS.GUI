@@ -4,12 +4,14 @@ using System.Net;
 using System.Threading.Tasks;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
+using AuroraGUI.Tools;
 using MojoUnity;
+
 // ReSharper disable CollectionNeverUpdated.Global
 #pragma warning disable 649
 #pragma warning disable 1998
 
-namespace AuroraGUI
+namespace AuroraGUI.DnsSvr
 {
     static class QueryResolve
     {

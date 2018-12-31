@@ -11,7 +11,7 @@ using System.Windows;
 using Microsoft.Win32;
 using MojoUnity;
 
-namespace AuroraGUI
+namespace AuroraGUI.Tools
 {
     static class MyTools
     {
@@ -43,23 +43,23 @@ namespace AuroraGUI
 
         public static void SetRunWithStart(bool started, string name, string path)
         {
-            RegistryKey Reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+            RegistryKey reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
             if (started)
             {
-                Reg.SetValue(name,path);
+                reg.SetValue(name,path);
             }
             else
             {
-                Reg.DeleteValue(name);
+                reg.DeleteValue(name);
             }
         }
 
         public static bool GetRunWithStart(string name)
         {
-            RegistryKey Reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+            RegistryKey reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
             try
             {
-                return !string.IsNullOrWhiteSpace(Reg.GetValue(name).ToString());
+                return !string.IsNullOrWhiteSpace(reg.GetValue(name).ToString());
             }
             catch
             {
@@ -69,10 +69,10 @@ namespace AuroraGUI
 
         public static bool IsNslookupLocDns()
         {
-            var p = Process.Start(new ProcessStartInfo("nslookup.exe", "sjtu.edu.cn")
+            var process = Process.Start(new ProcessStartInfo("nslookup.exe", "sjtu.edu.cn")
                 {UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true});
-            p.WaitForExit();
-            return p.StandardOutput.ReadToEnd().Contains("127.0.0.1");
+            process.WaitForExit();
+            return process.StandardOutput.ReadToEnd().Contains("127.0.0.1");
         }
 
         public static void CheckUpdate(string filePath)
@@ -90,6 +90,7 @@ namespace AuroraGUI
                 MessageBox.Show($"当前AuroraDNS.GUI({fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")})已是最新版本,无需更新。");
         }
 
+        // ReSharper disable once UnusedMember.Global
         public static string IsoCountryCodeToFlagEmoji(string country)
         {
             return string.Concat(country.ToUpper().Select(x => char.ConvertFromUtf32(x + 0x1F1A5)));

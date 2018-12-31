@@ -28,7 +28,7 @@
                                 DisplayMemberBinding="{Binding Server}"
                                 Header="地址" Width="150" />
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding ASN}"
+                                DisplayMemberBinding="{Binding Asn}"
                                 Header="位址 / ASN" Width="300" />
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding DelayTime}"

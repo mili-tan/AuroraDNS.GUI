@@ -8,6 +8,8 @@ using System.Net;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
+using AuroraGUI.DnsSvr;
+using AuroraGUI.Tools;
 using Microsoft.Win32;
 
 // ReSharper disable LocalizableElement

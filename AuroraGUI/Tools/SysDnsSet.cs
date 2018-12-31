@@ -1,15 +1,17 @@
 ﻿using System.Management;
+
 #pragma warning disable IDE0044
 
-namespace AuroraGUI
+namespace AuroraGUI.Tools
 {
     static class SysDnsSet
     {
-        private static ManagementClass mgClass = new ManagementClass("Win32_NetworkAdapterConfiguration"); 
-        private static ManagementObjectCollection mgCollection = mgClass.GetInstances();
+        private static readonly ManagementClass MgClass = new ManagementClass("Win32_NetworkAdapterConfiguration"); 
+        private static readonly ManagementObjectCollection MgCollection = MgClass.GetInstances();
+
         public static void SetDns(string dnsAddr,string backupDnsAddr)
         {
-            foreach (var item in mgCollection)
+            foreach (var item in MgCollection)
             {
                 var mgObjItem = (ManagementObject)item;
                 if (!(bool)mgObjItem["IPEnabled"])
@@ -24,7 +26,7 @@ namespace AuroraGUI
 
         public static void ResetDns()
         {
-            foreach (var item in mgCollection)
+            foreach (var item in MgCollection)
             {
                 var mgObjItem = (ManagementObject)item;
                 if (!(bool)mgObjItem["IPEnabled"])

@@ -1,4 +1,5 @@
 ![AuroraDNS](https://i.loli.net/2018/09/11/5b9760bab2f18.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI?ref=badge_shield)
 
 ------
 
@@ -42,3 +43,6 @@
 ## License
 
 Copyright (c) 2018 Milkey Tan. Code released under the [MIT License](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/LICENSE). 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI?ref=badge_large)

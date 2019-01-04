@@ -181,8 +181,20 @@ namespace AuroraGUI
             var bgWorker = new BackgroundWorker();
             bgWorker.DoWork += (o, args) =>
             {
-                dohListStrings = new WebClient().DownloadString("https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list").Split('\n').ToList();
-                dnsListStrings = new WebClient().DownloadString("https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list").Split('\n').ToList();
+                try
+                {
+                    dohListStrings = new WebClient()
+                        .DownloadString("https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list")
+                        .Split('\n').ToList();
+                    dnsListStrings = new WebClient()
+                        .DownloadString("https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list")
+                        .Split('\n').ToList();
+                }
+                catch (Exception exception)
+                {
+                    MyTools.BgwLog(@"| Download list failed : " + exception);
+                }
+
                 if (string.IsNullOrWhiteSpace(dohListStrings[dohListStrings.Count - 1]))
                     dohListStrings.RemoveAt(dohListStrings.Count - 1);
                 if (string.IsNullOrWhiteSpace(dnsListStrings[dnsListStrings.Count - 1]))

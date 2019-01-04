@@ -98,7 +98,7 @@ namespace AuroraGUI.DnsSvr
         private static (List<dynamic> list, int statusCode) ResolveOverHttps(string clientIpAddress, string domainName,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
-            string dnsStr;
+            string dnsStr = null;
             List<dynamic> recordList = new List<dynamic>();
 
             using (WebClient webClient = new WebClient())
@@ -108,10 +108,26 @@ namespace AuroraGUI.DnsSvr
                 if (proxyEnable)
                     webClient.Proxy = wProxy;
 
-                dnsStr = webClient.DownloadString(
-                    DnsSettings.HttpsDnsUrl +
-                    @"?ct=application/dns-json&" +
-                    $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
+                try
+                {
+                    dnsStr = webClient.DownloadString(
+                        DnsSettings.HttpsDnsUrl +
+                        @"?ct=application/dns-json&" +
+                        $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
+                }
+                catch (WebException e)
+                {
+                    HttpWebResponse response = (HttpWebResponse)e.Response;
+                    try
+                    {
+                        MyTools.BgwLog(
+                            $@"| Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode}");
+                    }
+                    catch (Exception exception)
+                    {
+                        MyTools.BgwLog($@"| Catch WebException : {exception.Message}");
+                    }
+                }
             }
 
             JsonValue dnsJsonValue = Json.Parse(dnsStr);

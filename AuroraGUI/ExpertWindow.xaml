@@ -186,5 +186,10 @@
                 />
         </materialDesign:Snackbar>
 
+        <Button Click="Boom_OnClick"
+                HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                Margin="0,666,0,0" Height="33" Width="33" Grid.Column="1">
+        </Button>
+
     </Grid>
 </Window>

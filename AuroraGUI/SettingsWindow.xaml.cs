@@ -234,10 +234,7 @@ namespace AuroraGUI
 
         private void Expert_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Environment.StackTrace.ToLower().IndexOf(":line ", StringComparison.Ordinal) >= 0)
-                new ExpertWindow().Show();
-            else
-                MessageBox.Show("现在这里还什么都没有。");
+            new ExpertWindow().Show();
         }
     }
 }

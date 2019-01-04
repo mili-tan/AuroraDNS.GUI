@@ -108,5 +108,10 @@ namespace AuroraGUI
                 }
             }
         }
+
+        private void Boom_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new Exception("Boom");
+        }
     }
 }

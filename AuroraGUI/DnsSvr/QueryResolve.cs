@@ -47,7 +47,7 @@ namespace AuroraGUI.DnsSvr
                     response.ReturnCode = ReturnCode.NoError;
 
                     if (DnsSettings.DebugLog)
-                        MyTools.BgwLog($@"| {DateTime.Now} {clientAddress} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
+                        MyTools.BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
 
                     if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {

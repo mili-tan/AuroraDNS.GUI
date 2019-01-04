@@ -11,11 +11,6 @@
         Title="测速" Height="480" Width="600" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
-        <Grid HorizontalAlignment="Center" Height="400" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Background="White">
-            <Grid.Effect>
-                <DropShadowEffect Color="WhiteSmoke"  ShadowDepth="1" Opacity="1" />
-            </Grid.Effect>
-        </Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
             Padding="0"
             Margin="12,12,9.6,0">

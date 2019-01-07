@@ -141,10 +141,20 @@ namespace AuroraGUI
             else
             {
                 Snackbar.IsActive = true;
-                Snackbar.Message = new SnackbarMessage(){Content = "DNS 服务器无法启动:端口被占用" };
-                NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
+                if (Process.GetProcessesByName(System.Windows.Forms.Application.CompanyName).Length > 1)
+                {
+                    Snackbar.Message = new SnackbarMessage() {Content = "DNS 服务器无法启动:端口被占用"};
+                    NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
+                }
+                else
+                {
+                    Snackbar.Message = new SnackbarMessage() { Content = "DNS 服务器无法启动:可能已有一个实例正在运行, 请不要重复启动" };
+                    NotifyIcon.Text = @"AuroraDNS - [请不要重复启动]";
+                }
+
                 DnsEnable.IsEnabled = false;
                 IsEnabled = false;
+
             }
 
         }

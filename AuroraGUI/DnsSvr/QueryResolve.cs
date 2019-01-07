@@ -121,11 +121,11 @@ namespace AuroraGUI.DnsSvr
                     try
                     {
                         MyTools.BgwLog(
-                            $@"| Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode}");
+                            $@"| {domainName} Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode}");
                     }
                     catch (Exception exception)
                     {
-                        MyTools.BgwLog($@"| Catch WebException : {exception.Message}");
+                        MyTools.BgwLog($@"| {domainName} Catch WebException : {exception.Message}");
                     }
                 }
             }

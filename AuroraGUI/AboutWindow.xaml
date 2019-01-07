@@ -60,16 +60,16 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Margin="16,16,0,6" 
+                <TextBlock Grid.Row="0" Margin="16,16,0,5.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575"><Run Text="© 2019 AuroraDNS Proj. All rights reserved. 使用MIT许可证开放源代码。"/></TextBlock>
-                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="2" Margin="16 0 16 8" 
+                           Foreground="#FF757575" ><Run Text="© 2019 AuroraDNS Proj. All rights reserved. 使用MIT许可证开放源代码。"/></TextBlock>
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}"/>
+                <TextBlock Grid.Row="2" Margin="16,7.6,0,15.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                            Foreground="#FF757575"><Run Text="没有他们，就没有 AuroraDNS 的诞生。请查阅鸣谢与开源许可。"/></TextBlock>
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,19.6,16.2,8.4" HorizontalAlignment="Right" Grid.RowSpan="2">
                     <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
                             materialDesign:RippleAssist.IsCentered="True" Click="ButtonCredits_OnClick">
                         <materialDesign:PackIcon Kind="FileDocument" ToolTip="鸣谢与开源许可" />

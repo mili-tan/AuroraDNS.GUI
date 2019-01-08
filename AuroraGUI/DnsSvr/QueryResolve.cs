@@ -98,7 +98,7 @@ namespace AuroraGUI.DnsSvr
         private static (List<dynamic> list, int statusCode) ResolveOverHttps(string clientIpAddress, string domainName,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
-            string dnsStr = null;
+            string dnsStr;
             List<dynamic> recordList = new List<dynamic>();
 
             using (WebClient webClient = new WebClient())
@@ -127,6 +127,7 @@ namespace AuroraGUI.DnsSvr
                     {
                         MyTools.BgwLog($@"| {domainName} Catch WebException : {exception.Message}");
                     }
+                    return (new List<dynamic>(), Convert.ToInt32(ReturnCode.ServerFailure));
                 }
             }
 

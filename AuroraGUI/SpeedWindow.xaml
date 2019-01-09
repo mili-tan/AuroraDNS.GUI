@@ -13,21 +13,21 @@
     <Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
             Padding="0"
-            Margin="12,12,9.6,0">
+            Margin="12,10,12,0">
             <Grid>
                 <ListView
-                    ItemsSource="{Binding MyItems}" Name="SpeedListView" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.4">
+                    ItemsSource="{Binding MyItems}" Height="385" Name="SpeedListView" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding Server}"
-                                Header="地址" Width="150" />
+                                Header="地址" Width="160" />
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding Asn}"
                                 Header="位址 / ASN" Width="300" />
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding DelayTime}"
-                                Header="延迟" Width="70" />
+                                Header="延迟" Width="60" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -37,7 +37,7 @@
         <Button
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             materialDesign:ShadowAssist.ShadowDepth="Depth1"
-            Margin="-2,400,-2.4,-2.6" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Content="开始测试" Click="Button_Click"/>
+            Margin="-3,0,-3,-1" VerticalAlignment="Bottom" Height="40" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Content="开始测试" Click="Button_Click"/>
 
     </Grid>
 </Window>

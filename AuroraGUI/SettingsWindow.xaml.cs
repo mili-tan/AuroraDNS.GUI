@@ -246,7 +246,10 @@ namespace AuroraGUI
 
         private void Expert_OnClick(object sender, RoutedEventArgs e)
         {
-            new ExpertWindow().Show();
+            if (File.Exists($"{MainWindow.SetupBasePath}expert.json"))
+                new ExpertWindow().Show();
+            else
+                MessageBox.Show("没有找到 expert.json 配置文件。");
         }
     }
 }

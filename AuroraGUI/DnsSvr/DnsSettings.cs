@@ -9,7 +9,7 @@ namespace AuroraGUI.DnsSvr
 {
     class DnsSettings
     {
-        public static string HttpsDnsUrl = "https://1.0.0.1/dns-query";
+        public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;
         public static IPAddress EDnsIp = IPAddress.Any;
         public static IPAddress SecondDnsIp = IPAddress.Parse("1.1.1.1");

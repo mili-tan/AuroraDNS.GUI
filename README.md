@@ -1,11 +1,18 @@
+<center>
 ![AuroraDNS](https://i.loli.net/2018/09/11/5b9760bab2f18.png)
 
-------
+[![license](https://img.shields.io/github/license/mili-tan/AuroraDNS.GUI.svg)](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/LICENSE) [![AppVeyor](https://img.shields.io/appveyor/ci/mili-tan/AuroraDNS-GUI.svg?&logo=appveyor)](https://ci.appveyor.com/project/mili-tan/AuroraDNS-GUI) [![GitHub-release](https://img.shields.io/github/release/mili-tan/AuroraDNS.GUI.svg)](https://github.com/mili-tan/AuroraDNS.GUI/releases/latest) [![Github All Releases](https://img.shields.io/github/downloads/mili-tan/auroradns.gui/total.svg)](https://github.com/mili-tan/AuroraDNS.GUI/releases/latest) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI?ref=badge_shield) 
+</center>
+
+
+
+----------
+
 
 
 ## 简介
 
- A DNS proxy with GUI, support for encrypted DNS over HTTPS protocols. 
+给大家的本地 DNS over HTTPS 客户端。
 
 *AuroraDNS* 是一个纯净、~~简陋~~简单的、面向普通用户的，图形化的本地 DoH 客户端。
 

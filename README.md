@@ -1,7 +1,9 @@
 <center>
+
 ![AuroraDNS](https://i.loli.net/2018/09/11/5b9760bab2f18.png)
 
 [![license](https://img.shields.io/github/license/mili-tan/AuroraDNS.GUI.svg)](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/LICENSE) [![AppVeyor](https://img.shields.io/appveyor/ci/mili-tan/AuroraDNS-GUI.svg?&logo=appveyor)](https://ci.appveyor.com/project/mili-tan/AuroraDNS-GUI) [![GitHub-release](https://img.shields.io/github/release/mili-tan/AuroraDNS.GUI.svg)](https://github.com/mili-tan/AuroraDNS.GUI/releases/latest) [![Github All Releases](https://img.shields.io/github/downloads/mili-tan/auroradns.gui/total.svg)](https://github.com/mili-tan/AuroraDNS.GUI/releases/latest) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmili-tan%2FAuroraDNS.GUI?ref=badge_shield) 
+
 </center>
 
 

@@ -81,7 +81,7 @@ namespace AuroraGUI
                 }
                 catch (Exception exception)
                 {
-                    MyTools.BgwLog(@"| Download list failed : " + exception);
+                    MyTools.BgwLog(@"| DownloadString failed : " + exception);
                 }
 
                 if (string.IsNullOrWhiteSpace(ListStrings[ListStrings.Count - 1]))

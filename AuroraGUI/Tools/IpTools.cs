@@ -66,10 +66,18 @@ namespace AuroraGUI.Tools
 
         public static string GeoIpLocal(string ipStr)
         {
-            string locStr = new WebClient().DownloadString(IsIp(ipStr) ? $"https://api.ip.sb/geoip/{ipStr}" :
-                $"https://api.ip.sb/geoip/{Dns.GetHostAddresses(ipStr)[0]}");
-            JsonValue json = Json.Parse(locStr);
-            return json.AsObjectGetString("country_code") + ", " + json.AsObjectGetString("organization");
+            try
+            {
+                string locStr = new WebClient().DownloadString(IsIp(ipStr) ? $"https://api.ip.sb/geoip/{ipStr}" :
+                    $"https://api.ip.sb/geoip/{Dns.GetHostAddresses(ipStr)[0]}");
+                JsonValue json = Json.Parse(locStr);
+                return json.AsObjectGetString("country_code") + ", " + json.AsObjectGetString("organization");
+            }
+            catch (Exception e)
+            {
+                MyTools.BgwLog(@"| DownloadString failed : " + e);
+                return null;
+            }
         }
     }
 }

@@ -57,15 +57,15 @@ namespace AuroraGUI
                 ServicePointManager.ServerCertificateValidationCallback +=
                     (sender, cert, chain, sslPolicyErrors) => true;
 
-            switch (1.2F)
+            switch (1.2)
             {
                 case 1:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
                     break;
-                case 1.1F:
+                case 1.1:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
                     break;
-                case 1.2F:
+                case 1.2:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     break;
                 default:
@@ -143,17 +143,23 @@ namespace AuroraGUI
                 Snackbar.IsActive = true;
                 if (Process.GetProcessesByName(System.Windows.Forms.Application.CompanyName).Length > 1)
                 {
-                    Snackbar.Message = new SnackbarMessage() {Content = "DNS 服务器无法启动:端口被占用"};
+                    Snackbar.Message = new SnackbarMessage() {Content = "DNS 服务器无法启动, 端口被占用。"};
                     NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
                 }
                 else
                 {
-                    Snackbar.Message = new SnackbarMessage() { Content = "DNS 服务器无法启动:可能已有一个实例正在运行, 请不要重复启动" };
+                    var snackbarMsg = new SnackbarMessage()
+                    {
+                        Content = "可能已有一个正在运行的实例, 请不要重复启动！",
+                        ActionContent = "退出",
+                    };
+                    snackbarMsg.ActionClick += (o, args) => Environment.Exit(Environment.ExitCode);
+                    Snackbar.Message = snackbarMsg;
                     NotifyIcon.Text = @"AuroraDNS - [请不要重复启动]";
                 }
 
                 DnsEnable.IsEnabled = false;
-                IsEnabled = false;
+                ControlGrid.IsEnabled = false;
 
             }
 

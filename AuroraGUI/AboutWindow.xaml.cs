@@ -16,13 +16,17 @@ namespace AuroraGUI
             VerText.Text += $" ({File.GetLastWriteTime(GetType().Assembly.Location)})";
         }
 
-        private void ButtonCredits_OnClick(object sender, RoutedEventArgs e) 
-            => Process.Start($"https://github.com/mili-tan/AuroraDNS.GUI/raw/master/CREDITS");
+        private void ButtonCredits_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(File.Exists(MainWindow.SetupBasePath + "CREDITS.html")
+                ? $"file://{MainWindow.SetupBasePath}CREDITS.html"
+                : "https://github.com/mili-tan/AuroraDNS.GUI/blob/master/CREDITS.md");
+        }
 
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
-            => Process.Start($"https://dns.mili.one");
+            => Process.Start("https://dns.mili.one");
 
         private void Hyperlink_OnClick(object sender, RoutedEventArgs e) 
-            => Process.Start($"https://milione.cc/?page_id=880");
+            => Process.Start("https://milione.cc/?page_id=880");
     }
 }

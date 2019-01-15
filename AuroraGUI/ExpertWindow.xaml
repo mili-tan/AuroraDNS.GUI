@@ -1,8 +1,6 @@
 ﻿<Window x:Class="AuroraGUI.ExpertWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Opacity="1"
         Title="Expert Mode" Height="770" Width="450" MaxHeight="900" MaxWidth="450"
         WindowStartupLocation="CenterScreen" Background="#A0FFFFFF" ResizeMode="CanMinimize">

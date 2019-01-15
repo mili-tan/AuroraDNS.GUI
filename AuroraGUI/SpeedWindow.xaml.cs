@@ -17,10 +17,10 @@ namespace AuroraGUI
         List<string> ListStrings;
         private bool TypeDNS;
 
-        public SpeedWindow(bool typeDNS = false)
+        public SpeedWindow(bool typeDns = false)
         {
             InitializeComponent();
-            TypeDNS = typeDNS;
+            TypeDNS = typeDns;
             IsEnabled = false;
         }
 

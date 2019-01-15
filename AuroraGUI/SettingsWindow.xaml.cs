@@ -251,5 +251,11 @@ namespace AuroraGUI
             else
                 MessageBox.Show("没有找到 expert.json 配置文件。");
         }
+
+        private void CleanCache_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Process {StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
+        }
     }
 }

@@ -102,5 +102,17 @@ namespace AuroraGUI.Tools
         {
             return string.Concat(country.ToUpper().Select(x => char.ConvertFromUtf32(x + 0x1F1A5)));
         }
+
+        public class MWebClient : WebClient
+        {
+            public bool AllowAutoRedirect { get; set; } = false;
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                var request = base.GetWebRequest(address);
+                if (request is HttpWebRequest webRequest)
+                    webRequest.AllowAutoRedirect = AllowAutoRedirect;
+                return request;
+            }
+        }
     }
 }

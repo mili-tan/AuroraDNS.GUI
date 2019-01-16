@@ -6,6 +6,7 @@ using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.Tools;
 using MojoUnity;
+using static AuroraGUI.Tools.MyTools;
 
 // ReSharper disable CollectionNeverUpdated.Global
 #pragma warning disable 649
@@ -47,7 +48,7 @@ namespace AuroraGUI.DnsSvr
                     response.ReturnCode = ReturnCode.NoError;
 
                     if (DnsSettings.DebugLog)
-                        MyTools.BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
+                        BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
 
                     if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
@@ -55,7 +56,7 @@ namespace AuroraGUI.DnsSvr
                         ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
                         response.AnswerRecords.Add(blackRecord);
                         if (DnsSettings.DebugLog)
-                            MyTools.BgwLog(@"|- BlackList");
+                            BgwLog(@"|- BlackList");
                     }
 
                     else if (DnsSettings.WhiteListEnable && WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
@@ -64,7 +65,7 @@ namespace AuroraGUI.DnsSvr
                         ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
                         response.AnswerRecords.Add(blackRecord);
                         if (DnsSettings.DebugLog)
-                            MyTools.BgwLog(@"|- WhiteList");
+                            BgwLog(@"|- WhiteList");
                     }
 
                     else
@@ -84,7 +85,7 @@ namespace AuroraGUI.DnsSvr
                         catch (Exception ex)
                         {
                             response.ReturnCode = ReturnCode.ServerFailure;
-                            MyTools.BgwLog(@"| " + ex);
+                            BgwLog(@"| " + ex);
                         }
                     }
 
@@ -101,9 +102,16 @@ namespace AuroraGUI.DnsSvr
             string dnsStr;
             List<dynamic> recordList = new List<dynamic>();
 
-            using (WebClient webClient = new WebClient())
+            using (MWebClient webClient = new MWebClient())
             {
                 webClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+
+                if (false)
+                    #pragma warning disable CS0162 // 检测到无法访问的代码
+                    webClient.AllowAutoRedirect = true;
+                    #pragma warning restore CS0162 // 检测到无法访问的代码
+                else
+                    webClient.AllowAutoRedirect = false;
 
                 if (proxyEnable)
                     webClient.Proxy = wProxy;
@@ -120,12 +128,12 @@ namespace AuroraGUI.DnsSvr
                     HttpWebResponse response = (HttpWebResponse)e.Response;
                     try
                     {
-                        MyTools.BgwLog(
+                        BgwLog(
                             $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName}");
                     }
                     catch (Exception exception)
                     {
-                        MyTools.BgwLog($@"| - Catch WebException : {exception.Message} | {domainName}");
+                        BgwLog($@"| - Catch WebException : {exception.Message} | {domainName}");
                     }
                     return (new List<dynamic>(), Convert.ToInt32(ReturnCode.ServerFailure));
                 }

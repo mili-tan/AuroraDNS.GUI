@@ -30,7 +30,7 @@ namespace AuroraGUI
         public static string SetupBasePath = CurrentDomain.SetupInformation.ApplicationBase;
         public static IPAddress IntIPAddr;
         public static IPAddress LocIPAddr;
-        private static NotifyIcon NotifyIcon;
+        public static NotifyIcon NotifyIcon;
         private static BackgroundWorker DnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
 
         public MainWindow()

@@ -137,7 +137,7 @@ namespace AuroraGUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: 无法写入文件 \n\rOriginal error: " + ex.Message);
+                    MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
                 }
             }
 
@@ -167,7 +167,7 @@ namespace AuroraGUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: 无法写入文件 \n\rOriginal error: " + ex.Message);
+                    MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
                 }
             }
 

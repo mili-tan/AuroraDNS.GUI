@@ -131,15 +131,15 @@ namespace AuroraGUI.DnsSvr
                     {
                         BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName}");
 
-                        MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误", 
-                            $"异常 : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
+                        //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误", 
+                        //    $"异常 : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
                     catch (Exception exception)
                     {
                         BgwLog($@"| - Catch WebException : {exception.Message} | {domainName}");
 
-                        MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
-                            $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
+                        //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
+                        //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
                     return (new List<dynamic>(), Convert.ToInt32(ReturnCode.ServerFailure));
                 }

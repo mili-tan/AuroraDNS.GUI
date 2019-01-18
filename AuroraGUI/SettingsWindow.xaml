@@ -162,17 +162,17 @@
         </materialDesign:Card>
 
         <Button Click="ButtonSave_OnClick"
-            Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
-            ToolTip="保存设置" Margin="362,565,16,16" >
+            Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
+            ToolTip="保存设置" Margin="355,565,16,15" >
             保存
         </Button>
 
         <Button Click="BlackListButton_OnClick"
-            Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
-            Margin="14,565,320,15.4" Content="导入黑名单" Foreground="#FFCB4B16" />
-        <Button Click="WhiteListButton_OnClick"
-            Style="{StaticResource MaterialDesignFlatButton}" Height="35" VerticalAlignment="Center"
-            Margin="114,565,220,15.4" Content="重定向名单" Foreground="#FF599A07" />
+            Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
+            Margin="15,565,313,15" Content="导入黑名单" Foreground="#FFCB4B16" />
+        <Button Click="WhiteListButton_OnClick" 
+            Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
+            Margin="110,565,218,15" Content="重定向名单" Foreground="#FF599A07" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
                                  HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">

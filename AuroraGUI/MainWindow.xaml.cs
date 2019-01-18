@@ -82,7 +82,7 @@ namespace AuroraGUI
             DnsSvrWorker.DoWork += (sender, args) => myDnsServer.Start();
             DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
             
-            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = true,
+            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = false,
                 Icon = Properties.Resources.AuroraWhite};
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem restartItem = new WinFormMenuItem("重新启动", (sender, args) =>
@@ -126,6 +126,7 @@ namespace AuroraGUI
 
             FadeIn(0.50);
             Visibility = Visibility.Visible;
+            NotifyIcon.Visible = true;
 
             if (!MyTools.PortIsUse(53))
             {
@@ -160,7 +161,6 @@ namespace AuroraGUI
 
                 DnsEnable.IsEnabled = false;
                 ControlGrid.IsEnabled = false;
-
             }
 
         }

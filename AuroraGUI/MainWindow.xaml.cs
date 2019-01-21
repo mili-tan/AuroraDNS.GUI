@@ -57,7 +57,7 @@ namespace AuroraGUI
                 ServicePointManager.ServerCertificateValidationCallback +=
                     (sender, cert, chain, sslPolicyErrors) => true;
 
-            switch (1.2)
+            switch (0.0)
             {
                 case 1:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
@@ -69,7 +69,7 @@ namespace AuroraGUI
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     break;
                 default:
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                     break;
             }
             #pragma warning restore CS0162

@@ -48,8 +48,8 @@
 
 没有他们，就没有 AuroraDNS 的诞生。
 
-请查阅 [Credits](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/CREDITS) ，其中包含了我们的协作者与使用到的其他开源软件。
+请查阅 [Credits](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/CREDITS.md) ，其中包含了我们的协作者与使用到的其他开源软件。
 
 ## License
 
-Copyright (c) 2018 Milkey Tan. Code released under the [MIT License](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/LICENSE). 
+Copyright (c) 2018 Milkey Tan. Code released under the [MIT License](https://github.com/mili-tan/AuroraDNS.GUI/blob/master/LICENSE.md). 

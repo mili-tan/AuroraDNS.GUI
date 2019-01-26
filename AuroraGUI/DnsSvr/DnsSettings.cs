@@ -61,4 +61,12 @@ namespace AuroraGUI.DnsSvr
                 whiteSplit => IPAddress.Parse(whiteSplit[0]));
         }
     }
+
+    class UrlSettings
+    {
+        public static bool UrlEnable = false;
+        public static string WhatMyIpApi = "http://whatismyip.akamai.com/";
+        public static string MDnsList = "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list";
+        public static string MDohList = "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list";
+    }
 }

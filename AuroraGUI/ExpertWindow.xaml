@@ -10,7 +10,7 @@
     <Grid>
         <Grid HorizontalAlignment="Center" Height="206" Margin="-23,30,-23.8,0" VerticalAlignment="Top" Width="490" Background="#C0FFFFFF"  Grid.ColumnSpan="3">
             <materialDesign:PackIcon Opacity="0.7" Kind="FlaskOutline" ToolTip="测速" Height="56" Width="423" Margin="32,17,32,133" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Column="0"  Content="Expert Mode" HorizontalAlignment="Center" Margin="-42,78,-45,0" FontSize="24"
+            <Label Grid.Column="0" Content="Expert Mode" HorizontalAlignment="Center" Margin="-42,78,-45,0" FontSize="24"
                 VerticalAlignment="Top" Width="574" HorizontalContentAlignment="Center" Height="38"/>
             <Label Grid.Column="0" HorizontalAlignment="Center" Margin="-41,121,-43,0" FontSize="16"
                 VerticalAlignment="Top" Width="574" HorizontalContentAlignment="Center" Height="30" Content="这里是一些不稳定的实验特征和被隐藏的高级设置"/>

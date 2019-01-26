@@ -39,6 +39,12 @@ namespace AuroraGUI
 
             WindowStyle = WindowStyle.SingleBorderWindow;
 
+            if (TimeZoneInfo.Local.Id.Contains("China Standard Time"))
+            {
+                DnsSettings.SecondDnsIp = IPAddress.Parse("119.29.29.29");
+                DnsSettings.HttpsDnsUrl = "https://neatdns.ustclug.org/resolve";
+            }
+
             if (File.Exists($"{SetupBasePath}config.json"))
                 DnsSettings.ReadConfig($"{SetupBasePath}config.json");
 

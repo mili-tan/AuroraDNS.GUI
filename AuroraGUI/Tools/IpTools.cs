@@ -51,9 +51,7 @@ namespace AuroraGUI.Tools
             try
             {
                 //Thread.CurrentThread.CurrentCulture.Name == "zh-CN"
-                return TimeZoneInfo.Local.Id.Contains("China Standard Time")
-                    ? new WebClient().DownloadString("http://members.3322.org/dyndns/getip").Trim()
-                    : new WebClient().DownloadString("http://whatismyip.akamai.com/").Trim();
+                return new WebClient().DownloadString(UrlSettings.WhatMyIpApi).Trim();
             }
             catch (Exception e)
             {

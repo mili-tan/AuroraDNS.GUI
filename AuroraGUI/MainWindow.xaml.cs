@@ -43,6 +43,7 @@ namespace AuroraGUI
             {
                 DnsSettings.SecondDnsIp = IPAddress.Parse("119.29.29.29");
                 DnsSettings.HttpsDnsUrl = "https://neatdns.ustclug.org/resolve";
+                UrlSettings.WhatMyIpApi = "http://members.3322.org/dyndns/getip";
             }
 
             if (File.Exists($"{SetupBasePath}config.json"))

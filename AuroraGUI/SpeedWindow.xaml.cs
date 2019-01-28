@@ -76,8 +76,7 @@ namespace AuroraGUI
             {
                 try
                 {
-                    ListStrings = new WebClient().DownloadString(TypeDNS ? "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list"
-                        : "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list").Split('\n').ToList();
+                    ListStrings = new WebClient().DownloadString(TypeDNS ? UrlSettings.MDnsList : UrlSettings.MDohList).Split('\n').ToList();
                 }
                 catch (Exception exception)
                 {

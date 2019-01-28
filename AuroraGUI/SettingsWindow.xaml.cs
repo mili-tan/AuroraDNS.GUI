@@ -184,11 +184,9 @@ namespace AuroraGUI
                 try
                 {
                     dohListStrings = new WebClient()
-                        .DownloadString("https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list")
-                        .Split('\n').ToList();
+                        .DownloadString(UrlSettings.MDohList).Split('\n').ToList();
                     dnsListStrings = new WebClient()
-                        .DownloadString("https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list")
-                        .Split('\n').ToList();
+                        .DownloadString(UrlSettings.MDnsList).Split('\n').ToList();
                 }
                 catch (Exception exception)
                 {

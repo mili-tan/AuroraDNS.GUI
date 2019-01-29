@@ -178,7 +178,6 @@ namespace AuroraGUI
                 DnsEnable.IsEnabled = false;
                 ControlGrid.IsEnabled = false;
             }
-
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)

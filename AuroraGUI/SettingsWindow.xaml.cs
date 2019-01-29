@@ -111,8 +111,7 @@ namespace AuroraGUI
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
             }
             else
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"不应为空,请填写完全。" });
-            
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"不应为空,请填写完全。" }); 
         }
 
         private void BlackListButton_OnClick(object sender, RoutedEventArgs e)

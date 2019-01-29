@@ -62,13 +62,15 @@ namespace AuroraGUI.Tools
             }
         }
 
-        public static string GeoIpLocal(string ipStr)
+        public static string GeoIpLocal(string ipStr, bool onlyCountryCode = false)
         {
             try
             {
-                string locStr = new WebClient().DownloadString(IsIp(ipStr) ? $"https://api.ip.sb/geoip/{ipStr}" :
-                    $"https://api.ip.sb/geoip/{Dns.GetHostAddresses(ipStr)[0]}");
+                string locStr = new WebClient().DownloadString(IsIp(ipStr)
+                    ? $"https://api.ip.sb/geoip/{ipStr}"
+                    : $"https://api.ip.sb/geoip/{Dns.GetHostAddresses(ipStr)[0]}");
                 JsonValue json = Json.Parse(locStr);
+                if (onlyCountryCode) return json.AsObjectGetString("country_code");
                 return json.AsObjectGetString("country_code") + ", " + json.AsObjectGetString("organization");
             }
             catch (Exception e)

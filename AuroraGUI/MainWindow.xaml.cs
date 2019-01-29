@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
@@ -39,13 +40,13 @@ namespace AuroraGUI
 
             WindowStyle = WindowStyle.SingleBorderWindow;
 
-            if (TimeZoneInfo.Local.Id.Contains("China Standard Time"))
+            if (TimeZoneInfo.Local.Id.Contains("China Standard Time") && RegionInfo.CurrentRegion.GeoId == 45)
             {
                 DnsSettings.SecondDnsIp = IPAddress.Parse("119.29.29.29");
                 DnsSettings.HttpsDnsUrl = "https://neatdns.ustclug.org/resolve";
-                UrlSettings.WhatMyIpApi = "http://members.3322.org/dyndns/getip";
+                UrlSettings.WhatMyIpApi = "https://myip.ustclug.org/";
             }
-            if (TimeZoneInfo.Local.Id.Contains("Taipei Standard Time"))
+            if (TimeZoneInfo.Local.Id.Contains("Taipei Standard Time") && RegionInfo.CurrentRegion.GeoId == 237)
             {
                 DnsSettings.SecondDnsIp = IPAddress.Parse("101.101.101.101");
                 DnsSettings.HttpsDnsUrl = "https://dns.twnic.tw/dns-query";

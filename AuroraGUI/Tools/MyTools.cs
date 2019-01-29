@@ -25,7 +25,7 @@ namespace AuroraGUI.Tools
                     {
                         Directory.CreateDirectory("Log");
                     }
-                    File.AppendAllText($"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log", log + Environment.NewLine);
+                    File.AppendAllText($"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log", log + Environment.NewLine);
                 };
 
                 worker.RunWorkerAsync();
@@ -89,7 +89,7 @@ namespace AuroraGUI.Tools
                     Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")))
                     Process.Start(downloadUrl);
                 else
-                    MessageBox.Show($"当前AuroraDNS.GUI({fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")})已是最新版本,无需更新。");
+                    MessageBox.Show($"当前AuroraDNS.GUI({DateTime.Today.Year - 2000}{DateTime.Today.Month:00}{DateTime.Today.Day:00})已是最新版本,无需更新。");
             }
             catch (Exception e)
             {

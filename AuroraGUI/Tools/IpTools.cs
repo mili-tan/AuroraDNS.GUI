@@ -67,10 +67,9 @@ namespace AuroraGUI.Tools
             try
             {
                 string locStr = new WebClient().DownloadString(IsIp(ipStr)
-                    ? $"https://api.ip.sb/geoip/{ipStr}"
-                    : $"https://api.ip.sb/geoip/{Dns.GetHostAddresses(ipStr)[0]}");
+                    ? $"{UrlSettings.GeoIpApi}{ipStr}": $"{UrlSettings.GeoIpApi}{Dns.GetHostAddresses(ipStr)[0]}");
                 JsonValue json = Json.Parse(locStr);
-                if (onlyCountryCode) return json.AsObjectGetString("country_code");
+                if (onlyCountryCode || !locStr.Contains("\"organization\"")) return json.AsObjectGetString("country_code");
                 return json.AsObjectGetString("country_code") + ", " + json.AsObjectGetString("organization");
             }
             catch (Exception e)

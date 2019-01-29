@@ -64,8 +64,24 @@ namespace AuroraGUI.DnsSvr
 
     class UrlSettings
     {
+        public static string GeoIpApi = "https://api.ip.sb/geoip/";
         public static string WhatMyIpApi = "http://whatismyip.akamai.com/";
         public static string MDnsList = "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DNS.list";
         public static string MDohList = "https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/DoH.list";
+
+        public static void ReadConfig(string path)
+        {
+            string configStr = File.ReadAllText(path);
+            JsonValue configJson = Json.Parse(configStr);
+
+            if (configStr.Contains("\"GeoIPAPI\""))
+                GeoIpApi = configJson.AsObjectGetString("GeoIPAPI");
+            if (configStr.Contains("\"WhatMyIPAPI\""))
+                WhatMyIpApi = configJson.AsObjectGetString("WhatMyIPAPI");
+            if (configStr.Contains("\"DNSList\""))
+                MDnsList = configJson.AsObjectGetString("DNSList");
+            if (configStr.Contains("\"DoHList\""))
+                MDohList = configJson.AsObjectGetString("DoHList");
+        }
     }
 }

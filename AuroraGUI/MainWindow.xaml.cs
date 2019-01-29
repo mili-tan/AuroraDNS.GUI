@@ -52,6 +52,9 @@ namespace AuroraGUI
                 DnsSettings.HttpsDnsUrl = "https://dns.twnic.tw/dns-query";
             }
 
+            if (File.Exists($"{SetupBasePath}url.json"))
+                UrlSettings.ReadConfig($"{SetupBasePath}url.json");
+
             if (File.Exists($"{SetupBasePath}config.json"))
                 DnsSettings.ReadConfig($"{SetupBasePath}config.json");
 

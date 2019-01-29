@@ -68,28 +68,27 @@ namespace AuroraGUI
                 DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            #pragma warning disable CS0162 //未实装
-            if (false)
-                ServicePointManager.ServerCertificateValidationCallback +=
-                    (sender, cert, chain, sslPolicyErrors) => true;
-                //强烈不建议 忽略 TLS 证书安全错误
 
-            switch (0.0)
-            {
-                case 1:
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-                    break;
-                case 1.1:
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
-                    break;
-                case 1.2:
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                    break;
-                default:
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
-                    break;
-            }
-            #pragma warning restore CS0162
+//            if (false)
+//                ServicePointManager.ServerCertificateValidationCallback +=
+//                    (sender, cert, chain, sslPolicyErrors) => true;
+//                //强烈不建议 忽略 TLS 证书安全错误
+//
+//            switch (0.0)
+//            {
+//                case 1:
+//                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+//                    break;
+//                case 1.1:
+//                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
+//                    break;
+//                case 1.2:
+//                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+//                    break;
+//                default:
+//                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
+//                    break;
+//            }
 
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
@@ -111,10 +110,10 @@ namespace AuroraGUI
             WinFormMenuItem notepadLogItem = new WinFormMenuItem("查阅日志", (sender, args) =>
             {
                 if (File.Exists(
-                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log")
+                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
                 )
                     Process.Start(new ProcessStartInfo("notepad.exe",
-                        $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month}{DateTime.Today.Day}.log"));
+                        $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
             });
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
@@ -185,10 +184,10 @@ namespace AuroraGUI
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
             DnsSettings.ListenIp = IPAddress.Any;
-            if (DnsSvrWorker.IsBusy)
+            if (MyTools.PortIsUse(53))
             {
                 DnsSvrWorker.Dispose();
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Any });
+                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
                 DnsSvrWorker.RunWorkerAsync();
             }
         }
@@ -196,10 +195,10 @@ namespace AuroraGUI
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.ListenIp = IPAddress.Loopback;
-            if (DnsSvrWorker.IsBusy)
+            if (MyTools.PortIsUse(53))
             {
                 DnsSvrWorker.Dispose();
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "监听地址:" + IPAddress.Loopback });
+                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
                 DnsSvrWorker.RunWorkerAsync();
             }
         }
@@ -243,15 +242,15 @@ namespace AuroraGUI
         private void IsLog_Checked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = true;
-            if (DnsSvrWorker.IsBusy)
-                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:" + DnsSettings.DebugLog});
+            if (MyTools.PortIsUse(53))
+                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:是"});
         }
 
         private void IsLog_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = false;
-            if (DnsSvrWorker.IsBusy)
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "记录日志:" + DnsSettings.DebugLog });
+            if (MyTools.PortIsUse(53))
+                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:否"});
         }
 
         private void DnsEnable_Checked(object sender, RoutedEventArgs e)

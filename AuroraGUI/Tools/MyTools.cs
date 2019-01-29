@@ -22,9 +22,7 @@ namespace AuroraGUI.Tools
                 worker.DoWork += (o, ea) =>
                 {
                     if (!Directory.Exists("Log"))
-                    {
                         Directory.CreateDirectory("Log");
-                    }
                     File.AppendAllText($"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log", log + Environment.NewLine);
                 };
 
@@ -45,13 +43,9 @@ namespace AuroraGUI.Tools
         {
             RegistryKey reg = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
             if (started)
-            {
-                reg.SetValue(name,path);
-            }
+                reg.SetValue(name, path);
             else
-            {
                 reg.DeleteValue(name);
-            }
         }
 
         public static bool GetRunWithStart(string name)

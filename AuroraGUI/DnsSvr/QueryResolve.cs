@@ -105,12 +105,10 @@ namespace AuroraGUI.DnsSvr
             {
                 webClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
 
-                if (false)
-                    #pragma warning disable CS0162 // 检测到无法访问的代码
-                    webClient.AllowAutoRedirect = true;
-                    #pragma warning restore CS0162 // 检测到无法访问的代码
-                else
-                    webClient.AllowAutoRedirect = false;
+//                if (false)
+//                    webClient.AllowAutoRedirect = true;
+//                else
+//                    webClient.AllowAutoRedirect = false;
 
                 if (proxyEnable)
                     webClient.Proxy = wProxy;

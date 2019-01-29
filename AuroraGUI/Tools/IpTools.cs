@@ -26,7 +26,6 @@ namespace AuroraGUI.Tools
             {
                 using (TcpClient tcpClient = new TcpClient())
                 {
-
                     if (DnsSettings.HttpsDnsUrl.Split('/')[2].Contains(":"))
                         tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/', ':')[3],
                             Convert.ToInt32(DnsSettings.HttpsDnsUrl.Split('/', ':')[4]));

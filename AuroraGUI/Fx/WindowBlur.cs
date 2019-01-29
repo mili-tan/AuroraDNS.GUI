@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Interop;
 using AuroraGUI.Fx.NativeArgs;
 
-
 namespace AuroraGUI.Fx
 {
         public class WindowBlur

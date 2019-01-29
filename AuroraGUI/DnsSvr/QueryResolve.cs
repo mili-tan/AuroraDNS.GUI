@@ -74,8 +74,7 @@ namespace AuroraGUI.DnsSvr
                         try
                         {
                             var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
-                                dnsQuestion.Name.ToString(),
-                                DnsSettings.ProxyEnable, DnsSettings.WProxy, dnsQuestion.RecordType);
+                                dnsQuestion.Name.ToString(), DnsSettings.ProxyEnable, DnsSettings.WProxy, dnsQuestion.RecordType);
                             if (resolvedDnsList != null && resolvedDnsList != new List<dynamic>())
                                 foreach (var item in resolvedDnsList)
                                     response.AnswerRecords.Add(item);
@@ -164,86 +163,86 @@ namespace AuroraGUI.DnsSvr
                     switch (type)
                     {
                         case RecordType.A:
+                        {
+                            if (Convert.ToInt32(RecordType.A) == answerType)
                             {
-                                if (Convert.ToInt32(RecordType.A) == answerType)
-                                {
-                                    ARecord aRecord = new ARecord(
-                                        DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
+                                ARecord aRecord = new ARecord(
+                                    DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
 
-                                    recordList.Add(aRecord);
-                                }
-                                else if (Convert.ToInt32(RecordType.CName) == answerType)
-                                {
-                                    CNameRecord cRecord = new CNameRecord(
-                                        DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
-
-                                    recordList.Add(cRecord);
-
-                                    //recordList.AddRange(ResolveOverHttps(clientIpAddress,answerAddr));
-                                    //return recordList;
-                                }
-
-                                break;
+                                recordList.Add(aRecord);
                             }
+                            else if (Convert.ToInt32(RecordType.CName) == answerType)
+                            {
+                                CNameRecord cRecord = new CNameRecord(
+                                    DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
+
+                                recordList.Add(cRecord);
+
+                                //recordList.AddRange(ResolveOverHttps(clientIpAddress,answerAddr));
+                                //return recordList;
+                            }
+
+                            break;
+                        }
 
                         case RecordType.Aaaa:
+                        {
+                            if (Convert.ToInt32(RecordType.Aaaa) == answerType)
                             {
-                                if (Convert.ToInt32(RecordType.Aaaa) == answerType)
-                                {
-                                    AaaaRecord aaaaRecord = new AaaaRecord(
-                                        DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
-                                    recordList.Add(aaaaRecord);
-                                }
-                                else if (Convert.ToInt32(RecordType.CName) == answerType)
-                                {
-                                    CNameRecord cRecord = new CNameRecord(
-                                        DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
-                                    recordList.Add(cRecord);
-                                }
-
-                                break;
+                                AaaaRecord aaaaRecord = new AaaaRecord(
+                                    DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
+                                recordList.Add(aaaaRecord);
                             }
-
-                        case RecordType.CName when answerType == Convert.ToInt32(RecordType.CName):
+                            else if (Convert.ToInt32(RecordType.CName) == answerType)
                             {
                                 CNameRecord cRecord = new CNameRecord(
                                     DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
                                 recordList.Add(cRecord);
-                                break;
                             }
+
+                            break;
+                        }
+
+                        case RecordType.CName when answerType == Convert.ToInt32(RecordType.CName):
+                        {
+                            CNameRecord cRecord = new CNameRecord(
+                                DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
+                            recordList.Add(cRecord);
+                            break;
+                        }
 
                         case RecordType.Ns when answerType == Convert.ToInt32(RecordType.Ns):
-                            {
-                                NsRecord nsRecord = new NsRecord(
-                                    DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
-                                recordList.Add(nsRecord);
-                                break;
-                            }
+                        {
+                            NsRecord nsRecord = new NsRecord(
+                                DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
+                            recordList.Add(nsRecord);
+                            break;
+                        }
 
                         case RecordType.Mx when answerType == Convert.ToInt32(RecordType.Mx):
-                            {
-                                MxRecord mxRecord = new MxRecord(
-                                    DomainName.Parse(answerDomainName), ttl,
-                                    ushort.Parse(answerAddr.Split(' ')[0]),
-                                    DomainName.Parse(answerAddr.Split(' ')[1]));
-                                recordList.Add(mxRecord);
-                                break;
-                            }
+                        {
+                            MxRecord mxRecord = new MxRecord(
+                                DomainName.Parse(answerDomainName), ttl,
+                                ushort.Parse(answerAddr.Split(' ')[0]),
+                                DomainName.Parse(answerAddr.Split(' ')[1]));
+                            recordList.Add(mxRecord);
+                            break;
+                        }
 
                         case RecordType.Txt when answerType == Convert.ToInt32(RecordType.Txt):
-                            {
-                                TxtRecord txtRecord = new TxtRecord(DomainName.Parse(answerDomainName), ttl, answerAddr);
-                                recordList.Add(txtRecord);
-                                break;
-                            }
+                        {
+                            TxtRecord txtRecord = new TxtRecord(DomainName.Parse(answerDomainName), ttl, answerAddr);
+                            recordList.Add(txtRecord);
+                            break;
+                        }
 
                         case RecordType.Ptr when answerType == Convert.ToInt32(RecordType.Ptr):
-                            {
-                                PtrRecord ptrRecord = new PtrRecord(
-                                    DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
-                                recordList.Add(ptrRecord);
-                                break;
-                            }
+                        {
+                            PtrRecord ptrRecord = new PtrRecord(
+                                DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
+                            recordList.Add(ptrRecord);
+                            break;
+                        }
                     }
                 }
             }

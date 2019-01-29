@@ -45,6 +45,11 @@ namespace AuroraGUI
                 DnsSettings.HttpsDnsUrl = "https://neatdns.ustclug.org/resolve";
                 UrlSettings.WhatMyIpApi = "http://members.3322.org/dyndns/getip";
             }
+            if (TimeZoneInfo.Local.Id.Contains("Taipei Standard Time"))
+            {
+                DnsSettings.SecondDnsIp = IPAddress.Parse("101.101.101.101");
+                DnsSettings.HttpsDnsUrl = "https://dns.twnic.tw/dns-query";
+            }
 
             if (File.Exists($"{SetupBasePath}config.json"))
                 DnsSettings.ReadConfig($"{SetupBasePath}config.json");

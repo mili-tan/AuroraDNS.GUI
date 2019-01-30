@@ -26,14 +26,10 @@ namespace AuroraGUI.DnsSvr
 
             IPAddress clientAddress = e.RemoteEndpoint.Address;
             if (DnsSettings.EDnsCustomize)
-                if (Equals(DnsSettings.EDnsIp, IPAddress.Parse("0.0.0.1")))
-                    clientAddress = IPAddress.Parse(MainWindow.IntIPAddr.ToString().Substring(0,
-                                                         MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) +".0");
-                else
-                    clientAddress = DnsSettings.EDnsIp;
-                
-            else if (Equals(clientAddress, IPAddress.Loopback) ||
-                     IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
+                clientAddress = Equals(DnsSettings.EDnsIp, IPAddress.Parse("0.0.0.1")) 
+                    ? IPAddress.Parse(MainWindow.IntIPAddr.ToString().Substring(
+                        0, MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) +".0") : DnsSettings.EDnsIp;
+            else if (Equals(clientAddress, IPAddress.Loopback) || IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
                 clientAddress = MainWindow.IntIPAddr;
 
             DnsMessage response = query.CreateResponseInstance();

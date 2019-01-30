@@ -84,17 +84,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AboutWindow.xaml.cs">
+    <Compile Include="Forms\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DnsSvr\DnsSettings.cs" />
-    <Compile Include="ExpertWindow.xaml.cs">
+    <Compile Include="Forms\ExpertWindow.xaml.cs">
       <DependentUpon>ExpertWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="Forms\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SpeedWindow.xaml.cs">
+    <Compile Include="Forms\SpeedWindow.xaml.cs">
       <DependentUpon>SpeedWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\MojoUnityJson.cs" />
@@ -105,15 +105,15 @@
     <Compile Include="Tools\IpTools.cs" />
     <Compile Include="Fx\WindowBlur.cs" />
     <Compile Include="Fx\WindowFx.cs" />
-    <Page Include="AboutWindow.xaml">
+    <Page Include="Forms\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpertWindow.xaml">
+    <Page Include="Forms\ExpertWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Forms\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -121,15 +121,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Forms\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="Forms\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SpeedWindow.xaml">
+    <Page Include="Forms\SpeedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,7 +168,7 @@
     <Resource Include="Aurora.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="aurora.png" />
+    <Resource Include="Aurora.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AuroraWhite.ico" />

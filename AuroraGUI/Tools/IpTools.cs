@@ -73,7 +73,7 @@ namespace AuroraGUI.Tools
                 string organization;
 
                 if (locStr.Contains("\"country_code\""))
-                    countryCode = json.AsObjectGetString("countryCode");
+                    countryCode = json.AsObjectGetString("country_code");
                 else if (locStr.Contains("\"countryCode\""))
                     countryCode = json.AsObjectGetString("countryCode");
                 else if (locStr.Contains("\"0\""))

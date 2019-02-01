@@ -53,7 +53,7 @@ namespace AuroraGUI
                             delayTime = Ping.Tcping(item.Server, 53).Average();
                     }
                     else
-                        delayTime = Ping.Curl(ListStrings[i], item.Server).Average();
+                        delayTime = Ping.Curl(ListStrings[i], "auroradns.github.io").Average();
 
                     bgWorker.ReportProgress(i++,
                         new SpeedList

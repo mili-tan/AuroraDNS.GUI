@@ -32,7 +32,8 @@ namespace AuroraGUI
         public static IPAddress IntIPAddr;
         public static IPAddress LocIPAddr;
         public static NotifyIcon NotifyIcon;
-        private static BackgroundWorker DnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
+        private static DnsServer MDnsServer;
+        private static BackgroundWorker MDnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
 
         public MainWindow()
         {
@@ -93,17 +94,17 @@ namespace AuroraGUI
             LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
             IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
 
-            DnsServer myDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
-            myDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
-            DnsSvrWorker.DoWork += (sender, args) => myDnsServer.Start();
-            DnsSvrWorker.Disposed += (sender, args) => myDnsServer.Stop();
+            MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
+            MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
+            MDnsSvrWorker.DoWork += (sender, args) => MDnsServer.Start();
+            MDnsSvrWorker.Disposed += (sender, args) => MDnsServer.Stop();
             
             NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = false,
                 Icon = Properties.Resources.AuroraWhite};
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem restartItem = new WinFormMenuItem("重新启动", (sender, args) =>
             {
-                DnsSvrWorker.Dispose();
+                MDnsSvrWorker.Dispose();
                 Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
                 Environment.Exit(Environment.ExitCode);
             });
@@ -185,9 +186,10 @@ namespace AuroraGUI
             DnsSettings.ListenIp = IPAddress.Any;
             if (MyTools.PortIsUse(53))
             {
-                DnsSvrWorker.Dispose();
+                MDnsSvrWorker.Dispose();
+                MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
-                DnsSvrWorker.RunWorkerAsync();
+                MDnsSvrWorker.RunWorkerAsync();
             }
         }
 
@@ -196,9 +198,10 @@ namespace AuroraGUI
             DnsSettings.ListenIp = IPAddress.Loopback;
             if (MyTools.PortIsUse(53))
             {
-                DnsSvrWorker.Dispose();
+                MDnsSvrWorker.Dispose();
+                MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
-                DnsSvrWorker.RunWorkerAsync();
+                MDnsSvrWorker.RunWorkerAsync();
             }
         }
 
@@ -254,8 +257,8 @@ namespace AuroraGUI
 
         private void DnsEnable_Checked(object sender, RoutedEventArgs e)
         {
-            DnsSvrWorker.RunWorkerAsync();
-            if (DnsSvrWorker.IsBusy)
+            MDnsSvrWorker.RunWorkerAsync();
+            if (MDnsSvrWorker.IsBusy)
             {
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
                 NotifyIcon.Text = @"AuroraDNS - Running";
@@ -264,8 +267,8 @@ namespace AuroraGUI
 
         private void DnsEnable_Unchecked(object sender, RoutedEventArgs e)
         {
-            DnsSvrWorker.Dispose();
-            if (!DnsSvrWorker.IsBusy)
+            MDnsSvrWorker.Dispose();
+            if (!MDnsSvrWorker.IsBusy)
             {
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
                 NotifyIcon.Text = @"AuroraDNS - Stop";
@@ -293,7 +296,7 @@ namespace AuroraGUI
         {
             try
             {
-                DnsSvrWorker.Dispose();
+                MDnsSvrWorker.Dispose();
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = GetType().Assembly.Location,

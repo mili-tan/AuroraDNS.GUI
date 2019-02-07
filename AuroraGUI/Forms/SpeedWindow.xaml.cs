@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -88,6 +89,13 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
+                if (File.Exists($"{MainWindow.SetupBasePath}dns.list") && TypeDNS)
+                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
+                        ListStrings.Add(item);
+                else if (File.Exists($"{MainWindow.SetupBasePath}doh.list") && !TypeDNS)
+                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
+                        ListStrings.Add(item);
+
                 foreach (var item in ListStrings)
                     SpeedListView.Items.Add(!TypeDNS
                         ? new SpeedList {Server = item.Split('/', ':')[3]}

@@ -49,13 +49,6 @@ namespace AuroraGUI
             if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
                 WhiteList.IsEnabled = true;
 
-            if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
-                foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
-                    DoHUrlText.Items.Add(item);
-            if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
-                foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                    BackupDNS.Items.Add(item);
-
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
         }
@@ -203,6 +196,13 @@ namespace AuroraGUI
                     DoHUrlText.Items.Add(item);
                 foreach (var item in dnsListStrings)
                     BackupDNS.Items.Add(item);
+
+                if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
+                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
+                        DoHUrlText.Items.Add(item);
+                if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
+                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
+                        BackupDNS.Items.Add(item);
             };
             bgWorker.RunWorkerAsync();
         }

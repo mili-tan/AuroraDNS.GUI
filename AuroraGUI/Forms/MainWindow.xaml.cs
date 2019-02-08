@@ -321,6 +321,8 @@ namespace AuroraGUI
             }
             else if (WindowState == WindowState.Minimized)
                 ShowInTaskbar = false;
+
+            GC.Collect(2);
         }
 
         private void FadeIn(double sec)

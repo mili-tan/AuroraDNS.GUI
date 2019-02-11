@@ -183,11 +183,10 @@ namespace AuroraGUI
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
-            DnsSettings.ListenIp = IPAddress.Any;
             if (MyTools.PortIsUse(53))
             {
                 MDnsSvrWorker.Dispose();
-                MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
+                MDnsServer = new DnsServer(IPAddress.Any, 10, 10);
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
                 MDnsSvrWorker.RunWorkerAsync();
             }
@@ -195,11 +194,10 @@ namespace AuroraGUI
 
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
-            DnsSettings.ListenIp = IPAddress.Loopback;
             if (MyTools.PortIsUse(53))
             {
                 MDnsSvrWorker.Dispose();
-                MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
+                MDnsServer = new DnsServer(IPAddress.Loopback, 10, 10);
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
                 MDnsSvrWorker.RunWorkerAsync();
             }

@@ -38,8 +38,8 @@ namespace AuroraGUI
                 foreach (SpeedList item in mItems)
                 {
                     double delayTime;
-                    if (item.Server.Contains("google.com") &&
-                        !DnsSettings.ProxyEnable && TimeZoneInfo.Local.Id.Contains("China Standard Time"))
+                    if (item.Server.Contains("google.com") && !DnsSettings.ProxyEnable &&
+                        IpTools.GeoIpLocal(MainWindow.IntIPAddr.ToString(), true).Contains("CN"))
                     {
                         bgWorker.ReportProgress(i++,
                             new SpeedList

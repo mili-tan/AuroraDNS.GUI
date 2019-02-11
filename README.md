@@ -22,7 +22,7 @@
 
 给大家的本地 DNS over HTTPS 客户端。
 
-*AuroraDNS* 是一个纯净、~~简陋~~简单的、面向普通用户的，图形化的本地 DoH 客户端。
+*A*uroraDNS 是一个纯净、~~简陋~~简单的、面向普通用户的，图形化的本地 DoH 客户端。
 
 它在本地将 DNS over HTTPS 转换为传统的 DNS 协议。
 

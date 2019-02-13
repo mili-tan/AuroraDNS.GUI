@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Background="#FAFAFA"
 
-        Title="测速" Height="480" Width="600" WindowStartupLocation="CenterScreen"
+        Title="测速" Height="480" Width="750" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -22,6 +22,9 @@
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding Server}"
                                 Header="地址" Width="160" />
+                            <GridViewColumn
+                                DisplayMemberBinding="{Binding Name}"
+                                Header="名称" Width="150" />
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding Asn}"
                                 Header="位址 / ASN" Width="300" />

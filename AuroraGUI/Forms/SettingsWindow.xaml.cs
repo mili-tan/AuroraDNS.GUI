@@ -199,7 +199,6 @@ namespace AuroraGUI
                     foreach (var item in dnsListStrings)
                         BackupDNS.Items.Add(item.Split('*')[0].Trim());
 
-
                 if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
                     foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
                         DoHUrlText.Items.Add(item);

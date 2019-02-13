@@ -43,7 +43,10 @@ namespace AuroraGUI
                     {
                         bgWorker.ReportProgress(i++,
                             new SpeedList
-                                {Server = item.Server, DelayTime = "PASS", Asn = IpTools.GeoIpLocal(item.Server)});
+                            {
+                                Server = item.Server, Name = item.Name, DelayTime = "PASS",
+                                Asn = IpTools.GeoIpLocal(item.Server)
+                            });
                         continue;
                     }
 
@@ -59,7 +62,8 @@ namespace AuroraGUI
                     bgWorker.ReportProgress(i++,
                         new SpeedList
                         {
-                            Server = item.Server, DelayTime = delayTime.ToString("0ms"),
+                            Server = item.Server, Name = item.Name,
+                            DelayTime = delayTime.ToString("0ms"),
                             Asn = IpTools.GeoIpLocal(item.Server)
                         });
                 }
@@ -77,7 +81,8 @@ namespace AuroraGUI
             {
                 try
                 {
-                    ListStrings = new WebClient().DownloadString(TypeDNS ? UrlSettings.MDnsList : UrlSettings.MDohList).Split('\n').ToList();
+                    ListStrings = new WebClient().DownloadString(TypeDNS ? UrlSettings.MDnsList : UrlSettings.MDohList)
+                        .Split('\n').ToList();
                 }
                 catch (Exception exception)
                 {
@@ -90,18 +95,16 @@ namespace AuroraGUI
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
                 if (File.Exists($"{MainWindow.SetupBasePath}dns.list") && TypeDNS)
-                    if (UrlSettings.MDnsList.Contains(".list"))
-                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                            ListStrings.Add(item.Split('*')[0].Trim());
+                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
+                        ListStrings.Add(item);
                 else if (File.Exists($"{MainWindow.SetupBasePath}doh.list") && !TypeDNS)
-                    if (UrlSettings.MDohList.Contains(".list"))
-                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
-                            ListStrings.Add(item.Split('*')[0].Trim());
+                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
+                        ListStrings.Add(item);
 
                 foreach (var item in ListStrings)
                     SpeedListView.Items.Add(!TypeDNS
-                        ? new SpeedList {Server = item.Split('/', ':')[3]}
-                        : new SpeedList {Server = item});
+                        ? new SpeedList {Server = item.Split('*')[0].Trim().Split('/', ':')[3]}
+                        : new SpeedList {Server = item.Split('*')[0].Trim(), Name = item.Split('*')[1].Trim()});
                 IsEnabled = true;
             };
             bgWorker.RunWorkerAsync();
@@ -112,6 +115,7 @@ namespace AuroraGUI
     public class SpeedList
     {
         public string Server { get; set; }
+        public string Name { get; set; }
         public string DelayTime { get; set; }
         public string Asn { get; set; }
     }

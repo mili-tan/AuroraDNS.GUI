@@ -192,10 +192,13 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                foreach (var item in dohListStrings)
-                    DoHUrlText.Items.Add(item);
-                foreach (var item in dnsListStrings)
-                    BackupDNS.Items.Add(item);
+                if (UrlSettings.MDohList.Contains(".list"))
+                    foreach (var item in dohListStrings)
+                        DoHUrlText.Items.Add(item.Split('*')[0].Trim());
+                if (UrlSettings.MDnsList.Contains(".list"))
+                    foreach (var item in dnsListStrings)
+                        BackupDNS.Items.Add(item.Split('*')[0].Trim());
+
 
                 if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
                     foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))

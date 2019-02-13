@@ -90,11 +90,13 @@ namespace AuroraGUI
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
                 if (File.Exists($"{MainWindow.SetupBasePath}dns.list") && TypeDNS)
-                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                        ListStrings.Add(item);
+                    if (UrlSettings.MDnsList.Contains(".list"))
+                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
+                            ListStrings.Add(item.Split('*')[0].Trim());
                 else if (File.Exists($"{MainWindow.SetupBasePath}doh.list") && !TypeDNS)
-                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
-                        ListStrings.Add(item);
+                    if (UrlSettings.MDohList.Contains(".list"))
+                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
+                            ListStrings.Add(item.Split('*')[0].Trim());
 
                 foreach (var item in ListStrings)
                     SpeedListView.Items.Add(!TypeDNS

@@ -102,9 +102,14 @@ namespace AuroraGUI
                         ListStrings.Add(item);
 
                 foreach (var item in ListStrings)
-                    SpeedListView.Items.Add(!TypeDNS
-                        ? new SpeedList {Server = item.Split('*')[0].Trim().Split('/', ':')[3]}
-                        : new SpeedList {Server = item.Split('*')[0].Trim(), Name = item.Split('*')[1].Trim()});
+                {
+                    SpeedListView.Items.Add(new SpeedList
+                    {
+                        Server = TypeDNS ? item.Split('*')[0].Trim() : item.Split('*')[0].Trim().Split('/', ':')[3],
+                        Name = item.Contains("*") ? item.Split('*')[1].Trim() : ""
+                    });
+                }
+
                 IsEnabled = true;
             };
             bgWorker.RunWorkerAsync();

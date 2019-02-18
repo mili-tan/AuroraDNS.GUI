@@ -32,8 +32,8 @@ namespace AuroraGUI
         public static IPAddress IntIPAddr;
         public static IPAddress LocIPAddr;
         public static NotifyIcon NotifyIcon;
-        private static DnsServer MDnsServer;
-        private static BackgroundWorker MDnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
+        private DnsServer MDnsServer;
+        private BackgroundWorker MDnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
 
         public MainWindow()
         {

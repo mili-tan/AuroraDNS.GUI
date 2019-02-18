@@ -121,10 +121,8 @@ namespace AuroraGUI.DnsSvr
                     HttpWebResponse response = (HttpWebResponse)e.Response;
                     try
                     {
+                        BgwLog($@"| {e.Message} | {domainName}");
                         BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName}");
-
-                        //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误", 
-                        //    $"异常 : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
                     catch (Exception exception)
                     {

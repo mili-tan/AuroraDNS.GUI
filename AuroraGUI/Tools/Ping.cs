@@ -71,7 +71,7 @@ namespace AuroraGUI.Tools
                 stopWatch.Start();
                 try
                 {
-                    new WebClient().DownloadString(urlStr + "?ct=application/dns-json&name=" + name);
+                    new WebClient().DownloadString(urlStr + $"?ct=application/dns-json&name={name}&type=A");
                 }
                 catch
                 {

@@ -76,9 +76,9 @@ namespace AuroraGUI.DnsSvr
                             }
                             else if (statusCode == ReturnCode.ServerFailure)
                             {
-                                BgwLog($"|- SecondDns {DnsSettings.SecondDnsIp}");
                                 response.AnswerRecords = new DnsClient(DnsSettings.SecondDnsIp, 1000)
                                     .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords;
+                                BgwLog($"| -- SecondDns {DnsSettings.SecondDnsIp}");
                             }
                             else
                                 response.ReturnCode = statusCode;

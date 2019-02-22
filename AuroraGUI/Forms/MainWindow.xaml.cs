@@ -168,17 +168,17 @@ namespace AuroraGUI
             else
             {
                 Snackbar.IsActive = true;
-                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Count(o => o.Id != Process.GetCurrentProcess().Id) > 0)
+                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName)
+                        .Count(o => o.Id != Process.GetCurrentProcess().Id) > 0)
                 {
                     var snackbarMsg = new SnackbarMessage()
                     {
-                        Content = "可能已有一个正在运行的实例, 请不要重复启动！" ,
+                        Content = "可能已有一个正在运行的实例, 请不要重复启动！",
                         ActionContent = "退出",
                     };
                     snackbarMsg.ActionClick += (o, args) => Environment.Exit(Environment.ExitCode);
                     Snackbar.Message = snackbarMsg;
                     NotifyIcon.Text = @"AuroraDNS - [请不要重复启动]";
-
                 }
                 else
                 {

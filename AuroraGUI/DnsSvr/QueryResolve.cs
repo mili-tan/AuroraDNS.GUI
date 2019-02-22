@@ -79,7 +79,7 @@ namespace AuroraGUI.DnsSvr
                             {
                                 response.AnswerRecords = new DnsClient(DnsSettings.SecondDnsIp, 1000)
                                     .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords;
-                                BgwLog($"| -- SecondDns {DnsSettings.SecondDnsIp}");
+                                BgwLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
                             }
                             else
                                 response.ReturnCode = statusCode;
@@ -123,19 +123,22 @@ namespace AuroraGUI.DnsSvr
                     HttpWebResponse response = (HttpWebResponse)e.Response;
                     try
                     {
-                        BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName}");
+                        BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl}");
                     }
                     catch (Exception exception)
                     {
-                        BgwLog($@"| - Catch WebException : {exception.Message} | {domainName}");
+                        BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
 
                         //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                         //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
 
                     if (dohUrl == DnsSettings.HttpsDnsUrl)
+                    {
+                        BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
                         return ResolveOverHttps(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                             proxyEnable, wProxy, type);
+                    }
 
                     return (new List<dynamic>(), ReturnCode.ServerFailure);
                 }

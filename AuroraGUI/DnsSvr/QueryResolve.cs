@@ -68,7 +68,8 @@ namespace AuroraGUI.DnsSvr
                         try
                         {
                             var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
-                                dnsQuestion.Name.ToString(), DnsSettings.ProxyEnable, DnsSettings.WProxy, dnsQuestion.RecordType);
+                                dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
+                                DnsSettings.WProxy, dnsQuestion.RecordType);
                             if (resolvedDnsList != null && resolvedDnsList != new List<dynamic>() && statusCode == ReturnCode.NoError)
                             {
                                 foreach (var item in resolvedDnsList)
@@ -97,7 +98,7 @@ namespace AuroraGUI.DnsSvr
 
         }
 
-        private static (List<dynamic> list, ReturnCode statusCode) ResolveOverHttps(string clientIpAddress, string domainName,
+        private static (List<dynamic> list, ReturnCode statusCode) ResolveOverHttps(string clientIpAddress, string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             string dnsStr;
@@ -114,10 +115,8 @@ namespace AuroraGUI.DnsSvr
 
                 try
                 {
-                    dnsStr = webClient.DownloadString(
-                        DnsSettings.HttpsDnsUrl +
-                        @"?ct=application/dns-json&" +
-                        $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
+                    dnsStr = webClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
+                            $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
                 }
                 catch (WebException e)
                 {
@@ -133,6 +132,9 @@ namespace AuroraGUI.DnsSvr
                         //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                         //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
+
+                    //return ResolveOverHttps(clientIpAddress, domainName, "https://1.0.0.1/dns-query", proxyEnable, wProxy, type);
+                    
                     return (new List<dynamic>(), ReturnCode.ServerFailure);
                 }
             }

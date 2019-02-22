@@ -10,6 +10,7 @@ namespace AuroraGUI.DnsSvr
     class DnsSettings
     {
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
+        public static string SecondHttpsDnsUrl = "https://1.0.0.1/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;
         public static IPAddress EDnsIp = IPAddress.Any;
         public static IPAddress SecondDnsIp = IPAddress.Parse("1.1.1.1");
@@ -22,16 +23,14 @@ namespace AuroraGUI.DnsSvr
 
         public static void ReadConfig(string path)
         {
-            JsonValue configJson = Json.Parse(File.ReadAllText(path));
+            string configStr = File.ReadAllText(path);
+            JsonValue configJson = Json.Parse(configStr);
 
-            try
-            {
+            if (configStr.Contains("\"SecondDns\""))
                 SecondDnsIp = IPAddress.Parse(configJson.AsObjectGetString("SecondDns"));
-            }
-            catch
-            {
-                SecondDnsIp = IPAddress.Parse("1.1.1.1");
-            }
+            if (configStr.Contains("\"SecondHttpsDns\""))
+                SecondHttpsDnsUrl = configJson.AsObjectGetString("SecondHttpsDns");
+
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");
             WhiteListEnable = configJson.AsObjectGetBool("RewriteList");

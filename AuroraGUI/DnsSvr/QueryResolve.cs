@@ -133,8 +133,10 @@ namespace AuroraGUI.DnsSvr
                         //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
 
-                    //return ResolveOverHttps(clientIpAddress, domainName, "https://1.0.0.1/dns-query", proxyEnable, wProxy, type);
-                    
+                    if (dohUrl == DnsSettings.HttpsDnsUrl)
+                        return ResolveOverHttps(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
+                            proxyEnable, wProxy, type);
+
                     return (new List<dynamic>(), ReturnCode.ServerFailure);
                 }
             }

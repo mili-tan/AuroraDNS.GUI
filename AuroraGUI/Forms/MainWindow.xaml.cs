@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Principal;
 using System.Windows;
@@ -111,7 +112,8 @@ namespace AuroraGUI
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem restartItem = new WinFormMenuItem("重新启动", (sender, args) =>
             {
-                MDnsSvrWorker.Dispose();
+                if (MDnsSvrWorker.IsBusy)
+                    MDnsSvrWorker.Dispose();
                 Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
                 Environment.Exit(Environment.ExitCode);
             });
@@ -166,21 +168,22 @@ namespace AuroraGUI
             else
             {
                 Snackbar.IsActive = true;
-                if (Process.GetProcessesByName(System.Windows.Forms.Application.CompanyName).Length > 1)
-                {
-                    Snackbar.Message = new SnackbarMessage() {Content = "DNS 服务器无法启动, 端口被占用。"};
-                    NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
-                }
-                else
+                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Count(o => o.Id != Process.GetCurrentProcess().Id) > 0)
                 {
                     var snackbarMsg = new SnackbarMessage()
                     {
-                        Content = "可能已有一个正在运行的实例, 请不要重复启动！",
+                        Content = "可能已有一个正在运行的实例, 请不要重复启动！" ,
                         ActionContent = "退出",
                     };
                     snackbarMsg.ActionClick += (o, args) => Environment.Exit(Environment.ExitCode);
                     Snackbar.Message = snackbarMsg;
                     NotifyIcon.Text = @"AuroraDNS - [请不要重复启动]";
+
+                }
+                else
+                {
+                    Snackbar.Message = new SnackbarMessage() { Content = "DNS 服务器无法启动, 端口被占用。"};
+                    NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
                 }
 
                 DnsEnable.IsEnabled = false;

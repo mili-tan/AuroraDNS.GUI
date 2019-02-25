@@ -75,11 +75,13 @@ namespace AuroraGUI
             DnsSettings.ProxyEnable = Convert.ToBoolean(Proxy.IsChecked);
 
             if (!string.IsNullOrWhiteSpace(DoHUrlText.Text) &&
+                !string.IsNullOrWhiteSpace(SecondDoHUrlText.Text) &&
                 !string.IsNullOrWhiteSpace(SecondDNS.Text) &&
                 !string.IsNullOrWhiteSpace(EDNSClientIP.Text) &&
                 !string.IsNullOrWhiteSpace(ListenIP.Text))
             {
                 DnsSettings.HttpsDnsUrl = DoHUrlText.Text.Trim();
+                DnsSettings.SecondHttpsDnsUrl = SecondDoHUrlText.Text.Trim();
                 DnsSettings.SecondDnsIp = IPAddress.Parse(SecondDNS.Text);
                 DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);

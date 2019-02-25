@@ -74,6 +74,11 @@
                     黑名单
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button Click="BlackListButton_OnClick"
+                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                            Margin="0,0,5,-8.2" Height="Auto">
+                        <materialDesign:PackIcon Kind="FileImport" ToolTip="导入" />
+                    </Button>
                     <ToggleButton Name="BlackList" IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          Margin="0,5,0,-5"  />
@@ -86,6 +91,11 @@
                     重定向名单
                 </TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button Click="BlackListButton_OnClick"
+                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                            Margin="0,0,5,1" Height="Auto">
+                        <materialDesign:PackIcon Kind="FileImport" ToolTip="导入" />
+                    </Button>
                     <ToggleButton Name="WhiteList" IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           />
@@ -167,12 +177,12 @@
             保存
         </Button>
 
-        <Button Click="BlackListButton_OnClick"
+        <Button 
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="15,600,313.2,8.8" Content="导入黑名单" Foreground="#FFCB4B16" />
+            Margin="15,600,313.2,8.8" Content="RPCHN DNS" Foreground="#FFCB4B16" />
         <Button Click="WhiteListButton_OnClick" 
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="110,600,218.2,8.8" Content="重定向名单" Foreground="#FF599A07" />
+            Margin="110,600,218.2,8.8" Content="区域化设定" Foreground="#FF599A07" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
                                  HorizontalContentAlignment="Center" Opacity="0.75" Background="Black" Width="365">
@@ -200,7 +210,7 @@
 
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="2" Margin="16,6,0,4"  
-                           VerticalAlignment="Center" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="主 DNS over HTTPS 查询接口"/></TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
@@ -214,7 +224,7 @@
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
-                           VerticalAlignment="Center" 
+                           VerticalAlignment="Center"  HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="辅 DNS over HTTPS 查询接口"/></TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"

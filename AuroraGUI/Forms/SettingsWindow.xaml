@@ -59,7 +59,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"
                         HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                        Margin="0,2,0,-8.2" Height="Auto">
+                        Margin="0,2,5,-8.2" Height="Auto">
                         <materialDesign:PackIcon Kind="ShieldOutline" ToolTip="以管理员权限运行" />
                     </Button>
                     <ToggleButton Name="RunWithStart" 

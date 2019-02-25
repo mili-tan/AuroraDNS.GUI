@@ -57,7 +57,7 @@ namespace AuroraGUI
                             delayTime = Ping.Tcping(item.Server, 53).Average();
                     }
                     else
-                        delayTime = Ping.Curl(ListStrings[i].Split('*')[0].Trim(), "auroradns.github.io").Average();
+                        delayTime = Ping.Curl(ListStrings[i].Split('*', ',')[0].Trim(), "auroradns.github.io").Average();
 
                     bgWorker.ReportProgress(i++,
                         new SpeedList
@@ -105,8 +105,8 @@ namespace AuroraGUI
                 {
                     SpeedListView.Items.Add(new SpeedList
                     {
-                        Server = TypeDNS ? item.Split('*')[0].Trim() : item.Split('*')[0].Trim().Split('/', ':')[3],
-                        Name = item.Contains('*') ? item.Split('*')[1].Trim() : ""
+                        Server = TypeDNS ? item.Split('*', ',')[0].Trim() : item.Split('*', ',')[0].Trim().Split('/', ':')[3],
+                        Name = item.Contains('*') || item.Contains(',') ? item.Split('*', ',')[1].Trim() : ""
                     });
                 }
 

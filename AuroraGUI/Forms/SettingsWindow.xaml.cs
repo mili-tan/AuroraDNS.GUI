@@ -32,7 +32,8 @@ namespace AuroraGUI
             Proxy.IsChecked = DnsSettings.ProxyEnable;
 
             DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
-            BackupDNS.Text =  DnsSettings.SecondDnsIp.ToString();
+            SecondDoHUrlText.Text = DnsSettings.SecondHttpsDnsUrl;
+            SecondDNS.Text =  DnsSettings.SecondDnsIp.ToString();
             EDNSClientIP.Text = DnsSettings.EDnsIp.ToString();
             ListenIP.Text = DnsSettings.ListenIp.ToString();
 
@@ -74,12 +75,12 @@ namespace AuroraGUI
             DnsSettings.ProxyEnable = Convert.ToBoolean(Proxy.IsChecked);
 
             if (!string.IsNullOrWhiteSpace(DoHUrlText.Text) &&
-                !string.IsNullOrWhiteSpace(BackupDNS.Text) &&
+                !string.IsNullOrWhiteSpace(SecondDNS.Text) &&
                 !string.IsNullOrWhiteSpace(EDNSClientIP.Text) &&
                 !string.IsNullOrWhiteSpace(ListenIP.Text))
             {
                 DnsSettings.HttpsDnsUrl = DoHUrlText.Text.Trim();
-                DnsSettings.SecondDnsIp = IPAddress.Parse(BackupDNS.Text);
+                DnsSettings.SecondDnsIp = IPAddress.Parse(SecondDNS.Text);
                 DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
 
@@ -99,6 +100,7 @@ namespace AuroraGUI
                     $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n  " +
                     $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n  " +
                     $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n  " +
+                    $"\"SecondHttpsDns\" : \"{DnsSettings.SecondHttpsDnsUrl}\",\n  " +
                     $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\" \n" +
                     "}");
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
@@ -194,17 +196,20 @@ namespace AuroraGUI
             {
                 if (UrlSettings.MDohList.Contains(".list"))
                     foreach (var item in dohListStrings)
+                    {
                         DoHUrlText.Items.Add(item.Split('*')[0].Trim());
+                        SecondDoHUrlText.Items.Add(item.Split('*')[0].Trim());
+                    }
                 if (UrlSettings.MDnsList.Contains(".list"))
                     foreach (var item in dnsListStrings)
-                        BackupDNS.Items.Add(item.Split('*')[0].Trim());
+                        SecondDNS.Items.Add(item.Split('*')[0].Trim());
 
                 if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
                     foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
                         DoHUrlText.Items.Add(item);
                 if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
                     foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                        BackupDNS.Items.Add(item);
+                        SecondDNS.Items.Add(item);
             };
             bgWorker.RunWorkerAsync();
         }

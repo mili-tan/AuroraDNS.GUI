@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" ResizeMode="CanMinimize"
-        Title="设置" Height="640" Width="450" Background="#F1F1F1"
+        Title="设置" Height="675" Width="450" Background="#F1F1F1"
         MinHeight="640" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
     <Grid>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -95,7 +95,7 @@
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
-                             Margin="15,395,15,0">
+                             Margin="15,435,15,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -126,7 +126,7 @@
                             Margin="0,-2,0,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
                     </Button>
-                    <ComboBox Name="BackupDNS" IsEditable="True"
+                    <ComboBox Name="SecondDNS" IsEditable="True"
                         Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 
@@ -163,16 +163,16 @@
 
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            ToolTip="保存设置" Margin="355,565,16,15" >
+            ToolTip="保存设置" Margin="355,600,16.2,8.8" >
             保存
         </Button>
 
         <Button Click="BlackListButton_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="15,565,313,15" Content="导入黑名单" Foreground="#FFCB4B16" />
+            Margin="15,600,313.2,8.8" Content="导入黑名单" Foreground="#FFCB4B16" />
         <Button Click="WhiteListButton_OnClick" 
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="110,565,218,15" Content="重定向名单" Foreground="#FF599A07" />
+            Margin="110,600,218.2,8.8" Content="重定向名单" Foreground="#FF599A07" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
                                  HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">
@@ -188,6 +188,8 @@
                     <RowDefinition Height="15" />
                     <RowDefinition Height="25" />
                     <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
                     <RowDefinition Height="33" />
                 </Grid.RowDefinitions>
 
@@ -197,9 +199,9 @@
                            Foreground="#FF757575" Grid.RowSpan="2"><Run Text="HTTPS 查询设置"/></TextBlock>
 
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="2" Margin="16,6,0,4" 
-                           VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="DNS over HTTPS 查询接口"/></TextBlock>
+                <TextBlock Grid.Row="2" Margin="16,6,0,4"  
+                           VerticalAlignment="Center" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="主 DNS over HTTPS 查询接口"/></TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
@@ -212,19 +214,33 @@
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                           VerticalAlignment="Center" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="辅 DNS over HTTPS 查询接口"/></TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <Button Click="SpeedTestDoH_OnClick"
+                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                            Margin="0,-2,0,-6.2" Height="Auto">
+                        <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
+                    </Button>
+                    <ComboBox x:Name="SecondDoHUrlText" IsEditable="True"
+                              materialDesign:HintAssist.Hint="https://1.0.0.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="160" />
+                </StackPanel>
+
+                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="6" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="使用代理 (仅 HTTP 代理)"/></TextBlock>
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton x:Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 
-                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="6" Margin="16,5,0,14" 
+                <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="8" Margin="16,5,0,14" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="代理服务器"/></TextBlock>
-                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <TextBox x:Name="ProxyServer" IsEnabled="False"
                         materialDesign:HintAssist.Hint="服务器 127.0.0.1" Height="30" Margin="0,-5,0,-0.2" VerticalAlignment="Top" Width="105" />
                     <TextBlock Margin="5,5,5,-5"><Run Text=":"/></TextBlock>

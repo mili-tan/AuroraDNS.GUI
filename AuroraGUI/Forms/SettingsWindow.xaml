@@ -126,7 +126,7 @@
                             Margin="0,-2,0,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
                     </Button>
-                    <ComboBox Name="SecondDNS" IsEditable="True"
+                    <ComboBox Name="SecondDNS" IsEditable="True" materialDesign:HintAssist.Hint="1.1.1.1"
                         Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
 
@@ -175,7 +175,7 @@
             Margin="110,600,218.2,8.8" Content="重定向名单" Foreground="#FF599A07" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
-                                 HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">
+                                 HorizontalContentAlignment="Center" Opacity="0.75" Background="Black" Width="365">
         </materialDesign:Snackbar>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"

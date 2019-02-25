@@ -111,7 +111,7 @@
         <materialDesign:Snackbar Name="Snackbar"
             Grid.ColumnSpan="2" Grid.Column="0"
             MessageQueue="{materialDesign:MessageQueue}" 
-            HorizontalContentAlignment="Center" Opacity="0.95" Background="Black">
+            HorizontalContentAlignment="Center" Opacity="0.75" Background="Black">
         </materialDesign:Snackbar>
     </Grid>
 </Window>

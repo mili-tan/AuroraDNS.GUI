@@ -59,7 +59,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"
                         HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                        Margin="0,2,5,-8.2" Height="Auto">
+                        Margin="0,2,2,-8.2" Height="Auto">
                         <materialDesign:PackIcon Kind="ShieldOutline" ToolTip="以管理员权限运行" />
                     </Button>
                     <ToggleButton Name="RunWithStart" 
@@ -76,7 +76,7 @@
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="BlackListButton_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,0,5,-8.2" Height="Auto">
+                            Margin="0,0,2,-8.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FileImport" ToolTip="导入" />
                     </Button>
                     <ToggleButton Name="BlackList" IsEnabled="False"
@@ -93,7 +93,7 @@
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="BlackListButton_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,0,5,1" Height="Auto">
+                            Margin="0,0,2,1" Height="Auto">
                         <materialDesign:PackIcon Kind="FileImport" ToolTip="导入" />
                     </Button>
                     <ToggleButton Name="WhiteList" IsEnabled="False"
@@ -133,7 +133,7 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDNS_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-2,0,-6.2" Height="Auto">
+                            Margin="0,-2,2,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
                     </Button>
                     <ComboBox Name="SecondDNS" IsEditable="True" materialDesign:HintAssist.Hint="1.1.1.1"
@@ -179,7 +179,7 @@
 
         <Button 
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="15,600,313.2,8.8" Content="RPCHN DNS" Foreground="#FFCB4B16" />
+            Margin="15,600,313.2,8.8" Content="RPC DNS" Foreground="#FFCB4B16" />
         <Button Click="WhiteListButton_OnClick" 
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
             Margin="110,600,218.2,8.8" Content="区域化设定" Foreground="#FF599A07" />
@@ -215,7 +215,7 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-2,0,-6.2" Height="Auto">
+                            Margin="0,-2,2,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
                     </Button>
                     <ComboBox x:Name="DoHUrlText" IsEditable="True"
@@ -229,7 +229,7 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-2,0,-6.2" Height="Auto">
+                            Margin="0,-2,2,-6.2" Height="Auto">
                         <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
                     </Button>
                     <ComboBox x:Name="SecondDoHUrlText" IsEditable="True"

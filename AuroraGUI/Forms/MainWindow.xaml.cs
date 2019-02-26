@@ -19,6 +19,7 @@ using MaterialDesignThemes.Wpf;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
 using static System.AppDomain;
+using MessageBox = System.Windows.MessageBox;
 
 // ReSharper disable NotAccessedField.Local
 
@@ -120,10 +121,11 @@ namespace AuroraGUI
             WinFormMenuItem notepadLogItem = new WinFormMenuItem("查阅日志", (sender, args) =>
             {
                 if (File.Exists(
-                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
-                )
+                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
                     Process.Start(new ProcessStartInfo("notepad.exe",
                         $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
+                else
+                    MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
             });
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));

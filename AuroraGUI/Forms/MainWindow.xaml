@@ -70,7 +70,7 @@
                 Height="40"
                 Width="40"
                 ToolTip="本地 / 局域网"
-                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"
                 IsChecked="False" HorizontalAlignment="Center" Checked="IsGlobal_Checked" Unchecked="IsGlobal_Unchecked">
                 <ToggleButton.Content>
                     <materialDesign:PackIcon

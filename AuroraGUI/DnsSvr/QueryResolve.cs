@@ -28,7 +28,7 @@ namespace AuroraGUI.DnsSvr
             if (DnsSettings.EDnsCustomize)
                 clientAddress = Equals(DnsSettings.EDnsIp, IPAddress.Parse("0.0.0.1")) 
                     ? IPAddress.Parse(MainWindow.IntIPAddr.ToString().Substring(
-                        0, MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) +".0") : DnsSettings.EDnsIp;
+                        0, MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) +".1") : DnsSettings.EDnsIp;
             else if (Equals(clientAddress, IPAddress.Loopback) || IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
                 clientAddress = MainWindow.IntIPAddr;
 

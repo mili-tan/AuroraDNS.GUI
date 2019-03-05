@@ -1,0 +1,16 @@
+1.1.1.1          ,Cloudflare
+1.0.0.1          ,Cloudflare
+8.8.8.8          ,Google
+9.9.9.9          ,IBM-Quad9
+208.67.222.222   ,Cisco-OpenDNS
+185.121.177.177  ,OpenNIC
+101.101.101.101  ,TWNIC-Quad101
+119.29.29.29     ,Tencent-DNSPOD
+223.5.5.5        ,Alibaba-Alidns
+180.76.76.76     ,Baidu-Dudns
+101.6.6.6        ,TsinghuaUniversity-TUNA
+202.141.162.123  ,USTC-LUG
+114.114.114.114  ,NanjingGreatbit-114DNS
+117.50.10.10     ,BeijingThreatbook-OneDNS
+40.73.101.101    ,JiaxingItadd-Hixns
+1.2.4.8          ,CNNIC-sDNS

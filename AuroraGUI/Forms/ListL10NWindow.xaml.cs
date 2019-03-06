@@ -1,27 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using AuroraGUI.DnsSvr;
+
+// ReSharper disable LocalizableElement
 
 namespace AuroraGUI.Forms
 {
-    /// <summary>
-    /// ListL10NWindow.xaml 的交互逻辑
-    /// </summary>
-    public partial class ListL10NWindow : Window
+    public partial class ListL10NWindow
     {
         public ListL10NWindow()
         {
             InitializeComponent();
+        }
+
+        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            UrlSettings.MDnsList = DNSListURL.Text.Trim();
+            UrlSettings.MDohList = DoHListURL.Text.Trim();
+            UrlSettings.WhatMyIpApi = WhatMyIPURL.Text.Trim();
+            UrlSettings.GeoIpApi = GeoIPURL.Text.Trim();
+
+            File.WriteAllText($"{MainWindow.SetupBasePath}url.json",
+                "{\n  " +
+                $"\"GeoIPAPI\" : {UrlSettings.GeoIpApi},\n  " +
+                $"\"WhatMyIPAPI\" : \"{UrlSettings.WhatMyIpApi}\",\n  " +
+                $"\"DNSList\" : \"{UrlSettings.MDnsList}\",\n  " +
+                $"\"DoHList\" : \"{UrlSettings.MDnsList}\" \n" +
+                "}");
+            MessageBox.Show(@"设置已保存!");
         }
     }
 }

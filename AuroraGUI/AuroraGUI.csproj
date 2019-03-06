@@ -91,6 +91,9 @@
     <Compile Include="Forms\ExpertWindow.xaml.cs">
       <DependentUpon>ExpertWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ListL10NWindow.xaml.cs">
+      <DependentUpon>ListL10NWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\ExpertWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\ListL10NWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

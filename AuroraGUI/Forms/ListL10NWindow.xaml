@@ -1,0 +1,75 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="AuroraGUI.Forms.ListL10NWindow"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="ListL10NWindow" Height="285" Width="550">
+    <Grid>
+
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+            Padding="0" Margin="10"
+            >
+            <Grid Margin="1,0,-1.2,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="33" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="16,10,0,16" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                    Foreground="#FF757575" Grid.RowSpan="2"><Run Text="区域化 / 自定接口与列表设定"/></TextBlock>
+
+                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="2" Margin="16,6,0,4"  
+                    VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认辅 DNS 服务器列表"/></TextBlock>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ComboBox x:Name="DNSListURL" IsEditable="True"
+                        materialDesign:HintAssist.Hint="https://git.io/aurora-dns.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="250" />
+                </StackPanel>
+
+                <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="4" Margin="16,6,0,4"  
+                    VerticalAlignment="Center"  HorizontalAlignment="Left" 
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认 DNS over HTTPS 查询接口列表"/></TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ComboBox x:Name="DoHListURL" IsEditable="True"
+                        materialDesign:HintAssist.Hint="https://git.io/aurora-doh.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="250" />
+                </StackPanel>
+
+                <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="6" Margin="16,6,0,4"  
+                           VerticalAlignment="Center"  HorizontalAlignment="Left" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="公网 IP 查询接口 (WhatMyIP-API)"/></TextBlock>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ComboBox x:Name="WhatMyIPURL" IsEditable="True"
+                              materialDesign:HintAssist.Hint="https://api.ipify.org/" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="250" />
+                </StackPanel>
+
+
+                <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
+                <TextBlock Grid.Row="8" Margin="16,5,0,14" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="IP 地理位置信息接口 (GeoIP-API)"/></TextBlock>
+                <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
+                    <ComboBox x:Name="GeoIPURL" IsEditable="True"
+                              materialDesign:HintAssist.Hint="https://api.ip.sb/geoip/" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="250" />
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+        <Button Click="ButtonSave_OnClick"
+            Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
+            ToolTip="保存设置" Margin="460,215,12,5" Content="保存" />
+
+    </Grid>
+</Window>

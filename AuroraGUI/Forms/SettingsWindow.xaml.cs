@@ -208,10 +208,10 @@ namespace AuroraGUI
 
                 if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
                     foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
-                        DoHUrlText.Items.Add(item);
+                        DoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
                 if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
                     foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                        SecondDNS.Items.Add(item);
+                        SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
             };
             bgWorker.RunWorkerAsync();
         }

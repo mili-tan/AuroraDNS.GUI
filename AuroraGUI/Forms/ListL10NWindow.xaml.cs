@@ -11,6 +11,11 @@ namespace AuroraGUI.Forms
         public ListL10NWindow()
         {
             InitializeComponent();
+
+            DNSListURL.Text = UrlSettings.MDnsList;
+            DoHListURL.Text = UrlSettings.MDohList;
+            WhatMyIPURL.Text = UrlSettings.WhatMyIpApi;
+            GeoIPURL.Text = UrlSettings.GeoIpApi;
         }
 
         private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
@@ -22,7 +27,7 @@ namespace AuroraGUI.Forms
 
             File.WriteAllText($"{MainWindow.SetupBasePath}url.json",
                 "{\n  " +
-                $"\"GeoIPAPI\" : {UrlSettings.GeoIpApi},\n  " +
+                $"\"GeoIPAPI\" : \"{UrlSettings.GeoIpApi}\",\n  " +
                 $"\"WhatMyIPAPI\" : \"{UrlSettings.WhatMyIpApi}\",\n  " +
                 $"\"DNSList\" : \"{UrlSettings.MDnsList}\",\n  " +
                 $"\"DoHList\" : \"{UrlSettings.MDnsList}\" \n" +

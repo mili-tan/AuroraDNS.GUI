@@ -4,13 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="AuroraGUI.Forms.ListL10NWindow"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="ListL10NWindow" Height="285" Width="550">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
+        Title="区域化 / 自定列表" Height="290" Width="550" Background="#F1F1F1" ResizeMode="NoResize">
     <Grid>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-            Padding="0" Margin="10"
-            >
+            Padding="0" Margin="10" >
             <Grid Margin="1,0,-1.2,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -69,7 +68,7 @@
         </materialDesign:Card>
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            ToolTip="保存设置" Margin="460,215,12,5" Content="保存" />
+            ToolTip="保存设置" Margin="460,218,12,10" Content="保存" />
 
     </Grid>
 </Window>

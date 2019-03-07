@@ -173,16 +173,16 @@
 
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            ToolTip="保存设置" Margin="355,600,16.2,8.8" >
+            ToolTip="保存设置" Margin="355,600,16.2,8" >
             保存
         </Button>
 
+        <Button Click="ListL10N_OnClick"
+            Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
+            Margin="15,600,283.2,8" Content="区域化/自定列表" Foreground="#FF599A07" />
         <Button 
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="15,600,313.2,8.8" Content="RPC DNS" Foreground="#FFCB4B16" Visibility="Hidden" />
-        <Button 
-            Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            Margin="110,600,218.2,8.8" Content="区域化设定" Foreground="#FF599A07" Visibility="Hidden" />
+            Margin="143,600,205.2,8" Content="情景模式" Foreground="#FFCB4B16" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
                                  HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">

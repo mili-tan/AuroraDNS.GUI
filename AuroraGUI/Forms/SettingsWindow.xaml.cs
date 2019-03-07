@@ -9,6 +9,7 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using AuroraGUI.DnsSvr;
+using AuroraGUI.Forms;
 using AuroraGUI.Tools;
 using Microsoft.Win32;
 
@@ -262,6 +263,11 @@ namespace AuroraGUI
         {
             new Process {StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
+        }
+
+        private void ListL10N_OnClick(object sender, RoutedEventArgs e)
+        {
+            new ListL10NWindow().Show();
         }
     }
 }

@@ -76,8 +76,6 @@ namespace AuroraGUI.Tools
                     countryCode = json.AsObjectGetString("country_code");
                 else if (locStr.Contains("\"countryCode\""))
                     countryCode = json.AsObjectGetString("countryCode");
-                else if (locStr.Contains("\"0\""))
-                    countryCode = json.AsObjectGetString("0");
                 else
                     countryCode = "Unknown";
 
@@ -85,10 +83,8 @@ namespace AuroraGUI.Tools
                     organization = json.AsObjectGetString("organization");
                 else if (locStr.Contains("\"org\""))
                     organization = json.AsObjectGetString("org");
-                else if (locStr.Contains("\"4\""))
-                    organization = json.AsObjectGetString("4");
                 else
-                    organization = "Unknown";
+                    organization = "";
 
                 if (onlyCountryCode) return countryCode;
                 return countryCode + ", " + organization;

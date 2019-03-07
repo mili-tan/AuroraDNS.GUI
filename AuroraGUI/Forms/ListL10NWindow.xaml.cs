@@ -30,7 +30,7 @@ namespace AuroraGUI.Forms
                 $"\"GeoIPAPI\" : \"{UrlSettings.GeoIpApi}\",\n  " +
                 $"\"WhatMyIPAPI\" : \"{UrlSettings.WhatMyIpApi}\",\n  " +
                 $"\"DNSList\" : \"{UrlSettings.MDnsList}\",\n  " +
-                $"\"DoHList\" : \"{UrlSettings.MDnsList}\" \n" +
+                $"\"DoHList\" : \"{UrlSettings.MDohList}\" \n" +
                 "}");
             MessageBox.Show(@"设置已保存!");
         }

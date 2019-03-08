@@ -100,9 +100,11 @@ namespace AuroraGUI.Tools
         public class MWebClient : WebClient
         {
             public bool AllowAutoRedirect { get; set; } = false;
+            public int TimeOut { get; set; } = 30000;
             protected override WebRequest GetWebRequest(Uri address)
             {
                 var request = base.GetWebRequest(address);
+                request.Timeout = TimeOut;
                 if (request is HttpWebRequest webRequest)
                     webRequest.AllowAutoRedirect = AllowAutoRedirect;
                 return request;

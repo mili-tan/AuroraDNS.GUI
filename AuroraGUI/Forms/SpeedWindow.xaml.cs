@@ -22,19 +22,21 @@ namespace AuroraGUI
         {
             InitializeComponent();
             TypeDNS = typeDns;
-            IsEnabled = false;
+            StratButton.IsEnabled = false;
+            ProgressBar.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ProgressBar.Visibility = Visibility.Visible;
             var bgWorker = new BackgroundWorker { WorkerReportsProgress = true};
             List<SpeedList> mItems = SpeedListView.Items.Cast<SpeedList>().ToList();
-            IsEnabled = false;
+            StratButton.IsEnabled = false;
             SpeedListView.Items.Clear();
 
             bgWorker.DoWork += (o, args) =>
             {
-                int i = 0;
+                int i = 1;
                 foreach (SpeedList item in mItems)
                 {
                     double delayTime;
@@ -68,8 +70,16 @@ namespace AuroraGUI
                         });
                 }
             };
-            bgWorker.ProgressChanged += (o, args) => { SpeedListView.Items.Add((SpeedList) args.UserState); };
-            bgWorker.RunWorkerCompleted += (o, args) => { IsEnabled = true; };
+            bgWorker.ProgressChanged += (o, args) =>
+            {
+                SpeedListView.Items.Add((SpeedList) args.UserState);
+                ProgressBar.Value = args.ProgressPercentage;
+            };
+            bgWorker.RunWorkerCompleted += (o, args) =>
+            {
+                StratButton.IsEnabled = true;
+                ProgressBar.Visibility = Visibility.Hidden;
+            };
 
             bgWorker.RunWorkerAsync();
         }
@@ -110,7 +120,8 @@ namespace AuroraGUI
                     });
                 }
 
-                IsEnabled = true;
+                StratButton.IsEnabled = true;
+                ProgressBar.Maximum = SpeedListView.Items.Count;
             };
             bgWorker.RunWorkerAsync();
         }

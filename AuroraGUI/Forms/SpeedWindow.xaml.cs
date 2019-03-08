@@ -78,6 +78,7 @@ namespace AuroraGUI
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
                 StratButton.IsEnabled = true;
+                ProgressBar.Value = 0;
                 ProgressBar.Visibility = Visibility.Hidden;
             };
 

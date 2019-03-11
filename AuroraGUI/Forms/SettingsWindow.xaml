@@ -54,7 +54,7 @@
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}" >
-                    登录时自启动（需要管理员权限运行）
+                    设定为登录时自启动（需要管理员权限）
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"
@@ -144,7 +144,7 @@
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    自定义 EDNS Client IP
+                    自定义 EDNS Client Subnet IP
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton Name="EDNSCustomize"
@@ -239,7 +239,7 @@
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="6" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="使用代理 (仅 HTTP 代理)"/></TextBlock>
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="使用代理 (仅支持 HTTP 代理)"/></TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton x:Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -249,7 +249,7 @@
                 <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="8" Margin="16,5,0,14" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="代理服务器"/></TextBlock>
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="代理服务器设定"/></TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <TextBox x:Name="ProxyServer" IsEnabled="False"
                         materialDesign:HintAssist.Hint="服务器 127.0.0.1" Height="30" Margin="0,-5,0,-0.2" VerticalAlignment="Top" Width="105" />

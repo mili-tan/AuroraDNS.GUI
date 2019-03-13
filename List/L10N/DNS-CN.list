@@ -8,9 +8,9 @@
 119.29.29.29     ,Tencent-DNSPOD
 223.5.5.5        ,Alibaba-Alidns
 180.76.76.76     ,Baidu-Dudns
-101.6.6.6        ,TsinghuaUniversity-TUNA
+101.6.6.6        ,THU-TUNA
 202.141.162.123  ,USTC-LUG
-114.114.114.114  ,NanjingGreatbit-114DNS
-117.50.10.10     ,BeijingThreatbook-OneDNS
-40.73.101.101    ,JiaxingItadd-Hixns
+114.114.114.114  ,Greatbit-114DNS
+117.50.10.10     ,Threatbook-OneDNS
+40.73.101.101    ,Itadd-Hixns
 1.2.4.8          ,CNNIC-sDNS

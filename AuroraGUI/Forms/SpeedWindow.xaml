@@ -15,7 +15,7 @@
             Padding="0"
             Margin="12,10,12,0">
             <Grid>
-                <ListView
+                <ListView GridViewColumnHeader.Click="SpeedListView_OnClick"
                     ItemsSource="{Binding MyItems}" Height="385" Name="SpeedListView" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>

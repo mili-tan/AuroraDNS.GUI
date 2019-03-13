@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 
@@ -46,7 +48,7 @@ namespace AuroraGUI
                         bgWorker.ReportProgress(i++,
                             new SpeedList
                             {
-                                Server = item.Server, Name = item.Name, DelayTime = "PASS",
+                                Server = item.Server, Name = item.Name, DelayTime = 0,
                                 Asn = IpTools.GeoIpLocal(item.Server)
                             });
                         continue;
@@ -65,7 +67,7 @@ namespace AuroraGUI
                         new SpeedList
                         {
                             Server = item.Server, Name = item.Name,
-                            DelayTime = delayTime.ToString("0ms"),
+                            DelayTime = Convert.ToInt32(delayTime),
                             Asn = IpTools.GeoIpLocal(item.Server)
                         });
                 }
@@ -126,6 +128,29 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerAsync();
         }
+
+        private void SpeedListView_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is GridViewColumnHeader header)
+            {
+                //获得点击的列
+                GridViewColumn clickedColumn = header.Column;
+                if (clickedColumn != null)
+                {
+                    string bindingProperty = (clickedColumn.DisplayMemberBinding as Binding).Path.Path;
+                    SortDescriptionCollection sortDescription = SpeedListView.Items.SortDescriptions;
+
+                    ListSortDirection sortDirection = ListSortDirection.Ascending;
+                    if (sortDescription.Count > 0)
+                    {
+                        SortDescription sort = sortDescription[0];
+                        sortDirection = (ListSortDirection)(((int)sort.Direction + 1) % 2);
+                        sortDescription.Clear();
+                    }
+                    sortDescription.Add(new SortDescription(bindingProperty, sortDirection));
+                }
+            }
+        }
     }
 
     // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -133,7 +158,7 @@ namespace AuroraGUI
     {
         public string Server { get; set; }
         public string Name { get; set; }
-        public string DelayTime { get; set; }
+        public object DelayTime { get; set; }
         public string Asn { get; set; }
     }
 }

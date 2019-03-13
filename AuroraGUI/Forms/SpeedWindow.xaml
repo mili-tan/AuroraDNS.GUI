@@ -27,10 +27,10 @@
                                 Header="名称" Width="150" />
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding Asn}"
-                                Header="位址 / ASN" Width="300" />
+                                Header="位址 / ASN" Width="280" />
                             <GridViewColumn
                                 DisplayMemberBinding="{Binding DelayTime}"
-                                Header="延迟" Width="60" />
+                                Header="延迟(ms)" Width="85" />
                         </GridView>
                     </ListView.View>
                 </ListView>

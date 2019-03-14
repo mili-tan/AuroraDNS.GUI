@@ -17,9 +17,9 @@ using AuroraGUI.DnsSvr;
 using AuroraGUI.Fx;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
+using static System.AppDomain;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
-using static System.AppDomain;
 using MessageBox = System.Windows.MessageBox;
 
 // ReSharper disable NotAccessedField.Local

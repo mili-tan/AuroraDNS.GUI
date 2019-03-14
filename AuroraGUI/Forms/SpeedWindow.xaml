@@ -11,7 +11,7 @@
         Title="测速" Height="480" Width="750" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid Name="Grid">
-        <materialDesign:Card Name="Card" materialDesign:ShadowAssist.ShadowDepth="Depth1"
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
             Padding="0"
             Margin="12,10,12,0">
             <Grid>

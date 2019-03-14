@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.DnsSvr;
@@ -42,6 +43,7 @@ namespace AuroraGUI
             InitializeComponent();
 
             WindowStyle = WindowStyle.SingleBorderWindow;
+            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Quality };
 
             if (TimeZoneInfo.Local.Id.Contains("China Standard Time") && RegionInfo.CurrentRegion.GeoId == 45) 
             {
@@ -163,6 +165,7 @@ namespace AuroraGUI
                     IsGlobal.IsChecked = true;
 
                 DnsEnable.IsChecked = true;
+                Grid.Effect = null;
 
                 if (File.Exists($"{SetupBasePath}config.json"))
                     WindowState = WindowState.Minimized;

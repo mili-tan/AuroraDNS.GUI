@@ -28,88 +28,90 @@
     </WindowChrome.WindowChrome>
 
     <Grid Opacity="0.85">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="147*"/>
-            <ColumnDefinition Width="146*"/>
-        </Grid.ColumnDefinitions>
-        <materialDesign:ColorZone
+        <Grid Name="Grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="147*"/>
+                <ColumnDefinition Width="146*"/>
+            </Grid.ColumnDefinitions>
+            <materialDesign:ColorZone
             Mode="PrimaryDark"
             Padding="16"
             materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="0,0,-0.4,0" Grid.ColumnSpan="2" Height="55">
-            <DockPanel>
-                <TextBlock
+                <DockPanel>
+                    <TextBlock
                     VerticalAlignment="Center" HorizontalAlignment="Center" 
                     FontSize="20" FontWeight="Medium"
                     DockPanel.Dock="Left" Margin="0,0,0,-0.8" >
                     <Italic>A</Italic>uroraDNS
-                </TextBlock>
+                    </TextBlock>
 
-                <ToggleButton x:Name="DnsEnable"
+                    <ToggleButton x:Name="DnsEnable"
                     Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
                     VerticalAlignment="Center"
                     ToolTip="启用 / 停用"
                     DockPanel.Dock="Right" HorizontalAlignment="Right" Checked="DnsEnable_Checked" Unchecked="DnsEnable_Unchecked" />
-            </DockPanel>
-        </materialDesign:ColorZone>
-        <Grid Name="ControlGrid" Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0" Opacity="0.95">
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <Grid Name="ControlGrid" Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0" Opacity="0.95">
 
-            <ToggleButton x:Name="IsSysDns"
+                <ToggleButton x:Name="IsSysDns"
                 Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                 Height="40"
                 Width="40"
                 ToolTip="设为系统 DNS"
                 IsChecked="False" HorizontalAlignment="Left" Checked="IsSysDns_Checked" Unchecked="IsSysDns_Unchecked" >
-                <materialDesign:PackIcon
+                    <materialDesign:PackIcon
                     Kind="Dns"
                     Height="20"
                     Width="20"  />
-            </ToggleButton>
+                </ToggleButton>
 
-            <ToggleButton x:Name="IsGlobal"
+                <ToggleButton x:Name="IsGlobal"
                 Style="{StaticResource MaterialDesignActionToggleButton}"
                 Height="40"
                 Width="40"
                 ToolTip="本地 / 局域网"
                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
                 IsChecked="False" HorizontalAlignment="Center" Checked="IsGlobal_Checked" Unchecked="IsGlobal_Unchecked">
-                <ToggleButton.Content>
-                    <materialDesign:PackIcon
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon
                         Kind="ServerNetwork"
                         Height="20"
                         Width="20"/>
-                </ToggleButton.Content>
-                <materialDesign:ToggleButtonAssist.OnContent>
-                    <materialDesign:PackIcon
+                    </ToggleButton.Content>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon
                         Kind="Lan"
                         Height="25"
                         Width="25"/>
-                </materialDesign:ToggleButtonAssist.OnContent>
+                    </materialDesign:ToggleButtonAssist.OnContent>
 
-            </ToggleButton>
+                </ToggleButton>
 
-            <ToggleButton x:Name="IsLog"
+                <ToggleButton x:Name="IsLog"
                           Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                           Height="40"
                           Width="40"
                           ToolTip="记录日志"
                           IsChecked="False" HorizontalAlignment="Right" Checked="IsLog_Checked" Unchecked="IsLog_Unchecked" >
-                <materialDesign:PackIcon
+                    <materialDesign:PackIcon
                     Kind="FormatAlignLeft"
                     Height="20"
                     Width="20"  />
-            </ToggleButton>
-        </Grid>
+                </ToggleButton>
+            </Grid>
 
-        <Button
+            <Button
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Grid.ColumnSpan="2" Grid.Column="0"
             materialDesign:ShadowAssist.ShadowDepth="Depth1"
             Margin="-5,160,-5,-1" Height="Auto" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Click="SettingButton_Click">
-            设置
-        </Button>
- 
+                设置
+            </Button>
+        </Grid>
+
         <materialDesign:Snackbar Name="Snackbar"
-            Grid.ColumnSpan="2" Grid.Column="0"
+            Grid.Column="0"
             MessageQueue="{materialDesign:MessageQueue}" 
             HorizontalContentAlignment="Center" Opacity="0.85" Background="Black">
         </materialDesign:Snackbar>

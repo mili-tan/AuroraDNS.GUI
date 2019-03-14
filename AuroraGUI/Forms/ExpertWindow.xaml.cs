@@ -18,7 +18,7 @@ namespace AuroraGUI
             InitializeComponent();
             WindowBlur.SetEnabled(this, true);
             Snackbar.IsActive = true;
-            Card.Effect = new BlurEffect() { Radius = 10 , RenderingBias = RenderingBias.Quality };
+            Card.Effect = new BlurEffect() { Radius = 10 , RenderingBias = RenderingBias.Performance };
         }
 
         private void SnackbarMessage_OnActionClick(object sender, RoutedEventArgs e)

@@ -7,6 +7,7 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Effects;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 
@@ -23,6 +24,8 @@ namespace AuroraGUI
         public SpeedWindow(bool typeDns = false)
         {
             InitializeComponent();
+
+            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Quality };
             TypeDNS = typeDns;
             StratButton.IsEnabled = false;
             ProgressBar.Visibility = Visibility.Hidden;
@@ -125,6 +128,7 @@ namespace AuroraGUI
 
                 StratButton.IsEnabled = true;
                 ProgressBar.Maximum = SpeedListView.Items.Count;
+                Grid.Effect = null;
             };
             bgWorker.RunWorkerAsync();
         }

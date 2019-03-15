@@ -43,7 +43,7 @@ namespace AuroraGUI
             InitializeComponent();
 
             WindowStyle = WindowStyle.SingleBorderWindow;
-            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Quality };
+            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Performance };
 
             if (TimeZoneInfo.Local.Id.Contains("China Standard Time") && RegionInfo.CurrentRegion.GeoId == 45) 
             {

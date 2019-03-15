@@ -25,7 +25,7 @@ namespace AuroraGUI
         {
             InitializeComponent();
 
-            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Quality };
+            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Performance };
             TypeDNS = typeDns;
             StratButton.IsEnabled = false;
             ProgressBar.Visibility = Visibility.Hidden;

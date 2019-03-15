@@ -89,7 +89,7 @@ namespace AuroraGUI.Tools
                     organization = "";
 
                 if (onlyCountryCode) return countryCode;
-                return countryCode + ", " + organization;
+                return countryCode + " " + organization;
             }
             catch (Exception e)
             {

@@ -81,6 +81,8 @@ namespace AuroraGUI.Tools
 
                 if (locStr.Contains("\"organization\""))
                     organization = json.AsObjectGetString("organization");
+                else if (locStr.Contains("\"as\""))
+                    organization = json.AsObjectGetString("as");
                 else if (locStr.Contains("\"org\""))
                     organization = json.AsObjectGetString("org");
                 else

@@ -177,7 +177,7 @@
             保存
         </Button>
 
-        <Button Click="ListL10N_OnClick"  Name="L10N" Visibility="Hidden"
+        <Button Click="ListL10N_OnClick"  Name="L10N"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
             Margin="15,600,283.2,8" Content="自定列表/区域化" Foreground="#FF599A07" />
         <Button Visibility="Collapsed"

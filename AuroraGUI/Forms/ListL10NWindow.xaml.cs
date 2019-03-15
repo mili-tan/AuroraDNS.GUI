@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using AuroraGUI.DnsSvr;
 
 // ReSharper disable LocalizableElement
@@ -32,7 +33,7 @@ namespace AuroraGUI.Forms
                 $"\"DNSList\" : \"{UrlSettings.MDnsList}\",\n  " +
                 $"\"DoHList\" : \"{UrlSettings.MDohList}\" \n" +
                 "}");
-            MessageBox.Show(@"设置已保存!");
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
         }
     }
 }

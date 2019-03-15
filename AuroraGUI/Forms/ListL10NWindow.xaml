@@ -34,7 +34,13 @@
                     Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认辅 DNS 服务器列表"/></TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ComboBox x:Name="DNSListURL" IsEditable="True"
-                        materialDesign:HintAssist.Hint="https://git.io/aurora-dns.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" />
+                        materialDesign:HintAssist.Hint="https://git.io/aurora-dns.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350">
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DNS.list"/>
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-CN.list"/>
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-HK.list"/>
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-TW.list"/>
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/Global/DNS-OpenNIC.list"/>
+                    </ComboBox>
                 </StackPanel>
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
@@ -43,7 +49,9 @@
                     Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认 DNS over HTTPS 查询接口列表"/></TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ComboBox x:Name="DoHListURL" IsEditable="True"
-                        materialDesign:HintAssist.Hint="https://git.io/aurora-doh.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" />
+                        materialDesign:HintAssist.Hint="https://git.io/aurora-doh.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" >
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DoH.list"/>
+                    </ComboBox>
                 </StackPanel>
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
@@ -52,7 +60,14 @@
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="公网 IP 查询接口 (WhatMyIP-API)"/></TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ComboBox x:Name="WhatMyIPURL" IsEditable="True"
-                              materialDesign:HintAssist.Hint="https://api.ipify.org/" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" />
+                              materialDesign:HintAssist.Hint="https://api.ipify.org/" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350">
+                        <ComboBoxItem Content="https://api.ip.la/"/>
+                        <ComboBoxItem Content="https://api.ipify.org/"/>
+                        <ComboBoxItem Content="https://ip.rootnet.in/"/>
+                        <ComboBoxItem Content="https://myip.ustclug.org/"/>
+                        <ComboBoxItem Content="http://whatismyip.akamai.com/"/>
+                        <ComboBoxItem Content="http://members.3322.org/dyndns/getip/"/>
+                    </ComboBox>
                 </StackPanel>
 
 
@@ -62,13 +77,19 @@
                     Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="IP 地理位置信息接口 (GeoIP-API)"/></TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ComboBox x:Name="GeoIPURL" IsEditable="True"
-                              materialDesign:HintAssist.Hint="https://api.ip.sb/geoip/" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" />
+                              materialDesign:HintAssist.Hint="https://api.ip.sb/geoip/" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" >
+                        <ComboBoxItem Content="https://api.ip.sb/geoip/"/>
+                        <ComboBoxItem Content="http://ip-api.com/json/"/>
+                    </ComboBox>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
             ToolTip="保存设置" Margin="551,218,12.2,10" Content="保存" />
+        <materialDesign:Snackbar x:Name="Snackbar"
+            MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
+            HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365" Margin="70,0,70,0"/>
 
     </Grid>
 </Window>

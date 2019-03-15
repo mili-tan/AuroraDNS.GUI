@@ -262,7 +262,7 @@ namespace AuroraGUI
             if (File.Exists($"{MainWindow.SetupBasePath}expert.json"))
                 new ExpertWindow().Show();
             else
-                MessageBox.Show("没有找到 expert.json 配置文件。");
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"没有找到 expert.json 配置文件。" });
         }
 
         private void CleanCache_OnClick(object sender, RoutedEventArgs e)

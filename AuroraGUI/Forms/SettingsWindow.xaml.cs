@@ -53,6 +53,8 @@ namespace AuroraGUI
 
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
+            if (File.Exists($"{MainWindow.SetupBasePath}url.json"))
+                L10N.Visibility = Visibility.Visible;
         }
 
         private void Proxy_OnChecked(object sender, RoutedEventArgs e)

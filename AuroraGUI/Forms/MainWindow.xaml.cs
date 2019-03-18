@@ -109,9 +109,12 @@ namespace AuroraGUI
             MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
             MDnsSvrWorker.DoWork += (sender, args) => MDnsServer.Start();
             MDnsSvrWorker.Disposed += (sender, args) => MDnsServer.Stop();
-            
-            NotifyIcon = new NotifyIcon(){Text = @"AuroraDNS",Visible = false,
-                Icon = Properties.Resources.AuroraWhite};
+
+            NotifyIcon = new NotifyIcon()
+            {
+                Text = @"AuroraDNS", Visible = false,
+                Icon = Properties.Resources.AuroraWhite
+            };
             WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
             WinFormMenuItem restartItem = new WinFormMenuItem("重新启动", (sender, args) =>
             {
@@ -154,7 +157,7 @@ namespace AuroraGUI
             Left = desktopWorkingArea.Right - Width - 1;
             Top = desktopWorkingArea.Bottom - Height - 0;
 
-            FadeIn(0.50);
+            FadeIn(0.2);
             Visibility = Visibility.Visible;
             NotifyIcon.Visible = true;
 
@@ -331,7 +334,7 @@ namespace AuroraGUI
         {
             if (WindowState == WindowState.Normal)
             {
-                FadeIn(0.25);
+                FadeIn(0.2);
                 ShowInTaskbar = true;
             }
             else if (WindowState == WindowState.Minimized)

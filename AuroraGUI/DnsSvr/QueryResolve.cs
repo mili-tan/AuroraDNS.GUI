@@ -57,8 +57,8 @@ namespace AuroraGUI.DnsSvr
                     else if (DnsSettings.WhiteListEnable && WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         //WhiteList
-                        ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
-                        response.AnswerRecords.Add(blackRecord);
+                        ARecord whiteRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
+                        response.AnswerRecords.Add(whiteRecord);
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- WhiteList");
                     }

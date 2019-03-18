@@ -34,8 +34,7 @@ namespace AuroraGUI.Tools
                 }
                 catch
                 {
-                    times.Add(0);
-                    return times;
+                    //times.Add(0);
                 }
                 stopWatch.Stop();
                 times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));
@@ -63,19 +62,19 @@ namespace AuroraGUI.Tools
 
         public static List<int> Curl(string urlStr,string name)
         {
+            var webClient = new MyTools.MWebClient() { TimeOut = 3000 };
             var times = new List<int>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
                 try
                 {
-                    new MyTools.MWebClient(){TimeOut = 6000}.DownloadString(urlStr + $"?ct=application/dns-json&name={name}&type=A");
+                    webClient.DownloadString(urlStr + $"?ct=application/dns-json&name={name}&type=A");
                 }
                 catch
                 {
-                    times.Add(0);
-                    return times;
+                    //times.Add(0);
                 }
                 stopWatch.Stop();
                 times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));

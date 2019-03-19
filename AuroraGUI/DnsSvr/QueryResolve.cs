@@ -53,9 +53,15 @@ namespace AuroraGUI.DnsSvr
                     }
                     else if (DnsSettings.WhiteListEnable && DnsSettings.WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
-                        //WhiteList
-                        ARecord whiteRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name]));
-                        response.AnswerRecords.Add(whiteRecord);
+                        List<DnsRecordBase> whiteRecords = new List<DnsRecordBase>();
+                        if (IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
+                            whiteRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 1000)
+                                .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
+                        else
+                            whiteRecords.Add(new ARecord(dnsQuestion.Name, 10,
+                                IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name])));
+
+                        response.AnswerRecords.AddRange(whiteRecords);
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- WhiteList");
                     }
@@ -67,11 +73,9 @@ namespace AuroraGUI.DnsSvr
                             var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
                                 dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
                                 DnsSettings.WProxy, dnsQuestion.RecordType);
-                            if (resolvedDnsList != null && resolvedDnsList != new List<dynamic>() && statusCode == ReturnCode.NoError)
-                            {
-                                foreach (var item in resolvedDnsList)
-                                    response.AnswerRecords.Add(item);
-                            }
+                            if (resolvedDnsList != null && resolvedDnsList != new List<DnsRecordBase>() &&
+                                statusCode == ReturnCode.NoError)
+                                response.AnswerRecords.AddRange(resolvedDnsList);
                             else if (statusCode == ReturnCode.ServerFailure)
                             {
                                 response.AnswerRecords = new DnsClient(DnsSettings.SecondDnsIp, 1000)
@@ -95,11 +99,11 @@ namespace AuroraGUI.DnsSvr
 
         }
 
-        private static (List<dynamic> list, ReturnCode statusCode) ResolveOverHttps(string clientIpAddress, string domainName, string dohUrl,
+        private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttps(string clientIpAddress, string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             string dnsStr;
-            List<dynamic> recordList = new List<dynamic>();
+            List<DnsRecordBase> recordList = new List<DnsRecordBase>();
 
             using (MWebClient webClient = new MWebClient())
             {
@@ -125,7 +129,6 @@ namespace AuroraGUI.DnsSvr
                     catch (Exception exception)
                     {
                         BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
-
                         //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                         //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     }
@@ -137,7 +140,7 @@ namespace AuroraGUI.DnsSvr
                             proxyEnable, wProxy, type);
                     }
 
-                    return (new List<dynamic>(), ReturnCode.ServerFailure);
+                    return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
                 }
             }
 
@@ -145,7 +148,7 @@ namespace AuroraGUI.DnsSvr
 
             int statusCode = dnsJsonValue.AsObjectGetInt("Status");
             if (statusCode != 0)
-                return (new List<dynamic>(), (ReturnCode) statusCode);
+                return (new List<DnsRecordBase>(), (ReturnCode) statusCode);
 
             if (dnsStr.Contains("\"Answer\""))
             {

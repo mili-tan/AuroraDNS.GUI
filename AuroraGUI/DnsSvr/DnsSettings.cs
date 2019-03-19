@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,9 @@ namespace AuroraGUI.DnsSvr
 {
     class DnsSettings
     {
+        public static List<DomainName> BlackList;
+        public static Dictionary<DomainName, string> WhiteList;
+
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
         public static string SecondHttpsDnsUrl = "https://1.0.0.1/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;
@@ -48,16 +52,16 @@ namespace AuroraGUI.DnsSvr
         public static void ReadBlackList(string path = "black.list")
         {
             string[] blackListStrs = File.ReadAllLines(path);
-            QueryResolve.BlackList = Array.ConvertAll(blackListStrs, DomainName.Parse).ToList();
+            BlackList = Array.ConvertAll(blackListStrs, DomainName.Parse).ToList();
         }
 
         public static void ReadWhiteList(string path = "white.list")
         {
             string[] whiteListStrs = File.ReadAllLines(path);
-            QueryResolve.WhiteList = whiteListStrs.Select(
+            WhiteList = whiteListStrs.Select(
                 itemStr => itemStr.Split(' ', ',', '\t')).ToDictionary(
                 whiteSplit => DomainName.Parse(whiteSplit[1]),
-                whiteSplit => IPAddress.Parse(whiteSplit[0]));
+                whiteSplit => whiteSplit[0]);
         }
     }
 

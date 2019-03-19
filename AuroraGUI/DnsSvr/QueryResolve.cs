@@ -16,9 +16,6 @@ namespace AuroraGUI.DnsSvr
 {
     static class QueryResolve
     {
-        public static List<DomainName> BlackList;
-        public static Dictionary<DomainName, IPAddress> WhiteList;
-
         public static async Task ServerOnQueryReceived(object sender, QueryReceivedEventArgs e)
         {
             if (!(e.Query is DnsMessage query))
@@ -46,7 +43,7 @@ namespace AuroraGUI.DnsSvr
                     if (DnsSettings.DebugLog)
                         BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
 
-                    if (DnsSettings.BlackListEnable && BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         //BlackList
                         ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
@@ -54,10 +51,10 @@ namespace AuroraGUI.DnsSvr
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- BlackList");
                     }
-                    else if (DnsSettings.WhiteListEnable && WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    else if (DnsSettings.WhiteListEnable && DnsSettings.WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         //WhiteList
-                        ARecord whiteRecord = new ARecord(dnsQuestion.Name, 10, WhiteList[dnsQuestion.Name]);
+                        ARecord whiteRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name]));
                         response.AnswerRecords.Add(whiteRecord);
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- WhiteList");

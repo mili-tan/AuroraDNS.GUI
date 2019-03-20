@@ -152,7 +152,7 @@ namespace AuroraGUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Hidden;
-            if (Environment.OSVersion.Version.Major < 10)
+            if (Environment.OSVersion.Version.Major >= 10)
                 WindowBlur.SetEnabled(this, true);
 
             var desktopWorkingArea = SystemParameters.WorkArea;

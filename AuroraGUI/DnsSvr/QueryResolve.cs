@@ -54,7 +54,7 @@ namespace AuroraGUI.DnsSvr
                     else if (DnsSettings.WhiteListEnable && DnsSettings.WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         List<DnsRecordBase> whiteRecords = new List<DnsRecordBase>();
-                        if (IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
+                        if (!IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
                             whiteRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 1000)
                                 .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
                         else
@@ -73,7 +73,7 @@ namespace AuroraGUI.DnsSvr
                             var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
                                 dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
                                 DnsSettings.WProxy, dnsQuestion.RecordType);
-                            if (resolvedDnsList != null && resolvedDnsList.Count == 0 &&
+                            if (resolvedDnsList != null && resolvedDnsList.Count != 0 &&
                                 statusCode == ReturnCode.NoError)
                                 response.AnswerRecords.AddRange(resolvedDnsList);
                             else if (statusCode == ReturnCode.ServerFailure)

@@ -6,6 +6,7 @@ using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.Tools;
 using MojoUnity;
+using OhMyDnsPackage;
 using static AuroraGUI.Tools.MyTools;
 
 // ReSharper disable CollectionNeverUpdated.Global
@@ -14,9 +15,9 @@ using static AuroraGUI.Tools.MyTools;
 
 namespace AuroraGUI.DnsSvr
 {
-    class QueryResolve
+    static class QueryResolve
     {
-        private static MWebClient WebClient = new MWebClient();
+        private static MWebClient MWebClient = new MWebClient();
         public static async Task ServerOnQueryReceived(object sender, QueryReceivedEventArgs e)
         {
             if (!(e.Query is DnsMessage query))
@@ -71,7 +72,7 @@ namespace AuroraGUI.DnsSvr
                         //Resolve
                         try
                         {
-                            var (resolvedDnsList, statusCode) = ResolveOverHttps(clientAddress.ToString(),
+                            var (resolvedDnsList, statusCode) = ResolveOverHttpsByDnsJson(clientAddress.ToString(),
                                 dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
                                 DnsSettings.WProxy, dnsQuestion.RecordType);
                             if (resolvedDnsList != null && resolvedDnsList.Count != 0 &&
@@ -100,22 +101,22 @@ namespace AuroraGUI.DnsSvr
 
         }
 
-        private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttps(string clientIpAddress, string domainName, string dohUrl,
+        private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsJson(string clientIpAddress,
+            string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             string dnsStr;
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
-
-                WebClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+            MWebClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
 
 //                webClient.AllowAutoRedirect = false;
 
-                if (proxyEnable)
-                    WebClient.Proxy = wProxy;
+            if (proxyEnable)
+                MWebClient.Proxy = wProxy;
 
             try
             {
-                dnsStr = WebClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
+                dnsStr = MWebClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
                                                   $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
             }
             catch (WebException e)
@@ -136,12 +137,11 @@ namespace AuroraGUI.DnsSvr
                 if (dohUrl == DnsSettings.HttpsDnsUrl)
                 {
                     BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
-                    return ResolveOverHttps(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
+                    return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                         proxyEnable, wProxy, type);
                 }
 
                 return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
-
             }
 
             JsonValue dnsJsonValue = Json.Parse(dnsStr);
@@ -200,6 +200,7 @@ namespace AuroraGUI.DnsSvr
                                     DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
                                 recordList.Add(cRecord);
                             }
+
                             break;
                         }
 
@@ -254,6 +255,22 @@ namespace AuroraGUI.DnsSvr
             }
 
             return (recordList, (ReturnCode) statusCode);
+        }
+
+        private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsMsg(string clientIpAddress, string domainName, string dohUrl,
+            bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
+        {
+            MWebClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+            if (proxyEnable)
+                MWebClient.Proxy = wProxy;
+
+            var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName, type)).TrimEnd('=')
+                .Replace('+', '-').Replace('/', '_');
+            var dnsData = MWebClient.DownloadData(
+                $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}");
+            var dnsMsg = DnsMessage.Parse(dnsData);
+
+            return (dnsMsg.AnswerRecords, dnsMsg.ReturnCode);
         }
     }
 }

@@ -14,8 +14,9 @@ using static AuroraGUI.Tools.MyTools;
 
 namespace AuroraGUI.DnsSvr
 {
-    static class QueryResolve
+    class QueryResolve
     {
+        private static MWebClient WebClient = new MWebClient();
         public static async Task ServerOnQueryReceived(object sender, QueryReceivedEventArgs e)
         {
             if (!(e.Query is DnsMessage query))
@@ -105,43 +106,42 @@ namespace AuroraGUI.DnsSvr
             string dnsStr;
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
 
-            using (MWebClient webClient = new MWebClient())
-            {
-                webClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+                WebClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
 
 //                webClient.AllowAutoRedirect = false;
 
                 if (proxyEnable)
-                    webClient.Proxy = wProxy;
+                    WebClient.Proxy = wProxy;
 
+            try
+            {
+                dnsStr = WebClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
+                                                  $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
+            }
+            catch (WebException e)
+            {
+                HttpWebResponse response = (HttpWebResponse) e.Response;
                 try
                 {
-                    dnsStr = webClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
-                            $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
+                    BgwLog(
+                        $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl}");
                 }
-                catch (WebException e)
+                catch (Exception exception)
                 {
-                    HttpWebResponse response = (HttpWebResponse)e.Response;
-                    try
-                    {
-                        BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl}");
-                    }
-                    catch (Exception exception)
-                    {
-                        BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
-                        //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
-                        //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
-                    }
-
-                    if (dohUrl == DnsSettings.HttpsDnsUrl)
-                    {
-                        BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
-                        return ResolveOverHttps(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
-                            proxyEnable, wProxy, type);
-                    }
-
-                    return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
+                    BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
+                    //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
+                    //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                 }
+
+                if (dohUrl == DnsSettings.HttpsDnsUrl)
+                {
+                    BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
+                    return ResolveOverHttps(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
+                        proxyEnable, wProxy, type);
+                }
+
+                return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
+
             }
 
             JsonValue dnsJsonValue = Json.Parse(dnsStr);

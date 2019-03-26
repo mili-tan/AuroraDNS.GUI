@@ -17,7 +17,6 @@ namespace AuroraGUI.DnsSvr
 {
     static class QueryResolve
     {
-        private static MWebClient MWebClient = new MWebClient();
         public static async Task ServerOnQueryReceived(object sender, QueryReceivedEventArgs e)
         {
             if (!(e.Query is DnsMessage query))
@@ -107,16 +106,16 @@ namespace AuroraGUI.DnsSvr
         {
             string dnsStr;
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
-            MWebClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+            MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
 
 //                webClient.AllowAutoRedirect = false;
 
             if (proxyEnable)
-                MWebClient.Proxy = wProxy;
+                mWebClient.Proxy = wProxy;
 
             try
             {
-                dnsStr = MWebClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
+                dnsStr = mWebClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
                                                   $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
             }
             catch (WebException e)
@@ -260,13 +259,13 @@ namespace AuroraGUI.DnsSvr
         private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsMsg(string clientIpAddress, string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
-            MWebClient.Headers["User-Agent"] = "AuroraDNSC/0.1";
+            MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             if (proxyEnable)
-                MWebClient.Proxy = wProxy;
+                mWebClient.Proxy = wProxy;
 
-            var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName, type)).TrimEnd('=')
+            var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName.TrimEnd('.'), type)).TrimEnd('=')
                 .Replace('+', '-').Replace('/', '_');
-            var dnsData = MWebClient.DownloadData(
+            var dnsData = mWebClient.DownloadData(
                 $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}");
             var dnsMsg = DnsMessage.Parse(dnsData);
 

@@ -95,9 +95,7 @@ namespace AuroraGUI.DnsSvr
 
                 }
             }
-
             e.Response = response;
-
         }
 
         private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsJson(string clientIpAddress,
@@ -107,9 +105,7 @@ namespace AuroraGUI.DnsSvr
             string dnsStr;
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
-
-//                webClient.AllowAutoRedirect = false;
-
+            //webClient.AllowAutoRedirect = false;
             if (proxyEnable)
                 mWebClient.Proxy = wProxy;
 
@@ -123,8 +119,7 @@ namespace AuroraGUI.DnsSvr
                 HttpWebResponse response = (HttpWebResponse) e.Response;
                 try
                 {
-                    BgwLog(
-                        $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl}");
+                    BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {response.ResponseUri}");
                 }
                 catch (Exception exception)
                 {
@@ -133,14 +128,10 @@ namespace AuroraGUI.DnsSvr
                     //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                 }
 
-                if (dohUrl == DnsSettings.HttpsDnsUrl)
-                {
-                    BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
-                    return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
-                        proxyEnable, wProxy, type);
-                }
-
-                return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
+                if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
+                BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
+                return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
+                    proxyEnable, wProxy, type);
             }
 
             JsonValue dnsJsonValue = Json.Parse(dnsStr);
@@ -259,16 +250,44 @@ namespace AuroraGUI.DnsSvr
         private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsMsg(string clientIpAddress, string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
+            byte[] dnsDataBytes;
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             if (proxyEnable)
                 mWebClient.Proxy = wProxy;
 
             var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName.TrimEnd('.'), type)).TrimEnd('=')
                 .Replace('+', '-').Replace('/', '_');
-            var dnsData = mWebClient.DownloadData(
-                $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}");
-            var dnsMsg = DnsMessage.Parse(dnsData);
+            try
+            {
+                dnsDataBytes = mWebClient.DownloadData(
+                    $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}");
+            }
+            catch (WebException e)
+            {
+                HttpWebResponse response = (HttpWebResponse)e.Response;
+                try
+                {
+                    if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
+                            proxyEnable, wProxy, type);
+                    }
 
+                    BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
+                }
+                catch (Exception exception)
+                {
+                    BgwLog(
+                        $@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
+                }
+
+                if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
+                BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
+                return ResolveOverHttpsByDnsMsg(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
+                    proxyEnable, wProxy, type);
+            }
+
+            var dnsMsg = DnsMessage.Parse(dnsDataBytes);
             return (dnsMsg.AnswerRecords, dnsMsg.ReturnCode);
         }
     }

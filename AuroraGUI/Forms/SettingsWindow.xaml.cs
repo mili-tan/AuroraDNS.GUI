@@ -96,17 +96,18 @@ namespace AuroraGUI
 
                 File.WriteAllText($"{MainWindow.SetupBasePath}config.json",
                     "{\n  " +
-                    $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n  " +
-                    $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n  " +
-                    $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n  " +
-                    $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n  " +
-                    $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n  " +
-                    $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n  " +
-                    $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n  " +
-                    $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n  " +
-                    $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n  " +
-                    $"\"SecondHttpsDns\" : \"{DnsSettings.SecondHttpsDnsUrl}\",\n  " +
-                    $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\" \n" +
+                    $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n" +
+                    $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n" +
+                    $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n" +
+                    $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n" +
+                    $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n" +
+                    $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n" +
+                    $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n" +
+                    $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n" +
+                    $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n" +
+                    $"\"SecondHttpsDns\" : \"{DnsSettings.SecondHttpsDnsUrl}\",\n" +
+                    $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\",\n" +
+                    $"\"ViaDnsMsg\" : \"{DnsSettings.ViaDnsMsg}\" \n" +
                     "}");
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
             }

@@ -71,9 +71,14 @@ namespace AuroraGUI.DnsSvr
                         //Resolve
                         try
                         {
-                            var (resolvedDnsList, statusCode) = ResolveOverHttpsByDnsJson(clientAddress.ToString(),
-                                dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
-                                DnsSettings.WProxy, dnsQuestion.RecordType);
+                            (List<DnsRecordBase> resolvedDnsList, ReturnCode statusCode) = DnsSettings.ViaDnsMsg
+                                ? ResolveOverHttpsByDnsMsg(clientAddress.ToString(),
+                                    dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
+                                    DnsSettings.WProxy, dnsQuestion.RecordType)
+                                : ResolveOverHttpsByDnsJson(clientAddress.ToString(),
+                                    dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
+                                    DnsSettings.WProxy, dnsQuestion.RecordType);
+
                             if (resolvedDnsList != null && resolvedDnsList.Count != 0 &&
                                 statusCode == ReturnCode.NoError)
                                 response.AnswerRecords.AddRange(resolvedDnsList);

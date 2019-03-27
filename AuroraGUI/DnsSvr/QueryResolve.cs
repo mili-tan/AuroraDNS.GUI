@@ -106,8 +106,7 @@ namespace AuroraGUI.DnsSvr
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             //webClient.AllowAutoRedirect = false;
-            if (proxyEnable)
-                mWebClient.Proxy = wProxy;
+            if (proxyEnable) mWebClient.Proxy = wProxy;
 
             try
             {
@@ -252,8 +251,7 @@ namespace AuroraGUI.DnsSvr
         {
             byte[] dnsDataBytes;
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
-            if (proxyEnable)
-                mWebClient.Proxy = wProxy;
+            if (proxyEnable) mWebClient.Proxy = wProxy;
 
             var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName.TrimEnd('.'), type)).TrimEnd('=')
                 .Replace('+', '-').Replace('/', '_');
@@ -277,8 +275,7 @@ namespace AuroraGUI.DnsSvr
                 }
                 catch (Exception exception)
                 {
-                    BgwLog(
-                        $@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
+                    BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);

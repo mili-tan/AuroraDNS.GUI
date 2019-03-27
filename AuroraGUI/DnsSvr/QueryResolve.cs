@@ -270,13 +270,14 @@ namespace AuroraGUI.DnsSvr
                 HttpWebResponse response = (HttpWebResponse)e.Response;
                 try
                 {
+                    BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
+
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
+                        DnsSettings.ViaDnsMsg = false;
                         return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                             proxyEnable, wProxy, type);
                     }
-
-                    BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
                 }
                 catch (Exception exception)
                 {

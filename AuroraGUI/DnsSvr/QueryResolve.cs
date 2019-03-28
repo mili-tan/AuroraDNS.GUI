@@ -254,7 +254,7 @@ namespace AuroraGUI.DnsSvr
         private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsMsg(string clientIpAddress, string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
-            byte[] dnsDataBytes;
+            DnsMessage dnsMsg;
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             if (proxyEnable) mWebClient.Proxy = wProxy;
 
@@ -262,8 +262,9 @@ namespace AuroraGUI.DnsSvr
                 .Replace('+', '-').Replace('/', '_');
             try
             {
-                dnsDataBytes = mWebClient.DownloadData(
+                var dnsDataBytes = mWebClient.DownloadData(
                     $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}");
+                 dnsMsg = DnsMessage.Parse(dnsDataBytes);
             }
             catch (WebException e)
             {
@@ -289,8 +290,6 @@ namespace AuroraGUI.DnsSvr
                 return ResolveOverHttpsByDnsMsg(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                     proxyEnable, wProxy, type);
             }
-
-            var dnsMsg = DnsMessage.Parse(dnsDataBytes);
             return (dnsMsg.AnswerRecords, dnsMsg.ReturnCode);
         }
     }

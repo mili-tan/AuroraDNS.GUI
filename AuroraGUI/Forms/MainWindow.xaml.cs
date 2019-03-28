@@ -192,7 +192,7 @@ namespace AuroraGUI
                 }
                 else
                 {
-                    Snackbar.Message = new SnackbarMessage() { Content = "DNS 服务器无法启动, 端口被占用。"};
+                    Snackbar.Message = new SnackbarMessage() { Content = "DNS 服务器无法启动, 53端口被占用。"};
                     NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
                 }
 

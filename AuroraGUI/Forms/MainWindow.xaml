@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         x:Class="AuroraGUI.MainWindow"
 
-        Background="#E0FFFFFF"
+        Background="#C8F1F1F1"
         BorderThickness="0.1"
         BorderBrush="#00655B"
         WindowStartupLocation="CenterScreen"

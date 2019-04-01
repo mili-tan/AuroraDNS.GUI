@@ -184,5 +184,8 @@
   <ItemGroup>
     <None Include="Resources\AuroraWhite.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\doge.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

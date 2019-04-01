@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -14,6 +15,9 @@ namespace AuroraGUI
             InitializeComponent();
             VerText.Text += FileVersionInfo.GetVersionInfo(GetType().Assembly.Location).FileVersion;
             VerText.Text += $" ({File.GetLastWriteTime(GetType().Assembly.Location)})";
+
+            var fileTime = File.GetLastWriteTime(GetType().Assembly.Location);
+            AboutText.Text = $"关于AuroraDNS.GUI - {fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00}.Releases";
         }
 
         private void ButtonCredits_OnClick(object sender, RoutedEventArgs e)

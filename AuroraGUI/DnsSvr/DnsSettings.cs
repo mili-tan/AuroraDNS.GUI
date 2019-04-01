@@ -35,8 +35,8 @@ namespace AuroraGUI.DnsSvr
                 SecondDnsIp = IPAddress.Parse(configJson.AsObjectGetString("SecondDns"));
             if (configStr.Contains("\"SecondHttpsDns\""))
                 SecondHttpsDnsUrl = configJson.AsObjectGetString("SecondHttpsDns");
-            if (configStr.Contains("\"ViaDnsMsg\""))
-                ViaDnsMsg = configJson.AsObjectGetBool("ViaDnsMsg");
+            if (configStr.Contains("\"EnableDnsMessage\""))
+                ViaDnsMsg = configJson.AsObjectGetBool("EnableDnsMessage");
 
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");

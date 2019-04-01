@@ -9,6 +9,7 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Threading;
@@ -153,7 +154,11 @@ namespace AuroraGUI
         {
             Visibility = Visibility.Hidden;
             if (Environment.OSVersion.Version.Major >= 10)
+            {
                 WindowBlur.SetEnabled(this, true);
+                Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)) {Opacity = 1};
+                Grid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)) { Opacity = 1 };
+            }
 
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 1;

@@ -30,13 +30,13 @@
     <Grid Opacity="0.85">
         <Grid Name="Grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="147*"/>
+                <ColumnDefinition Width="146*"/>
                 <ColumnDefinition Width="146*"/>
             </Grid.ColumnDefinitions>
             <materialDesign:ColorZone
             Mode="PrimaryDark"
             Padding="16"
-            materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="0,0,-0.4,0" Grid.ColumnSpan="2" Height="55">
+            materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="0,0,0,0" Grid.ColumnSpan="2" Height="55">
                 <DockPanel>
                     <TextBlock
                     VerticalAlignment="Center" HorizontalAlignment="Center" 

@@ -9,29 +9,25 @@
         Background="#FAFAFA"
         Topmost="True"
 
-        Title="关于" Height="380" Width="600" WindowStartupLocation="CenterScreen"
+        Title="关于" Height="350" Width="600" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="NoResize">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="13*"/>
-            <RowDefinition Height="337*"/>
-        </Grid.RowDefinitions>
-        <Grid HorizontalAlignment="Center" Height="130" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Grid.RowSpan="2">
+        <Grid HorizontalAlignment="Center" Height="130" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Opacity="0.8">
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/doge.jpg" Stretch="UniformToFill" TileMode="Tile" />
+                <ImageBrush ImageSource="../Resources/cun.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
             </Grid.Effect>
         </Grid>
 
-        <TextBlock Name="AboutText" Text="关于AuroraDNS.GUI - 190401.Releases" Margin="9,0.725,8.6,0" 
-               VerticalAlignment="Top" Foreground="#FFFFFF" Width="576" 
-               HorizontalAlignment="Center" TextAlignment="Center" Height="17" Grid.Row="1"/>
+        <TextBlock Name="AboutText" Text="关于AuroraDNS.GUI - 190401.Releases" Margin="9,16,9,0" 
+               VerticalAlignment="Top" Foreground="#FFFFFF" 
+               HorizontalAlignment="Center" TextAlignment="Center" Height="17"/>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                             Padding="0" Opacity="0.8"
-                             Margin="15,36.725,14.6,0" Grid.Row="1"
+                             Padding="0" Opacity="0.85"
+                             Margin="15,50,15,0"
                              >
             <Grid>
                 <Grid.RowDefinitions>
@@ -59,8 +55,8 @@
         </materialDesign:Card>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                             Padding="0" 
-                             Margin="15,176.725,14.6,0" Grid.Row="1">
+                             Padding="0"  Opacity="0.85"
+                             Margin="15,190,15,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -85,8 +81,8 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
-        <TextBlock Margin="0,293.725,5.6,0" 
-            VerticalAlignment="Top" Foreground="#BBB" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20" Grid.Row="1">
+        <TextBlock Margin="0,307,5.6,0" 
+            VerticalAlignment="Top" Foreground="#BBB" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20">
             Made With ❤ By Milkey Tan. | <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://milione.cc/?page_id=880">支持我</Hyperlink>
         </TextBlock>
 

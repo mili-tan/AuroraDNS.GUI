@@ -56,9 +56,7 @@ namespace AuroraGUI.DnsSvr
                     }
                     else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
-                        //BlackList
-                        ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
-                        response.AnswerRecords.Add(blackRecord);
+                        response.AnswerRecords.Add(new ARecord(dnsQuestion.Name, 10, IPAddress.Any));
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- BlackList");
                     }

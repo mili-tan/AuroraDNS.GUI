@@ -50,13 +50,14 @@ namespace AuroraGUI.DnsSvr
                     {
                         response.AnswerRecords.AddRange(
                             (List<DnsRecordBase>) MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
-                        //response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0, "AuroraDNSC Cached"));
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0, "AuroraDNSC Cached"));
                         if (DnsSettings.DebugLog)
                             BgwLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
                     }
                     else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         response.AnswerRecords.Add(new ARecord(dnsQuestion.Name, 10, IPAddress.Any));
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("blacklist.auroradns.mili.one"), 0, "AuroraDNSC Blocked"));
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- BlackList");
                     }
@@ -71,6 +72,7 @@ namespace AuroraGUI.DnsSvr
                                 IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name])));
 
                         response.AnswerRecords.AddRange(whiteRecords);
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("whitelist.auroradns.mili.one"), 0, "AuroraDNSC Rewrote"));
                         if (DnsSettings.DebugLog)
                             BgwLog(@"|- WhiteList");
                     }

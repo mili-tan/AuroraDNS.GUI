@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
@@ -45,14 +46,15 @@ namespace AuroraGUI.DnsSvr
                     if (DnsSettings.DebugLog)
                         BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
 
-                    if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains(dnsQuestion.Name.ToString()))
+                    if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
                     {
                         response.AnswerRecords.AddRange(
-                            (List<DnsRecordBase>) MemoryCache.Default[dnsQuestion.Name.ToString()]);
+                            (List<DnsRecordBase>) MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
+                        //response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0, "AuroraDNSC Cached"));
                         if (DnsSettings.DebugLog)
-                            BgwLog($@"|- CacheContains : {dnsQuestion.Name}");
+                            BgwLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
                     }
-                    if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         //BlackList
                         ARecord blackRecord = new ARecord(dnsQuestion.Name, 10, IPAddress.Any);
@@ -92,8 +94,9 @@ namespace AuroraGUI.DnsSvr
                             {
                                 response.AnswerRecords.AddRange(resolvedDnsList);
 
-                                if (DnsSettings.DnsCacheEnable)
-                                    MemoryCache.Default.Add(new CacheItem(dnsQuestion.Name.ToString(), resolvedDnsList),
+                                if (DnsSettings.DnsCacheEnable && !MemoryCache.Default.Contains(dnsQuestion.Name.ToString()))
+                                    MemoryCache.Default.Add(
+                                        new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
                                         new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, resolvedDnsList[0].TimeToLive)});
                             }
                             else if (statusCode == ReturnCode.ServerFailure)

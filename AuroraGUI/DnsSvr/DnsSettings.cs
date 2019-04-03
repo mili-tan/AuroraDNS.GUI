@@ -24,7 +24,7 @@ namespace AuroraGUI.DnsSvr
         public static bool BlackListEnable  = false;
         public static bool WhiteListEnable  = false;
         public static bool DnsMsgEnable = false;
-        public static bool DnsCacheEnable = false;
+        public static bool DnsCacheEnable = true;
         public static WebProxy WProxy = new WebProxy("127.0.0.1:1080");
 
         public static void ReadConfig(string path)

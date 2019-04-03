@@ -23,7 +23,8 @@ namespace AuroraGUI.DnsSvr
         public static bool DebugLog = false;
         public static bool BlackListEnable  = false;
         public static bool WhiteListEnable  = false;
-        public static bool ViaDnsMsg = false;
+        public static bool DnsMsgEnable = false;
+        public static bool DnsCacheEnable = false;
         public static WebProxy WProxy = new WebProxy("127.0.0.1:1080");
 
         public static void ReadConfig(string path)
@@ -36,7 +37,7 @@ namespace AuroraGUI.DnsSvr
             if (configStr.Contains("\"SecondHttpsDns\""))
                 SecondHttpsDnsUrl = configJson.AsObjectGetString("SecondHttpsDns");
             if (configStr.Contains("\"EnableDnsMessage\""))
-                ViaDnsMsg = configJson.AsObjectGetBool("EnableDnsMessage");
+                DnsMsgEnable = configJson.AsObjectGetBool("EnableDnsMessage");
 
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");

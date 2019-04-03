@@ -107,7 +107,7 @@ namespace AuroraGUI
                     $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n" +
                     $"\"SecondHttpsDns\" : \"{DnsSettings.SecondHttpsDnsUrl}\",\n" +
                     $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\",\n" +
-                    $"\"EnableDnsMessage\" : {DnsSettings.ViaDnsMsg.ToString().ToLower()} \n" +
+                    $"\"EnableDnsMessage\" : {DnsSettings.DnsMsgEnable.ToString().ToLower()} \n" +
                     "}");
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
             }

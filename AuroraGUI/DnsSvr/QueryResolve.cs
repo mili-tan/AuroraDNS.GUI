@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Runtime.Caching;
 using System.Threading.Tasks;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
@@ -44,6 +45,13 @@ namespace AuroraGUI.DnsSvr
                     if (DnsSettings.DebugLog)
                         BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
 
+                    if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains(dnsQuestion.Name.ToString()))
+                    {
+                        response.AnswerRecords.AddRange(
+                            (List<DnsRecordBase>) MemoryCache.Default[dnsQuestion.Name.ToString()]);
+                        if (DnsSettings.DebugLog)
+                            BgwLog($@"|- CacheContains : {dnsQuestion.Name}");
+                    }
                     if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         //BlackList
@@ -71,7 +79,7 @@ namespace AuroraGUI.DnsSvr
                         //Resolve
                         try
                         {
-                            (List<DnsRecordBase> resolvedDnsList, ReturnCode statusCode) = DnsSettings.ViaDnsMsg
+                            (List<DnsRecordBase> resolvedDnsList, ReturnCode statusCode) = DnsSettings.DnsMsgEnable
                                 ? ResolveOverHttpsByDnsMsg(clientAddress.ToString(),
                                     dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
                                     DnsSettings.WProxy, dnsQuestion.RecordType)
@@ -81,7 +89,13 @@ namespace AuroraGUI.DnsSvr
 
                             if (resolvedDnsList != null && resolvedDnsList.Count != 0 &&
                                 statusCode == ReturnCode.NoError)
+                            {
                                 response.AnswerRecords.AddRange(resolvedDnsList);
+
+                                if (DnsSettings.DnsCacheEnable)
+                                    MemoryCache.Default.Add(new CacheItem(dnsQuestion.Name.ToString(), resolvedDnsList),
+                                        new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, resolvedDnsList[0].TimeToLive)});
+                            }
                             else if (statusCode == ReturnCode.ServerFailure)
                             {
                                 response.AnswerRecords = new DnsClient(DnsSettings.SecondDnsIp, 1000)
@@ -275,7 +289,7 @@ namespace AuroraGUI.DnsSvr
 
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        DnsSettings.ViaDnsMsg = false;
+                        DnsSettings.DnsMsgEnable = false;
                         return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                             proxyEnable, wProxy, type);
                     }

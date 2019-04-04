@@ -94,10 +94,13 @@ namespace AuroraGUI.DnsSvr
                             {
                                 response.AnswerRecords.AddRange(resolvedDnsList);
 
-                                if (DnsSettings.DnsCacheEnable && !MemoryCache.Default.Contains(dnsQuestion.Name.ToString()))
+                                if (DnsSettings.DnsCacheEnable &&
+                                    !MemoryCache.Default.Contains(dnsQuestion.Name.ToString()))
                                     MemoryCache.Default.Add(
                                         new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
-                                        new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, resolvedDnsList[0].TimeToLive)});
+                                        new CacheItemPolicy { AbsoluteExpiration =
+                                                DateTimeOffset.Now + TimeSpan.FromSeconds(resolvedDnsList[0].TimeToLive)
+                                        });
                             }
                             else if (statusCode == ReturnCode.ServerFailure)
                             {

@@ -65,22 +65,25 @@ namespace AuroraGUI
                 //HongKong SAR
                 UrlSettings.MDnsList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-HK.list";
 
-            if (File.Exists($"{SetupBasePath}url.json"))
-                UrlSettings.ReadConfig($"{SetupBasePath}url.json");
+            try
+            {
+                if (File.Exists($"{SetupBasePath}url.json"))
+                    UrlSettings.ReadConfig($"{SetupBasePath}url.json");
+                if (File.Exists($"{SetupBasePath}config.json"))
+                    DnsSettings.ReadConfig($"{SetupBasePath}config.json");
+                if (DnsSettings.BlackListEnable && File.Exists($"{SetupBasePath}black.list"))
+                    DnsSettings.ReadBlackList($"{SetupBasePath}black.list");
+                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}white.list"))
+                    DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
+                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
+                    DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error: 尝试读取配置文件错误{Environment.NewLine}Original error: {e.Message}");
+            }
 
-            if (File.Exists($"{SetupBasePath}config.json"))
-                DnsSettings.ReadConfig($"{SetupBasePath}config.json");
-
-            if (DnsSettings.BlackListEnable && File.Exists($"{SetupBasePath}black.list"))
-                DnsSettings.ReadBlackList($"{SetupBasePath}black.list");
-
-            if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}white.list"))
-                DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
-
-            if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
-                DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
-
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
 
 //            if (false)
 //                ServicePointManager.ServerCertificateValidationCallback +=

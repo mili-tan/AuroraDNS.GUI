@@ -154,11 +154,9 @@ namespace AuroraGUI
         {
             Visibility = Visibility.Hidden;
             if (Environment.OSVersion.Version.Major >= 10)
-            {
                 WindowBlur.SetEnabled(this, true);
+            else
                 Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)) {Opacity = 1};
-                Grid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)) { Opacity = 1 };
-            }
 
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 1;

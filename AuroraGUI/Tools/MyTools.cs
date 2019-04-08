@@ -15,7 +15,7 @@ namespace AuroraGUI.Tools
 {
     static class MyTools
     {
-        public static void BgwLog(string log)
+        public static void BackgroundLog(string log)
         {
             using (BackgroundWorker worker = new BackgroundWorker())
             {
@@ -87,7 +87,7 @@ namespace AuroraGUI.Tools
             }
             catch (Exception e)
             {
-                BgwLog(@"| Download list failed : " + e);
+                BackgroundLog(@"| Download list failed : " + e);
             }
         }
 

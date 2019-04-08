@@ -192,7 +192,7 @@ namespace AuroraGUI
                 }
                 catch (Exception exception)
                 {
-                    MyTools.BgwLog(@"| Download list failed : " + exception);
+                    MyTools.BackgroundLog(@"| Download list failed : " + exception);
                 }
 
                 if (string.IsNullOrWhiteSpace(dohListStrings[dohListStrings.Count - 1]))
@@ -246,7 +246,7 @@ namespace AuroraGUI
             }
             catch (Exception exception)
             {
-                MyTools.BgwLog(exception.ToString());
+                MyTools.BackgroundLog(exception.ToString());
             }
         }
 

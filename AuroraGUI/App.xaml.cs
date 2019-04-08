@@ -18,7 +18,7 @@ namespace AuroraGUI
 
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MyTools.BgwLog(e.ExceptionObject.ToString());
+            MyTools.BackgroundLog(e.ExceptionObject.ToString());
             if (e.IsTerminating)
             {
                 MessageBox.Show(
@@ -30,7 +30,7 @@ namespace AuroraGUI
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            MyTools.BgwLog(e.Exception.ToString());
+            MyTools.BackgroundLog(e.Exception.ToString());
             MessageBoxResult msgResult = MessageBox.Show(
                 $"未经处理的异常错误，请从以下错误信息汲取灵感。{Environment.NewLine}" +
                 $"点击取消中止程序运行。{Environment.NewLine}" + e.Exception,

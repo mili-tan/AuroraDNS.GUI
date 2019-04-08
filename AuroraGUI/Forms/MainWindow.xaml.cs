@@ -334,7 +334,7 @@ namespace AuroraGUI
             }
             catch (Exception exception)
             {
-                MyTools.BgwLog(exception.ToString());
+                MyTools.BackgroundLog(exception.ToString());
             }
         }
 

@@ -44,7 +44,7 @@ namespace AuroraGUI.DnsSvr
                     response.ReturnCode = ReturnCode.NoError;
 
                     if (DnsSettings.DebugLog)
-                        BgwLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
+                        BackgroundLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
 
                     if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
                     {
@@ -52,14 +52,14 @@ namespace AuroraGUI.DnsSvr
                             (List<DnsRecordBase>) MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
                         response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0, "AuroraDNSC Cached"));
                         if (DnsSettings.DebugLog)
-                            BgwLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
+                            BackgroundLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
                     }
                     else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         response.AnswerRecords.Add(new ARecord(dnsQuestion.Name, 10, IPAddress.Any));
                         response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("blacklist.auroradns.mili.one"), 0, "AuroraDNSC Blocked"));
                         if (DnsSettings.DebugLog)
-                            BgwLog(@"|- BlackList");
+                            BackgroundLog(@"|- BlackList");
                     }
                     else if (DnsSettings.WhiteListEnable && DnsSettings.WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
@@ -74,7 +74,7 @@ namespace AuroraGUI.DnsSvr
                         response.AnswerRecords.AddRange(whiteRecords);
                         response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("whitelist.auroradns.mili.one"), 0, "AuroraDNSC Rewrote"));
                         if (DnsSettings.DebugLog)
-                            BgwLog(@"|- WhiteList");
+                            BackgroundLog(@"|- WhiteList");
                     }
                     else
                     {
@@ -105,7 +105,7 @@ namespace AuroraGUI.DnsSvr
                             {
                                 response.AnswerRecords = new DnsClient(DnsSettings.SecondDnsIp, 1000)
                                     .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords;
-                                BgwLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
+                                BackgroundLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
                             }
                             else
                                 response.ReturnCode = statusCode;
@@ -113,7 +113,7 @@ namespace AuroraGUI.DnsSvr
                         catch (Exception ex)
                         {
                             response.ReturnCode = ReturnCode.ServerFailure;
-                            BgwLog(@"| " + ex);
+                            BackgroundLog(@"| " + ex);
                         }
                     }
 
@@ -142,17 +142,17 @@ namespace AuroraGUI.DnsSvr
                 HttpWebResponse response = (HttpWebResponse) e.Response;
                 try
                 {
-                    BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {response.ResponseUri}");
+                    BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {response.ResponseUri}");
                 }
                 catch (Exception exception)
                 {
-                    BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
+                    BackgroundLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
                     //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                     //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
-                BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
+                BackgroundLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
                 return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                     proxyEnable, wProxy, type);
             }
@@ -290,7 +290,7 @@ namespace AuroraGUI.DnsSvr
                 HttpWebResponse response = (HttpWebResponse)e.Response;
                 try
                 {
-                    BgwLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
+                    BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
 
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
@@ -301,11 +301,11 @@ namespace AuroraGUI.DnsSvr
                 }
                 catch (Exception exception)
                 {
-                    BgwLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
+                    BackgroundLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);
-                BgwLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
+                BackgroundLog($@"| -- SecondDoH : {DnsSettings.SecondHttpsDnsUrl}");
                 return ResolveOverHttpsByDnsMsg(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
                     proxyEnable, wProxy, type);
             }

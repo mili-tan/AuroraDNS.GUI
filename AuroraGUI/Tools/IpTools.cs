@@ -37,7 +37,7 @@ namespace AuroraGUI.Tools
             }
             catch (Exception e)
             {
-                MyTools.BgwLog("Try Connect:" + e);
+                MyTools.BackgroundLog("Try Connect:" + e);
                 return MessageBox.Show(
                            $"Error: 尝试连接远端 DNS over HTTPS 服务器发生错误{Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。{Environment.NewLine}Original error: "
                            + e.Message, @"错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK
@@ -54,7 +54,7 @@ namespace AuroraGUI.Tools
             }
             catch (Exception e)
             {
-                MyTools.BgwLog("Try Connect:" + e);
+                MyTools.BackgroundLog("Try Connect:" + e);
                 return MessageBox.Show($"Error: 尝试获取公网IP地址失败{Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。{Environment.NewLine}Original error: "
                                               + e.Message, @"错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK
                     ? GetIntIp() : IPAddress.Any.ToString();
@@ -93,7 +93,7 @@ namespace AuroraGUI.Tools
             }
             catch (Exception e)
             {
-                MyTools.BgwLog(@"| DownloadString failed : " + e);
+                MyTools.BackgroundLog(@"| DownloadString failed : " + e);
                 return null;
             }
         }

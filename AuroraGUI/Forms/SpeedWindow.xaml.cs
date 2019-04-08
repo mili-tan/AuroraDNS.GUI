@@ -102,7 +102,7 @@ namespace AuroraGUI
                 }
                 catch (Exception exception)
                 {
-                    MyTools.BgwLog(@"| DownloadString failed : " + exception);
+                    MyTools.BackgroundLog(@"| DownloadString failed : " + exception);
                 }
 
                 if (string.IsNullOrWhiteSpace(ListStrings[ListStrings.Count - 1]))

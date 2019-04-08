@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Runtime.Caching;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -24,6 +25,21 @@ namespace AuroraGUI.Tools
                     if (!Directory.Exists("Log"))
                         Directory.CreateDirectory("Log");
                     File.AppendAllText($"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log", log + Environment.NewLine);
+                };
+
+                worker.RunWorkerAsync();
+            }
+        }
+
+        public static void BackgroundWriteCache(CacheItem item,int ttl = 600)
+        {
+            using (BackgroundWorker worker = new BackgroundWorker())
+            {
+                worker.DoWork += (o, ea) =>
+                {
+                    if (!MemoryCache.Default.Contains(item.Key))
+                        MemoryCache.Default.Add(item,
+                            new CacheItemPolicy {AbsoluteExpiration = DateTimeOffset.Now + TimeSpan.FromSeconds(ttl)});
                 };
 
                 worker.RunWorkerAsync();

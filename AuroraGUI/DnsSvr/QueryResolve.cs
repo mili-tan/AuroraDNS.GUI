@@ -89,17 +89,14 @@ namespace AuroraGUI.DnsSvr
                                     dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
                                     DnsSettings.WProxy, dnsQuestion.RecordType);
 
-                            if (resolvedDnsList != null && resolvedDnsList.Count != 0 &&
-                                statusCode == ReturnCode.NoError)
+                            if (resolvedDnsList != null && resolvedDnsList.Count != 0 && statusCode == ReturnCode.NoError)
                             {
                                 response.AnswerRecords.AddRange(resolvedDnsList);
 
-                                if (DnsSettings.DnsCacheEnable &&
-                                    !MemoryCache.Default.Contains(dnsQuestion.Name.ToString()))
-                                    MemoryCache.Default.Add(
+                                if (DnsSettings.DnsCacheEnable)
+                                    BackgroundWriteCache(
                                         new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
-                                        new CacheItemPolicy { AbsoluteExpiration =
-                                                DateTimeOffset.Now + TimeSpan.FromSeconds(resolvedDnsList[0].TimeToLive)});
+                                        resolvedDnsList[0].TimeToLive);
                             }
                             else if (statusCode == ReturnCode.ServerFailure)
                             {

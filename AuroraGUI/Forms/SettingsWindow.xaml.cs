@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Caching;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
@@ -269,6 +270,7 @@ namespace AuroraGUI
 
         private void CleanCache_OnClick(object sender, RoutedEventArgs e)
         {
+            MemoryCache.Default.Dispose();
             new Process {StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
         }

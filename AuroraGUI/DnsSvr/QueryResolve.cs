@@ -99,8 +99,7 @@ namespace AuroraGUI.DnsSvr
                                     MemoryCache.Default.Add(
                                         new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
                                         new CacheItemPolicy { AbsoluteExpiration =
-                                                DateTimeOffset.Now + TimeSpan.FromSeconds(resolvedDnsList[0].TimeToLive)
-                                        });
+                                                DateTimeOffset.Now + TimeSpan.FromSeconds(resolvedDnsList[0].TimeToLive)});
                             }
                             else if (statusCode == ReturnCode.ServerFailure)
                             {

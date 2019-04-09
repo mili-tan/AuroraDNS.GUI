@@ -19,7 +19,6 @@ using AuroraGUI.Fx;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
 using static System.AppDomain;
-using Color = System.Windows.Media.Color;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
 using MessageBox = System.Windows.MessageBox;
@@ -45,7 +44,7 @@ namespace AuroraGUI
             InitializeComponent();
 
             WindowStyle = WindowStyle.SingleBorderWindow;
-            Grid.Effect = new BlurEffect() { Radius = 5, RenderingBias = RenderingBias.Performance };
+            Grid.Effect = new BlurEffect { Radius = 5, RenderingBias = RenderingBias.Performance };
 
             if (TimeZoneInfo.Local.Id.Contains("China Standard Time") && RegionInfo.CurrentRegion.GeoId == 45) 
             {
@@ -161,7 +160,7 @@ namespace AuroraGUI
                 WindowBlur.SetEnabled(this, true);
             else
             {
-                Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)) {Opacity = 1};
+                Background = new SolidColorBrush(Colors.White) {Opacity = 1};
                 NotifyIcon.Icon = Properties.Resources.AuroraBlack;
             }
 

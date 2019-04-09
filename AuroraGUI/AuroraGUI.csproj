@@ -191,5 +191,8 @@
   <ItemGroup>
     <Resource Include="Resources\qiu.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AuroraBlack.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

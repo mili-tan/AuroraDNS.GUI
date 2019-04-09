@@ -19,6 +19,7 @@ using AuroraGUI.Fx;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
 using static System.AppDomain;
+using Color = System.Windows.Media.Color;
 using WinFormMenuItem = System.Windows.Forms.MenuItem;
 using WinFormContextMenu = System.Windows.Forms.ContextMenu;
 using MessageBox = System.Windows.MessageBox;
@@ -159,7 +160,10 @@ namespace AuroraGUI
             if (Environment.OSVersion.Version.Major >= 10)
                 WindowBlur.SetEnabled(this, true);
             else
+            {
                 Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)) {Opacity = 1};
+                NotifyIcon.Icon = Properties.Resources.AuroraBlack;
+            }
 
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 1;

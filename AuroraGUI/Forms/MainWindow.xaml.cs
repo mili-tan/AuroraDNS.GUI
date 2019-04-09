@@ -160,8 +160,8 @@ namespace AuroraGUI
                 WindowBlur.SetEnabled(this, true);
             else
             {
-                Background = new SolidColorBrush(Colors.White) {Opacity = 1};
                 NotifyIcon.Icon = Properties.Resources.AuroraBlack;
+                Background = new SolidColorBrush(Colors.White) {Opacity = 1};
             }
 
             var desktopWorkingArea = SystemParameters.WorkArea;

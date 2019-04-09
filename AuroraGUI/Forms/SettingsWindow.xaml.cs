@@ -30,7 +30,7 @@ namespace AuroraGUI
             Log.IsChecked = DnsSettings.DebugLog;
             EDNSCustomize.IsChecked = DnsSettings.EDnsCustomize;
             WhiteList.IsChecked = DnsSettings.WhiteListEnable;
-            BlackList.IsChecked = DnsSettings.BlackListEnable;
+            DNSCache.IsChecked = DnsSettings.DnsCacheEnable;
             Proxy.IsChecked = DnsSettings.ProxyEnable;
 
             DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
@@ -47,8 +47,6 @@ namespace AuroraGUI
             else
                 RunWithStart.IsEnabled = false;
 
-            if (File.Exists($"{MainWindow.SetupBasePath}black.list"))
-                BlackList.IsEnabled = true;
             if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
                 WhiteList.IsEnabled = true;
 
@@ -74,7 +72,7 @@ namespace AuroraGUI
         {
             DnsSettings.DebugLog = Convert.ToBoolean(Log.IsChecked);
             DnsSettings.EDnsCustomize = Convert.ToBoolean(EDNSCustomize.IsChecked);
-            DnsSettings.BlackListEnable = Convert.ToBoolean(BlackList.IsChecked);
+            DnsSettings.DnsCacheEnable = Convert.ToBoolean(DNSCache.IsChecked);
             DnsSettings.WhiteListEnable = Convert.ToBoolean(WhiteList.IsChecked);
             DnsSettings.ProxyEnable = Convert.ToBoolean(Proxy.IsChecked);
 
@@ -115,36 +113,6 @@ namespace AuroraGUI
             }
             else
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"不应为空,请填写完全。" }); 
-        }
-
-        private void BlackListButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Filter = "list files (*.list)|*.list|txt files (*.txt)|*.txt|All files (*.*)|*.*",
-                RestoreDirectory = true
-            };
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
-                    else
-                    {
-                        File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}black.list");
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
-                }
-            }
-
-            if (File.Exists($"{MainWindow.SetupBasePath}black.list"))
-                BlackList.IsEnabled = true;
         }
 
         private void WhiteListButton_OnClick(object sender, RoutedEventArgs e)
@@ -270,7 +238,7 @@ namespace AuroraGUI
 
         private void CleanCache_OnClick(object sender, RoutedEventArgs e)
         {
-            MemoryCache.Default.Dispose();
+            MemoryCache.Default.Trim(100);
             new Process {StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
             Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
         }

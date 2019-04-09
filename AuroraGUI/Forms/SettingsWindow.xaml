@@ -71,15 +71,10 @@
                 <TextBlock Grid.Row="6" Margin="16,6,0,4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    黑名单
+                    启用 DNS 临时缓存
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <Button Click="BlackListButton_OnClick"
-                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,0,2,-8.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="FileImport" ToolTip="导入" />
-                    </Button>
-                    <ToggleButton Name="BlackList" IsEnabled="False"
+                    <ToggleButton Name="DNSCache"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          Margin="0,5,0,-5"  />
                 </StackPanel>
@@ -88,7 +83,7 @@
                 <TextBlock Grid.Row="8" Margin="16,5,0,14" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    重定向名单
+                    启用重定向名单（格式与Hosts文件一致）
                 </TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="WhiteListButton_OnClick"

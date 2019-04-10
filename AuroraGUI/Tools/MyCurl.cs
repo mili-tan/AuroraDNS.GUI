@@ -20,7 +20,6 @@ namespace AuroraGUI.Tools
                     webRequest.AllowAutoRedirect = AllowAutoRedirect;
                     webRequest.KeepAlive = true;
                 }
-
                 return request;
             }
         }

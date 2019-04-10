@@ -62,7 +62,7 @@ namespace AuroraGUI.Tools
 
         public static List<int> Curl(string urlStr,string name)
         {
-            var webClient = new MyTools.MWebClient() { TimeOut = 3000 };
+            var webClient = new MyCurl.MWebClient() { TimeOut = 3000 };
             var times = new List<int>();
             for (int i = 0; i < 4; i++)
             {

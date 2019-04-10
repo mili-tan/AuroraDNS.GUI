@@ -112,19 +112,5 @@ namespace AuroraGUI.Tools
         {
             return string.Concat(country.ToUpper().Select(x => char.ConvertFromUtf32(x + 0x1F1A5)));
         }
-
-        public class MWebClient : WebClient
-        {
-            public bool AllowAutoRedirect { get; set; } = false;
-            public int TimeOut { get; set; } = 15000;
-            protected override WebRequest GetWebRequest(Uri address)
-            {
-                var request = base.GetWebRequest(address);
-                request.Timeout = TimeOut;
-                if (request is HttpWebRequest webRequest)
-                    webRequest.AllowAutoRedirect = AllowAutoRedirect;
-                return request;
-            }
-        }
     }
 }

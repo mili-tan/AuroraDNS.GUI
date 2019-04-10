@@ -125,7 +125,7 @@ namespace AuroraGUI.DnsSvr
         {
             string dnsStr;
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
-            MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
+            MyCurl.MWebClient mWebClient = new MyCurl.MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             //webClient.AllowAutoRedirect = false;
             if (proxyEnable) mWebClient.Proxy = wProxy;
 
@@ -271,7 +271,7 @@ namespace AuroraGUI.DnsSvr
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             DnsMessage dnsMsg;
-            MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
+            MyCurl.MWebClient mWebClient = new MyCurl.MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             if (proxyEnable) mWebClient.Proxy = wProxy;
 
             var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName.TrimEnd('.'), type)).TrimEnd('=')

@@ -50,5 +50,8 @@ namespace AuroraGUI.Tools
             mHttpClient.DefaultRequestHeaders.Connection.Add("keep-alive");
             return mHttpClient.GetStringAsync(url).Result;
         }
+
+        public static string Get(string url, bool http2 = false, bool proxyEnable = false, IWebProxy wProxy = null)
+            => http2 ? GetByHttp2Client(url, proxyEnable, wProxy) : GetByMWebClient(url, proxyEnable, wProxy);
     }
 }

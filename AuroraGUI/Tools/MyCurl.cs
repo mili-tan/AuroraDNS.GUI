@@ -43,14 +43,12 @@ namespace AuroraGUI.Tools
 
         public static string GetStringByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null)
         {
-            var mHttp2Handel = new Http2Handler {WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy};
+            var mHttp2Handel = new Http2Handler();
             if (proxyEnable) mHttp2Handel.Proxy = wProxy;
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
-            mHttpClient.DefaultRequestHeaders.Connection.Add("keep-alive");
             return mHttpClient.GetStringAsync(url).Result;
         }
-
 
         public static byte[] GetDataByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null)
         {
@@ -66,7 +64,6 @@ namespace AuroraGUI.Tools
             if (proxyEnable) mHttp2Handel.Proxy = wProxy;
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
-            mHttpClient.DefaultRequestHeaders.Connection.Add("keep-alive");
             return mHttpClient.GetByteArrayAsync(url).Result;
         }
 

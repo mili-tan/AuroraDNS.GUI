@@ -129,8 +129,8 @@ namespace AuroraGUI.DnsSvr
             try
             {
                 dnsStr = MyCurl.GetString(dohUrl + @"?ct=application/dns-json&" +
-                                    $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}",
-                    true, proxyEnable, wProxy);
+                                          $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}",
+                    DnsSettings.Http2Enable, proxyEnable, wProxy);
             }
             catch (WebException e)
             {
@@ -276,7 +276,7 @@ namespace AuroraGUI.DnsSvr
             {
                 var dnsDataBytes = MyCurl.GetData(
                     $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}",
-                    true, proxyEnable, wProxy);
+                    DnsSettings.Http2Enable, proxyEnable, wProxy);
                  dnsMsg = DnsMessage.Parse(dnsDataBytes);
             }
             catch (WebException e)

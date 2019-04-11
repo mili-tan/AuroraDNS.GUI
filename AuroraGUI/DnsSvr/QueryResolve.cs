@@ -131,8 +131,9 @@ namespace AuroraGUI.DnsSvr
 
             try
             {
-                dnsStr = mWebClient.DownloadString(dohUrl + @"?ct=application/dns-json&" +
-                                                  $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
+                dnsStr = MyCurl.GetString(dohUrl + @"?ct=application/dns-json&" +
+                                    $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}",
+                    true, proxyEnable, wProxy);
             }
             catch (WebException e)
             {

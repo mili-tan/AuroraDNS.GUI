@@ -33,7 +33,7 @@ namespace AuroraGUI.Tools
             }
         }
 
-        public static string GetByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null)
+        public static string GetStringByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null)
         {
             MWebClient mWebClient = new MWebClient { Headers = { ["User-Agent"] = "AuroraDNSC/0.1"} };
             //if (bool) webClient.AllowAutoRedirect = false;
@@ -41,7 +41,7 @@ namespace AuroraGUI.Tools
             return mWebClient.DownloadString(url);
         }
 
-        public static string GetByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null)
+        public static string GetStringByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null)
         {
             var mHttp2Handel = new Http2Handler {WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy};
             if (proxyEnable) mHttp2Handel.Proxy = wProxy;
@@ -51,7 +51,29 @@ namespace AuroraGUI.Tools
             return mHttpClient.GetStringAsync(url).Result;
         }
 
-        public static string Get(string url, bool http2 = false, bool proxyEnable = false, IWebProxy wProxy = null)
-            => http2 ? GetByHttp2Client(url, proxyEnable, wProxy) : GetByMWebClient(url, proxyEnable, wProxy);
+
+        public static byte[] GetDataByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null)
+        {
+            MWebClient mWebClient = new MWebClient { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } };
+            //if (bool) webClient.AllowAutoRedirect = false;
+            if (proxyEnable) mWebClient.Proxy = wProxy;
+            return mWebClient.DownloadData(url);
+        }
+
+        public static byte[] GetDataByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null)
+        {
+            var mHttp2Handel = new Http2Handler { WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy };
+            if (proxyEnable) mHttp2Handel.Proxy = wProxy;
+            HttpClient mHttpClient = new HttpClient(mHttp2Handel);
+            mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
+            mHttpClient.DefaultRequestHeaders.Connection.Add("keep-alive");
+            return mHttpClient.GetByteArrayAsync(url).Result;
+        }
+
+        public static string GetString(string url, bool http2 = false, bool proxyEnable = false, IWebProxy wProxy = null)
+            => http2 ? GetStringByHttp2Client(url, proxyEnable, wProxy) : GetStringByMWebClient(url, proxyEnable, wProxy);
+
+        public static byte[] GetData(string url, bool http2 = false, bool proxyEnable = false, IWebProxy wProxy = null)
+            => http2 ? GetDataByHttp2Client(url, proxyEnable, wProxy) : GetDataByMWebClient(url, proxyEnable, wProxy);
     }
 }

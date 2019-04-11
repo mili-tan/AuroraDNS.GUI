@@ -125,9 +125,6 @@ namespace AuroraGUI.DnsSvr
         {
             string dnsStr;
             List<DnsRecordBase> recordList = new List<DnsRecordBase>();
-            MyCurl.MWebClient mWebClient = new MyCurl.MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
-            //webClient.AllowAutoRedirect = false;
-            if (proxyEnable) mWebClient.Proxy = wProxy;
 
             try
             {
@@ -272,15 +269,14 @@ namespace AuroraGUI.DnsSvr
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             DnsMessage dnsMsg;
-            MyCurl.MWebClient mWebClient = new MyCurl.MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
-            if (proxyEnable) mWebClient.Proxy = wProxy;
-
             var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName.TrimEnd('.'), type)).TrimEnd('=')
                 .Replace('+', '-').Replace('/', '_');
+
             try
             {
-                var dnsDataBytes = mWebClient.DownloadData(
-                    $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}");
+                var dnsDataBytes = MyCurl.GetData(
+                    $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}",
+                    true, proxyEnable, wProxy);
                  dnsMsg = DnsMessage.Parse(dnsDataBytes);
             }
             catch (WebException e)

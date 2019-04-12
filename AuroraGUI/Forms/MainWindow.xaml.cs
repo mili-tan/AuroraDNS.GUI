@@ -193,7 +193,7 @@ namespace AuroraGUI
                     var snackbarMsg = new SnackbarMessage()
                     {
                         Content = "可能已有一个正在运行的实例, 请不要重复启动！",
-                        ActionContent = "退出",
+                        ActionContent = "退出"
                     };
                     snackbarMsg.ActionClick += (o, args) => Environment.Exit(Environment.ExitCode);
                     Snackbar.Message = snackbarMsg;

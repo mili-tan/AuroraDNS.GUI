@@ -34,7 +34,7 @@
                     <Button Click="CleanCache_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                             Margin="0,-5,0,-6" Height="Auto" Opacity="0.5">
-                        <materialDesign:PackIcon Kind="Broom" ToolTip="刷新系统 DNS 缓存" Height="19" />
+                        <materialDesign:PackIcon Kind="Broom" ToolTip="刷新 DNS 缓存" Height="19" />
                     </Button>
                 </StackPanel>
 

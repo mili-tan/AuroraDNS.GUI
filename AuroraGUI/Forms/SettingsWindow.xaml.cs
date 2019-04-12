@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Forms;
 using AuroraGUI.Tools;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 
 // ReSharper disable LocalizableElement
@@ -239,9 +240,19 @@ namespace AuroraGUI
 
         private void CleanCache_OnClick(object sender, RoutedEventArgs e)
         {
+            Snackbar.IsActive = true;
             MemoryCache.Default.Trim(100);
-            new Process {StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
+            var snackbarMsg = new SnackbarMessage()
+            {
+                Content = "已经刷新内置缓存！",
+                ActionContent = "刷新系统缓存"
+            };
+            snackbarMsg.ActionClick += (o, args) =>
+            {
+                new Process { StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
+            };
+            Snackbar.Message = snackbarMsg;
         }
 
         private void ListL10N_OnClick(object sender, RoutedEventArgs e)

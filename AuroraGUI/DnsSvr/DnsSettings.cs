@@ -11,7 +11,7 @@ namespace AuroraGUI.DnsSvr
     class DnsSettings
     {
         public static List<DomainName> BlackList;
-        public static Dictionary<DomainName, string> WhiteList;
+        public static Dictionary<DomainName, string> WhiteList = new Dictionary<DomainName, string>();
 
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
         public static string SecondHttpsDnsUrl = "https://1.0.0.1/dns-query";
@@ -67,11 +67,35 @@ namespace AuroraGUI.DnsSvr
         public static void ReadWhiteList(string path = "white.list")
         {
             string[] whiteListStrs = File.ReadAllLines(path);
-            WhiteList = whiteListStrs.Select(
-                itemStr => itemStr.Split(' ', ',', '\t')).ToDictionary(
-                whiteSplit => DomainName.Parse(whiteSplit[1]),
-                whiteSplit => whiteSplit[0]);
+            foreach (var itemStr in whiteListStrs)
+            {
+                var strings = itemStr.Split(' ', ',', '\t');
+                WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+            }
         }
+
+        public static void ReadWhiteListWeb(string webUrl)
+        {
+            string[] whiteListStrs = new WebClient().DownloadString(webUrl).Split('\n');
+            foreach (var itemStr in whiteListStrs)
+            {
+                var strings = itemStr.Split(' ', ',', '\t');
+                WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+            }
+        }
+
+        public static void ReadWhiteListSubscribe(string path)
+        {
+            string[] whiteListSubStrs = File.ReadAllLines(path);
+            foreach (var item in whiteListSubStrs)
+            {
+                if (item.ToLower().Contains("http://") || item.ToLower().Contains("https://"))
+                    ReadWhiteListWeb(item);
+                else
+                    ReadWhiteList(item);
+            }
+        }
+
     }
 
     class UrlSettings

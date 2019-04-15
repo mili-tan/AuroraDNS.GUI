@@ -77,6 +77,8 @@ namespace AuroraGUI
                     DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
                 if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
                     DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
+                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewritesub.list"))
+                    DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}rewritesub.list");
             }
             catch (Exception e)
             {

@@ -50,6 +50,12 @@
                     VerticalAlignment="Center"
                     ToolTip="启用 / 停用"
                     DockPanel.Dock="Right" HorizontalAlignment="Right" Checked="DnsEnable_Checked" Unchecked="DnsEnable_Unchecked" />
+
+                    <Button 
+                            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                            Margin="0,-0.5,1,0" Height="Auto"  ToolTip="最小化" Click="MinimizedNormal">
+                        <materialDesign:PackIcon Kind="WindowMinimize" Opacity="0.9" />
+                    </Button>
                 </DockPanel>
             </materialDesign:ColorZone>
             <Grid Name="ControlGrid" Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0" Opacity="0.95">

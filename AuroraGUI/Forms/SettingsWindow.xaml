@@ -33,8 +33,8 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,12,18" HorizontalAlignment="Right" Grid.RowSpan="2">
                     <Button Click="CleanCache_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-5,0,-6" Height="Auto" Opacity="0.5">
-                        <materialDesign:PackIcon Kind="Broom" ToolTip="刷新 DNS 缓存" Height="19" />
+                            Margin="0,-5,0,-6" Height="Auto" Opacity="0.5" ToolTip="刷新 DNS 缓存">
+                        <materialDesign:PackIcon Kind="Broom" Height="19" />
                     </Button>
                 </StackPanel>
 
@@ -59,8 +59,8 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"
                         HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                        Margin="0,2,2,-8.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="ShieldOutline" ToolTip="以管理员权限运行" />
+                        Margin="0,2,2,-8.2" Height="Auto" ToolTip="以管理员权限运行">
+                        <materialDesign:PackIcon Kind="ShieldOutline"/>
                     </Button>
                     <ToggleButton Name="RunWithStart" 
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -88,8 +88,8 @@
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="WhiteListButton_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,0,2,1" Height="Auto">
-                        <materialDesign:PackIcon Kind="FileImport" ToolTip="导入" />
+                            Margin="0,0,2,1" Height="Auto" ToolTip="导入">
+                        <materialDesign:PackIcon Kind="FileImport" Opacity="0.8" />
                     </Button>
                     <ToggleButton Name="WhiteList" IsEnabled="False"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}" Height="25" Margin="0,0,0,-0.2" VerticalAlignment="Top"

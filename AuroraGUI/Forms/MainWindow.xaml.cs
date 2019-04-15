@@ -172,8 +172,8 @@ namespace AuroraGUI
             }
 
             var desktopWorkingArea = SystemParameters.WorkArea;
-            Left = desktopWorkingArea.Right - Width - 10;
-            Top = desktopWorkingArea.Bottom - Height - 10;
+            Left = desktopWorkingArea.Right - Width - 5;
+            Top = desktopWorkingArea.Bottom - Height - 5;
 
             FadeIn(0.2);
             Visibility = Visibility.Visible;

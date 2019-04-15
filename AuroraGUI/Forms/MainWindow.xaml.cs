@@ -106,8 +106,15 @@ namespace AuroraGUI
 //                    break;
 //            }
 
-            LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
-            IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
+            using (BackgroundWorker worker = new BackgroundWorker())
+            {
+                worker.DoWork += (sender, args) =>
+                {
+                    LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
+                    IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
+                };
+                worker.RunWorkerAsync();
+            }
 
             MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
             MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;

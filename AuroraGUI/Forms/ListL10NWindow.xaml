@@ -39,7 +39,7 @@
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-CN.list"/>
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-HK.list"/>
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-TW.list"/>
-                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/AuroraDNS/AuroraDNS.github.io/Global/DNS-OpenNIC.list"/>
+                        <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DNS-OpenNIC.list"/>
                     </ComboBox>
                 </StackPanel>
 

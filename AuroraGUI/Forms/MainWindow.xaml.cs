@@ -224,7 +224,7 @@ namespace AuroraGUI
             if (MyTools.PortIsUse(53))
             {
                 MDnsSvrWorker.Dispose();
-                MDnsServer = new DnsServer(IPAddress.Any, 10, 10);
+                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Any, 53), 10, 10);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
                 MDnsSvrWorker.RunWorkerAsync();
@@ -236,7 +236,7 @@ namespace AuroraGUI
             if (MyTools.PortIsUse(53))
             {
                 MDnsSvrWorker.Dispose();
-                MDnsServer = new DnsServer(IPAddress.Loopback, 10, 10);
+                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Loopback, 53), 10, 10);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
                 MDnsSvrWorker.RunWorkerAsync();

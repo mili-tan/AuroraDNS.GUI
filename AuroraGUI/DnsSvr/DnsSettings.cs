@@ -16,6 +16,7 @@ namespace AuroraGUI.DnsSvr
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
         public static string SecondHttpsDnsUrl = "https://1.0.0.1/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;
+        public static int ListenPort = 53;
         public static IPAddress EDnsIp = IPAddress.Any;
         public static IPAddress SecondDnsIp = IPAddress.Parse("1.1.1.1");
         public static bool EDnsCustomize = false;

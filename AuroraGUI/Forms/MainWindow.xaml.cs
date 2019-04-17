@@ -181,7 +181,7 @@ namespace AuroraGUI
             Visibility = Visibility.Visible;
             NotifyIcon.Visible = true;
 
-            if (!MyTools.PortIsUse(53))
+            if (!MyTools.PortIsUse(DnsSettings.ListenPort))
             {
                 IsLog.IsChecked = DnsSettings.DebugLog;
                 if (Equals(DnsSettings.ListenIp, IPAddress.Any))
@@ -210,7 +210,7 @@ namespace AuroraGUI
                 }
                 else
                 {
-                    Snackbar.Message = new SnackbarMessage() { Content = "DNS 服务器无法启动, 53端口被占用。"};
+                    Snackbar.Message = new SnackbarMessage() {Content = $"DNS 服务器无法启动, {DnsSettings.ListenPort}端口被占用。"};
                     NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
                 }
 
@@ -221,10 +221,10 @@ namespace AuroraGUI
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
         {
-            if (MyTools.PortIsUse(53))
+            if (MyTools.PortIsUse(DnsSettings.ListenPort))
             {
                 MDnsSvrWorker.Dispose();
-                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Any, 53), 10, 10);
+                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Any, DnsSettings.ListenPort), 10, 10);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
                 MDnsSvrWorker.RunWorkerAsync();
@@ -233,10 +233,10 @@ namespace AuroraGUI
 
         private void IsGlobal_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (MyTools.PortIsUse(53))
+            if (MyTools.PortIsUse(DnsSettings.ListenPort))
             {
                 MDnsSvrWorker.Dispose();
-                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Loopback, 53), 10, 10);
+                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Loopback, DnsSettings.ListenPort), 10, 10);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
                 MDnsSvrWorker.RunWorkerAsync();
@@ -282,14 +282,14 @@ namespace AuroraGUI
         private void IsLog_Checked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = true;
-            if (MyTools.PortIsUse(53))
+            if (MyTools.PortIsUse(DnsSettings.ListenPort))
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:是"});
         }
 
         private void IsLog_Unchecked(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = false;
-            if (MyTools.PortIsUse(53))
+            if (MyTools.PortIsUse(DnsSettings.ListenPort))
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:否"});
         }
 

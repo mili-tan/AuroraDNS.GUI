@@ -91,8 +91,15 @@ namespace AuroraGUI.DnsSvr
             foreach (var itemStr in whiteListStrs)
             {
                 var strings = itemStr.Split(' ', ',', '\t');
-                if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
-                    WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+                try
+                {
+                    if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
+                        WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
 

@@ -77,12 +77,14 @@ namespace AuroraGUI
                     DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
                 if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
                     DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
-                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewritesub.list"))
-                    DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}rewritesub.list");
+                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}white.sub.list"))
+                    DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}white.sub.list");
+                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.sub.list"))
+                    DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}rewrite.sub.list");
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Error: 尝试读取配置文件错误{Environment.NewLine}Original error: {e.Message}");
+                MessageBox.Show($"Error: 尝试读取配置文件错误{Environment.NewLine}Original error: {e}");
             }
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;

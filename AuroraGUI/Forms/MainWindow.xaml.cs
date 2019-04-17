@@ -33,8 +33,8 @@ namespace AuroraGUI
     public partial class MainWindow
     {
         public static string SetupBasePath = CurrentDomain.SetupInformation.ApplicationBase;
-        public static IPAddress IntIPAddr;
-        public static IPAddress LocIPAddr;
+        public static IPAddress IntIPAddr = IPAddress.Any;
+        public static IPAddress LocIPAddr = IPAddress.Any;
         public static NotifyIcon NotifyIcon;
         private DnsServer MDnsServer;
         private BackgroundWorker MDnsSvrWorker = new BackgroundWorker(){WorkerSupportsCancellation = true};
@@ -108,6 +108,11 @@ namespace AuroraGUI
 //                    break;
 //            }
 
+            MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
+            MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
+            MDnsSvrWorker.DoWork += (sender, args) => MDnsServer.Start();
+            MDnsSvrWorker.Disposed += (sender, args) => MDnsServer.Stop();
+
             using (BackgroundWorker worker = new BackgroundWorker())
             {
                 worker.DoWork += (sender, args) =>
@@ -117,11 +122,6 @@ namespace AuroraGUI
                 };
                 worker.RunWorkerAsync();
             }
-
-            MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
-            MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
-            MDnsSvrWorker.DoWork += (sender, args) => MDnsServer.Start();
-            MDnsSvrWorker.Disposed += (sender, args) => MDnsServer.Stop();
 
             NotifyIcon = new NotifyIcon()
             {
@@ -321,13 +321,13 @@ namespace AuroraGUI
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
 
             if (DnsSettings.BlackListEnable && File.Exists("black.list"))
-                DnsSettings.ReadBlackList();
+                DnsSettings.ReadBlackList(SetupBasePath + "black.list");
 
             if (DnsSettings.WhiteListEnable && File.Exists("white.list"))
-                DnsSettings.ReadWhiteList();
+                DnsSettings.ReadWhiteList(SetupBasePath + "white.list");
 
             if (DnsSettings.WhiteListEnable && File.Exists("rewrite.list"))
-                DnsSettings.ReadWhiteList("rewrite.list");
+                DnsSettings.ReadWhiteList(SetupBasePath + "rewrite.list");
         }
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)

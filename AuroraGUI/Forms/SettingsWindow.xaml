@@ -91,7 +91,7 @@
                             Margin="0,0,2,1" Height="Auto" ToolTip="导入">
                         <materialDesign:PackIcon Kind="FileImport" Opacity="0.8" />
                     </Button>
-                    <ToggleButton Name="WhiteList" IsEnabled="False"
+                    <ToggleButton Name="WhiteList"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}" Height="25" Margin="0,0,0,-0.2" VerticalAlignment="Top"
                           />
                 </StackPanel>

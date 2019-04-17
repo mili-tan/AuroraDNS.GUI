@@ -47,10 +47,6 @@ namespace AuroraGUI
                 RunWithStart.IsChecked = MyTools.GetRunWithStart("AuroraDNS");
             else
                 RunWithStart.IsEnabled = false;
-
-            if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
-                WhiteList.IsEnabled = true;
-
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
             if (File.Exists($"{MainWindow.SetupBasePath}url.json"))

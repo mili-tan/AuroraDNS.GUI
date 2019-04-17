@@ -44,6 +44,8 @@ namespace AuroraGUI.DnsSvr
                 DnsCacheEnable = configJson.AsObjectGetBool("EnableDnsCache");
             if (configStr.Contains("\"EnableHttp2\""))
                 Http2Enable = configJson.AsObjectGetBool("EnableHttp2");
+            if (configStr.Contains("\"Port\""))
+                ListenPort = configJson.AsObjectGetInt("Port", 53);
 
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");

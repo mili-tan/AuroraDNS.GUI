@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Caching;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
@@ -77,10 +78,6 @@ namespace AuroraGUI
                     DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
                 if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
                     DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
-                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}white.sub.list"))
-                    DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}white.sub.list");
-                if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.sub.list"))
-                    DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}rewrite.sub.list");
             }
             catch (Exception e)
             {
@@ -121,6 +118,20 @@ namespace AuroraGUI
                 {
                     LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
                     IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
+
+                    try
+                    {
+                        if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}white.sub.list"))
+                            DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}white.sub.list");
+                        if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.sub.list"))
+                            DnsSettings.ReadWhiteListSubscribe($"{SetupBasePath}rewrite.sub.list");
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show($"Error: 尝试下载订阅列表失败{Environment.NewLine}Original error: {e}");
+                    }
+
+                    MemoryCache.Default.Trim(100);
                 };
                 worker.RunWorkerAsync();
             }

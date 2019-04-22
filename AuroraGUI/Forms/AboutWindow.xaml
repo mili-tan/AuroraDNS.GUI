@@ -12,16 +12,20 @@
         Title="关于" Height="350" Width="600" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="NoResize">
     <Grid>
-        <Grid HorizontalAlignment="Center" Height="130" Margin="-3,0,-3.4,0" VerticalAlignment="Top" Width="600" Opacity="0.8">
+        <Grid HorizontalAlignment="Center" Height="130" VerticalAlignment="Top" Width="600" Opacity="0.8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="119*"/>
+                <ColumnDefinition Width="31*"/>
+            </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/qiu.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/cun.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
             </Grid.Effect>
         </Grid>
 
-        <TextBlock Text="Photo by Xuan - 大胆迈步。" Margin="20,19,0,0" 
+        <TextBlock Text="Photo by Xuan - 無限藍天。" Margin="20,19,0,0" 
                VerticalAlignment="Top" Foreground="#FFFFFF"  FontSize="10" Opacity="0.9"
                HorizontalAlignment="Left" TextAlignment="Left" Height="17" />
 
@@ -67,7 +71,7 @@
                 <TextBlock Grid.Row="0" Margin="16,16,0,5.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575" ><Run Text="© 2018-2019 AuroraDNS Proj. All rights reserved. 使用MIT许可证开放源代码。"/></TextBlock>
+                           Foreground="#FF757575" ><Run Text="© 2018-2019 AuroraDNS Proj. All rights reserved. / 使用MIT许可证开放源代码。"/></TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}"/>
                 <TextBlock Grid.Row="2" Margin="16,7.6,0,15.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
@@ -81,7 +85,7 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
-        <TextBlock Margin="0,307,5.6,0" 
+        <TextBlock Margin="0,302,5.6,0" 
             VerticalAlignment="Top" Foreground="#BBB" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20">
             Made With ❤ By Milkey Tan. | <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://milione.cc/?page_id=880">支持我</Hyperlink>
         </TextBlock>

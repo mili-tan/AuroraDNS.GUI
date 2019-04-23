@@ -153,7 +153,7 @@ namespace AuroraGUI
             {
                 if (File.Exists(
                     $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
-                    Process.Start(new ProcessStartInfo("notepad.exe",
+                    Process.Start(new ProcessStartInfo(
                         $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
                 else
                     MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");

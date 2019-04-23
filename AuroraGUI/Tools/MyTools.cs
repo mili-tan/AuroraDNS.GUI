@@ -87,23 +87,31 @@ namespace AuroraGUI.Tools
 
         public static void CheckUpdate(string filePath)
         {
-            try
+            using (BackgroundWorker worker = new BackgroundWorker())
             {
-                var jsonStr = Regex.Replace(Encoding.UTF8.GetString(new WebClient { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } }.DownloadData(
-                    "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest")), @"[\u4e00-\u9fa5|\u3002|\uff0c]", "");
-                var assets = Json.Parse(jsonStr).AsObjectGetArray("assets");
-                var fileTime = File.GetLastWriteTime(filePath);
-                string downloadUrl = assets[0].AsObjectGetString("browser_download_url");
+                worker.DoWork += (o, ea) =>
+                {
+                    try
+                    {
+                        var jsonStr = Regex.Replace(Encoding.UTF8.GetString(new WebClient { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } }.DownloadData(
+                            "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest")), @"[\u4e00-\u9fa5|\u3002|\uff0c]", "");
+                        var assets = Json.Parse(jsonStr).AsObjectGetArray("assets");
+                        var fileTime = File.GetLastWriteTime(filePath);
+                        string downloadUrl = assets[0].AsObjectGetString("browser_download_url");
 
-                if (Convert.ToInt32(downloadUrl.Split('/')[7]) >
-                    Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")))
-                    Process.Start(downloadUrl);
-                else
-                    MessageBox.Show($"当前AuroraDNS.GUI({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00})已是最新版本,无需更新。");
-            }
-            catch (Exception e)
-            {
-                BackgroundLog(@"| Download list failed : " + e);
+                        if (Convert.ToInt32(downloadUrl.Split('/')[7]) >
+                            Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")))
+                            Process.Start(downloadUrl);
+                        else
+                            MessageBox.Show($"当前AuroraDNS.GUI({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00})已是最新版本,无需更新。");
+                    }
+                    catch (Exception e)
+                    {
+                        BackgroundLog(@"| Download list failed : " + e);
+                    }
+                };
+
+                worker.RunWorkerAsync();
             }
         }
 

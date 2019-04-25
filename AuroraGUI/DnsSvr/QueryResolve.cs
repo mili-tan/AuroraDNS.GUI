@@ -171,16 +171,17 @@ namespace AuroraGUI.DnsSvr
 
                     switch (type)
                     {
+                        case RecordType.A when Convert.ToInt32(RecordType.A) == answerType:
+                        {
+                            ARecord aRecord = new ARecord(
+                                DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
+
+                            recordList.Add(aRecord);
+                            break;
+                        }
                         case RecordType.A:
                         {
-                            if (Convert.ToInt32(RecordType.A) == answerType)
-                            {
-                                ARecord aRecord = new ARecord(
-                                    DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
-
-                                recordList.Add(aRecord);
-                            }
-                            else if (Convert.ToInt32(RecordType.CName) == answerType)
+                            if (Convert.ToInt32(RecordType.CName) == answerType)
                             {
                                 CNameRecord cRecord = new CNameRecord(
                                     DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
@@ -193,16 +194,16 @@ namespace AuroraGUI.DnsSvr
 
                             break;
                         }
-
+                        case RecordType.Aaaa when Convert.ToInt32(RecordType.Aaaa) == answerType:
+                        {
+                            AaaaRecord aaaaRecord = new AaaaRecord(
+                                DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
+                            recordList.Add(aaaaRecord);
+                            break;
+                        }
                         case RecordType.Aaaa:
                         {
-                            if (Convert.ToInt32(RecordType.Aaaa) == answerType)
-                            {
-                                AaaaRecord aaaaRecord = new AaaaRecord(
-                                    DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
-                                recordList.Add(aaaaRecord);
-                            }
-                            else if (Convert.ToInt32(RecordType.CName) == answerType)
+                            if (Convert.ToInt32(RecordType.CName) == answerType)
                             {
                                 CNameRecord cRecord = new CNameRecord(
                                     DomainName.Parse(answerDomainName), ttl, DomainName.Parse(answerAddr));
@@ -211,7 +212,6 @@ namespace AuroraGUI.DnsSvr
 
                             break;
                         }
-
                         case RecordType.CName when answerType == Convert.ToInt32(RecordType.CName):
                         {
                             CNameRecord cRecord = new CNameRecord(
@@ -219,7 +219,6 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(cRecord);
                             break;
                         }
-
                         case RecordType.Ns when answerType == Convert.ToInt32(RecordType.Ns):
                         {
                             NsRecord nsRecord = new NsRecord(
@@ -227,7 +226,6 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(nsRecord);
                             break;
                         }
-
                         case RecordType.Mx when answerType == Convert.ToInt32(RecordType.Mx):
                         {
                             MxRecord mxRecord = new MxRecord(
@@ -237,14 +235,12 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(mxRecord);
                             break;
                         }
-
                         case RecordType.Txt when answerType == Convert.ToInt32(RecordType.Txt):
                         {
                             TxtRecord txtRecord = new TxtRecord(DomainName.Parse(answerDomainName), ttl, answerAddr);
                             recordList.Add(txtRecord);
                             break;
                         }
-
                         case RecordType.Ptr when answerType == Convert.ToInt32(RecordType.Ptr):
                         {
                             PtrRecord ptrRecord = new PtrRecord(
@@ -252,12 +248,9 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(ptrRecord);
                             break;
                         }
-
                         default:
-                        {
                             statusCode = Convert.ToInt32(ReturnCode.ServerFailure);
                             break;
-                        }
                     }
                 }
             }
@@ -277,14 +270,15 @@ namespace AuroraGUI.DnsSvr
                 var dnsDataBytes = MyCurl.GetData(
                     $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}",
                     DnsSettings.Http2Enable, proxyEnable, wProxy);
-                 dnsMsg = DnsMessage.Parse(dnsDataBytes);
+                dnsMsg = DnsMessage.Parse(dnsDataBytes);
             }
             catch (WebException e)
             {
-                HttpWebResponse response = (HttpWebResponse)e.Response;
+                HttpWebResponse response = (HttpWebResponse) e.Response;
                 try
                 {
-                    BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
+                    BackgroundLog(
+                        $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
 
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
@@ -295,7 +289,8 @@ namespace AuroraGUI.DnsSvr
                 }
                 catch (Exception exception)
                 {
-                    BackgroundLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
+                    BackgroundLog(
+                        $@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);

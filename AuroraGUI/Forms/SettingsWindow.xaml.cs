@@ -155,39 +155,47 @@ namespace AuroraGUI
                         .DownloadString(UrlSettings.MDohList).Split('\n').ToList();
                     dnsListStrings = new WebClient()
                         .DownloadString(UrlSettings.MDnsList).Split('\n').ToList();
+
+                    if (string.IsNullOrWhiteSpace(dohListStrings[dohListStrings.Count - 1]))
+                        dohListStrings.RemoveAt(dohListStrings.Count - 1);
+                    if (string.IsNullOrWhiteSpace(dnsListStrings[dnsListStrings.Count - 1]))
+                        dnsListStrings.RemoveAt(dnsListStrings.Count - 1);
                 }
                 catch (Exception exception)
                 {
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"获取列表内容失败，请检查网络连接。" });
                     MyTools.BackgroundLog(@"| Download list failed : " + exception);
                 }
-
-                if (string.IsNullOrWhiteSpace(dohListStrings[dohListStrings.Count - 1]))
-                    dohListStrings.RemoveAt(dohListStrings.Count - 1);
-                if (string.IsNullOrWhiteSpace(dnsListStrings[dnsListStrings.Count - 1]))
-                    dnsListStrings.RemoveAt(dnsListStrings.Count - 1);
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                if (UrlSettings.MDohList.Contains(".list"))
-                    foreach (var item in dohListStrings)
-                    {
-                        DoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
-                        SecondDoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
-                    }
-                if (UrlSettings.MDnsList.Contains(".list"))
-                    foreach (var item in dnsListStrings)
-                        SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
+                try
+                {
+                    if (dohListStrings != null && dohListStrings.Count != 0)
+                        foreach (var item in dohListStrings)
+                        {
+                            DoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
+                            SecondDoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
+                        }
+                    if (dnsListStrings != null && dnsListStrings.Count != 0)
+                        foreach (var item in dnsListStrings)
+                            SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
 
-                if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
-                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
-                    {
-                        DoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
-                        SecondDoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
-                    }
+                    if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
+                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
+                        {
+                            DoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
+                            SecondDoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
+                        }
 
-                if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
-                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                        SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
+                    if (File.Exists($"{MainWindow.SetupBasePath}dns.list"))
+                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
+                            SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
+                }
+                catch (Exception exception)
+                {
+                    MyTools.BackgroundLog(@"| Read list failed : " + exception);
+                }
             };
             bgWorker.RunWorkerAsync();
         }

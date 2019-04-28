@@ -163,7 +163,6 @@ namespace AuroraGUI
                 }
                 catch (Exception exception)
                 {
-                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"获取列表内容失败，请检查互联网连接。" });
                     MyTools.BackgroundLog(@"| Download list failed : " + exception);
                 }
             };
@@ -180,6 +179,9 @@ namespace AuroraGUI
                     if (dnsListStrings != null && dnsListStrings.Count != 0)
                         foreach (var item in dnsListStrings)
                             SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
+
+                    if (dohListStrings == null && dnsListStrings == null)
+                        Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = @"获取列表内容失败，请检查互联网连接。"});
 
                     if (File.Exists($"{MainWindow.SetupBasePath}doh.list"))
                         foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))

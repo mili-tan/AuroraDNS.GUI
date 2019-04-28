@@ -163,7 +163,7 @@ namespace AuroraGUI
                 }
                 catch (Exception exception)
                 {
-                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"获取列表内容失败，请检查网络连接。" });
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"获取列表内容失败，请检查互联网连接。" });
                     MyTools.BackgroundLog(@"| Download list failed : " + exception);
                 }
             };

@@ -49,7 +49,6 @@ namespace AuroraGUI.Tools
         {
             try
             {
-                //Thread.CurrentThread.CurrentCulture.Name == "zh-CN"
                 return new WebClient().DownloadString(UrlSettings.WhatMyIpApi).Trim();
             }
             catch (Exception e)

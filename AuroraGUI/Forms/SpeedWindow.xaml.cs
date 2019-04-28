@@ -102,7 +102,7 @@ namespace AuroraGUI
                 }
                 catch (Exception exception)
                 {
-                    MyTools.BackgroundLog(@"| DownloadString failed : " + exception);
+                    MyTools.BackgroundLog(@"| Download String failed : " + exception);
                 }
 
                 if (string.IsNullOrWhiteSpace(ListStrings[ListStrings.Count - 1]))
@@ -110,25 +110,35 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                if (File.Exists($"{MainWindow.SetupBasePath}dns.list") && TypeDNS)
-                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
-                        ListStrings.Add(item);
-                else if (File.Exists($"{MainWindow.SetupBasePath}doh.list") && !TypeDNS)
-                    foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
-                        ListStrings.Add(item);
-
-                foreach (var item in ListStrings)
+                try
                 {
-                    SpeedListView.Items.Add(new SpeedList
-                    {
-                        Server = TypeDNS ? item.Split('*', ',')[0].Trim() : item.Split('*', ',')[0].Trim().Split('/', ':')[3],
-                        Name = item.Contains('*') || item.Contains(',') ? item.Split('*', ',')[1].Trim() : ""
-                    });
-                }
+                    if (File.Exists($"{MainWindow.SetupBasePath}dns.list") && TypeDNS)
+                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}dns.list"))
+                            ListStrings.Add(item);
+                    else if (File.Exists($"{MainWindow.SetupBasePath}doh.list") && !TypeDNS)
+                        foreach (var item in File.ReadAllLines($"{MainWindow.SetupBasePath}doh.list"))
+                            ListStrings.Add(item);
 
-                StratButton.IsEnabled = true;
-                ProgressBar.Maximum = SpeedListView.Items.Count;
-                Grid.Effect = null;
+                    if (ListStrings != null && ListStrings.Count != 0)
+                    {
+                        foreach (var item in ListStrings)
+                        {
+                            SpeedListView.Items.Add(new SpeedList
+                            {
+                                Server = TypeDNS ? item.Split('*', ',')[0].Trim() : item.Split('*', ',')[0].Trim().Split('/', ':')[3],
+                                Name = item.Contains('*') || item.Contains(',') ? item.Split('*', ',')[1].Trim() : ""
+                            });
+                        }
+                    }
+
+                    StratButton.IsEnabled = true;
+                    ProgressBar.Maximum = SpeedListView.Items.Count;
+                    Grid.Effect = null;
+                }
+                catch (Exception exception)
+                {
+                    MyTools.BackgroundLog(@"| Read String failed : " + exception);
+                }
             };
             bgWorker.RunWorkerAsync();
         }

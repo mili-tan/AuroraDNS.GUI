@@ -1,6 +1,6 @@
 
 <p align="center">
-          <a href='https://github.com/mili-tan/AuroraDNS.GUI'><img src='https://i.loli.net/2018/09/11/5b9760bab2f18.png' /></a>
+          <a href='https://github.com/mili-tan/AuroraDNS.GUI'><img src='https://i.loli.net/2019/04/28/5cc502888c358.png' /></a>
 </p>
 
 <p align="center">

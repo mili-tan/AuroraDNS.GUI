@@ -95,6 +95,7 @@ namespace AuroraGUI
                     $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n" +
                     $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n" +
                     $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n" +
+                    $"\"ChinaList\" : {DnsSettings.ChinaListEnable.ToString().ToLower()},\n" +
                     $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n" +
                     $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n" +
                     $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n" +

@@ -48,6 +48,8 @@ namespace AuroraGUI.DnsSvr
                 Http2Enable = configJson.AsObjectGetBool("EnableHttp2");
             if (configStr.Contains("\"Port\""))
                 ListenPort = configJson.AsObjectGetInt("Port", 53);
+            if (configStr.Contains("\"ChinaList\""))
+                ChinaListEnable = configJson.AsObjectGetBool("ChinaList");
 
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");
@@ -67,6 +69,12 @@ namespace AuroraGUI.DnsSvr
         {
             string[] blackListStrs = File.ReadAllLines(path);
             BlackList = Array.ConvertAll(blackListStrs, DomainName.Parse).ToList();
+        }
+
+        public static void ReadChinaList(string path = "china.list")
+        {
+            string[] chinaListStrs = File.ReadAllLines(path);
+            ChinaList = Array.ConvertAll(chinaListStrs, DomainName.Parse).ToList();
         }
 
         public static void ReadWhiteList(string path = "white.list")

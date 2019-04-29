@@ -336,6 +336,9 @@ namespace AuroraGUI
             if (DnsSettings.BlackListEnable && File.Exists("black.list"))
                 DnsSettings.ReadBlackList(SetupBasePath + "black.list");
 
+            if (DnsSettings.ChinaListEnable && File.Exists("china.list"))
+                DnsSettings.ReadChinaList(SetupBasePath + "china.list");
+
             if (DnsSettings.WhiteListEnable && File.Exists("white.list"))
                 DnsSettings.ReadWhiteList(SetupBasePath + "white.list");
 

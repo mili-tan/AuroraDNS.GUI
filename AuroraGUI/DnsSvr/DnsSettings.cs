@@ -11,6 +11,7 @@ namespace AuroraGUI.DnsSvr
     class DnsSettings
     {
         public static List<DomainName> BlackList;
+        public static List<DomainName> ChinaList;
         public static Dictionary<DomainName, string> WhiteList = new Dictionary<DomainName, string>();
 
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
@@ -24,6 +25,7 @@ namespace AuroraGUI.DnsSvr
         public static bool DebugLog = false;
         public static bool BlackListEnable  = false;
         public static bool WhiteListEnable  = false;
+        public static bool ChinaListEnable = false;
         public static bool DnsMsgEnable = false;
         public static bool DnsCacheEnable = false;
         public static bool Http2Enable = false;

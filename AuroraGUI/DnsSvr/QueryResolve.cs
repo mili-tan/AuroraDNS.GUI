@@ -76,6 +76,26 @@ namespace AuroraGUI.DnsSvr
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- WhiteList");
                     }
+                    if (DnsSettings.ChinaListEnable && dnsQuestion.RecordType == RecordType.A)
+                    {
+                        var domainSplit = dnsQuestion.Name.ToString().TrimEnd('.').Split('.');
+                        var nameStr = $"{domainSplit[domainSplit.Length - 2]}.{domainSplit[domainSplit.Length - 1]}";
+                        if (DnsSettings.ChinaList.Contains(DomainName.Parse(nameStr)) || dnsQuestion.Name.ToString().Contains(".cn") ||
+                            dnsQuestion.Name.ToString().Contains(".xn--"))
+                        {
+                            var resolvedDnsList = ResolveOverHttpByDPlus(dnsQuestion.Name.ToString());
+                            if (resolvedDnsList != null && resolvedDnsList != new List<DnsRecordBase>())
+                                foreach (var item in resolvedDnsList)
+                                    response.AnswerRecords.Add(item);
+                            else
+                                response.ReturnCode = ReturnCode.NxDomain;
+                            response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("chinalist.auroradns.mili.one"),
+                                0, "AuroraDNSC ChinaList - DNSPod D+"));
+                            if (DnsSettings.DebugLog)
+                                BackgroundLog(@"|- ChinaList - DNSPOD D+");
+                        }
+                    }
+
                     else
                     {
                         //Resolve
@@ -299,6 +319,21 @@ namespace AuroraGUI.DnsSvr
                     proxyEnable, wProxy, type);
             }
             return (dnsMsg.AnswerRecords, dnsMsg.ReturnCode);
+        }
+
+        public static List<DnsRecordBase> ResolveOverHttpByDPlus(string domainName)
+        {
+            string dnsStr = new WebClient().DownloadString(
+                $"http://119.29.29.29/d?dn={domainName}&ttl=1");
+            if (string.IsNullOrWhiteSpace(dnsStr))
+                return null;
+
+            var ttlTime = Convert.ToInt32(dnsStr.Split(',')[1]);
+            var dnsAnswerList = dnsStr.Split(',')[0].Split(';');
+
+            return dnsAnswerList
+                .Select(item => new ARecord(DomainName.Parse(domainName), ttlTime, IPAddress.Parse(item)))
+                .Cast<DnsRecordBase>().ToList();
         }
     }
 }

@@ -76,24 +76,26 @@ namespace AuroraGUI.DnsSvr
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- WhiteList");
                     }
-                    if (DnsSettings.ChinaListEnable && dnsQuestion.RecordType == RecordType.A)
+                    else if (DnsSettings.ChinaListEnable && dnsQuestion.RecordType == RecordType.A &&
+                             DnsSettings.BlackList.Contains(dnsQuestion.Name))
                     {
-                        var domainSplit = dnsQuestion.Name.ToString().TrimEnd('.').Split('.');
-                        var nameStr = $"{domainSplit[domainSplit.Length - 2]}.{domainSplit[domainSplit.Length - 1]}";
-                        if (DnsSettings.ChinaList.Contains(DomainName.Parse(nameStr)) || dnsQuestion.Name.ToString().Contains(".cn") ||
-                            dnsQuestion.Name.ToString().Contains(".xn--"))
-                        {
-                            var resolvedDnsList = ResolveOverHttpByDPlus(dnsQuestion.Name.ToString());
-                            if (resolvedDnsList != null && resolvedDnsList != new List<DnsRecordBase>())
-                                foreach (var item in resolvedDnsList)
-                                    response.AnswerRecords.Add(item);
-                            else
-                                response.ReturnCode = ReturnCode.NxDomain;
-                            response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("chinalist.auroradns.mili.one"),
-                                0, "AuroraDNSC ChinaList - DNSPod D+"));
-                            if (DnsSettings.DebugLog)
-                                BackgroundLog(@"|- ChinaList - DNSPOD D+");
-                        }
+                        var resolvedDnsList = ResolveOverHttpByDPlus(dnsQuestion.Name.ToString());
+                        if (resolvedDnsList != null && resolvedDnsList != new List<DnsRecordBase>())
+                            foreach (var item in resolvedDnsList)
+                                response.AnswerRecords.Add(item);
+                        else
+                            response.ReturnCode = ReturnCode.NxDomain;
+
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("chinalist.auroradns.mili.one"),
+                            0, "AuroraDNSC ChinaList - DNSPod D+"));
+
+                        if (DnsSettings.DebugLog)
+                            BackgroundLog(@"|- ChinaList - DNSPOD D+");
+
+                        if (DnsSettings.DnsCacheEnable)
+                            BackgroundWriteCache(
+                                new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
+                                resolvedDnsList[0].TimeToLive);
                     }
 
                     else

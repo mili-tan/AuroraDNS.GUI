@@ -11,8 +11,8 @@ namespace AuroraGUI.DnsSvr
 {
     class DnsSettings
     {
-        public static List<DomainName> BlackList = new List<DomainName>();
-        public static List<DomainName> ChinaList = new List<DomainName>();
+        public static List<DomainName> BlackList;
+        public static List<DomainName> ChinaList;
         public static Dictionary<DomainName, string> WhiteList = new Dictionary<DomainName, string>();
 
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
@@ -69,13 +69,13 @@ namespace AuroraGUI.DnsSvr
         public static void ReadBlackList(string path = "black.list")
         {
             string[] blackListStrs = File.ReadAllLines(path);
-            BlackList.AddRange(Array.ConvertAll(blackListStrs, DomainName.Parse).ToList());
+            BlackList = Array.ConvertAll(blackListStrs, DomainName.Parse).ToList();
         }
 
         public static void ReadChinaList(string path = "china.list")
         {
             string[] chinaListStrs = File.ReadAllLines(path);
-            ChinaList.AddRange(Array.ConvertAll(chinaListStrs, DomainName.Parse).ToList());
+            ChinaList = Array.ConvertAll(chinaListStrs, DomainName.Parse).ToList();
         }
 
         public static void ReadWhiteList(string path = "white.list")

@@ -50,14 +50,16 @@ namespace AuroraGUI.DnsSvr
                     {
                         response.AnswerRecords.AddRange(
                             (List<DnsRecordBase>) MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
-                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0, "AuroraDNSC Cached"));
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0,
+                            "AuroraDNSC Cached"));
                         if (DnsSettings.DebugLog)
                             BackgroundLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
                     }
                     else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
                     {
                         response.AnswerRecords.Add(new ARecord(dnsQuestion.Name, 10, IPAddress.Any));
-                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("blacklist.auroradns.mili.one"), 0, "AuroraDNSC Blocked"));
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("blacklist.auroradns.mili.one"), 0,
+                            "AuroraDNSC Blocked"));
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- BlackList");
                     }
@@ -72,32 +74,36 @@ namespace AuroraGUI.DnsSvr
                                 IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name])));
 
                         response.AnswerRecords.AddRange(whiteRecords);
-                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("whitelist.auroradns.mili.one"), 0, "AuroraDNSC Rewrote"));
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("whitelist.auroradns.mili.one"), 0,
+                            "AuroraDNSC Rewrote"));
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- WhiteList");
                     }
-                    else if (DnsSettings.ChinaListEnable && dnsQuestion.RecordType == RecordType.A &&
-                             DnsSettings.BlackList.Contains(dnsQuestion.Name))
+                    else if (DnsSettings.ChinaListEnable && DnsSettings.ChinaList.Contains(dnsQuestion.Name))
                     {
-                        var resolvedDnsList = ResolveOverHttpByDPlus(dnsQuestion.Name.ToString());
-                        if (resolvedDnsList != null && resolvedDnsList != new List<DnsRecordBase>())
-                            foreach (var item in resolvedDnsList)
-                                response.AnswerRecords.Add(item);
-                        else
-                            response.ReturnCode = ReturnCode.NxDomain;
+                        try
+                        {
+                            var resolvedDnsList = ResolveOverHttpByDPlus(dnsQuestion.Name.ToString());
+                            if (resolvedDnsList != null && resolvedDnsList != new List<DnsRecordBase>())
+                            {
+                                resolvedDnsList.Add(new TxtRecord(DomainName.Parse("chinalist.auroradns.mili.one"),
+                                    0, "AuroraDNSC ChinaList - DNSPod D+"));
+                                foreach (var item in resolvedDnsList)
+                                    response.AnswerRecords.Add(item);
 
-                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("chinalist.auroradns.mili.one"),
-                            0, "AuroraDNSC ChinaList - DNSPod D+"));
-
-                        if (DnsSettings.DebugLog)
-                            BackgroundLog(@"|- ChinaList - DNSPOD D+");
-
-                        if (DnsSettings.DnsCacheEnable)
-                            BackgroundWriteCache(
-                                new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
-                                resolvedDnsList[0].TimeToLive);
+                                if (DnsSettings.DebugLog)
+                                    BackgroundLog(@"|- ChinaList - DNSPOD D+");
+                                if (DnsSettings.DnsCacheEnable && response.ReturnCode == ReturnCode.NoError)
+                                    BackgroundWriteCache(
+                                        new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
+                                        resolvedDnsList[0].TimeToLive);
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            BackgroundLog(exception.ToString());
+                        }
                     }
-
                     else
                     {
                         //Resolve
@@ -325,17 +331,25 @@ namespace AuroraGUI.DnsSvr
 
         public static List<DnsRecordBase> ResolveOverHttpByDPlus(string domainName)
         {
-            string dnsStr = new WebClient().DownloadString(
-                $"http://119.29.29.29/d?dn={domainName}&ttl=1");
-            if (string.IsNullOrWhiteSpace(dnsStr))
-                return null;
+            try
+            {
+                string dnsStr = new WebClient().DownloadString(
+                    $"http://119.29.29.29/d?dn={domainName}&ttl=1");
+                if (string.IsNullOrWhiteSpace(dnsStr))
+                    return null;
 
-            var ttlTime = Convert.ToInt32(dnsStr.Split(',')[1]);
-            var dnsAnswerList = dnsStr.Split(',')[0].Split(';');
+                var ttlTime = Convert.ToInt32(dnsStr.Split(',')[1]);
+                var dnsAnswerList = dnsStr.Split(',')[0].Split(';');
 
-            return dnsAnswerList
-                .Select(item => new ARecord(DomainName.Parse(domainName), ttlTime, IPAddress.Parse(item)))
-                .Cast<DnsRecordBase>().ToList();
+                return dnsAnswerList
+                    .Select(item => new ARecord(DomainName.Parse(domainName), ttlTime, IPAddress.Parse(item)))
+                    .Cast<DnsRecordBase>().ToList();
+            }
+            catch (Exception e)
+            {
+                BackgroundLog($@"| - Catch WebException : {e.Message} | {domainName} | http://119.29.29.29/d?dn={domainName}&ttl=1");
+                return new List<DnsRecordBase>();
+            }
         }
     }
 }

@@ -4,14 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using ARSoft.Tools.Net;
+using AuroraGUI.Tools;
 using MojoUnity;
 
 namespace AuroraGUI.DnsSvr
 {
     class DnsSettings
     {
-        public static List<DomainName> BlackList;
-        public static List<DomainName> ChinaList;
+        public static List<DomainName> BlackList = new List<DomainName>();
+        public static List<DomainName> ChinaList = new List<DomainName>();
         public static Dictionary<DomainName, string> WhiteList = new Dictionary<DomainName, string>();
 
         public static string HttpsDnsUrl = "https://dns.cloudflare.com/dns-query";
@@ -68,13 +69,13 @@ namespace AuroraGUI.DnsSvr
         public static void ReadBlackList(string path = "black.list")
         {
             string[] blackListStrs = File.ReadAllLines(path);
-            BlackList = Array.ConvertAll(blackListStrs, DomainName.Parse).ToList();
+            BlackList.AddRange(Array.ConvertAll(blackListStrs, DomainName.Parse).ToList());
         }
 
         public static void ReadChinaList(string path = "china.list")
         {
             string[] chinaListStrs = File.ReadAllLines(path);
-            ChinaList = Array.ConvertAll(chinaListStrs, DomainName.Parse).ToList();
+            ChinaList.AddRange(Array.ConvertAll(chinaListStrs, DomainName.Parse).ToList());
         }
 
         public static void ReadWhiteList(string path = "white.list")
@@ -82,9 +83,9 @@ namespace AuroraGUI.DnsSvr
             string[] whiteListStrs = File.ReadAllLines(path);
             foreach (var itemStr in whiteListStrs)
             {
-                var strings = itemStr.Split(' ', ',', '\t');
                 try
                 {
+                    var strings = itemStr.Split(' ', ',', '\t');
                     if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
                         WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
                 }
@@ -97,19 +98,26 @@ namespace AuroraGUI.DnsSvr
 
         public static void ReadWhiteListWeb(string webUrl)
         {
-            string[] whiteListStrs = new WebClient().DownloadString(webUrl).Split('\n');
-            foreach (var itemStr in whiteListStrs)
+            try
             {
-                var strings = itemStr.Split(' ', ',', '\t');
-                try
+                string[] whiteListStrs = new WebClient().DownloadString(webUrl).Split('\n');
+                foreach (var itemStr in whiteListStrs)
                 {
-                    if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
-                        WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+                    var strings = itemStr.Split(' ', ',', '\t');
+                    try
+                    {
+                        if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
+                            WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+                    }
+                    catch (Exception e)
+                    {
+                        MyTools.BackgroundLog(e.ToString());
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+            }
+            catch (Exception e)
+            {
+                MyTools.BackgroundLog(e.ToString());
             }
         }
 
@@ -120,8 +128,6 @@ namespace AuroraGUI.DnsSvr
             {
                 if (item.ToLower().Contains("http://") || item.ToLower().Contains("https://"))
                     ReadWhiteListWeb(item);
-                else
-                    ReadWhiteList(item);
             }
         }
 

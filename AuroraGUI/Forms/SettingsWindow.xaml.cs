@@ -90,6 +90,15 @@ namespace AuroraGUI
                 else
                     DnsSettings.WProxy = new WebProxy("127.0.0.1:80");
 
+                if (DnsSettings.BlackListEnable && File.Exists("black.list"))
+                    DnsSettings.ReadBlackList(MainWindow.SetupBasePath + "black.list");
+                if (DnsSettings.ChinaListEnable && File.Exists("china.list"))
+                    DnsSettings.ReadChinaList(MainWindow.SetupBasePath + "china.list");
+                if (DnsSettings.WhiteListEnable && File.Exists("white.list"))
+                    DnsSettings.ReadWhiteList(MainWindow.SetupBasePath + "white.list");
+                if (DnsSettings.WhiteListEnable && File.Exists("rewrite.list"))
+                    DnsSettings.ReadWhiteList(MainWindow.SetupBasePath + "rewrite.list");
+
                 File.WriteAllText($"{MainWindow.SetupBasePath}config.json",
                     "{\n" +
                     $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n" +

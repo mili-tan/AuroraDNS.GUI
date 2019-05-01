@@ -78,6 +78,8 @@ namespace AuroraGUI
                     DnsSettings.ReadWhiteList($"{SetupBasePath}white.list");
                 if (DnsSettings.WhiteListEnable && File.Exists($"{SetupBasePath}rewrite.list"))
                     DnsSettings.ReadWhiteList($"{SetupBasePath}rewrite.list");
+                if (DnsSettings.ChinaListEnable && File.Exists("china.list"))
+                    DnsSettings.ReadChinaList(SetupBasePath + "china.list");
             }
             catch (Exception e)
             {
@@ -332,18 +334,6 @@ namespace AuroraGUI
 
             IsLog.IsChecked = DnsSettings.DebugLog;
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
-
-            if (DnsSettings.BlackListEnable && File.Exists("black.list"))
-                DnsSettings.ReadBlackList(SetupBasePath + "black.list");
-
-            if (DnsSettings.ChinaListEnable && File.Exists("china.list"))
-                DnsSettings.ReadChinaList(SetupBasePath + "china.list");
-
-            if (DnsSettings.WhiteListEnable && File.Exists("white.list"))
-                DnsSettings.ReadWhiteList(SetupBasePath + "white.list");
-
-            if (DnsSettings.WhiteListEnable && File.Exists("rewrite.list"))
-                DnsSettings.ReadWhiteList(SetupBasePath + "rewrite.list");
         }
 
         private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)

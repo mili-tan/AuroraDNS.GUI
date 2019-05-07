@@ -115,6 +115,7 @@ namespace AuroraGUI
                     $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\",\n" +
                     $"\"EnableDnsCache\" : {DnsSettings.DnsCacheEnable.ToString().ToLower()},\n" +
                     $"\"EnableDnsMessage\" : {DnsSettings.DnsMsgEnable.ToString().ToLower()},\n" +
+                    $"\"EnableAutoCleanLog\" : {DnsSettings.AutoCleanLogEnable.ToString().ToLower()},\n" +
                     $"\"EnableHttp2\" : {DnsSettings.Http2Enable.ToString().ToLower()} \n" +
                     "}");
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });

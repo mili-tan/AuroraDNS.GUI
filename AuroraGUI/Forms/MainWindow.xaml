@@ -20,7 +20,7 @@
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
         Height="200" Width="300" Loaded="Window_Loaded"
-        StateChanged="Window_StateChanged" ResizeMode="NoResize" WindowStyle="None">
+        StateChanged="Window_StateChanged" ResizeMode="NoResize" WindowStyle="None" Closed="Window_Closed">
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
@@ -28,7 +28,11 @@
     </WindowChrome.WindowChrome>
 
     <Grid Opacity="0.85">
-        <Grid Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="139*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="Grid" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="146*"/>
                 <ColumnDefinition Width="146*"/>
@@ -119,7 +123,7 @@
         <materialDesign:Snackbar Name="Snackbar"
             Grid.Column="0"
             MessageQueue="{materialDesign:MessageQueue}" 
-            HorizontalContentAlignment="Center" Opacity="0.85" Background="Black">
+            HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Grid.ColumnSpan="2" Margin="6,0">
         </materialDesign:Snackbar>
     </Grid>
 </Window>

@@ -30,6 +30,7 @@ namespace AuroraGUI.DnsSvr
         public static bool DnsMsgEnable = false;
         public static bool DnsCacheEnable = false;
         public static bool Http2Enable = false;
+        public static bool AutoCleanLogEnable = false;
         public static WebProxy WProxy = new WebProxy("127.0.0.1:1080");
 
         public static void ReadConfig(string path)
@@ -47,6 +48,8 @@ namespace AuroraGUI.DnsSvr
                 DnsCacheEnable = configJson.AsObjectGetBool("EnableDnsCache");
             if (configStr.Contains("\"EnableHttp2\""))
                 Http2Enable = configJson.AsObjectGetBool("EnableHttp2");
+            if (configStr.Contains("\"EnableAutoCleanLog\""))
+                AutoCleanLogEnable = configJson.AsObjectGetBool("EnableAutoCleanLog");
             if (configStr.Contains("\"Port\""))
                 ListenPort = configJson.AsObjectGetInt("Port", 53);
             if (configStr.Contains("\"ChinaList\""))

@@ -163,7 +163,11 @@ namespace AuroraGUI
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
             WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().ShowDialog());
-            WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) => Environment.Exit(Environment.ExitCode));
+            WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) =>
+            {
+                Close();
+                Environment.Exit(Environment.ExitCode);
+            });
 
             NotifyIcon.ContextMenu =
                 new WinFormContextMenu(new[]
@@ -392,6 +396,15 @@ namespace AuroraGUI
                 Show();
                 WindowState = WindowState.Normal;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (DnsSettings.AutoCleanLogEnable)
+                foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                    if (item != $"{SetupBasePath}Log" +
+                        $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                        File.Delete(item);
         }
     }
 }

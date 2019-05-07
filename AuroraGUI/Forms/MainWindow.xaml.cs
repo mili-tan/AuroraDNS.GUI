@@ -400,11 +400,11 @@ namespace AuroraGUI
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (DnsSettings.AutoCleanLogEnable)
-                foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
-                    if (item != $"{SetupBasePath}Log" +
-                        $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
-                        File.Delete(item);
+            if (!DnsSettings.AutoCleanLogEnable) return;
+            foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                if (item != $"{SetupBasePath}Log" +
+                    $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                    File.Delete(item);
         }
     }
 }

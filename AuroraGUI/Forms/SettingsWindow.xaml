@@ -90,6 +90,12 @@
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                             Margin="0,0,2,1" Height="Auto" ToolTip="导入">
                         <materialDesign:PackIcon Kind="FileImport" Opacity="0.8" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="编辑列表" Click="OpenList_OnClick"/>
+                                <MenuItem Header="编辑列表订阅" Click="OpenSubList_OnClick"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
                     <ToggleButton Name="WhiteList"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}" Height="25" Margin="0,0,0,-0.2" VerticalAlignment="Top"

@@ -276,5 +276,55 @@ namespace AuroraGUI
         {
             new ListL10NWindow().Show();
         }
+
+        private void OpenList_OnClick(object sender, RoutedEventArgs e)
+        {
+            var snackbarMsg = new SnackbarMessage()
+            {
+                Content = "没有找到白名单文件,是否创建?(格式与Hosts一致)",
+                ActionContent = "现在创建并编辑"
+            };
+            snackbarMsg.ActionClick += (o, args) =>
+            {
+                File.Create($"{MainWindow.SetupBasePath}white.list").Close();
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.list"));
+                Snackbar.IsActive = false;
+            };
+
+            if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.list"));
+            else if (File.Exists($"{MainWindow.SetupBasePath}rewrite.list"))
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}rewrite.list"));
+            else
+            {
+                Snackbar.IsActive = true;
+                Snackbar.Message = snackbarMsg;
+            }
+        }
+
+        private void OpenSubList_OnClick(object sender, RoutedEventArgs e)
+        {
+            var snackbarMsg = new SnackbarMessage()
+            {
+                Content = "没有找到订阅列表文件,是否创建?(每行一条地址)",
+                ActionContent = "现在创建并编辑"
+            };
+            snackbarMsg.ActionClick += (o, args) =>
+            {
+                File.Create($"{MainWindow.SetupBasePath}white.sub.list").Close();
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.sub.list"));
+                Snackbar.IsActive = false;
+            };
+
+            if (File.Exists($"{MainWindow.SetupBasePath}white.sub.list"))
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.sub.list"));
+            else if (File.Exists($"{MainWindow.SetupBasePath}rewrite.sub.list"))
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}rewrite.sub.list"));
+            else
+            {
+                Snackbar.IsActive = true;
+                Snackbar.Message = snackbarMsg;
+            }
+        }
     }
 }

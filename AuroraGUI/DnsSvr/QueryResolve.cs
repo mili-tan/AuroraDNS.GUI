@@ -79,7 +79,8 @@ namespace AuroraGUI.DnsSvr
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- WhiteList");
                     }
-                    else if (DnsSettings.ChinaListEnable && DnsSettings.ChinaList.Contains(dnsQuestion.Name))
+                    else if (DnsSettings.ChinaListEnable && (DnsSettings.ChinaList.Contains(dnsQuestion.Name.GetParentName()) ||
+                              dnsQuestion.Name.IsSubDomainOf(DomainName.Parse("cn."))) || dnsQuestion.Name.ToString().Contains("cn--"))
                     {
                         try
                         {
@@ -95,7 +96,8 @@ namespace AuroraGUI.DnsSvr
                                     BackgroundLog(@"|- ChinaList - DNSPOD D+");
                                 if (DnsSettings.DnsCacheEnable && response.ReturnCode == ReturnCode.NoError)
                                     BackgroundWriteCache(
-                                        new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
+                                        new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}",
+                                            resolvedDnsList),
                                         resolvedDnsList[0].TimeToLive);
                             }
                         }

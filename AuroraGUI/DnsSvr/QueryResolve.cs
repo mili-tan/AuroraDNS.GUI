@@ -79,8 +79,11 @@ namespace AuroraGUI.DnsSvr
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- WhiteList");
                     }
-                    else if (DnsSettings.ChinaListEnable && (DnsSettings.ChinaList.Contains(dnsQuestion.Name.GetParentName()) ||
-                              dnsQuestion.Name.IsSubDomainOf(DomainName.Parse("cn."))) || dnsQuestion.Name.ToString().Contains("cn--"))
+                    else if (DnsSettings.ChinaListEnable &&
+                             (DnsSettings.ChinaList.Contains(dnsQuestion.Name.GetParentName()) ||
+                              DnsSettings.ChinaList.Contains(dnsQuestion.Name) ||
+                              dnsQuestion.Name.IsSubDomainOf(DomainName.Parse("cn."))) ||
+                             dnsQuestion.Name.ToString().Contains("cn--"))
                     {
                         try
                         {

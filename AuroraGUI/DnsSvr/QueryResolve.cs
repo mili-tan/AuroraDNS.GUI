@@ -52,18 +52,20 @@ namespace AuroraGUI.DnsSvr
                             (List<DnsRecordBase>) MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
                         response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0,
                             "AuroraDNSC Cached"));
+
                         if (DnsSettings.DebugLog)
                             BackgroundLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
                     }
-                    else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name))
                     {
                         response.AnswerRecords.Add(new ARecord(dnsQuestion.Name, 10, IPAddress.Any));
                         response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("blacklist.auroradns.mili.one"), 0,
                             "AuroraDNSC Blocked"));
+
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- BlackList");
                     }
-                    else if (DnsSettings.WhiteListEnable && DnsSettings.WhiteList.ContainsKey(dnsQuestion.Name) && dnsQuestion.RecordType == RecordType.A)
+                    else if (DnsSettings.WhiteListEnable && DnsSettings.WhiteList.ContainsKey(dnsQuestion.Name))
                     {
                         List<DnsRecordBase> whiteRecords = new List<DnsRecordBase>();
                         if (!IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
@@ -76,14 +78,11 @@ namespace AuroraGUI.DnsSvr
                         response.AnswerRecords.AddRange(whiteRecords);
                         response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("whitelist.auroradns.mili.one"), 0,
                             "AuroraDNSC Rewrote"));
+
                         if (DnsSettings.DebugLog)
                             BackgroundLog(@"|- WhiteList");
                     }
-                    else if (DnsSettings.ChinaListEnable &&
-                             (DnsSettings.ChinaList.Contains(dnsQuestion.Name.GetParentName()) ||
-                              DnsSettings.ChinaList.Contains(dnsQuestion.Name) ||
-                              dnsQuestion.Name.IsSubDomainOf(DomainName.Parse("cn."))) ||
-                             dnsQuestion.Name.ToString().Contains("cn--"))
+                    else if (DnsSettings.ChinaListEnable && DomainNameInChinaList(dnsQuestion.Name))
                     {
                         try
                         {
@@ -97,6 +96,7 @@ namespace AuroraGUI.DnsSvr
 
                                 if (DnsSettings.DebugLog)
                                     BackgroundLog(@"|- ChinaList - DNSPOD D+");
+
                                 if (DnsSettings.DnsCacheEnable && response.ReturnCode == ReturnCode.NoError)
                                     BackgroundWriteCache(
                                         new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}",
@@ -355,6 +355,14 @@ namespace AuroraGUI.DnsSvr
                 BackgroundLog($@"| - Catch WebException : {e.Message} | {domainName} | http://119.29.29.29/d?dn={domainName}&ttl=1");
                 return new List<DnsRecordBase>();
             }
+        }
+
+        private static bool DomainNameInChinaList(DomainName name)
+        {
+            return DnsSettings.ChinaList.Contains(name.GetParentName()) ||
+                   DnsSettings.ChinaList.Contains(name) ||
+                   name.IsSubDomainOf(DomainName.Parse("cn.")) ||
+                   name.ToString().Contains("xn--");
         }
     }
 }

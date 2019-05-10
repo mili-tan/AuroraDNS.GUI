@@ -160,9 +160,9 @@ namespace AuroraGUI
                 else
                     MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
             });
-            WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().ShowDialog());
+            WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().Show());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
-            WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().ShowDialog());
+            WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().Show());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) =>
             {
                 Close();

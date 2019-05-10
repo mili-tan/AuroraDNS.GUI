@@ -88,9 +88,12 @@ namespace AuroraGUI.DnsSvr
             {
                 try
                 {
-                    var strings = itemStr.Split(' ', ',', '\t');
-                    if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
-                        WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+                    if (!string.IsNullOrWhiteSpace(itemStr))
+                    {
+                        var strings = itemStr.Split(' ', ',', '\t');
+                        if (!WhiteList.ContainsKey(DomainName.Parse(strings[1])))
+                            WhiteList.Add(DomainName.Parse(strings[1]), strings[0]);
+                    }
                 }
                 catch (Exception e)
                 {

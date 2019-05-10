@@ -86,7 +86,7 @@
             </Grid>
         </materialDesign:Card>
         <TextBlock Margin="0,302,5.6,0" 
-            VerticalAlignment="Top" Foreground="#BBB" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20">
+            VerticalAlignment="Top" Foreground="#CCC" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20">
             Made With ❤ By Milkey Tan. | <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://milione.cc/?page_id=880">支持我</Hyperlink>
         </TextBlock>
 

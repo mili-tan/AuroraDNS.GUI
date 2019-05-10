@@ -214,5 +214,8 @@
   <ItemGroup>
     <Resource Include="Resources\AuroraBlack.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\see.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

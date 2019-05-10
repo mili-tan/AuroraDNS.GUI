@@ -18,14 +18,14 @@
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/cun.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/see.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
             </Grid.Effect>
         </Grid>
 
-        <TextBlock Text="Photo by Xuan - 無限藍天。" Margin="20,19,0,0" 
+        <TextBlock Text="Photo by Xuan - 我正看见" Margin="20,19,0,0" 
                VerticalAlignment="Top" Foreground="#FFFFFF"  FontSize="10" Opacity="0.9"
                HorizontalAlignment="Left" TextAlignment="Left" Height="17" />
 

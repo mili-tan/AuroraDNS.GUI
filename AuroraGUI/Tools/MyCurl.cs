@@ -37,12 +37,10 @@ namespace AuroraGUI.Tools
                 var mAdd = new Uri(address.Scheme + Uri.SchemeDelimiter + ipAdd + address.AbsolutePath);
                 var request = base.GetWebRequest(mAdd);
                 request.Timeout = TimeOut;
-                if (request is HttpWebRequest webRequest)
-                {
-                    webRequest.Host = address.DnsSafeHost;
-                    webRequest.AllowAutoRedirect = AllowAutoRedirect;
-                    webRequest.KeepAlive = true;
-                }
+                if (!(request is HttpWebRequest webRequest)) return request;
+                webRequest.Host = address.DnsSafeHost;
+                webRequest.AllowAutoRedirect = AllowAutoRedirect;
+                webRequest.KeepAlive = true;
                 return request;
             }
 

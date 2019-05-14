@@ -49,7 +49,7 @@ namespace AuroraGUI.Tools
         {
             try
             {
-                return new WebClient().DownloadString(UrlSettings.WhatMyIpApi).Trim();
+                return new MyCurl.MIpBkWebClient().DownloadString(UrlSettings.WhatMyIpApi).Trim();
             }
             catch (Exception e)
             {

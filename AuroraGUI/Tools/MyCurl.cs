@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Threading.Tasks;
+using ARSoft.Tools.Net;
+using ARSoft.Tools.Net.Dns;
+using AuroraGUI.DnsSvr;
 
 namespace AuroraGUI.Tools
 {
@@ -17,6 +21,28 @@ namespace AuroraGUI.Tools
                 request.Timeout = TimeOut;
                 if (request is HttpWebRequest webRequest)
                 {
+                    webRequest.AllowAutoRedirect = AllowAutoRedirect;
+                    webRequest.KeepAlive = true;
+                }
+                return request;
+            }
+        }
+
+        public class MIpBkWebClient : WebClient
+        {
+            public bool AllowAutoRedirect { get; set; } = false;
+            public int TimeOut { get; set; } = 15000;
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                var ipMsg = (ARecord) new DnsClient(DnsSettings.SecondDnsIp, 5000)
+                    .Resolve(DomainName.Parse(address.DnsSafeHost)).AnswerRecords[0];
+                var ipAdd = ipMsg.Address;
+                var mAdd = new Uri(ipAdd + address.AbsolutePath);
+                var request = base.GetWebRequest(mAdd);
+                request.Timeout = TimeOut;
+                if (request is HttpWebRequest webRequest)
+                {
+                    webRequest.Host = address.DnsSafeHost;
                     webRequest.AllowAutoRedirect = AllowAutoRedirect;
                     webRequest.KeepAlive = true;
                 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
@@ -34,10 +33,8 @@ namespace AuroraGUI.Tools
             public int TimeOut { get; set; } = 15000;
             protected override WebRequest GetWebRequest(Uri address)
             {
-                var ipMsg = (ARecord) new DnsClient(DnsSettings.SecondDnsIp, 5000)
-                    .Resolve(DomainName.Parse(address.DnsSafeHost)).AnswerRecords[0];
-                var ipAdd = ipMsg.Address;
-                var mAdd = new Uri(ipAdd + address.AbsolutePath);
+                var ipAdd = ResolveNameBk(DomainName.Parse(address.DnsSafeHost));
+                var mAdd = new Uri(address.Scheme + Uri.SchemeDelimiter + ipAdd + address.AbsolutePath);
                 var request = base.GetWebRequest(mAdd);
                 request.Timeout = TimeOut;
                 if (request is HttpWebRequest webRequest)
@@ -47,6 +44,22 @@ namespace AuroraGUI.Tools
                     webRequest.KeepAlive = true;
                 }
                 return request;
+            }
+
+            private static IPAddress ResolveNameBk(DomainName name)
+            {
+                while (true)
+                {
+                    var ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(name).AnswerRecords[0];
+                    if (ipMsg.RecordType == RecordType.A)
+                    {
+                        if (ipMsg is ARecord msg) return msg.Address;
+                    }
+                    else
+                    {
+                        if (ipMsg is CNameRecord msg) name = msg.CanonicalName;
+                    }
+                }
             }
         }
 

@@ -45,6 +45,7 @@ namespace AuroraGUI.DnsSvr
 
                     if (DnsSettings.DebugLog)
                         BackgroundLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
+
                     if (DomainName.Parse(new Uri(DnsSettings.HttpsDnsUrl).DnsSafeHost) == dnsQuestion.Name ||
                         DomainName.Parse(new Uri(DnsSettings.SecondHttpsDnsUrl).DnsSafeHost) == dnsQuestion.Name ||
                         DomainName.Parse(new Uri(UrlSettings.WhatMyIpApi).DnsSafeHost) == dnsQuestion.Name)
@@ -52,7 +53,8 @@ namespace AuroraGUI.DnsSvr
                         response.AnswerRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
                             .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
 
-                        BackgroundLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
+                        if (DnsSettings.DebugLog)
+                            BackgroundLog($"| -- Startup SecondDns : {DnsSettings.SecondDnsIp}");
                     }
                     else if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
                     {

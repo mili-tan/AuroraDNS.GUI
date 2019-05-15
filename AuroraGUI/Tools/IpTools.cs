@@ -26,12 +26,8 @@ namespace AuroraGUI.Tools
             {
                 using (TcpClient tcpClient = new TcpClient())
                 {
-                    if (DnsSettings.HttpsDnsUrl.Split('/')[2].Contains(":"))
-                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/', ':')[3],
-                            Convert.ToInt32(DnsSettings.HttpsDnsUrl.Split('/', ':')[4]));
-                    else
-                        tcpClient.Connect(DnsSettings.HttpsDnsUrl.Split('/')[2], 443);
-
+                    var addr = new Uri(DnsSettings.HttpsDnsUrl);
+                    tcpClient.Connect(addr.DnsSafeHost, addr.Port);
                     return ((IPEndPoint) tcpClient.Client.LocalEndPoint).Address.ToString();
                 }
             }

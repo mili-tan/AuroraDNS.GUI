@@ -45,8 +45,15 @@ namespace AuroraGUI.DnsSvr
 
                     if (DnsSettings.DebugLog)
                         BackgroundLog($@"| {DateTime.Now} {e.RemoteEndpoint.Address} : {dnsQuestion.Name} | {dnsQuestion.RecordType.ToString().ToUpper()}");
+                    if (DomainName.Parse(new Uri(DnsSettings.HttpsDnsUrl).DnsSafeHost) == dnsQuestion.Name ||
+                        DomainName.Parse(new Uri(DnsSettings.SecondHttpsDnsUrl).DnsSafeHost) == dnsQuestion.Name)
+                    {
+                        response.AnswerRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
+                            .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
 
-                    if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
+                        BackgroundLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
+                    }
+                    else if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
                     {
                         response.AnswerRecords.AddRange(
                             (List<DnsRecordBase>) MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
@@ -69,7 +76,7 @@ namespace AuroraGUI.DnsSvr
                     {
                         List<DnsRecordBase> whiteRecords = new List<DnsRecordBase>();
                         if (!IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
-                            whiteRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 1000)
+                            whiteRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
                                 .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
                         else
                             whiteRecords.Add(new ARecord(dnsQuestion.Name, 10,

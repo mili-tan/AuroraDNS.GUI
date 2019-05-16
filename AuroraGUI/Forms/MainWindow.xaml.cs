@@ -280,7 +280,7 @@ namespace AuroraGUI
                 var snackbarMsg = new SnackbarMessage()
                 {
                     Content = "权限不足",
-                    ActionContent = "Administrator权限运行",
+                    ActionContent = "管理员权限运行",
                 };
                 snackbarMsg.ActionClick += RunAsAdmin_OnActionClick;
                 Snackbar.MessageQueue.Enqueue(snackbarMsg);

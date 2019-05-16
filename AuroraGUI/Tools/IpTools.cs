@@ -37,7 +37,11 @@ namespace AuroraGUI.Tools
                 try
                 {
                     TcpClient tcpClient = new TcpClient();
-                    tcpClient.Connect(ResolveNameIpAddress(DomainName.Parse(addressUri.DnsSafeHost)), addressUri.Port);
+                    if (IsIp(addressUri.DnsSafeHost))
+                        tcpClient.Connect(addressUri.DnsSafeHost, addressUri.Port);
+                    else
+                        tcpClient.Connect(ResolveNameIpAddress(DomainName.Parse(addressUri.DnsSafeHost)),
+                            addressUri.Port);
                     return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
                 }
                 catch (Exception exception)

@@ -31,7 +31,9 @@ namespace AuroraGUI.Tools
             public int TimeOut { get; set; } = 15000;
             protected override WebRequest GetWebRequest(Uri address)
             {
-                var ipAdd = IpTools.ResolveNameIpAddress(DomainName.Parse(address.DnsSafeHost));
+                var ipAdd = IpTools.IsIp(address.DnsSafeHost)
+                    ? IPAddress.Parse(address.DnsSafeHost)
+                    : IpTools.ResolveNameIpAddress(DomainName.Parse(address.DnsSafeHost));
                 var mAdd = new Uri(address.Scheme + Uri.SchemeDelimiter + ipAdd + address.AbsolutePath);
                 var request = base.GetWebRequest(mAdd);
                 request.Timeout = TimeOut;

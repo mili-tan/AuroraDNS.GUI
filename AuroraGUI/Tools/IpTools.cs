@@ -83,7 +83,7 @@ namespace AuroraGUI.Tools
                 {
                     if (ipMsg is ARecord msg) return msg.Address;
                 }
-                else
+                else if (ipMsg.RecordType == RecordType.CName)
                 {
                     if (ipMsg is CNameRecord msg) name = msg.CanonicalName;
                 }

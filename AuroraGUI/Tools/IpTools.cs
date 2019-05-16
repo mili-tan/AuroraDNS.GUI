@@ -37,11 +37,7 @@ namespace AuroraGUI.Tools
                 try
                 {
                     TcpClient tcpClient = new TcpClient();
-                    if (IsIp(addressUri.DnsSafeHost))
-                        tcpClient.Connect(addressUri.DnsSafeHost, addressUri.Port);
-                    else
-                        tcpClient.Connect(ResolveNameIpAddress(DomainName.Parse(addressUri.DnsSafeHost)),
-                            addressUri.Port);
+                    tcpClient.Connect(ResolveNameIpAddress(addressUri.DnsSafeHost), addressUri.Port);
                     return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
                 }
                 catch (Exception exception)
@@ -49,8 +45,7 @@ namespace AuroraGUI.Tools
                     return MessageBox.Show(
                                $"Error: 尝试连接远端 DNS over HTTPS 服务器发生错误(DoH-Server){Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。{Environment.NewLine}Original error: "
                                + exception.Message, @"错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK
-                        ? GetLocIp()
-                        : "192.168.0.1";
+                        ? GetLocIp() : "192.168.0.1";
                 }
             }
         }
@@ -78,18 +73,19 @@ namespace AuroraGUI.Tools
             }
         }
 
-        public static IPAddress ResolveNameIpAddress(DomainName name)
+        public static IPAddress ResolveNameIpAddress(string name)
         {
+            if (IPAddress.TryParse(name.TrimEnd('.'), out _)) return IPAddress.Parse(name.TrimEnd('.'));
             while (true)
             {
-                var ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(name).AnswerRecords[0];
+                var ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(DomainName.Parse(name)).AnswerRecords[0];
                 if (ipMsg.RecordType == RecordType.A)
                 {
                     if (ipMsg is ARecord msg) return msg.Address;
                 }
                 else if (ipMsg.RecordType == RecordType.CName)
                 {
-                    if (ipMsg is CNameRecord msg) name = msg.CanonicalName;
+                    if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
                 }
             }
         }

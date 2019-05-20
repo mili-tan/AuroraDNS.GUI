@@ -43,7 +43,7 @@
             materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="0,0,0,0" Grid.ColumnSpan="2" Height="55">
                 <DockPanel>
                     <TextBlock
-                    VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" HorizontalAlignment="Left" 
                     FontSize="20" FontWeight="Medium"
                     DockPanel.Dock="Left" Margin="0,0,0,-0.8" >
                     <Italic>A</Italic>uroraDNS

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" ResizeMode="CanMinimize" Topmost="True"
+        mc:Ignorable="d" ResizeMode="CanMinimize"
         Title="设置" Height="675" Width="450" Background="#F1F1F1"
         MinHeight="640" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
     <Grid>

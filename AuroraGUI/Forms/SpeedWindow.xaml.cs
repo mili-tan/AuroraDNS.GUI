@@ -125,7 +125,7 @@ namespace AuroraGUI
                         {
                             SpeedListView.Items.Add(new SpeedList
                             {
-                                Server = TypeDNS ? item.Split('*', ',')[0].Trim() : item.Split('*', ',')[0].Trim().Split('/', ':')[3],
+                                Server = TypeDNS ? item.Split('*', ',')[0].Trim() : new Uri(item.Split('*', ',')[0].Trim()).Host,
                                 Name = item.Contains('*') || item.Contains(',') ? item.Split('*', ',')[1].Trim() : ""
                             });
                         }

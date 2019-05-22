@@ -334,7 +334,7 @@ namespace AuroraGUI
 
         private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow().ShowDialog();
+            new SettingsWindow().Show();
 
             IsLog.IsChecked = DnsSettings.DebugLog;
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);

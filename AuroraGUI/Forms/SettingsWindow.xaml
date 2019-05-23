@@ -43,6 +43,11 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
                     默认记录日志
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <CheckBox Name="AutoClean" Content="自动清理日志(仅保留当日)"/>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton Name="Log" 

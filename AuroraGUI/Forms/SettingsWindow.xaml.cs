@@ -35,6 +35,7 @@ namespace AuroraGUI
             Proxy.IsChecked = DnsSettings.ProxyEnable;
 
             DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
+            AutoClean.IsChecked = DnsSettings.AutoCleanLogEnable;
             SecondDoHUrlText.Text = DnsSettings.SecondHttpsDnsUrl;
             SecondDNS.Text =  DnsSettings.SecondDnsIp.ToString();
             EDNSClientIP.Text = DnsSettings.EDnsIp.ToString();
@@ -72,6 +73,7 @@ namespace AuroraGUI
             DnsSettings.DnsCacheEnable = Convert.ToBoolean(DNSCache.IsChecked);
             DnsSettings.WhiteListEnable = Convert.ToBoolean(WhiteList.IsChecked);
             DnsSettings.ProxyEnable = Convert.ToBoolean(Proxy.IsChecked);
+            DnsSettings.AutoCleanLogEnable = Convert.ToBoolean(AutoClean.IsChecked);
 
             if (!string.IsNullOrWhiteSpace(DoHUrlText.Text) &&
                 !string.IsNullOrWhiteSpace(SecondDoHUrlText.Text) &&

@@ -217,7 +217,14 @@
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="2" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="主 DNS over HTTPS 查询接口"/></TextBlock>
+                           Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    <Run Text="主 DNS over HTTPS 查询接口"/>
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <CheckBox Name="DNSMsg" Content="使用 DNS-Message 查询 (RFC8484)"/>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
+                </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 

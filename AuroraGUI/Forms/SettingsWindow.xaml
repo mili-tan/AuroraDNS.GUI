@@ -221,7 +221,8 @@
                     <Run Text="主 DNS over HTTPS 查询接口"/>
                     <TextBlock.ContextMenu>
                         <ContextMenu>
-                            <CheckBox Name="DNSMsg" Content="使用 DNS-Message 查询 (RFC8484)"/>
+                            <CheckBox Name="DNSMsg" Content="启用 DNS-Message 查询 (RFC8484)"/>
+                            <CheckBox Name="HTTP2Client" Content="启用 HTTP2 支持 (实验性、不稳定)"/>
                         </ContextMenu>
                     </TextBlock.ContextMenu>
                 </TextBlock>

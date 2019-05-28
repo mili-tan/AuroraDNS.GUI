@@ -35,6 +35,12 @@
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                             Margin="0,-5,0,-6" Height="Auto" Opacity="0.5" ToolTip="刷新 DNS 缓存">
                         <materialDesign:PackIcon Kind="Broom" Height="19" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="刷新内置 DNS 缓存" Click="CleanCacheInside_OnClick"/>
+                                <MenuItem Header="刷新系统 DNS 缓存" Click="CleanCacheSys_OnClick"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
                 </StackPanel>
 

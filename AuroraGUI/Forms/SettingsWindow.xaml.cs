@@ -329,5 +329,17 @@ namespace AuroraGUI
             else
                 Snackbar.IsActive = true;
         }
+
+        private void CleanCacheSys_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Process { StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
+        }
+
+        private void CleanCacheInside_OnClick(object sender, RoutedEventArgs e)
+        {
+            MemoryCache.Default.Trim(100);
+            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新内置 DNS 解析缓存" });
+        }
     }
 }

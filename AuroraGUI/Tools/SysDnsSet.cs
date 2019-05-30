@@ -1,4 +1,9 @@
-﻿using System.Management;
+﻿using System;
+using System.Diagnostics;
+using System.Management;
+using System.Net;
+using static System.Net.NetworkInformation.NetworkInterface;
+using static System.Net.NetworkInformation.OperationalStatus;
 
 #pragma warning disable IDE0044
 
@@ -21,6 +26,27 @@ namespace AuroraGUI.Tools
                 parameters["DNSServerSearchOrder"] = new[] { dnsAddr, backupDnsAddr };
                 mgObjItem.InvokeMethod("SetDNSServerSearchOrder", parameters, null);
                 break;
+            }
+        }
+
+        public static void SetDnsCmd(string dnsAddr, string backupDnsAddr)
+        {
+            foreach (var network in GetAllNetworkInterfaces())
+            {
+                if (network.OperationalStatus == Up)
+                {
+                    new Process
+                    {
+                        StartInfo = new ProcessStartInfo("netsh.exe",
+                            $"interface ip set dns \"{network.Name}\" source=static addr={IPAddress.Any}")
+                    }.Start();
+
+                    new Process
+                    {
+                        StartInfo = new ProcessStartInfo("netsh.exe",
+                            $"interface ip add dns \"{network.Name}\" addr={IPAddress.Any}")
+                    }.Start();
+                }
             }
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Management;
 using System.Net;
+using System.Text;
 using static System.Net.NetworkInformation.NetworkInterface;
 using static System.Net.NetworkInformation.OperationalStatus;
 
@@ -32,23 +34,23 @@ namespace AuroraGUI.Tools
         public static void SetDnsCmd(string dnsAddr, string backupDnsAddr)
         {
             var cmd = "";
+
             foreach (var network in GetAllNetworkInterfaces())
             {
                 if (network.OperationalStatus == Up)
                 {
-                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={IPAddress.Any}" + Environment.NewLine;
-                    cmd += $"netsh interface ip add dns \"{network.Name}\" addr={IPAddress.Any}" + Environment.NewLine;
+                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={dnsAddr}" + Environment.NewLine;
+                    cmd += $"netsh interface ip add dns \"{network.Name}\" addr={backupDnsAddr}" + Environment.NewLine;
                 }
             }
-
+            File.Create("setdns.cmd").Close();
+            File.WriteAllText("setdns.cmd", cmd, Encoding.Default);
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "cmd.exe",
-                Arguments = cmd,
+                FileName = "setdns.cmd",
                 Verb = "runas"
             };
-
-            Process.Start(startInfo);
+            Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
         }
 
         public static void ResetDns()

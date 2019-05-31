@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Management;
-using System.Net;
 using System.Text;
 using static System.Net.NetworkInformation.NetworkInterface;
 using static System.Net.NetworkInformation.OperationalStatus;

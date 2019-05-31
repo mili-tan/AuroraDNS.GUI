@@ -31,23 +31,24 @@ namespace AuroraGUI.Tools
 
         public static void SetDnsCmd(string dnsAddr, string backupDnsAddr)
         {
+            var cmd = "";
             foreach (var network in GetAllNetworkInterfaces())
             {
                 if (network.OperationalStatus == Up)
                 {
-                    new Process
-                    {
-                        StartInfo = new ProcessStartInfo("netsh.exe",
-                            $"interface ip set dns \"{network.Name}\" source=static addr={IPAddress.Any}")
-                    }.Start();
-
-                    new Process
-                    {
-                        StartInfo = new ProcessStartInfo("netsh.exe",
-                            $"interface ip add dns \"{network.Name}\" addr={IPAddress.Any}")
-                    }.Start();
+                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={IPAddress.Any}" + Environment.NewLine;
+                    cmd += $"netsh interface ip add dns \"{network.Name}\" addr={IPAddress.Any}" + Environment.NewLine;
                 }
             }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = cmd,
+                Verb = "runas"
+            };
+
+            Process.Start(startInfo);
         }
 
         public static void ResetDns()

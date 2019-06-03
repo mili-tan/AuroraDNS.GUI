@@ -47,7 +47,8 @@ namespace AuroraGUI.Tools
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = "setdns.cmd",
-                Verb = "runas"
+                Verb = "runas",
+                CreateNoWindow = true
             };
             Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
         }

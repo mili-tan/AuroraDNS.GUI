@@ -65,5 +65,28 @@ namespace AuroraGUI.Tools
                 break;
             }
         }
+
+        public static void ResetDnsCmd()
+        {
+            var cmd = "";
+
+            foreach (var network in GetAllNetworkInterfaces())
+            {
+                if (network.OperationalStatus == Up)
+                {
+                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
+                }
+            }
+            File.Create("setdns.cmd").Close();
+            File.WriteAllText("setdns.cmd", cmd, Encoding.Default);
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "setdns.cmd",
+                Verb = "runas",
+                CreateNoWindow = true
+            };
+            Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
+        }
+
     }
 }

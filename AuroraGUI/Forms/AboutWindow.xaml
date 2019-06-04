@@ -18,16 +18,16 @@
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/nie.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/day.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
             </Grid.Effect>
         </Grid>
 
-        <TextBlock Text="Photo by Tinh Khuong" Margin="20,20,0,0" 
-               VerticalAlignment="Top" Foreground="#FFFFFF"  FontSize="10" Opacity="0.9"
-               HorizontalAlignment="Left" TextAlignment="Left" Height="17" />
+        <TextBlock Text="Photo by Prosperity Horizons" Margin="20,20,0,0" 
+               VerticalAlignment="Top" Foreground="#FFF"  FontSize="10" Opacity="0.9"
+               HorizontalAlignment="Left" TextAlignment="Left" Height="17"/>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0" Opacity="0.75"

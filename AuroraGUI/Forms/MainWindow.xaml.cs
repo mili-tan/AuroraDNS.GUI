@@ -265,15 +265,14 @@ namespace AuroraGUI
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
         {
             if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-            {
                 SysDnsSet.SetDns("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
-                IsSysDns.ToolTip = "已设为系统 DNS";
-            }
             else
             {
                 SysDnsSet.SetDnsCmd("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
-                IsSysDns.ToolTip = "已通过 Netsh 设为系统 DNS";
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 设置" });
             }
+
+            IsSysDns.ToolTip = "已设为系统 DNS";
             Snackbar.MessageQueue.Enqueue(new TextBlock()
             {
                 Text = "主DNS:" + IPAddress.Loopback +

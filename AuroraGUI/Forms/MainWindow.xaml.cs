@@ -267,25 +267,19 @@ namespace AuroraGUI
             if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
             {
                 SysDnsSet.SetDns("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
-                Snackbar.MessageQueue.Enqueue(new TextBlock()
-                {
-                    Text = "主DNS:" + IPAddress.Loopback +
-                           Environment.NewLine +
-                           "辅DNS:" + DnsSettings.SecondDnsIp
-                });
                 IsSysDns.ToolTip = "已设为系统 DNS";
             }
             else
             {
-                var snackbarMsg = new SnackbarMessage()
-                {
-                    Content = "权限不足",
-                    ActionContent = "管理员权限运行",
-                };
-                snackbarMsg.ActionClick += RunAsAdmin_OnActionClick;
-                Snackbar.MessageQueue.Enqueue(snackbarMsg);
-                IsSysDns.IsChecked = false;
+                SysDnsSet.SetDnsCmd("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
+                IsSysDns.ToolTip = "已通过 Netsh 设为系统 DNS";
             }
+            Snackbar.MessageQueue.Enqueue(new TextBlock()
+            {
+                Text = "主DNS:" + IPAddress.Loopback +
+                       Environment.NewLine +
+                       "辅DNS:" + DnsSettings.SecondDnsIp
+            });
         }
 
         private void IsSysDns_Unchecked(object sender, RoutedEventArgs e)
@@ -294,8 +288,13 @@ namespace AuroraGUI
             {
                 SysDnsSet.ResetDns();
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已将 DNS 重置为自动获取" });
-                IsSysDns.ToolTip = "设为系统 DNS";
             }
+            else
+            {
+                SysDnsSet.ResetDnsCmd();
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 将 DNS 重置为自动获取" });
+            }
+            IsSysDns.ToolTip = "设为系统 DNS";
         }
 
         private void IsLog_Checked(object sender, RoutedEventArgs e)
@@ -340,7 +339,7 @@ namespace AuroraGUI
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
         }
 
-        private void RunAsAdmin_OnActionClick(object sender, RoutedEventArgs e)
+        private void RunAsAdmin_OnActionClick(RoutedEventArgs e)
         {
             try
             {

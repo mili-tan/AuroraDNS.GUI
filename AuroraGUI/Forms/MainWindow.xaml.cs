@@ -343,7 +343,7 @@ namespace AuroraGUI
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
         }
 
-        private void RunAsAdmin()
+        public void RunAsAdmin()
         {
             try
             {

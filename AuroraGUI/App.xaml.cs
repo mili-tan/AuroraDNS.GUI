@@ -33,7 +33,7 @@ namespace AuroraGUI
             MyTools.BackgroundLog(e.Exception.ToString());
             MessageBoxResult msgResult = MessageBox.Show(
                 $"未经处理的异常错误，请从以下错误信息汲取灵感。{Environment.NewLine}" +
-                $"点击取消中止程序运行。{Environment.NewLine}" + e.Exception,
+                $"点击取消中止程序运行，点击确定继续。{Environment.NewLine}" + e.Exception,
                 "意外的错误。", MessageBoxButton.OKCancel, MessageBoxImage.Error);
 
             if (MessageBoxResult.OK == msgResult)

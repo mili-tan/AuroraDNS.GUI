@@ -106,25 +106,38 @@ namespace AuroraGUI
                 if (DnsSettings.WhiteListEnable && File.Exists("rewrite.list"))
                     DnsSettings.ReadWhiteList(MainWindow.SetupBasePath + "rewrite.list");
 
-                File.WriteAllText($"{MainWindow.SetupBasePath}config.json",
-                    "{\n" +
-                    $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n" +
-                    $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n" +
-                    $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n" +
-                    $"\"ChinaList\" : {DnsSettings.ChinaListEnable.ToString().ToLower()},\n" +
-                    $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n" +
-                    $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n" +
-                    $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n" +
-                    $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n" +
-                    $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n" +
-                    $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n" +
-                    $"\"SecondHttpsDns\" : \"{DnsSettings.SecondHttpsDnsUrl}\",\n" +
-                    $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\",\n" +
-                    $"\"EnableDnsCache\" : {DnsSettings.DnsCacheEnable.ToString().ToLower()},\n" +
-                    $"\"EnableDnsMessage\" : {DnsSettings.DnsMsgEnable.ToString().ToLower()},\n" +
-                    $"\"EnableAutoCleanLog\" : {DnsSettings.AutoCleanLogEnable.ToString().ToLower()},\n" +
-                    $"\"EnableHttp2\" : {DnsSettings.Http2Enable.ToString().ToLower()} \n" +
-                    "}");
+                try
+                {
+                    File.WriteAllText($"{MainWindow.SetupBasePath}config.json",
+                        "{\n" +
+                        $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n" +
+                        $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n" +
+                        $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n" +
+                        $"\"ChinaList\" : {DnsSettings.ChinaListEnable.ToString().ToLower()},\n" +
+                        $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n" +
+                        $"\"DebugLog\" : {DnsSettings.DebugLog.ToString().ToLower()},\n" +
+                        $"\"EDnsCustomize\" : {DnsSettings.EDnsCustomize.ToString().ToLower()},\n" +
+                        $"\"EDnsClientIp\" : \"{DnsSettings.EDnsIp}\",\n" +
+                        $"\"ProxyEnable\" : {DnsSettings.ProxyEnable.ToString().ToLower()},\n" +
+                        $"\"HttpsDns\" : \"{DnsSettings.HttpsDnsUrl.Trim()}\",\n" +
+                        $"\"SecondHttpsDns\" : \"{DnsSettings.SecondHttpsDnsUrl}\",\n" +
+                        $"\"Proxy\" : \"{ProxyServer.Text + ":" + ProxyServerPort.Text}\",\n" +
+                        $"\"EnableDnsCache\" : {DnsSettings.DnsCacheEnable.ToString().ToLower()},\n" +
+                        $"\"EnableDnsMessage\" : {DnsSettings.DnsMsgEnable.ToString().ToLower()},\n" +
+                        $"\"EnableAutoCleanLog\" : {DnsSettings.AutoCleanLogEnable.ToString().ToLower()},\n" +
+                        $"\"EnableHttp2\" : {DnsSettings.Http2Enable.ToString().ToLower()} \n" +
+                        "}");
+                }
+                catch (UnauthorizedAccessException exp)
+                {
+                    MessageBox.Show($"Error: 尝试写入配置文件权限不足，现在尝试以管理员权限启动。{Environment.NewLine}Original error: {exp}");
+                    new MainWindow().RunAsAdmin();
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show($"Error: 尝试写入配置文件错误{Environment.NewLine}Original error: {exp}");
+                }
+
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
             }
             else

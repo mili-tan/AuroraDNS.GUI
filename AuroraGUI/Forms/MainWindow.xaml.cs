@@ -81,6 +81,11 @@ namespace AuroraGUI
                 if (DnsSettings.ChinaListEnable && File.Exists("china.list"))
                     DnsSettings.ReadChinaList(SetupBasePath + "china.list");
             }
+            catch (UnauthorizedAccessException e)
+            {
+                MessageBox.Show($"Error: 尝试读取配置文件权限不足，现在尝试以管理员权限启动。{Environment.NewLine}Original error: {e}");
+                RunAsAdmin();
+            }
             catch (Exception e)
             {
                 MessageBox.Show($"Error: 尝试读取配置文件错误{Environment.NewLine}Original error: {e}");
@@ -338,7 +343,7 @@ namespace AuroraGUI
             IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
         }
 
-        private void RunAsAdmin_OnActionClick(RoutedEventArgs e)
+        private void RunAsAdmin()
         {
             try
             {

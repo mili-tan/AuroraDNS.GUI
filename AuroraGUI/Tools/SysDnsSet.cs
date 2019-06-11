@@ -48,7 +48,7 @@ namespace AuroraGUI.Tools
             {
                 FileName = "setdns.cmd",
                 Verb = "runas",
-                CreateNoWindow = true
+                WindowStyle = ProcessWindowStyle.Hidden
             };
             Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
         }
@@ -83,7 +83,7 @@ namespace AuroraGUI.Tools
             {
                 FileName = "setdns.cmd",
                 Verb = "runas",
-                CreateNoWindow = true
+                WindowStyle = ProcessWindowStyle.Hidden
             };
             Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
         }

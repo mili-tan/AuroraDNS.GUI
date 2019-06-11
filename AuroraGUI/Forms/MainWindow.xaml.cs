@@ -408,6 +408,8 @@ namespace AuroraGUI
                 if (item != $"{SetupBasePath}Log" +
                     $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
                     File.Delete(item);
+
+            if (File.Exists("setdns.cmd")) File.Delete("setdns.cmd");
         }
     }
 }

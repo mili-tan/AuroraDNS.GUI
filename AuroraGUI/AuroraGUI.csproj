@@ -122,6 +122,7 @@
     <Compile Include="OhMyDns\MyDnsHeader.cs" />
     <Compile Include="OhMyDns\MyDnsQuestion.cs" />
     <Compile Include="OhMyDns\MyDnsSend.cs" />
+    <Compile Include="Tools\Lnk.cs" />
     <Compile Include="Tools\MojoUnityJson.cs" />
     <Compile Include="Tools\MyCurl.cs" />
     <Compile Include="Tools\MyTools.cs" />

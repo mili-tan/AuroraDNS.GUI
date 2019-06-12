@@ -47,10 +47,10 @@ namespace AuroraGUI
             ProxyServer.Text = DnsSettings.WProxy.Address.Host;
             ProxyServerPort.Text = DnsSettings.WProxy.Address.Port.ToString();
 
-            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-                RunWithStart.IsChecked = MyTools.GetRunWithStart("AuroraDNS");
-            else
-                RunWithStart.IsEnabled = false;
+            RunWithStart.IsChecked =
+                new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator)
+                    ? MyTools.GetRunWithStart("AuroraDNS")
+                    : File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
             if (File.Exists($"{MainWindow.SetupBasePath}url.json"))
@@ -233,11 +233,22 @@ namespace AuroraGUI
             bgWorker.RunWorkerAsync();
         }
 
-        private void RunWithStart_Checked(object sender, RoutedEventArgs e) =>
-            MyTools.SetRunWithStart(true, "AuroraDNS", GetType().Assembly.Location);
+        private void RunWithStart_Checked(object sender, RoutedEventArgs e)
+        {
+            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                MyTools.SetRunWithStart(true, "AuroraDNS", GetType().Assembly.Location);
+            else
+                new Lnk.Shortcut {Path = GetType().Assembly.Location}.Save(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
+        }
 
-        private void RunWithStart_Unchecked(object sender, RoutedEventArgs e) =>
-            MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
+        private void RunWithStart_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
+            else if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk"))
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
+        }
 
         private void RunAsAdmin_OnClick(object sender, RoutedEventArgs e)
         {

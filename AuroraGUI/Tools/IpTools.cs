@@ -106,7 +106,7 @@ namespace AuroraGUI.Tools
                 else if (locStr.Contains("\"countryCode\""))
                     countryCode = json.AsObjectGetString("countryCode");
                 else
-                    countryCode = "Unknown";
+                    countryCode = "";
 
                 if (locStr.Contains("\"organization\""))
                     organization = json.AsObjectGetString("organization");
@@ -116,6 +116,18 @@ namespace AuroraGUI.Tools
                     organization = json.AsObjectGetString("org");
                 else
                     organization = "";
+
+                if (!organization.ToUpper().Contains("AS") && locStr.Contains("\"asn\""))
+                {
+                    try
+                    {
+                        organization = $"AS{json.AsObjectGetInt("asn")} {organization}";
+                    }
+                    catch
+                    {
+                        organization = $"AS{json.AsObjectGetString("asn")} {organization}";
+                    }
+                }
 
                 if (onlyCountryCode) return countryCode;
                 return countryCode + " " + organization;

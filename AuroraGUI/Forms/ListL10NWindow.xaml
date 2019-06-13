@@ -46,7 +46,7 @@
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                     VerticalAlignment="Center"  HorizontalAlignment="Left" 
-                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认 DNS over HTTPS 查询接口列表"/></TextBlock>
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="默认 DNS over HTTPS 服务器列表"/></TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ComboBox x:Name="DoHListURL" IsEditable="True"
                         materialDesign:HintAssist.Hint="https://git.io/aurora-doh.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" >
@@ -56,7 +56,7 @@
 
                 <Separator Grid.Row="5" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="6" Margin="16,6,0,4"  
-                           VerticalAlignment="Center"  HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"  HorizontalAlignment="Left" ToolTip="(WhatMyIP-API 用于传出的 EDNS Client Subnet IP)"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="公网 IP 查询接口 (WhatMyIP-API)"/></TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ComboBox x:Name="WhatMyIPURL" IsEditable="True"
@@ -72,7 +72,7 @@
 
 
                 <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="8" Margin="16,5,0,14" 
+                <TextBlock Grid.Row="8" Margin="16,5,0,14" ToolTip="(GeoIP-API 用于测速中展示服务器位址)"
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
                     Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="IP 地理位置信息接口 (GeoIP-API)"/></TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">

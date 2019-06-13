@@ -294,10 +294,7 @@ namespace AuroraGUI
 
         private void Expert_OnClick(object sender, RoutedEventArgs e)
         {
-            if (File.Exists($"{MainWindow.SetupBasePath}expert.json"))
-                new ExpertWindow().Show();
-            else
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"没有找到 expert.json 配置文件。" });
+            new ExpertWindow().Show();
         }
 
         private void CleanCache_OnClick(object sender, RoutedEventArgs e)

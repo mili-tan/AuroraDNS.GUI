@@ -235,19 +235,33 @@ namespace AuroraGUI
 
         private void RunWithStart_Checked(object sender, RoutedEventArgs e)
         {
-            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-                MyTools.SetRunWithStart(true, "AuroraDNS", GetType().Assembly.Location);
-            else
-                new Lnk.Shortcut {Path = GetType().Assembly.Location}.Save(
-                    Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
+            try
+            {
+                if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                    MyTools.SetRunWithStart(true, "AuroraDNS", GetType().Assembly.Location);
+                else
+                    new Lnk.Shortcut {Path = GetType().Assembly.Location, Description = "AuroraDNS.GUI"}.Save(
+                        Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Error: 尝试设定启动项失败{Environment.NewLine}Original error: {exception}");
+            }
         }
 
         private void RunWithStart_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-                MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
-            else if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk"))
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
+            try
+            {
+                if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                    MyTools.SetRunWithStart(false, "AuroraDNS", GetType().Assembly.Location);
+                else if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk"))
+                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"Error: 尝试设定启动项失败{Environment.NewLine}Original error: {exception}");
+            }
         }
 
         private void RunAsAdmin_OnClick(object sender, RoutedEventArgs e)

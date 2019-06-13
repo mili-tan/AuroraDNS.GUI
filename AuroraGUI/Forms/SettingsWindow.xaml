@@ -65,7 +65,7 @@
                 <TextBlock Grid.Row="4" Margin="16,6,0,4"  
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}" >
-                    设定为登录时自启动（需要管理员权限）
+                    设定为登录时自启动
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Name="RunAsAdmin" Click="RunAsAdmin_OnClick" Visibility="Collapsed"

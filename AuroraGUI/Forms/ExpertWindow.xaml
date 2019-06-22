@@ -74,7 +74,7 @@
                            Grid.Column="0" Margin="0,1.6,0.6,22.4" Grid.RowSpan="2" Height="Auto" />
                 <TextBlock Grid.Row="4" Grid.Column="0" Margin="16,4.4,0,4.4"  
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
-                    Style="{StaticResource MaterialDesignBody2TextBlock}" Height="16" Width="178" ><Run Text="导入自定义辅 DNS 服务器列表"/></TextBlock>
+                    Style="{StaticResource MaterialDesignBody2TextBlock}" Height="16" Width="178" ><Run Text="导入自定义备用 DNS 服务器列表"/></TextBlock>
                 <StackPanel Grid.Row="4" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,3.4,16.8,6.6" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2">
                     <Button Click="ReadDNSListButton_OnClick"
                         HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 

@@ -18,14 +18,14 @@
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/day.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/nie.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
             </Grid.Effect>
         </Grid>
 
-        <TextBlock Text="Photo by Prosperity Horizons" Margin="20,20,0,0" 
+        <TextBlock Text="Photo by Tinh Khuong" Margin="20,20,0,0" 
                VerticalAlignment="Top" Foreground="#FFF"  FontSize="10" Opacity="0.9"
                HorizontalAlignment="Left" TextAlignment="Left" Height="17"/>
 
@@ -51,8 +51,8 @@
                            Foreground="#FF555555" x:Name="VerText"><Run Text="版本 ："/></TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True" Click="ButtonAbout_OnClick">
-                        <materialDesign:PackIcon Kind="Information" ToolTip="访问项目主页" />
+                            materialDesign:RippleAssist.IsCentered="True" Click="ButtonAbout_OnClick"  ToolTip="访问项目主页" >
+                        <materialDesign:PackIcon Kind="Information"/>
                     </Button>
                 </StackPanel>
             </Grid>
@@ -71,7 +71,7 @@
                 <TextBlock Grid.Row="0" Margin="16,16,0,5.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575" ><Run Text="© 2018-2019 AuroraDNS Proj. All rights reserved. / 使用MIT许可证开放源代码。"/></TextBlock>
+                           Foreground="#FF757575" ><Run Text="© 2018-2019 AuroraDNS Proj 保留所有权利. / 使用 MIT 许可证开放源代码。"/></TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}"/>
                 <TextBlock Grid.Row="2" Margin="16,7.6,0,15.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
@@ -79,15 +79,15 @@
                            Foreground="#FF757575"><Run Text="没有他们，就没有 AuroraDNS 的诞生。请查阅鸣谢与开源许可。"/></TextBlock>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,19.6,16.2,8.4" HorizontalAlignment="Right" Grid.RowSpan="2">
                     <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True" Click="ButtonCredits_OnClick">
-                        <materialDesign:PackIcon Kind="FileDocument" ToolTip="鸣谢与开源许可" />
+                            materialDesign:RippleAssist.IsCentered="True" Click="ButtonCredits_OnClick" ToolTip="鸣谢与开源许可" >
+                        <materialDesign:PackIcon Kind="FileDocument"/>
                     </Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
         <TextBlock Margin="0,302,5.6,0" 
             VerticalAlignment="Top" Foreground="#CCC" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20">
-            Made With ❤ By Milkey Tan. | <Hyperlink Click="Hyperlink_OnClick" NavigateUri="https://afdian.net/@AuroraDNS">支持我</Hyperlink>
+            Made With ❤ By Milkey Tan. | <Hyperlink Click="HyperlinkSponsor_OnClick" NavigateUri="https://afdian.net/@AuroraDNS">支持我</Hyperlink>
         </TextBlock>
 
     </Grid>

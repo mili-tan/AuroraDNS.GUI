@@ -25,9 +25,9 @@ namespace AuroraGUI
         }
 
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
-            => Process.Start("https://dns.mili.one");
+            => Process.Start("https://github.com/mili-tan/AuroraDNS.GUI");
 
-        private void Hyperlink_OnClick(object sender, RoutedEventArgs e) 
-            => Process.Start("https://milione.cc/?page_id=880");
+        private void HyperlinkSponsor_OnClick(object sender, RoutedEventArgs e) 
+            => Process.Start("https://afdian.net/@AuroraDNS");
     }
 }

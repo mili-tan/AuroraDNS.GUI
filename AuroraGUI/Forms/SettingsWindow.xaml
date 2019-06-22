@@ -140,7 +140,7 @@
                 <TextBlock Grid.Row="2" Margin="16,6,0,4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    辅 DNS 服务器
+                    备用 DNS 服务器
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDNS_OnClick"

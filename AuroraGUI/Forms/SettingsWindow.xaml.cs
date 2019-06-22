@@ -368,13 +368,63 @@ namespace AuroraGUI
         private void CleanCacheSys_OnClick(object sender, RoutedEventArgs e)
         {
             new Process { StartInfo = new ProcessStartInfo("ipconfig.exe", "/flushdns") }.Start();
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新系统 DNS 解析缓存" });
+            Snackbar.MessageQueue.Enqueue(new TextBlock { Text = @"已刷新系统 DNS 解析缓存" });
         }
 
         private void CleanCacheInside_OnClick(object sender, RoutedEventArgs e)
         {
             MemoryCache.Default.Trim(100);
-            Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"已刷新内置 DNS 解析缓存" });
+            Snackbar.MessageQueue.Enqueue(new TextBlock { Text = @"已刷新内置 DNS 解析缓存" });
+        }
+
+        private void ImportDoH_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "list files (*.list)|*.list|txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() != true) return;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
+                else
+                {
+                    File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}doh.list");
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
+            }
+        }
+
+        private void ImportDNS_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "list files (*.list)|*.list|txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() != true) return;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
+                else
+                {
+                    File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}dns.list");
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
+            }
         }
     }
 }

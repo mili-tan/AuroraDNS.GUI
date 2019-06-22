@@ -140,7 +140,12 @@
                 <TextBlock Grid.Row="2" Margin="16,6,0,4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}">
-                    备用 DNS 服务器
+                    <Run Text="备用 DNS 服务器"/>
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Click="ImportDNS_OnClick" Header="导入自定义备用 DNS 服务器列表"/>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
                 </TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDNS_OnClick"
@@ -218,7 +223,15 @@
                 <TextBlock Grid.Row="0" Margin="16,10,0,16" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575" Grid.RowSpan="2"><Run Text="HTTPS 查询设置"/></TextBlock>
+                           Foreground="#FF757575" Grid.RowSpan="2">
+                    <Run Text="HTTPS 查询设置"/>
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <CheckBox Name="DNSMsg" Content="启用 DNS-Message 查询 (RFC8484)"/>
+                            <CheckBox Name="HTTP2Client" Content="启用 HTTP2 支持 (实验性、不稳定)"/>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
+                </TextBlock>
 
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="2" Margin="16,6,0,4"  
@@ -227,8 +240,7 @@
                     <Run Text="主 DNS over HTTPS 服务器"/>
                     <TextBlock.ContextMenu>
                         <ContextMenu>
-                            <CheckBox Name="DNSMsg" Content="启用 DNS-Message 查询 (RFC8484)"/>
-                            <CheckBox Name="HTTP2Client" Content="启用 HTTP2 支持 (实验性、不稳定)"/>
+                            <MenuItem Click="ImportDoH_OnClick" Header="导入自定义 DNS over HTTPS 服务器列表"/>
                         </ContextMenu>
                     </TextBlock.ContextMenu>
                 </TextBlock>

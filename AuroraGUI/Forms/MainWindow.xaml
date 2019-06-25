@@ -49,7 +49,7 @@
                     <Italic>A</Italic>uroraDNS
                     </TextBlock>
 
-                    <ToggleButton x:Name="DnsEnable"
+                    <ToggleButton x:Name="DnsEnable" Cursor="Hand"
                     Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
                     VerticalAlignment="Center"
                     ToolTip="启用 / 停用"
@@ -64,7 +64,7 @@
             </materialDesign:ColorZone>
             <Grid Name="ControlGrid" Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0" Opacity="0.95">
 
-                <ToggleButton x:Name="IsSysDns"
+                <ToggleButton x:Name="IsSysDns" Cursor="Hand"
                 Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                 Height="40"
                 Width="40"
@@ -76,7 +76,7 @@
                     Width="20"  />
                 </ToggleButton>
 
-                <ToggleButton x:Name="IsGlobal"
+                <ToggleButton x:Name="IsGlobal" Cursor="Hand"
                 Style="{StaticResource MaterialDesignActionToggleButton}"
                 Height="40"
                 Width="40"
@@ -98,7 +98,7 @@
 
                 </ToggleButton>
 
-                <ToggleButton x:Name="IsLog"
+                <ToggleButton x:Name="IsLog" Cursor="Hand"
                           Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                           Height="40"
                           Width="40"

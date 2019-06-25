@@ -58,7 +58,7 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton Name="Log" 
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                         VerticalAlignment="Center" Margin="0,5,0,-5" />
+                         VerticalAlignment="Center" Margin="0,5,0,-5" Cursor="Hand" />
                 </StackPanel>
 
                 <Separator Grid.Row="3" Style="{StaticResource MaterialDesignSeparator}" />
@@ -74,7 +74,7 @@
                         <materialDesign:PackIcon Kind="ShieldOutline"/>
                     </Button>
                     <ToggleButton Name="RunWithStart" 
-                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" Cursor="Hand"
                                   VerticalAlignment="Center" Margin="0,5,0,-5" Checked="RunWithStart_Checked" Unchecked="RunWithStart_Unchecked" />
                 </StackPanel>
 
@@ -85,7 +85,7 @@
                     启用 DNS 临时缓存
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="DNSCache"
+                    <ToggleButton Name="DNSCache" Cursor="Hand"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                          Margin="0,5,0,-5"  />
                 </StackPanel>
@@ -108,7 +108,7 @@
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-                    <ToggleButton Name="WhiteList"
+                    <ToggleButton Name="WhiteList" Cursor="Hand"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}" Height="25" Margin="0,0,0,-0.2" VerticalAlignment="Top"
                           />
                 </StackPanel>
@@ -164,7 +164,7 @@
                     自定义 EDNS Client Subnet IP
                 </TextBlock>
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="EDNSCustomize"
+                    <ToggleButton Name="EDNSCustomize" Cursor="Hand"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   VerticalAlignment="Center" Margin="5,5,5,-5.2" />
                     <TextBox Name="EDNSClientIP" IsEnabled="{Binding ElementName=EDNSCustomize, Path=IsChecked}" 
@@ -178,7 +178,7 @@
                     自定义监听 IP 地址
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="ListenIPCustomize" IsChecked="False"
+                    <ToggleButton Name="ListenIPCustomize" IsChecked="False" Cursor="Hand"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   VerticalAlignment="Center" Margin="5,2,5,-2" />
                     <TextBox Name="ListenIP" IsEnabled="{Binding ElementName=ListenIPCustomize, Path=IsChecked}" 
@@ -274,7 +274,7 @@
                            Style="{StaticResource MaterialDesignBody2TextBlock}"><Run Text="使用代理 (仅支持 HTTP 代理)"/></TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <ToggleButton x:Name="Proxy" Checked="Proxy_OnChecked" Unchecked="Proxy_OnUnchecked"
-                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}" Cursor="Hand"
                          VerticalAlignment="Center" Margin="0,5,0,-5" />
                 </StackPanel>
 

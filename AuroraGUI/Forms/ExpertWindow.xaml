@@ -100,7 +100,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}" Grid.Column="0" Height="16" Width="221">极客佐料 (在日志中展示更多技术细节)</TextBlock>
                 <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0,0.4,16.8,7.4" HorizontalAlignment="Right" Width="34">
-                    <ToggleButton 
+                    <ToggleButton  IsEnabled="False"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   Margin="0,5,0,-5"  />
                 </StackPanel>
@@ -180,10 +180,10 @@
                     自定义 TLS 版本
                 </TextBlock>
                 <StackPanel Grid.Row="22" Orientation="Horizontal" Margin="0,0.4,16.8,7.4" HorizontalAlignment="Right" Width="154">
-                    <ToggleButton IsChecked="False"
+                    <ToggleButton IsChecked="False" IsEnabled="False"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   VerticalAlignment="Center" Margin="5,2,5,-2" />
-                    <ComboBox Name="TLSVer" IsEditable="False"
+                    <ComboBox Name="TLSVer" IsEditable="False" IsEnabled="False"
                               Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
                 </StackPanel>
             </Grid>

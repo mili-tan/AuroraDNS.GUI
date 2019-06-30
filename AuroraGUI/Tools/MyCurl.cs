@@ -78,7 +78,7 @@ namespace AuroraGUI.Tools
 
         public static byte[] GetDataByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null)
         {
-            var mHttp2Handel = new Http2Handler { WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy };
+            var mHttp2Handel = new Http2Handler { WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseWinHttpProxy };
             if (proxyEnable) mHttp2Handel.Proxy = wProxy;
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");

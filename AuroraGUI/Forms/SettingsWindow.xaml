@@ -291,7 +291,7 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
-        <Button Click="Expert_OnClick" IsEnabled="True"
+        <Button Click="Expert_OnClick" IsEnabled="False"
             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
             Margin="0,0,409.2,633.8" Height="Auto" Width="34">
         </Button>

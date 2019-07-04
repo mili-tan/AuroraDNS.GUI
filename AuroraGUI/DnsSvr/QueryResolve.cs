@@ -214,7 +214,7 @@ namespace AuroraGUI.DnsSvr
 
                     switch (type)
                     {
-                        case RecordType.A when Convert.ToInt32(RecordType.A) == answerType:
+                        case RecordType.A when Convert.ToInt32(RecordType.A) == answerType && !DnsSettings.Ipv4Disable:
                         {
                             ARecord aRecord = new ARecord(
                                 DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
@@ -222,6 +222,7 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(aRecord);
                             break;
                         }
+
                         case RecordType.A:
                         {
                             if (Convert.ToInt32(RecordType.CName) == answerType)
@@ -237,13 +238,15 @@ namespace AuroraGUI.DnsSvr
 
                             break;
                         }
-                        case RecordType.Aaaa when Convert.ToInt32(RecordType.Aaaa) == answerType:
+
+                        case RecordType.Aaaa when Convert.ToInt32(RecordType.Aaaa) == answerType && !DnsSettings.Ipv6Disable:
                         {
                             AaaaRecord aaaaRecord = new AaaaRecord(
                                 DomainName.Parse(answerDomainName), ttl, IPAddress.Parse(answerAddr));
                             recordList.Add(aaaaRecord);
                             break;
                         }
+
                         case RecordType.Aaaa:
                         {
                             if (Convert.ToInt32(RecordType.CName) == answerType)
@@ -255,6 +258,7 @@ namespace AuroraGUI.DnsSvr
 
                             break;
                         }
+
                         case RecordType.CName when answerType == Convert.ToInt32(RecordType.CName):
                         {
                             CNameRecord cRecord = new CNameRecord(
@@ -262,6 +266,7 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(cRecord);
                             break;
                         }
+
                         case RecordType.Ns when answerType == Convert.ToInt32(RecordType.Ns):
                         {
                             NsRecord nsRecord = new NsRecord(
@@ -269,6 +274,7 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(nsRecord);
                             break;
                         }
+
                         case RecordType.Mx when answerType == Convert.ToInt32(RecordType.Mx):
                         {
                             MxRecord mxRecord = new MxRecord(
@@ -278,12 +284,14 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(mxRecord);
                             break;
                         }
+
                         case RecordType.Txt when answerType == Convert.ToInt32(RecordType.Txt):
                         {
                             TxtRecord txtRecord = new TxtRecord(DomainName.Parse(answerDomainName), ttl, answerAddr);
                             recordList.Add(txtRecord);
                             break;
                         }
+
                         case RecordType.Ptr when answerType == Convert.ToInt32(RecordType.Ptr):
                         {
                             PtrRecord ptrRecord = new PtrRecord(
@@ -291,6 +299,7 @@ namespace AuroraGUI.DnsSvr
                             recordList.Add(ptrRecord);
                             break;
                         }
+
                         default:
                             statusCode = Convert.ToInt32(ReturnCode.ServerFailure);
                             break;

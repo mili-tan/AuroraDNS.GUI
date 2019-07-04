@@ -323,6 +323,12 @@ namespace AuroraGUI.DnsSvr
                     $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}",
                     DnsSettings.Http2Enable, proxyEnable, wProxy);
                 dnsMsg = DnsMessage.Parse(dnsDataBytes);
+
+                foreach (var item in dnsMsg.AnswerRecords.ToArray())
+                {
+                    if (item.RecordType == RecordType.A && DnsSettings.Ipv4Disable) dnsMsg.AnswerRecords.Remove(item);
+                    if (item.RecordType == RecordType.Aaaa && DnsSettings.Ipv6Disable) dnsMsg.AnswerRecords.Remove(item);
+                }
             }
             catch (WebException e)
             {

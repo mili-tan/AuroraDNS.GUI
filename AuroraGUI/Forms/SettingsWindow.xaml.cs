@@ -125,6 +125,8 @@ namespace AuroraGUI
                         $"\"EnableDnsCache\" : {DnsSettings.DnsCacheEnable.ToString().ToLower()},\n" +
                         $"\"EnableDnsMessage\" : {DnsSettings.DnsMsgEnable.ToString().ToLower()},\n" +
                         $"\"EnableAutoCleanLog\" : {DnsSettings.AutoCleanLogEnable.ToString().ToLower()},\n" +
+                        $"\"Ipv6Disable\" : {DnsSettings.Ipv6Disable.ToString().ToLower()},\n" +
+                        $"\"Ipv4Disable\" : {DnsSettings.Ipv4Disable.ToString().ToLower()},\n" +
                         $"\"EnableHttp2\" : {DnsSettings.Http2Enable.ToString().ToLower()} \n" +
                         "}");
                 }

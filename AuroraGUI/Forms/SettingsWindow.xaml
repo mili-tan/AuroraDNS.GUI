@@ -51,7 +51,7 @@
                     默认记录日志
                     <TextBlock.ContextMenu>
                         <ContextMenu>
-                            <CheckBox Name="AutoClean" Content="自动清理日志(仅保留当日)"/>
+                            <CheckBox Name="AutoClean" Content="退出时自动清理日志(仅保留当日)"/>
                         </ContextMenu>
                     </TextBlock.ContextMenu>
                 </TextBlock>

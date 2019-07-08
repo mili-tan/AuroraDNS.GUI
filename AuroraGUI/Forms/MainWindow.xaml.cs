@@ -337,10 +337,14 @@ namespace AuroraGUI
 
         private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow().Show();
+            var settingsWindow = new SettingsWindow();
+            settingsWindow.Closed += (o, args) =>
+            {
 
-            IsLog.IsChecked = DnsSettings.DebugLog;
-            IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
+                IsLog.IsChecked = DnsSettings.DebugLog;
+                IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
+            };
+            settingsWindow.Show();
         }
 
         public void RunAsAdmin()

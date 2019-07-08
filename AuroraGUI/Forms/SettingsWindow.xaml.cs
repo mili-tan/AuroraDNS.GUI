@@ -55,6 +55,8 @@ namespace AuroraGUI
                 RunAsAdmin.Visibility = Visibility.Visible;
             if (File.Exists($"{MainWindow.SetupBasePath}url.json"))
                 L10N.Visibility = Visibility.Visible;
+
+            ListenIPCustomize.IsChecked = !Equals(DnsSettings.ListenIp, IPAddress.Loopback);
         }
 
         private void Proxy_OnChecked(object sender, RoutedEventArgs e)
@@ -95,7 +97,7 @@ namespace AuroraGUI
                 if (Proxy.IsChecked == true)
                     DnsSettings.WProxy = new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text);
                 else
-                    DnsSettings.WProxy = new WebProxy("127.0.0.1:80");
+                    DnsSettings.WProxy = new WebProxy("127.0.0.1:1080");
 
                 if (DnsSettings.BlackListEnable && File.Exists("black.list"))
                     DnsSettings.ReadBlackList(MainWindow.SetupBasePath + "black.list");

@@ -27,6 +27,10 @@ namespace AuroraGUI
             Card.IsEnabled = true;
             Snackbar.IsActive = false;
             Card.Effect = null;
+
+            ChinaList.IsChecked = DnsSettings.ChinaListEnable;
+            DisabledV4.IsChecked = DnsSettings.Ipv4Disable;
+            DisabledV6.IsChecked = DnsSettings.Ipv6Disable;
         }
 
         private void ReadDoHListButton_OnClick(object sender, RoutedEventArgs e)
@@ -64,22 +68,20 @@ namespace AuroraGUI
                 RestoreDirectory = true
             };
 
-            if (openFileDialog.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() != true) return;
+            try
             {
-                try
+                if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
+                else
                 {
-                    if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
-                    else
-                    {
-                        File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}dns.list");
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
-                    }
+                    File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}dns.list");
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
             }
         }
 
@@ -91,22 +93,20 @@ namespace AuroraGUI
                 RestoreDirectory = true
             };
 
-            if (openFileDialog.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() != true) return;
+            try
             {
-                try
+                if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
+                else
                 {
-                    if (string.IsNullOrWhiteSpace(File.ReadAllText(openFileDialog.FileName)))
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"Error: 无效的空文件。" });
-                    else
-                    {
-                        File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}china.list");
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
-                    }
+                    File.Copy(openFileDialog.FileName, $"{MainWindow.SetupBasePath}china.list");
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"导入成功!" });
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
             }
         }
 
@@ -124,6 +124,12 @@ namespace AuroraGUI
             DnsSettings.Ipv6Disable = DisabledV6.IsChecked.Value;
 
             if (DisabledV6.IsChecked.Value) DisabledV4.IsChecked = false;
+        }
+
+        private void ChinaList_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ChinaList.IsChecked == null) return;
+            DnsSettings.ChinaListEnable = ChinaList.IsChecked.Value;
         }
     }
 }

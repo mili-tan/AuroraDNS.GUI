@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
+using AuroraGUI.DnsSvr;
 using AuroraGUI.Fx;
 using Microsoft.Win32;
 
@@ -107,6 +108,22 @@ namespace AuroraGUI
                     MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
                 }
             }
+        }
+
+        private void DisabledV4_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (DisabledV4.IsChecked == null) return;
+            DnsSettings.Ipv4Disable = DisabledV4.IsChecked.Value;
+
+            if (DisabledV4.IsChecked.Value) DisabledV6.IsChecked = false;
+        }
+
+        private void DisabledV6_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (DisabledV6.IsChecked == null) return;
+            DnsSettings.Ipv6Disable = DisabledV6.IsChecked.Value;
+
+            if (DisabledV6.IsChecked.Value) DisabledV4.IsChecked = false;
         }
     }
 }

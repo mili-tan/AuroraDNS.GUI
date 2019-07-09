@@ -155,9 +155,9 @@
                            Grid.Column="0" Margin="0,2.6,0.6,21.4" Grid.RowSpan="2" Height="Auto" />
                 <TextBlock Grid.Row="18" Grid.Column="0" Margin="16,6.4,0,1.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}" Height="17" Width="238"><Run Text="仅IPv4 (不解析AAAA记录, 与仅IPv6互斥)"/></TextBlock>
+                           Style="{StaticResource MaterialDesignBody2TextBlock}" Height="17" Width="277"><Run Text="停用IPv6 (不解析AAAA记录, 与停用IPv4互斥)"/></TextBlock>
                 <StackPanel Grid.Row="18" Orientation="Horizontal" Margin="0,0.4,16.8,8.4" HorizontalAlignment="Right" Width="34">
-                    <ToggleButton 
+                    <ToggleButton Click="DisabledV6_OnClick" Name="DisabledV6"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="0,5,0,-5"
                     />
                 </StackPanel>
@@ -165,9 +165,9 @@
                            Grid.Column="0" Margin="0,2.6,0.6,21.4" Grid.RowSpan="2" Height="Auto" />
                 <TextBlock Grid.Row="20" Grid.Column="0" Margin="16,7.4,0,14.6" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}" Height="18" Width="213" Grid.RowSpan="2"><Run Text="仅IPv6 (不解析A记录, 与仅IPv4互斥)"/></TextBlock>
+                           Style="{StaticResource MaterialDesignBody2TextBlock}" Height="18" Width="273" Grid.RowSpan="2"><Run Text="停用IPv4 (不解析A记录, 与停用IPv6互斥)"/></TextBlock>
                 <StackPanel Grid.Row="20" Orientation="Horizontal" Margin="0,0.4,16.8,8.4" HorizontalAlignment="Right" Width="34">
-                    <ToggleButton 
+                    <ToggleButton Click="DisabledV4_OnClick" Name="DisabledV4"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="0,5,0,-5"
                     />
                 </StackPanel>

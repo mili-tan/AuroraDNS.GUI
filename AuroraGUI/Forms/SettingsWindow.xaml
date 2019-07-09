@@ -29,6 +29,11 @@
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                            Foreground="#FF757575" Grid.RowSpan="2">
                     基本设置
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Expert Mode" FontStyle="Italic" Click="Expert_OnClick"/>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
                 </TextBlock>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,12,18" HorizontalAlignment="Right" Grid.RowSpan="2">
                     <Button Click="CleanCache_OnClick"
@@ -104,7 +109,7 @@
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="编辑列表" Click="OpenList_OnClick"/>
-                                <MenuItem Header="编辑列表订阅" Click="OpenSubList_OnClick"/>
+                                <MenuItem Header="编辑订阅列表" Click="OpenSubList_OnClick"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
@@ -291,9 +296,5 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
-        <Button Click="Expert_OnClick" IsEnabled="True"
-            HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-            Margin="0,0,409.2,633.8" Height="Auto" Width="34">
-        </Button>
     </Grid>
 </Window>

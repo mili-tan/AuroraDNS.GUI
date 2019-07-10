@@ -109,7 +109,7 @@
 
                 <TextBlock Grid.Row="10" Grid.Column="0" Margin="16,6.4,0,2.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}" Height="16" Width="138">导入 PRChina 域名列表</TextBlock>
+                           Style="{StaticResource MaterialDesignBody2TextBlock}" Height="16" Width="148">导入 ChinaList 域名列表</TextBlock>
                 <StackPanel Grid.Row="10" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,3.4,16.8,6.6" HorizontalAlignment="Right" Width="30" Height="30" Grid.RowSpan="2">
                     <Button 
                         HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolForegroundButton}" 

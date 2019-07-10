@@ -207,7 +207,7 @@
             Margin="143,600,205.2,8" Content="情景模式" Foreground="#FFCB4B16" />
         <materialDesign:Snackbar Name="Snackbar"
                                  MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
-                                 HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365">
+                                 HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="370">
         </materialDesign:Snackbar>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"

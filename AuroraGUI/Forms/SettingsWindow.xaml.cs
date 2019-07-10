@@ -142,7 +142,7 @@ namespace AuroraGUI
                     MessageBox.Show($"Error: 尝试写入配置文件错误{Environment.NewLine}Original error: {exp}");
                 }
 
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存!" });
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"设置已保存！" });
             }
             else
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"不应为空,请填写完全。" }); 
@@ -298,7 +298,14 @@ namespace AuroraGUI
 
         private void Expert_OnClick(object sender, RoutedEventArgs e)
         {
-            new ExpertWindow().Show();
+            var expertWindow = new ExpertWindow();
+            expertWindow.Closed += (o, args) =>
+            {
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ Expert Mode 设置将会保存！" });
+                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ 如果发生异常请删除 Config.json 恢复默认配置！" });
+                ButtonSave_OnClick(o, new RoutedEventArgs());
+            };
+            expertWindow.Show();
         }
 
         private void CleanCache_OnClick(object sender, RoutedEventArgs e)

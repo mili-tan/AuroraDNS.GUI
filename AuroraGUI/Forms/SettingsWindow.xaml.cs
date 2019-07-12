@@ -134,8 +134,12 @@ namespace AuroraGUI
                 }
                 catch (UnauthorizedAccessException exp)
                 {
-                    MessageBox.Show($"Error: 尝试写入配置文件权限不足，现在尝试以管理员权限启动。{Environment.NewLine}Original error: {exp}");
-                    new MainWindow().RunAsAdmin();
+                    MessageBoxResult msgResult =
+                        MessageBox.Show(
+                            "Error: 尝试写入配置文权限不足或IO安全故障，点击确定现在尝试以管理员权限启动。点击取消中止程序运行。" +
+                            $"{Environment.NewLine}Original error: {exp}");
+                    if (msgResult == MessageBoxResult.OK) new MainWindow().RunAsAdmin();
+                    else Close();
                 }
                 catch (Exception exp)
                 {

@@ -183,7 +183,7 @@
                     自定义监听 IP 地址
                 </TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
-                    <ToggleButton Name="ListenIPCustomize" IsChecked="False" Cursor="Hand"
+                    <ToggleButton Name="ListenIPCustomize" IsChecked="False" Cursor="Hand" Unchecked="ListenIPCustomize_OnUnchecked"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                   VerticalAlignment="Center" Margin="5,2,5,-2" />
                     <TextBox Name="ListenIP" IsEnabled="{Binding ElementName=ListenIPCustomize, Path=IsChecked}" 

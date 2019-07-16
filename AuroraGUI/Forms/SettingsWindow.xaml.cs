@@ -441,5 +441,11 @@ namespace AuroraGUI
                 MessageBox.Show($"Error: 无法写入文件 {Environment.NewLine}Original error: " + ex.Message);
             }
         }
+
+        private void ListenIPCustomize_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            ListenIP.Text = IPAddress.Loopback.ToString();
+            DnsSettings.ListenIp = IPAddress.Loopback;
+        }
     }
 }

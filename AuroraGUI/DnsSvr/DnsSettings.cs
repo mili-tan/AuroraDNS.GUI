@@ -57,6 +57,8 @@ namespace AuroraGUI.DnsSvr
                 ListenPort = configJson.AsObjectGetInt("Port", 53);
             if (configStr.Contains("\"ChinaList\""))
                 ChinaListEnable = configJson.AsObjectGetBool("ChinaList");
+            if (configStr.Contains("\"StartupOverDoH\""))
+                StartupOverDoH = configJson.AsObjectGetBool("StartupOverDoH");
 
             if (configStr.Contains("\"Ipv6Disable\""))
                 Ipv6Disable = configJson.AsObjectGetBool("Ipv6Disable");

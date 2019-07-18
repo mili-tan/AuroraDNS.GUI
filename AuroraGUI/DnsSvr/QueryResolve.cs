@@ -50,11 +50,21 @@ namespace AuroraGUI.DnsSvr
                         DomainName.Parse(new Uri(DnsSettings.SecondHttpsDnsUrl).DnsSafeHost) == dnsQuestion.Name ||
                         DomainName.Parse(new Uri(UrlSettings.WhatMyIpApi).DnsSafeHost) == dnsQuestion.Name)
                     {
-                        response.AnswerRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
-                            .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
-
-                        if (DnsSettings.DebugLog)
-                            BackgroundLog($"| -- Startup SecondDns : {DnsSettings.SecondDnsIp}");
+                        if (!DnsSettings.StartupOverDoH)
+                        {
+                            response.AnswerRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
+                                .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
+                            if (DnsSettings.DebugLog)
+                                BackgroundLog($"| -- Startup SecondDns : {DnsSettings.SecondDnsIp}");
+                        }
+                        else
+                        {
+                            response.AnswerRecords.AddRange(ResolveOverHttpsByDnsJson(clientAddress.ToString(),
+                                dnsQuestion.Name.ToString(), "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable,
+                                DnsSettings.WProxy, dnsQuestion.RecordType).list);
+                            if (DnsSettings.DebugLog)
+                                BackgroundLog("| -- Startup DoH : https://1.0.0.1/dns-query");
+                        }
                     }
                     else if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
                     {

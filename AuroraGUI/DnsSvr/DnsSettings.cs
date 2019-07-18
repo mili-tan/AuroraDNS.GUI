@@ -33,6 +33,7 @@ namespace AuroraGUI.DnsSvr
         public static bool AutoCleanLogEnable = false;
         public static bool Ipv6Disable = false;
         public static bool Ipv4Disable = false;
+        public static bool StartupOverDoH = false;
         public static WebProxy WProxy = new WebProxy("127.0.0.1:1080");
 
         public static void ReadConfig(string path)

@@ -78,22 +78,25 @@ namespace AuroraGUI.Tools
             if (IPAddress.TryParse(name.TrimEnd('.'), out _)) return IPAddress.Parse(name.TrimEnd('.'));
             while (true)
             {
-                var ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(DomainName.Parse(name)).AnswerRecords[0];
                 try
                 {
+                    DnsRecordBase ipMsg;
                     if (DnsSettings.StartupOverDoH)
                         ipMsg = QueryResolve.ResolveOverHttpsByDnsJson(IPAddress.Any.ToString(),
                             name, "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
+                    else
+                        ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(DomainName.Parse(name))
+                            .AnswerRecords[0];
+
+                    if (ipMsg.RecordType == RecordType.A && ipMsg is ARecord msg1)
+                        return msg1.Address;
+                    if (ipMsg.RecordType == RecordType.CName)
+                        if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
                 }
                 catch (Exception e)
                 {
                     MyTools.BackgroundLog(e.ToString());
                 }
-
-                if (ipMsg.RecordType == RecordType.A && ipMsg is ARecord msg1)
-                    return msg1.Address;
-                if (ipMsg.RecordType == RecordType.CName)
-                    if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
             }
         }
 

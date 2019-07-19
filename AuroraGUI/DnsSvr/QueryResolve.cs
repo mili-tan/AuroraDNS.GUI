@@ -172,7 +172,7 @@ namespace AuroraGUI.DnsSvr
             e.Response = response;
         }
 
-        private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsJson(string clientIpAddress,
+        public static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsJson(string clientIpAddress,
             string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
@@ -320,7 +320,7 @@ namespace AuroraGUI.DnsSvr
             return (recordList, (ReturnCode) statusCode);
         }
 
-        private static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsMsg(string clientIpAddress, string domainName, string dohUrl,
+        public static (List<DnsRecordBase> list, ReturnCode statusCode) ResolveOverHttpsByDnsMsg(string clientIpAddress, string domainName, string dohUrl,
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             DnsMessage dnsMsg;

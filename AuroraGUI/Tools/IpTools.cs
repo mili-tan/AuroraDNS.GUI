@@ -90,14 +90,10 @@ namespace AuroraGUI.Tools
                     MyTools.BackgroundLog(e.ToString());
                 }
 
-                if (ipMsg.RecordType == RecordType.A)
-                {
-                    if (ipMsg is ARecord msg) return msg.Address;
-                }
-                else if (ipMsg.RecordType == RecordType.CName)
-                {
+                if (ipMsg.RecordType == RecordType.A && ipMsg is ARecord msg1)
+                    return msg1.Address;
+                if (ipMsg.RecordType == RecordType.CName)
                     if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
-                }
             }
         }
 

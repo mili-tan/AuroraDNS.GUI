@@ -67,6 +67,7 @@
                         <ComboBoxItem Content="https://myip.ustclug.org/"/>
                         <ComboBoxItem Content="http://whatismyip.akamai.com/"/>
                         <ComboBoxItem Content="http://members.3322.org/dyndns/getip/"/>
+                        <ComboBoxItem Content="https://myip.mili.one/"/>
                     </ComboBox>
                 </StackPanel>
 

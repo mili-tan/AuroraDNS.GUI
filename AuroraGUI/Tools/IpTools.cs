@@ -79,6 +79,17 @@ namespace AuroraGUI.Tools
             while (true)
             {
                 var ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(DomainName.Parse(name)).AnswerRecords[0];
+                try
+                {
+                    if (DnsSettings.StartupOverDoH)
+                        ipMsg = QueryResolve.ResolveOverHttpsByDnsJson(IPAddress.Any.ToString(),
+                            name, "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
+                }
+                catch (Exception e)
+                {
+                    MyTools.BackgroundLog(e.ToString());
+                }
+
                 if (ipMsg.RecordType == RecordType.A)
                 {
                     if (ipMsg is ARecord msg) return msg.Address;

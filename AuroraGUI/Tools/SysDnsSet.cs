@@ -42,15 +42,17 @@ namespace AuroraGUI.Tools
                     cmd += $"netsh interface ip add dns \"{network.Name}\" addr={backupDnsAddr}" + Environment.NewLine;
                 }
             }
-            File.Create("setdns.cmd").Close();
-            File.WriteAllText("setdns.cmd", cmd, Encoding.Default);
+
+            var filename = Path.GetTempPath() + "setdns.cmd";
+            File.Create(filename).Close();
+            File.WriteAllText(filename, cmd, Encoding.Default);
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "setdns.cmd",
+                FileName = filename,
                 Verb = "runas",
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-            Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
+            Process.Start(startInfo).Exited += (o, args) => { File.Delete(filename); };
         }
 
         public static void ResetDns()
@@ -77,15 +79,17 @@ namespace AuroraGUI.Tools
                     cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
                 }
             }
-            File.Create("setdns.cmd").Close();
-            File.WriteAllText("setdns.cmd", cmd, Encoding.Default);
+
+            var filename = Path.GetTempPath() + "setdns.cmd";
+            File.Create(filename).Close();
+            File.WriteAllText(filename, cmd, Encoding.Default);
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "setdns.cmd",
+                FileName = filename,
                 Verb = "runas",
                 WindowStyle = ProcessWindowStyle.Hidden
             };
-            Process.Start(startInfo).Exited += (o, args) => { File.Delete("setdns.cmd"); };
+            Process.Start(startInfo).Exited += (o, args) => { File.Delete(filename); };
         }
 
     }

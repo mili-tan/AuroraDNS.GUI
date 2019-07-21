@@ -131,5 +131,16 @@ namespace AuroraGUI.Tools
         {
             return string.Concat(country.ToUpper().Select(x => char.ConvertFromUtf32(x + 0x1F1A5)));
         }
+
+        public static bool IsBadSoftExist()
+        {
+            string[] BadSoftProcess =
+            {
+                "360Safe", "ZhuDongFangYu", "2345SoftSvc", "2345RTProtect",
+                "BaiduAnSvc", "BaiduHips", "QQPCTray", "QQPCRTP"
+            };
+            int offenseCount = BadSoftProcess.Sum(processName => Process.GetProcessesByName(processName).Length);
+            return offenseCount != 0;
+        }
     }
 }

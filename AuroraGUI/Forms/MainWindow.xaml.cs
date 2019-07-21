@@ -66,6 +66,10 @@ namespace AuroraGUI
                 //HongKong SAR
                 UrlSettings.MDnsList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-HK.list";
 
+            if (!File.Exists($"{SetupBasePath}config.json"))
+                if (MyTools.IsBadSoftExist())
+                    MessageBox.Show("Tips: AuroraDNS 强烈不建议您使用国产安全软件产品！");
+
             try
             {
                 if (File.Exists($"{SetupBasePath}url.json"))

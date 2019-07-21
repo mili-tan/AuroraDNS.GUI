@@ -134,12 +134,12 @@ namespace AuroraGUI.Tools
 
         public static bool IsBadSoftExist()
         {
-            string[] BadSoftProcess =
+            string[] badSoftProcess =
             {
                 "360Safe", "ZhuDongFangYu", "2345SoftSvc", "2345RTProtect",
                 "BaiduAnSvc", "BaiduHips", "QQPCTray", "QQPCRTP"
             };
-            int offenseCount = BadSoftProcess.Sum(processName => Process.GetProcessesByName(processName).Length);
+            int offenseCount = badSoftProcess.Sum(processName => Process.GetProcessesByName(processName).Length);
             return offenseCount != 0;
         }
     }

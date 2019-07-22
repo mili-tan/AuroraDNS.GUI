@@ -155,8 +155,8 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDNS_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-2,2,-6.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
+                            Margin="0,-2,2,-6.2" Height="Auto" ToolTip="测速">
+                        <materialDesign:PackIcon Kind="FlagOutline"/>
                     </Button>
                     <ComboBox Name="SecondDNS" IsEditable="True" materialDesign:HintAssist.Hint="1.1.1.1"
                         Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="110" />
@@ -252,8 +252,8 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-2,2,-6.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
+                            Margin="0,-2,2,-6.2" Height="Auto" ToolTip="测速">
+                        <materialDesign:PackIcon Kind="FlagOutline"/>
                     </Button>
                     <ComboBox x:Name="DoHUrlText" IsEditable="True"
                         materialDesign:HintAssist.Hint="https://1.1.1.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="160" />
@@ -266,8 +266,8 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button Click="SpeedTestDoH_OnClick"
                             HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                            Margin="0,-2,2,-6.2" Height="Auto">
-                        <materialDesign:PackIcon Kind="FlagOutline" ToolTip="测速" />
+                            Margin="0,-2,2,-6.2" Height="Auto" ToolTip="测速">
+                        <materialDesign:PackIcon Kind="FlagOutline"/>
                     </Button>
                     <ComboBox x:Name="SecondDoHUrlText" IsEditable="True"
                               materialDesign:HintAssist.Hint="https://1.0.0.1/dns-query" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="160" />

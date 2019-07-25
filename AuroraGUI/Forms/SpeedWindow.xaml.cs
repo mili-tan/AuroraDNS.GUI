@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Effects;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
+using MaterialDesignThemes.Wpf;
 
 namespace AuroraGUI
 {
@@ -99,17 +101,26 @@ namespace AuroraGUI
                 {
                     ListStrings = new WebClient().DownloadString(TypeDNS ? UrlSettings.MDnsList : UrlSettings.MDohList)
                         .Split('\n').ToList();
+                    if (string.IsNullOrWhiteSpace(ListStrings[ListStrings.Count - 1]))
+                        ListStrings.RemoveAt(ListStrings.Count - 1);
+                    args.Result = true;
                 }
                 catch (Exception exception)
                 {
                     MyTools.BackgroundLog(@"| Download String failed : " + exception);
+                    args.Result = false;
                 }
-
-                if (string.IsNullOrWhiteSpace(ListStrings[ListStrings.Count - 1]))
-                    ListStrings.RemoveAt(ListStrings.Count - 1);
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
+                if (!(bool)args.Result)
+                {
+                    Grid.Effect = null;
+                    Snackbar.IsActive = true;
+                    Snackbar.Message = new SnackbarMessage() {Content = "获取列表内容失败，请检查互联网连接。"};
+                    return;
+                }
+
                 try
                 {
                     if (File.Exists($"{MainWindow.SetupBasePath}dns.list") && TypeDNS)
@@ -138,6 +149,7 @@ namespace AuroraGUI
                 catch (Exception exception)
                 {
                     MyTools.BackgroundLog(@"| Read String failed : " + exception);
+                    MessageBox.Show($"Error: 尝试载入列表失败{Environment.NewLine}Original error: {exception}");
                 }
             };
             bgWorker.RunWorkerAsync();

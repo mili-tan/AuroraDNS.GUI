@@ -43,5 +43,8 @@
             Margin="-3,0,-3,-1" VerticalAlignment="Bottom" Height="40" FontSize="14" FontFamily="Microsoft YaHei UI" FontWeight="Normal" Content="开始测试" Click="Button_Click"/>
         <ProgressBar Name="ProgressBar" VerticalAlignment="Top"/>
 
+        <materialDesign:Snackbar Name="Snackbar"
+                                 MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Center" 
+                                 HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="370" />
     </Grid>
 </Window>

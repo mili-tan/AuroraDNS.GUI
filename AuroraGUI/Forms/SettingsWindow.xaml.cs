@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Caching;
 using System.Security.Principal;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using AuroraGUI.DnsSvr;
@@ -448,6 +449,20 @@ namespace AuroraGUI
         {
             ListenIP.Text = IPAddress.Loopback.ToString();
             DnsSettings.ListenIp = IPAddress.Loopback;
+        }
+
+        private void OpenInTextEditor_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{MainWindow.SetupBasePath}config.json"))
+            {
+                Thread.Sleep(100);
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}config.json")).WaitForExit();
+                DnsSettings.ReadConfig($"{MainWindow.SetupBasePath}config.json");
+                new SettingsWindow().Show();
+                Close();
+            }
+            else
+                MessageBox.Show("找不到配置文件。");
         }
     }
 }

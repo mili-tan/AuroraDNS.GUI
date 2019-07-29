@@ -32,6 +32,7 @@
                     <TextBlock.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Expert Mode" FontStyle="Italic" Click="Expert_OnClick"/>
+                            <MenuItem Header="在文本编辑器中打开" Click="OpenInTextEditor_OnClick"/>
                         </ContextMenu>
                     </TextBlock.ContextMenu>
                 </TextBlock>

@@ -100,12 +100,10 @@ namespace AuroraGUI
             }
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
-
             if (DnsSettings.AllowSelfSignedCert)
                 ServicePointManager.ServerCertificateValidationCallback +=
                     (sender, cert, chain, sslPolicyErrors) => true;
 
-//
 //            switch (0.0)
 //            {
 //                case 1:

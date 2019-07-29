@@ -463,7 +463,7 @@ namespace AuroraGUI
                 Close();
             }
             else
-                MessageBox.Show("找不到配置文件。");
+                MessageBox.Show("找不到配置文件，或配置文件还未生成。");
         }
     }
 }

@@ -456,7 +456,8 @@ namespace AuroraGUI
             if (File.Exists($"{MainWindow.SetupBasePath}config.json"))
             {
                 Thread.Sleep(100);
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}config.json")).WaitForExit();
+                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}config.json"))?.WaitForExit();
+                if (MessageBox.Show("要读取刚刚在文本编辑器中的更改吗?", "AuroraDNS", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 DnsSettings.ReadConfig($"{MainWindow.SetupBasePath}config.json");
                 new SettingsWindow().Show();
                 Close();

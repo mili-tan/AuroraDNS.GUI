@@ -101,10 +101,10 @@ namespace AuroraGUI
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
 
-//            if (false)
-//                ServicePointManager.ServerCertificateValidationCallback +=
-//                    (sender, cert, chain, sslPolicyErrors) => true;
-//                //强烈不建议 忽略 TLS 证书安全错误
+            if (DnsSettings.AllowSelfSignedCert)
+                ServicePointManager.ServerCertificateValidationCallback +=
+                    (sender, cert, chain, sslPolicyErrors) => true;
+
 //
 //            switch (0.0)
 //            {

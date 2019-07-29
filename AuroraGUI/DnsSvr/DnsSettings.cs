@@ -34,6 +34,7 @@ namespace AuroraGUI.DnsSvr
         public static bool Ipv6Disable = false;
         public static bool Ipv4Disable = false;
         public static bool StartupOverDoH = false;
+        public static bool AllowSelfSignedCert = false;
         public static WebProxy WProxy = new WebProxy("127.0.0.1:1080");
 
         public static void ReadConfig(string path)
@@ -59,6 +60,8 @@ namespace AuroraGUI.DnsSvr
                 ChinaListEnable = configJson.AsObjectGetBool("ChinaList");
             if (configStr.Contains("\"StartupOverDoH\""))
                 StartupOverDoH = configJson.AsObjectGetBool("StartupOverDoH");
+            if (configStr.Contains("\"AllowSelfSignedCert\""))
+                AllowSelfSignedCert = configJson.AsObjectGetBool("AllowSelfSignedCert");
 
             if (configStr.Contains("\"Ipv6Disable\""))
                 Ipv6Disable = configJson.AsObjectGetBool("Ipv6Disable");
@@ -146,7 +149,6 @@ namespace AuroraGUI.DnsSvr
                     ReadWhiteListWeb(item);
             }
         }
-
     }
 
     class UrlSettings

@@ -31,6 +31,7 @@ namespace AuroraGUI
             ChinaList.IsChecked = DnsSettings.ChinaListEnable;
             DisabledV4.IsChecked = DnsSettings.Ipv4Disable;
             DisabledV6.IsChecked = DnsSettings.Ipv6Disable;
+            AllowSelfSigned.IsChecked = DnsSettings.AllowSelfSignedCert;
         }
 
         private void ReadDoHListButton_OnClick(object sender, RoutedEventArgs e)
@@ -130,6 +131,12 @@ namespace AuroraGUI
         {
             if (ChinaList.IsChecked == null) return;
             DnsSettings.ChinaListEnable = ChinaList.IsChecked.Value;
+        }
+
+        private void AllowSelfSigned_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AllowSelfSigned.IsChecked == null) return;
+            DnsSettings.AllowSelfSignedCert = AllowSelfSigned.IsChecked.Value;
         }
     }
 }

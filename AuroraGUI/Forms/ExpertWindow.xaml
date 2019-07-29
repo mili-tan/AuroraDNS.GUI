@@ -89,9 +89,9 @@
                     VerticalAlignment="Center" HorizontalAlignment="Left" 
                     Style="{StaticResource MaterialDesignBody2TextBlock}" Grid.Column="0" Height="17" Width="329">忽略 TLS 证书安全错误 / 允许自签名证书【强烈不建议】</TextBlock>
                 <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0,0.4,16.8,8.4" HorizontalAlignment="Right" Width="34">
-                    <ToggleButton 
+                    <ToggleButton Name="AllowSelfSigned"
                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                        Margin="0,5,0,-5"  />
+                        Margin="0,5,0,-5" Click="AllowSelfSigned_OnClick"  />
                 </StackPanel>
 
                 <Separator Grid.Row="7" Style="{StaticResource MaterialDesignSeparator}" 

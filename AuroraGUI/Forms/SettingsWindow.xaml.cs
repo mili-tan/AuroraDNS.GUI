@@ -308,9 +308,19 @@ namespace AuroraGUI
             var expertWindow = new ExpertWindow();
             expertWindow.Closed += (o, args) =>
             {
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ Expert Mode 设置将会保存！" });
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ 如果发生异常请删除 Config.json 恢复默认配置！" });
-                ButtonSave_OnClick(o, new RoutedEventArgs());
+                var snackbarMsg = new SnackbarMessage
+                {
+                    Content = "⚠ “确定” 以保存 Expert Mode 更改！",
+                    ActionContent = "确定"
+                };
+                snackbarMsg.ActionClick += (obj, eventArgs) =>
+                {
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ 如果发生异常请删除 config.json 恢复默认配置！" });
+                    ButtonSave_OnClick(o, new RoutedEventArgs());
+                    Snackbar.IsActive = false;
+                };
+                Snackbar.Message = snackbarMsg;
+                Snackbar.IsActive = true;
             };
             expertWindow.Show();
         }

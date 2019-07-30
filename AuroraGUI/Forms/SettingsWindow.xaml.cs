@@ -315,12 +315,12 @@ namespace AuroraGUI
                 };
                 snackbarMsg.ActionClick += (obj, eventArgs) =>
                 {
-                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ 如果发生异常请删除 config.json 恢复默认配置！" });
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = @"⚠ 如果发生异常删除 config.json 可恢复默认配置！" });
                     ButtonSave_OnClick(o, new RoutedEventArgs());
                     Snackbar.IsActive = false;
                 };
                 Snackbar.Message = snackbarMsg;
-                Snackbar.IsActive = true;
+                if (expertWindow.OnExpert) Snackbar.IsActive = true;
             };
             expertWindow.Show();
         }

@@ -14,6 +14,8 @@ namespace AuroraGUI
     /// </summary>
     public partial class ExpertWindow
     {
+        public bool OnExpert;
+
         public ExpertWindow()
         {
             InitializeComponent();
@@ -27,6 +29,7 @@ namespace AuroraGUI
             Card.IsEnabled = true;
             Snackbar.IsActive = false;
             Card.Effect = null;
+            OnExpert = true;
 
             ChinaList.IsChecked = DnsSettings.ChinaListEnable;
             DisabledV4.IsChecked = DnsSettings.Ipv4Disable;

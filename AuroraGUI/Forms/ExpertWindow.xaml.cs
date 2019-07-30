@@ -116,7 +116,9 @@ namespace AuroraGUI
             if (DisabledV4.IsChecked == null) return;
             DnsSettings.Ipv4Disable = DisabledV4.IsChecked.Value;
 
-            if (DisabledV4.IsChecked.Value) DisabledV6.IsChecked = false;
+            if (!DisabledV4.IsChecked.Value) return;
+            DisabledV6.IsChecked = false;
+            DnsSettings.Ipv6Disable = false;
         }
 
         private void DisabledV6_OnClick(object sender, RoutedEventArgs e)
@@ -124,7 +126,9 @@ namespace AuroraGUI
             if (DisabledV6.IsChecked == null) return;
             DnsSettings.Ipv6Disable = DisabledV6.IsChecked.Value;
 
-            if (DisabledV6.IsChecked.Value) DisabledV4.IsChecked = false;
+            if (!DisabledV6.IsChecked.Value) return;
+            DisabledV4.IsChecked = false;
+            DnsSettings.Ipv4Disable = false;
         }
 
         private void ChinaList_OnClick(object sender, RoutedEventArgs e)

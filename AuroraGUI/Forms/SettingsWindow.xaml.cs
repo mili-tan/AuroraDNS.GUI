@@ -476,5 +476,15 @@ namespace AuroraGUI
             else
                 MessageBox.Show("找不到配置文件，或配置文件还未生成。");
         }
+
+        private void OpenLog_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(
+                $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
+                Process.Start(new ProcessStartInfo(
+                    $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
+            else
+                MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
+        }
     }
 }

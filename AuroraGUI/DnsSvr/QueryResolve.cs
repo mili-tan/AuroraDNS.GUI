@@ -330,15 +330,18 @@ namespace AuroraGUI.DnsSvr
             try
             {
                 var dnsDataBytes = MyCurl.GetData(
-                    $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}&edns_client_subnet={clientIpAddress}",
+                    $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}",
                     DnsSettings.Http2Enable, proxyEnable, wProxy);
                 dnsMsg = DnsMessage.Parse(dnsDataBytes);
 
-                foreach (var item in dnsMsg.AnswerRecords.ToArray())
-                {
-                    if (item.RecordType == RecordType.A && DnsSettings.Ipv4Disable) dnsMsg.AnswerRecords.Remove(item);
-                    if (item.RecordType == RecordType.Aaaa && DnsSettings.Ipv6Disable) dnsMsg.AnswerRecords.Remove(item);
-                }
+                if (DnsSettings.Ipv4Disable || DnsSettings.Ipv6Disable)
+                    foreach (var item in dnsMsg.AnswerRecords.ToArray())
+                    {
+                        if (item.RecordType == RecordType.A && DnsSettings.Ipv4Disable)
+                            dnsMsg.AnswerRecords.Remove(item);
+                        if (item.RecordType == RecordType.Aaaa && DnsSettings.Ipv6Disable)
+                            dnsMsg.AnswerRecords.Remove(item);
+                    }
             }
             catch (WebException e)
             {

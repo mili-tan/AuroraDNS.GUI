@@ -35,6 +35,7 @@ namespace AuroraGUI
             DisabledV4.IsChecked = DnsSettings.Ipv4Disable;
             DisabledV6.IsChecked = DnsSettings.Ipv6Disable;
             AllowSelfSigned.IsChecked = DnsSettings.AllowSelfSignedCert;
+            NotAllowAutoRedirect.IsChecked = !DnsSettings.AllowAutoRedirect;
         }
 
         private void ReadDoHListButton_OnClick(object sender, RoutedEventArgs e)
@@ -144,6 +145,12 @@ namespace AuroraGUI
         {
             if (AllowSelfSigned.IsChecked == null) return;
             DnsSettings.AllowSelfSignedCert = AllowSelfSigned.IsChecked.Value;
+        }
+
+        private void NotAllowAutoRedirect_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (NotAllowAutoRedirect.IsChecked == null) return;
+            DnsSettings.AllowAutoRedirect = !NotAllowAutoRedirect.IsChecked.Value;
         }
     }
 }

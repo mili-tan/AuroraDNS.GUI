@@ -183,7 +183,7 @@ namespace AuroraGUI.DnsSvr
             {
                 dnsStr = MyCurl.GetString(dohUrl + @"?ct=application/dns-json&" +
                                           $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}",
-                    DnsSettings.Http2Enable, proxyEnable, wProxy);
+                    DnsSettings.Http2Enable, proxyEnable, wProxy, DnsSettings.AllowAutoRedirect);
             }
             catch (WebException e)
             {
@@ -331,7 +331,7 @@ namespace AuroraGUI.DnsSvr
             {
                 var dnsDataBytes = MyCurl.GetData(
                     $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}",
-                    DnsSettings.Http2Enable, proxyEnable, wProxy);
+                    DnsSettings.Http2Enable, proxyEnable, wProxy, DnsSettings.AllowAutoRedirect);
                 dnsMsg = DnsMessage.Parse(dnsDataBytes);
 
                 if (DnsSettings.Ipv4Disable || DnsSettings.Ipv6Disable)
@@ -376,8 +376,9 @@ namespace AuroraGUI.DnsSvr
         {
             try
             {
-                string dnsStr = new WebClient().DownloadString(
-                    $"http://119.29.29.29/d?dn={domainName}&ttl=1");
+                string dnsStr = MyCurl.GetString($"http://119.29.29.29/d?dn={domainName}&ttl=1"
+                    , DnsSettings.Http2Enable, DnsSettings.ProxyEnable, DnsSettings.WProxy,
+                    DnsSettings.AllowAutoRedirect);
                 if (string.IsNullOrWhiteSpace(dnsStr))
                     return null;
 
@@ -390,7 +391,8 @@ namespace AuroraGUI.DnsSvr
             }
             catch (Exception e)
             {
-                BackgroundLog($@"| - Catch WebException : {e.Message} | {domainName} | http://119.29.29.29/d?dn={domainName}&ttl=1");
+                BackgroundLog(
+                    $@"| - Catch WebException : {e.Message} | {domainName} | http://119.29.29.29/d?dn={domainName}&ttl=1");
                 return new List<DnsRecordBase>();
             }
         }

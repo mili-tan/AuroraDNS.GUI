@@ -101,8 +101,8 @@ namespace AuroraGUI.Tools
                 ? GetStringByHttp2Client(url, proxyEnable, wProxy, allowRedirect)
                 : GetStringByMWebClient(url, proxyEnable, wProxy, allowRedirect);
 
-        public static byte[] GetData(string url, bool http2 = false, bool proxyEnable = false, IWebProxy wProxy = null,
-            bool allowRedirect = true)
+        public static byte[] GetData(string url, bool http2 = false, bool proxyEnable = false,
+            IWebProxy wProxy = null, bool allowRedirect = true)
             => http2
                 ? GetDataByHttp2Client(url, proxyEnable, wProxy, allowRedirect)
                 : GetDataByMWebClient(url, proxyEnable, wProxy, allowRedirect);

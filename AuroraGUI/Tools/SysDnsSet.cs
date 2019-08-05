@@ -38,8 +38,8 @@ namespace AuroraGUI.Tools
             {
                 if (network.OperationalStatus == Up)
                 {
-                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={dnsAddr}" + Environment.NewLine;
-                    cmd += $"netsh interface ip add dns \"{network.Name}\" addr={backupDnsAddr}" + Environment.NewLine;
+                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={dnsAddr} validate=no" + Environment.NewLine;
+                    cmd += $"netsh interface ip add dns \"{network.Name}\" addr={backupDnsAddr} validate=no" + Environment.NewLine;
                 }
             }
 

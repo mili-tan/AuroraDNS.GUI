@@ -276,10 +276,17 @@ namespace AuroraGUI
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
         {
             if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-                SysDnsSet.SetDns("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
+                SysDnsSet.SetDns(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
             else
             {
-                SysDnsSet.SetDnsCmd("127.0.0.1", DnsSettings.SecondDnsIp.ToString());
+                try
+                {
+                    SysDnsSet.SetDnsCmd(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.ToString());
+                }
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 设置" });
             }
 

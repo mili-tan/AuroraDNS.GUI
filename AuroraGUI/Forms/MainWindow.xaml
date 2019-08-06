@@ -121,9 +121,9 @@
         </Grid>
 
         <materialDesign:Snackbar Name="Snackbar"
-            Grid.Column="0"
+            Grid.Column="0" VerticalAlignment="Bottom"
             MessageQueue="{materialDesign:MessageQueue}" 
-            HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Grid.ColumnSpan="2" Margin="6,0">
+            HorizontalContentAlignment="Center" Opacity="0.95" Background="Black" Grid.ColumnSpan="2" Margin="0,0,0,40">
         </materialDesign:Snackbar>
     </Grid>
 </Window>

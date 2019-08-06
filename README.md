@@ -52,7 +52,7 @@
 3. 然后根据[此文章](https://jingyan.baidu.com/article/2fb0ba40833b0a00f2ec5f28.html)将第一个 DNS 设置为 `127.0.0.1`  第二栏设置为 `119.29.29.29`  
 
 **高级用户指导**  
-使用 CMD 命令  
+> 使用 CMD 命令  
  - 使用本软件提供的本地 DNS 服务解析 `baidu.com`
 ```cmd
 nslookup baidu.com 127.0.0.1
@@ -66,7 +66,8 @@ ipconfig /all
 ```
  **注意：** 使用的网卡 DNS 要设为 `127.0.0.1` 才能生效
  
- 如果没有设置，请参考[此文章](https://jingyan.baidu.com/article/2fb0ba40833b0a00f2ec5f28.html)将第一个 DNS 设置为 `127.0.0.1`, 第二个 DNS 推荐设置为 `腾讯 119.29.29.29 或者运营商提供的 DNS`    
+ 如果没有设置，请参考[此文章](https://jingyan.baidu.com/article/2fb0ba40833b0a00f2ec5f28.html) 将第一个 DNS 设置为 `127.0.0.1`
+ 第二个 DNS 推荐设置为 `腾讯 119.29.29.29 或者运营商提供的 DNS`    
  如果已设置，只需要清空 DNS 缓存即可（点击本软件设置界面的“清空缓存”按钮 或者使用如下命令）     
 
  - 清空 DNS 缓存

@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Management;
 using System.Text;
+using System.Windows;
+using Microsoft.Win32;
 using static System.Net.NetworkInformation.NetworkInterface;
 using static System.Net.NetworkInformation.OperationalStatus;
 
@@ -17,16 +19,19 @@ namespace AuroraGUI.Tools
 
         public static void SetDns(string dnsAddr,string backupDnsAddr)
         {
-            foreach (var item in MgCollection)
+            foreach (var network in GetAllNetworkInterfaces())
             {
-                var mgObjItem = (ManagementObject)item;
-                if (!(bool)mgObjItem["IPEnabled"])
-                    continue;
-
-                var parameters = mgObjItem.GetMethodParameters("SetDNSServerSearchOrder");
-                parameters["DNSServerSearchOrder"] = new[] { dnsAddr, backupDnsAddr };
-                mgObjItem.InvokeMethod("SetDNSServerSearchOrder", parameters, null);
-                break;
+                if (network.OperationalStatus != Up) continue;
+                RegistryKey reg = Registry.LocalMachine.CreateSubKey(
+                    @"SYSTEM\ControlSet001\Services\Tcpip\Parameters\Interfaces\" + network.Id);
+                try
+                {
+                    if (reg.GetValue("NameServer") != null) reg.SetValue("NameServer", $"{dnsAddr},{backupDnsAddr}");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
             }
         }
 

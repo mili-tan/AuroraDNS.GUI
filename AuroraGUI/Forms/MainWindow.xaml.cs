@@ -276,21 +276,23 @@ namespace AuroraGUI
         private void IsSysDns_Checked(object sender, RoutedEventArgs e)
         {
             if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            {
                 SysDnsSet.SetDns(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
+                IsSysDns.ToolTip = "已设为系统 DNS";
+            }
             else
             {
                 try
                 {
                     SysDnsSet.SetDnsCmd(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 设为系统 DNS" });
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.ToString());
                 }
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 设置" });
             }
 
-            IsSysDns.ToolTip = "已设为系统 DNS";
             Snackbar.MessageQueue.Enqueue(new TextBlock()
             {
                 Text = "主DNS:" + IPAddress.Loopback +
@@ -308,8 +310,15 @@ namespace AuroraGUI
             }
             else
             {
-                SysDnsSet.ResetDnsCmd();
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 将 DNS 重置为自动获取" });
+                try
+                {
+                    SysDnsSet.ResetDnsCmd();
+                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 将 DNS 重置为自动获取" });
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.ToString());
+                }
             }
             IsSysDns.ToolTip = "设为系统 DNS";
         }

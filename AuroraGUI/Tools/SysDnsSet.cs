@@ -62,14 +62,19 @@ namespace AuroraGUI.Tools
 
         public static void ResetDns()
         {
-            foreach (var item in MgCollection)
+            foreach (var network in GetAllNetworkInterfaces())
             {
-                var mgObjItem = (ManagementObject)item;
-                if (!(bool)mgObjItem["IPEnabled"])
-                    continue;
-
-                mgObjItem.InvokeMethod("SetDNSServerSearchOrder", null);
-                break;
+                if (network.OperationalStatus != Up) continue;
+                RegistryKey reg = Registry.LocalMachine.CreateSubKey(
+                    @"SYSTEM\ControlSet001\Services\Tcpip\Parameters\Interfaces\" + network.Id);
+                try
+                {
+                    if (reg.GetValue("NameServer") != null) reg.SetValue("NameServer", "");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
             }
         }
 

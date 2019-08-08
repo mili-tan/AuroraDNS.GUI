@@ -421,10 +421,10 @@ namespace AuroraGUI
                     else
                     {
                         SysDnsSet.SetDnsCmd(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
-                        Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "已通过 Netsh 设为系统 DNS"});
+                        Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "已通过 Netsh 设为系统 DNS"});
                     }
 
-                    Snackbar.MessageQueue.Enqueue(new TextBlock()
+                    Snackbar.MessageQueue.Enqueue(new TextBlock
                     {
                         Text = "主DNS:" + IPAddress.Loopback +
                                Environment.NewLine +

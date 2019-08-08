@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace AuroraGUI
@@ -14,7 +15,8 @@ namespace AuroraGUI
             InitializeComponent();
             var fileTime = File.GetLastWriteTime(GetType().Assembly.Location);
             VerText.Text += FileVersionInfo.GetVersionInfo(GetType().Assembly.Location).FileVersion;
-            VerText.Text += $" ({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00}.Releases)";
+            VerText.Text += $" ({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00}";
+            VerText.Text += IsDebugBuild(GetType().Assembly) ? ".Nightly)" : ".Releases)";
         }
 
         private void ButtonCredits_OnClick(object sender, RoutedEventArgs e)
@@ -29,5 +31,19 @@ namespace AuroraGUI
 
         private void HyperlinkSponsor_OnClick(object sender, RoutedEventArgs e) 
             => Process.Start("https://afdian.net/@AuroraDNS");
+
+        private static bool IsDebugBuild(Assembly assembly)
+        {
+            foreach (object attribute in assembly.GetCustomAttributes(false))
+            {
+                if (attribute is DebuggableAttribute)
+                {
+                    DebuggableAttribute _attribute = attribute as DebuggableAttribute;
+
+                    return _attribute.IsJITTrackingEnabled;
+                }
+            }
+            return false;
+        }
     }
 }

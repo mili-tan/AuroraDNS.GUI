@@ -207,25 +207,7 @@
     <None Include="Resources\AuroraWhite.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\cun.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\qiu.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\AuroraBlack.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\see.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\nie.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\day.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\lmp.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cld.jpg" />

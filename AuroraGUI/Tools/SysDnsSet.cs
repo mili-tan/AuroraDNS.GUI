@@ -86,6 +86,7 @@ namespace AuroraGUI.Tools
             {
                 if (network.OperationalStatus == Up)
                 {
+                    cmd += $"netsh interface ip delete dns \"{network.Name}\" all" + Environment.NewLine;
                     cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
                 }
             }

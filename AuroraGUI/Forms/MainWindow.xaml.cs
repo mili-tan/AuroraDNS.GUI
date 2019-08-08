@@ -430,6 +430,7 @@ namespace AuroraGUI
                                Environment.NewLine +
                                "辅DNS:" + DnsSettings.SecondDnsIp
                     });
+
                     IsSysDns.ToolTip = "已设为系统 DNS";
                     IsSysDns.IsChecked = true;
                 }

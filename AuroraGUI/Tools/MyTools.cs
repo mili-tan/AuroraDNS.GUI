@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using AuroraGUI.DnsSvr;
 using Microsoft.Win32;
 using MojoUnity;
 
@@ -90,7 +91,7 @@ namespace AuroraGUI.Tools
 
         public static bool IsNslookupLocDns()
         {
-            var process = Process.Start(new ProcessStartInfo("nslookup.exe", "sjtu.edu.cn")
+            var process = Process.Start(new ProcessStartInfo("nslookup.exe", new Uri(DnsSettings.HttpsDnsUrl).Host)
                 {UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true});
             process.WaitForExit();
             return process.StandardOutput.ReadToEnd().Contains("127.0.0.1");

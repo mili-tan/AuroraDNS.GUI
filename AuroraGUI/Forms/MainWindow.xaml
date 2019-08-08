@@ -64,12 +64,12 @@
             </materialDesign:ColorZone>
             <Grid Name="ControlGrid" Margin="47,67,47,57" Grid.ColumnSpan="2" Grid.Column="0" Opacity="0.95">
 
-                <ToggleButton x:Name="IsSysDns" Cursor="Hand"
+                <ToggleButton x:Name="IsSysDns" Cursor="Hand" Click="IsSysDns_OnClick"
                 Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                 Height="40"
                 Width="40"
                 ToolTip="设为系统 DNS"
-                IsChecked="False" HorizontalAlignment="Left" Checked="IsSysDns_Checked" Unchecked="IsSysDns_Unchecked" >
+                IsChecked="False" HorizontalAlignment="Left">
                     <materialDesign:PackIcon
                     Kind="Dns"
                     Height="20"

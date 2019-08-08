@@ -188,7 +188,8 @@ namespace AuroraGUI
 
             NotifyIcon.DoubleClick += MinimizedNormal;
 
-            if (MyTools.IsNslookupLocDns())
+            IsSysDns.IsChecked = MyTools.IsNslookupLocDns();
+            if (IsSysDns.IsChecked == true)
                 IsSysDns.ToolTip = "已设为系统 DNS";
         }
 
@@ -271,56 +272,6 @@ namespace AuroraGUI
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
                 MDnsSvrWorker.RunWorkerAsync();
             }
-        }
-
-        private void IsSysDns_Checked(object sender, RoutedEventArgs e)
-        {
-            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-            {
-                SysDnsSet.SetDns(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
-                IsSysDns.ToolTip = "已设为系统 DNS";
-            }
-            else
-            {
-                try
-                {
-                    SysDnsSet.SetDnsCmd(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
-                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 设为系统 DNS" });
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.ToString());
-                }
-            }
-
-            Snackbar.MessageQueue.Enqueue(new TextBlock()
-            {
-                Text = "主DNS:" + IPAddress.Loopback +
-                       Environment.NewLine +
-                       "辅DNS:" + DnsSettings.SecondDnsIp
-            });
-        }
-
-        private void IsSysDns_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-            {
-                SysDnsSet.ResetDns();
-                Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已将 DNS 重置为自动获取" });
-            }
-            else
-            {
-                try
-                {
-                    SysDnsSet.ResetDnsCmd();
-                    Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "已通过 Netsh 将 DNS 重置为自动获取" });
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.ToString());
-                }
-            }
-            IsSysDns.ToolTip = "设为系统 DNS";
         }
 
         private void IsLog_Checked(object sender, RoutedEventArgs e)
@@ -437,6 +388,56 @@ namespace AuroraGUI
 
             var filename = Path.GetTempPath() + "setdns.cmd";
             if (File.Exists(filename)) File.Delete(filename);
+        }
+
+        private void IsSysDns_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MyTools.IsNslookupLocDns())
+                {
+                    if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                    {
+                        SysDnsSet.ResetDns();
+                        Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "已将 DNS 重置为自动获取"});
+                    }
+                    else
+                    {
+                        SysDnsSet.ResetDnsCmd();
+                        Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "已通过 Netsh 将 DNS 重置为自动获取"});
+                    }
+
+                    IsSysDns.ToolTip = "设为系统 DNS";
+                    IsSysDns.IsChecked = false;
+                }
+                else
+                {
+                    if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(
+                        WindowsBuiltInRole.Administrator))
+                    {
+                        SysDnsSet.SetDns(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
+                        IsSysDns.ToolTip = "已设为系统 DNS";
+                    }
+                    else
+                    {
+                        SysDnsSet.SetDnsCmd(IPAddress.Loopback.ToString(), DnsSettings.SecondDnsIp.ToString());
+                        Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "已通过 Netsh 设为系统 DNS"});
+                    }
+
+                    Snackbar.MessageQueue.Enqueue(new TextBlock()
+                    {
+                        Text = "主DNS:" + IPAddress.Loopback +
+                               Environment.NewLine +
+                               "辅DNS:" + DnsSettings.SecondDnsIp
+                    });
+                    IsSysDns.ToolTip = "已设为系统 DNS";
+                    IsSysDns.IsChecked = true;
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
         }
     }
 }

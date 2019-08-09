@@ -87,7 +87,7 @@
         </materialDesign:Card>
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
-            ToolTip="保存设置" Margin="551,218,12.2,10" Content="保存" />
+            ToolTip="保存设置" Margin="551,218,12.2,10" Content="确定" />
         <materialDesign:Snackbar x:Name="Snackbar"
             MessageQueue="{materialDesign:MessageQueue}" VerticalAlignment="Top" VerticalContentAlignment="Top"
             HorizontalContentAlignment="Center" Opacity="0.85" Background="Black" Width="365" Margin="70,0,70,0"/>

@@ -198,7 +198,7 @@
         <Button Click="ButtonSave_OnClick"
             Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center"
             ToolTip="保存设置" Margin="355,600,16.2,8" >
-            保存
+            确定
         </Button>
 
         <Button Click="ListL10N_OnClick"  Name="L10N"

@@ -12,6 +12,7 @@
         Title="关于" Height="350" Width="600" WindowStartupLocation="CenterScreen"
         MinWidth="550" MinHeight="370" ResizeMode="NoResize">
     <Grid>
+        <Image Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Margin="460,10,10,290"/>
         <Grid HorizontalAlignment="Center" Height="130" VerticalAlignment="Top" Width="600" Opacity="0.8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
@@ -30,7 +31,7 @@
                HorizontalAlignment="Left" TextAlignment="Left" Height="17"/>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                             Padding="0" Opacity="0.75"
+                             Padding="0" Opacity="0.7"
                              Margin="15,50,15,0"
                              >
             <Grid>

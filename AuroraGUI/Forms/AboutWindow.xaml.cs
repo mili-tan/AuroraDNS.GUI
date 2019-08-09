@@ -17,6 +17,7 @@ namespace AuroraGUI
             VerText.Text += FileVersionInfo.GetVersionInfo(GetType().Assembly.Location).FileVersion;
             VerText.Text += $" ({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00}";
             VerText.Text += IsDebugBuild(GetType().Assembly) ? ".Nightly)" : ".Releases)";
+            if (IsDebugBuild(GetType().Assembly)) IsNightly.Visibility = Visibility.Visible;
         }
 
         private void ButtonCredits_OnClick(object sender, RoutedEventArgs e)

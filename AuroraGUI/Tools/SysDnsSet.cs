@@ -86,10 +86,17 @@ namespace AuroraGUI.Tools
                 if (network.OperationalStatus != Up) continue;
                 cmd += $"netsh interface ip delete dns \"{network.Name}\" all" + Environment.NewLine;
                 cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
-                if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
-                    cmd +=
-                        $"netsh interface ip set dns \"{network.Name}\" source=static addr={DnsSettings.SecondDnsIp} validate=no" +
-                        Environment.NewLine;
+                try
+                {
+                    if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
+                        cmd +=
+                            $"netsh interface ip set dns \"{network.Name}\" source=static addr={DnsSettings.SecondDnsIp} validate=no" +
+                            Environment.NewLine;
+                }
+                catch (Exception e)
+                {
+                    MyTools.BackgroundLog(network.Name + e);
+                }
             }
 
             var filename = Path.GetTempPath() + "setdns.cmd";

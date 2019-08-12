@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows;
 using AuroraGUI.DnsSvr;
@@ -69,6 +70,10 @@ namespace AuroraGUI.Tools
                     if (reg.GetValue("NameServer") != null) reg.SetValue("NameServer", "");
                     if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
                         reg.SetValue("NameServer", DnsSettings.SecondDnsIp.ToString());
+                }
+                catch (NetworkInformationException e)
+                {
+                    MyTools.BackgroundLog(network.Name + e);
                 }
                 catch (Exception e)
                 {

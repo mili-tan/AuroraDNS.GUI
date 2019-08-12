@@ -67,6 +67,8 @@ namespace AuroraGUI.Tools
                 try
                 {
                     if (reg.GetValue("NameServer") != null) reg.SetValue("NameServer", "");
+                    if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
+                        reg.SetValue("NameServer", DnsSettings.SecondDnsIp.ToString());
                 }
                 catch (Exception e)
                 {

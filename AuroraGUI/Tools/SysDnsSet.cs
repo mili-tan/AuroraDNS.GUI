@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
+using AuroraGUI.DnsSvr;
 using Microsoft.Win32;
 using static System.Net.NetworkInformation.NetworkInterface;
 using static System.Net.NetworkInformation.OperationalStatus;
@@ -80,11 +81,13 @@ namespace AuroraGUI.Tools
 
             foreach (var network in GetAllNetworkInterfaces())
             {
-                if (network.OperationalStatus == Up)
-                {
-                    cmd += $"netsh interface ip delete dns \"{network.Name}\" all" + Environment.NewLine;
-                    cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
-                }
+                if (network.OperationalStatus != Up) continue;
+                cmd += $"netsh interface ip delete dns \"{network.Name}\" all" + Environment.NewLine;
+                cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
+                if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
+                    cmd +=
+                        $"netsh interface ip set dns \"{network.Name}\" source=static addr={DnsSettings.SecondDnsIp} validate=no" +
+                        Environment.NewLine;
             }
 
             var filename = Path.GetTempPath() + "setdns.cmd";

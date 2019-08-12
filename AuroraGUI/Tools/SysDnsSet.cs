@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Management;
 using System.Text;
 using System.Windows;
 using Microsoft.Win32;
@@ -14,9 +13,6 @@ namespace AuroraGUI.Tools
 {
     static class SysDnsSet
     {
-        private static readonly ManagementClass MgClass = new ManagementClass("Win32_NetworkAdapterConfiguration"); 
-        private static readonly ManagementObjectCollection MgCollection = MgClass.GetInstances();
-
         public static void SetDns(string dnsAddr,string backupDnsAddr)
         {
             foreach (var network in GetAllNetworkInterfaces())

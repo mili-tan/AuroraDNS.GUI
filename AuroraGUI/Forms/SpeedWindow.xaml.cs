@@ -53,7 +53,7 @@ namespace AuroraGUI
                             new SpeedList
                             {
                                 Server = item.Server, Name = item.Name, DelayTime = 0,
-                                Asn = IpTools.GeoIpLocal(item.Server)
+                                Asn = IpTools.GeoIpLocal(item.Server).Trim()
                             });
                         continue;
                     }
@@ -72,7 +72,7 @@ namespace AuroraGUI
                         {
                             Server = item.Server, Name = item.Name,
                             DelayTime = Convert.ToInt32(delayTime),
-                            Asn = IpTools.GeoIpLocal(item.Server)
+                            Asn = IpTools.GeoIpLocal(item.Server).Trim()
                         });
                 }
             };

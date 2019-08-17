@@ -85,7 +85,6 @@ namespace AuroraGUI
 
             if (!string.IsNullOrWhiteSpace(DoHUrlText.Text) &&
                 !string.IsNullOrWhiteSpace(SecondDoHUrlText.Text) &&
-                !string.IsNullOrWhiteSpace(SecondDNS.Text) &&
                 !string.IsNullOrWhiteSpace(EDNSClientIP.Text) &&
                 !string.IsNullOrWhiteSpace(ListenIP.Text))
             {
@@ -95,10 +94,11 @@ namespace AuroraGUI
                 DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
 
-                if (Proxy.IsChecked == true)
-                    DnsSettings.WProxy = new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text);
-                else
-                    DnsSettings.WProxy = new WebProxy("127.0.0.1:1080");
+                if (string.IsNullOrWhiteSpace(SecondDNS.Text)) DnsSettings.StartupOverDoH = true;
+
+                DnsSettings.WProxy = Proxy.IsChecked == true
+                    ? new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text)
+                    : new WebProxy("127.0.0.1:1080");
 
                 if (DnsSettings.BlackListEnable && File.Exists("black.list"))
                     DnsSettings.ReadBlackList(MainWindow.SetupBasePath + "black.list");

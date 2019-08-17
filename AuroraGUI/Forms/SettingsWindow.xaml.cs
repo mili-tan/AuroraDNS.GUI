@@ -94,10 +94,11 @@ namespace AuroraGUI
                     DnsSettings.StartupOverDoH = true;
                     DnsSettings.SecondDnsIp = IPAddress.Any;
                 }
+                else
+                    DnsSettings.SecondDnsIp = IPAddress.Parse(SecondDNS.Text);
 
                 DnsSettings.HttpsDnsUrl = DoHUrlText.Text.Trim();
                 DnsSettings.SecondHttpsDnsUrl = SecondDoHUrlText.Text.Trim();
-                DnsSettings.SecondDnsIp = IPAddress.Parse(SecondDNS.Text);
                 DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows;
@@ -17,6 +18,7 @@ namespace AuroraGUI.Tools
     {
         public static void SetDns(string dnsAddr,string backupDnsAddr)
         {
+            if (backupDnsAddr == IPAddress.Any.ToString()) backupDnsAddr = "";
             foreach (var network in GetAllNetworkInterfaces())
             {
                 if (network.OperationalStatus != Up) continue;
@@ -35,6 +37,7 @@ namespace AuroraGUI.Tools
 
         public static void SetDnsCmd(string dnsAddr, string backupDnsAddr)
         {
+            if (backupDnsAddr == IPAddress.Any.ToString()) backupDnsAddr = "";
             var cmd = "";
 
             foreach (var network in GetAllNetworkInterfaces())
@@ -60,6 +63,8 @@ namespace AuroraGUI.Tools
 
         public static void ResetDns()
         {
+            var backupDnsAddr = Equals(DnsSettings.SecondDnsIp, IPAddress.Any)
+                ? "" : DnsSettings.SecondDnsIp.ToString();
             foreach (var network in GetAllNetworkInterfaces())
             {
                 if (network.OperationalStatus != Up) continue;
@@ -69,7 +74,7 @@ namespace AuroraGUI.Tools
                 {
                     if (reg.GetValue("NameServer") != null) reg.SetValue("NameServer", "");
                     if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
-                        reg.SetValue("NameServer", DnsSettings.SecondDnsIp.ToString());
+                        reg.SetValue("NameServer", backupDnsAddr);
                 }
                 catch (NetworkInformationException e)
                 {
@@ -84,6 +89,8 @@ namespace AuroraGUI.Tools
 
         public static void ResetDnsCmd()
         {
+            var backupDnsAddr = Equals(DnsSettings.SecondDnsIp, IPAddress.Any) 
+                ? "" : DnsSettings.SecondDnsIp.ToString();
             var cmd = "";
 
             foreach (var network in GetAllNetworkInterfaces())
@@ -95,7 +102,7 @@ namespace AuroraGUI.Tools
                 {
                     if (!network.GetIPProperties().GetIPv4Properties().IsDhcpEnabled)
                         cmd +=
-                            $"netsh interface ip set dns \"{network.Name}\" source=static addr={DnsSettings.SecondDnsIp} validate=no" +
+                            $"netsh interface ip set dns \"{network.Name}\" source=static addr={backupDnsAddr} validate=no" +
                             Environment.NewLine;
                 }
                 catch (Exception e)

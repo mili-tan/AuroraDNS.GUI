@@ -88,13 +88,18 @@ namespace AuroraGUI
                 !string.IsNullOrWhiteSpace(EDNSClientIP.Text) &&
                 !string.IsNullOrWhiteSpace(ListenIP.Text))
             {
+
+                if (string.IsNullOrWhiteSpace(SecondDNS.Text))
+                {
+                    DnsSettings.StartupOverDoH = true;
+                    DnsSettings.SecondDnsIp = IPAddress.Any;
+                }
+
                 DnsSettings.HttpsDnsUrl = DoHUrlText.Text.Trim();
                 DnsSettings.SecondHttpsDnsUrl = SecondDoHUrlText.Text.Trim();
                 DnsSettings.SecondDnsIp = IPAddress.Parse(SecondDNS.Text);
                 DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
-
-                if (string.IsNullOrWhiteSpace(SecondDNS.Text)) DnsSettings.StartupOverDoH = true;
 
                 DnsSettings.WProxy = Proxy.IsChecked == true
                     ? new WebProxy(ProxyServer.Text + ":" + ProxyServerPort.Text)

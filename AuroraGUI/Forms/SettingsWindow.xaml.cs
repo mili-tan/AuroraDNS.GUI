@@ -54,8 +54,8 @@ namespace AuroraGUI
                     : File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\AuroraDNS.lnk");
             if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
                 RunAsAdmin.Visibility = Visibility.Visible;
-            if (File.Exists($"{MainWindow.SetupBasePath}url.json"))
-                L10N.Visibility = Visibility.Visible;
+            if (File.Exists($"{MainWindow.SetupBasePath}url.json")) L10N.Visibility = Visibility.Visible;
+            if (Equals(DnsSettings.SecondDnsIp, IPAddress.Any)) SecondDNS.Text = "";
 
             ListenIPCustomize.IsChecked = !Equals(DnsSettings.ListenIp, IPAddress.Loopback);
         }

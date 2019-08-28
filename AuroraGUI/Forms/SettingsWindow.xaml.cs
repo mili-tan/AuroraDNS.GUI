@@ -217,6 +217,9 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
+                DoHUrlText.Items.Clear();
+                SecondDoHUrlText.Items.Clear();
+                SecondDNS.Items.Clear();
                 try
                 {
                     if (dohListStrings != null && dohListStrings.Count != 0)

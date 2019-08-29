@@ -139,6 +139,7 @@ namespace AuroraGUI
                         $"\"StartupOverDoH\" : {DnsSettings.StartupOverDoH.ToString().ToLower()},\n" +
                         $"\"AllowSelfSignedCert\" : {DnsSettings.AllowSelfSignedCert.ToString().ToLower()},\n" +
                         $"\"AllowAutoRedirect\" : {DnsSettings.AllowAutoRedirect.ToString().ToLower()},\n" +
+                        $"\"HTTPStatusNotify\" : {DnsSettings.HTTPStatusNotify.ToString().ToLower()},\n" +
                         $"\"EnableHttp2\" : {DnsSettings.Http2Enable.ToString().ToLower()} \n" +
                         "}");
                 }

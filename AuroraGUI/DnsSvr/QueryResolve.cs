@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.Tools;
@@ -191,12 +192,16 @@ namespace AuroraGUI.DnsSvr
                 try
                 {
                     BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {response.ResponseUri}");
+                    if (DnsSettings.HTTPStatusNotify)
+                        MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
+                            $"异常 :{Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                 }
                 catch (Exception exception)
                 {
                     BackgroundLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
-                    //MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
-                    //    $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
+                    if (DnsSettings.HTTPStatusNotify)
+                        MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
+                            $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);

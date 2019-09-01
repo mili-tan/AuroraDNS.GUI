@@ -248,6 +248,11 @@ namespace AuroraGUI
                 DnsEnable.IsEnabled = false;
                 ControlGrid.IsEnabled = false;
             }
+
+            if (Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ||
+                Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback))
+                new TcpFwder(Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ? IPAddress.Any : IPAddress.Loopback, 53,
+                    IPAddress.IPv6Loopback, 53).Run();
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)

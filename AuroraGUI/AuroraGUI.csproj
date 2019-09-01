@@ -132,6 +132,7 @@
     <Compile Include="Tools\IpTools.cs" />
     <Compile Include="Fx\WindowBlur.cs" />
     <Compile Include="Fx\WindowFx.cs" />
+    <Compile Include="Tools\TcpFwder.cs" />
     <Page Include="Forms\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

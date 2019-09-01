@@ -318,7 +318,6 @@ namespace AuroraGUI
             var settingsWindow = new SettingsWindow();
             settingsWindow.Closed += (o, args) =>
             {
-
                 IsLog.IsChecked = DnsSettings.DebugLog;
                 IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
             };

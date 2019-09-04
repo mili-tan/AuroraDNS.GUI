@@ -72,7 +72,7 @@ namespace AuroraGUI
             ProxyServerPort.IsEnabled = false;
         }
 
-        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
+        public void ButtonSave_OnClick(object sender, RoutedEventArgs e)
         {
             DnsSettings.DebugLog = Convert.ToBoolean(Log.IsChecked);
             DnsSettings.EDnsCustomize = Convert.ToBoolean(EDNSCustomize.IsChecked);

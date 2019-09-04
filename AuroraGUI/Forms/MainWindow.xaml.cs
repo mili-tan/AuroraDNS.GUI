@@ -78,7 +78,6 @@ namespace AuroraGUI
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
 
             try
@@ -409,7 +408,6 @@ namespace AuroraGUI
                 if (item != $"{SetupBasePath}Log" +
                     $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
                     File.Delete(item);
-
             if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
@@ -46,20 +47,30 @@ namespace AuroraGUI
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            string setupBasePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             if (e.Args.Length == 0) return;
-            MessageBox.Show(e.Args[0]);
+            if (e.Args[0].Split(':')[0] == "aurora-doh")
+            {
+                if (File.Exists($"{setupBasePath}config.json"))
+                    DnsSettings.ReadConfig($"{setupBasePath}config.json");
+                DnsSettings.HttpsDnsUrl = e.Args[0].Replace("aurora-doh:", "https:");
+                new SettingsWindow().ButtonSave_OnClick(sender, null);
+            }
+            foreach (var item in Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName))
+                if (item.Id != Process.GetCurrentProcess().Id)
+                    item.Kill();
+            Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
             Shutdown();
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            string SetupBasePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            string setupBasePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             if (!DnsSettings.AutoCleanLogEnable) return;
-            foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
-                if (item != $"{SetupBasePath}Log" +
+            foreach (var item in Directory.GetFiles($"{setupBasePath}Log"))
+                if (item != $"{setupBasePath}Log" +
                     $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
                     File.Delete(item);
-
             if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
         }
     }

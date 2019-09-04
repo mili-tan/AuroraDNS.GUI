@@ -218,8 +218,6 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                DoHUrlText.Items.Clear();
-                SecondDNS.Items.Clear();
                 try
                 {
                     if (dohListStrings != null && dohListStrings.Count != 0)
@@ -250,6 +248,11 @@ namespace AuroraGUI
                 {
                     MyTools.BackgroundLog(@"| Read list failed : " + exception);
                 }
+
+                DoHUrlText.Items.Clear();
+                SecondDNS.Items.Clear();
+                DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
+                SecondDNS.Text = DnsSettings.SecondDnsIp.ToString();
             };
             bgWorker.RunWorkerAsync();
         }

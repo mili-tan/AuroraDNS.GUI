@@ -72,6 +72,17 @@ namespace AuroraGUI
 
             try
             {
+                UrlReg.Reg("aurora-doh");
+                UrlReg.Reg("aurora-list");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            try
+            {
                 if (File.Exists($"{SetupBasePath}url.json"))
                     UrlSettings.ReadConfig($"{SetupBasePath}url.json");
                 if (File.Exists($"{SetupBasePath}config.json"))
@@ -176,6 +187,15 @@ namespace AuroraGUI
             WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().Show());
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) =>
             {
+                try
+                {
+                    UrlReg.UnReg("aurora-doh");
+                    UrlReg.UnReg("aurora-list");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
                 Close();
                 Environment.Exit(Environment.ExitCode);
             });

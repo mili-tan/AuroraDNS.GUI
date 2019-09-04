@@ -5,13 +5,13 @@ namespace AuroraGUI.Tools
 {
     class UrlReg
     {
-        public static void Reg(string UrlLink, string FriendlyName)
+        public static void Reg(string urlLink)
         {
-            using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UrlLink))
+            using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + urlLink))
             {
                 string applicationLocation = Process.GetCurrentProcess().MainModule.FileName;
 
-                key.SetValue("", "URL:" + FriendlyName);
+                key.SetValue("", "URL:" + urlLink);
                 key.SetValue("URL Protocol", "");
 
                 using (var defaultIcon = key.CreateSubKey("DefaultIcon"))

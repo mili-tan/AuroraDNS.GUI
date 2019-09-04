@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 
 namespace AuroraGUI
@@ -39,7 +41,26 @@ namespace AuroraGUI
             if (MessageBoxResult.OK == msgResult)
                 e.Handled = true;
             else
-                Shutdown(1);
+                Shutdown();
+        }
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            if (e.Args.Length == 0) return;
+            MessageBox.Show(e.Args[0]);
+            Shutdown();
+        }
+
+        private void App_OnExit(object sender, ExitEventArgs e)
+        {
+            string SetupBasePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            if (!DnsSettings.AutoCleanLogEnable) return;
+            foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                if (item != $"{SetupBasePath}Log" +
+                    $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                    File.Delete(item);
+
+            if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
         }
     }
 }

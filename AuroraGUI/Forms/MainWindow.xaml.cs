@@ -390,8 +390,7 @@ namespace AuroraGUI
                     $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
                     File.Delete(item);
 
-            var filename = Path.GetTempPath() + "setdns.cmd";
-            if (File.Exists(filename)) File.Delete(filename);
+            if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
         }
 
         private void IsSysDns_OnClick(object sender, RoutedEventArgs e)

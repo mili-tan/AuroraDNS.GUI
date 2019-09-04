@@ -220,6 +220,8 @@ namespace AuroraGUI
             {
                 DoHUrlText.Items.Clear();
                 SecondDNS.Items.Clear();
+                DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
+                SecondDNS.Text = DnsSettings.SecondDnsIp.ToString();
                 try
                 {
                     if (dohListStrings != null && dohListStrings.Count != 0)

@@ -49,13 +49,25 @@ namespace AuroraGUI
         {
             string setupBasePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             if (e.Args.Length == 0) return;
-            if (e.Args[0].Split(':')[0] == "aurora-doh")
+            if (e.Args[0].Split(':')[0] == "aurora-doh" || e.Args[0].Split(':')[0] == "doh")
             {
+                MessageBoxResult msgResult =
+                    MessageBox.Show(
+                        $"您确定要将主 DNS over HTTPS 服务器设为 https:{e.Args[0].Split(':')[1]} 吗?" +
+                        $"{Environment.NewLine}请确认这是可信的服务器，来源不明服务器可能将会窃取您的个人隐私，或篡改网页植入恶意软件。请谨慎操作！",
+                        "来自网页的设置", MessageBoxButton.OKCancel);
+                if (msgResult != MessageBoxResult.OK) return;
+
                 if (File.Exists($"{setupBasePath}config.json"))
                     DnsSettings.ReadConfig($"{setupBasePath}config.json");
-                DnsSettings.HttpsDnsUrl = e.Args[0].Replace("aurora-doh:", "https:");
+                DnsSettings.HttpsDnsUrl = e.Args[0].Replace("aurora-doh:", "https:").Replace("doh:", "https:");
                 new SettingsWindow().ButtonSave_OnClick(sender, null);
             }
+            else if (e.Args[0].Split(':')[0] == "aurora-doh-list")
+            {
+
+            }
+
             foreach (var item in Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName))
                 if (item.Id != Process.GetCurrentProcess().Id)
                     item.Kill();

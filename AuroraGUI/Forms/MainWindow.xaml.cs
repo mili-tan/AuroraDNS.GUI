@@ -72,8 +72,9 @@ namespace AuroraGUI
 
             try
             {
+                UrlReg.Reg("doh");
                 UrlReg.Reg("aurora-doh");
-                UrlReg.Reg("aurora-list");
+                UrlReg.Reg("aurora-doh-list");
             }
             catch (Exception e)
             {
@@ -100,7 +101,7 @@ namespace AuroraGUI
                 MessageBoxResult msgResult =
                     MessageBox.Show(
                         "Error: 尝试读取配置文件权限不足或IO安全故障，点击确定现在尝试以管理员权限启动。点击取消中止程序运行。" +
-                        $"{Environment.NewLine}Original error: {e}");
+                        $"{Environment.NewLine}Original error: {e}", "错误", MessageBoxButton.OKCancel);
                 if (msgResult == MessageBoxResult.OK) RunAsAdmin();
                 else Close();
             }
@@ -188,8 +189,9 @@ namespace AuroraGUI
             {
                 try
                 {
-                    UrlReg.UnReg("aurora-doh");
-                    UrlReg.UnReg("aurora-list");
+                    UrlReg.UnReg("doh");
+                    UrlReg.Reg("aurora-doh");
+                    UrlReg.UnReg("aurora-doh-list");
                 }
                 catch (Exception e)
                 {

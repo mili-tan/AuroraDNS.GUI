@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 using AuroraGUI.DnsSvr;
+using AuroraGUI.Forms;
 using AuroraGUI.Tools;
 
 namespace AuroraGUI
@@ -54,8 +55,8 @@ namespace AuroraGUI
                 MessageBoxResult msgResult =
                     MessageBox.Show(
                         $"您确定要将主 DNS over HTTPS 服务器设为 https:{e.Args[0].Split(':')[1]} 吗?" +
-                        $"{Environment.NewLine}请确认这是可信的服务器，来源不明服务器可能将会窃取您的个人隐私，或篡改网页植入恶意软件。请谨慎操作！",
-                        "来自网页的设置", MessageBoxButton.OKCancel);
+                        $"{Environment.NewLine}请确认这是可信的服务器，来源不明的服务器可能将会窃取您的个人隐私，或篡改网页植入恶意软件。请谨慎操作！",
+                        "设置 DNS over HTTPS 服务器", MessageBoxButton.OKCancel);
                 if (msgResult != MessageBoxResult.OK) return;
 
                 if (File.Exists($"{setupBasePath}config.json"))
@@ -65,7 +66,17 @@ namespace AuroraGUI
             }
             else if (e.Args[0].Split(':')[0] == "aurora-doh-list")
             {
+                MessageBoxResult msgResult =
+                    MessageBox.Show(
+                        $"您确定要将 DNS over HTTPS 服务器列表设为 https:{e.Args[0].Split(':')[1]} 吗?" +
+                        $"{Environment.NewLine}请确认这是可信的服务器列表，来源不明的服务器可能将会窃取您的个人隐私，或篡改网页植入恶意软件。请谨慎操作！",
+                        "设置 DNS over HTTPS 服务器列表", MessageBoxButton.OKCancel);
+                if (msgResult != MessageBoxResult.OK) return;
 
+                if (File.Exists($"{setupBasePath}url.json"))
+                    UrlSettings.ReadConfig($"{setupBasePath}url.json");
+                UrlSettings.MDohList = e.Args[0].Replace("aurora-doh-list:", "https:");
+                new ListL10NWindow().ButtonSave_OnClick(sender, null);
             }
 
             foreach (var item in Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName))

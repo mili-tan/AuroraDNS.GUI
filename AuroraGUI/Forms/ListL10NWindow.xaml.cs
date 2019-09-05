@@ -19,7 +19,7 @@ namespace AuroraGUI.Forms
             GeoIPURL.Text = UrlSettings.GeoIpApi;
         }
 
-        private void ButtonSave_OnClick(object sender, RoutedEventArgs e)
+        public void ButtonSave_OnClick(object sender, RoutedEventArgs e)
         {
             UrlSettings.MDnsList = DNSListURL.Text.Trim();
             UrlSettings.MDohList = DoHListURL.Text.Trim();

@@ -61,7 +61,7 @@ namespace AuroraGUI
 
                 if (File.Exists($"{setupBasePath}config.json"))
                     DnsSettings.ReadConfig($"{setupBasePath}config.json");
-                DnsSettings.HttpsDnsUrl = e.Args[0].Replace("aurora-doh:", "https:").Replace("doh:", "https:");
+                DnsSettings.HttpsDnsUrl = e.Args[0].Replace("dns-over-https:", "https:").Replace("doh:", "https:");
                 new SettingsWindow().ButtonSave_OnClick(sender, null);
             }
             else if (e.Args[0].Split(':')[0] == "aurora-doh-list")

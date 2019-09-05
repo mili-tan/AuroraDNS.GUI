@@ -23,6 +23,8 @@ namespace AuroraGUI.Tools
                 {
                     commandKey.SetValue("", "\"" + applicationLocation + "\" \"%1\"");
                 }
+
+                key.Close();
             }
         }
         public static void UnReg(string UrlLink)

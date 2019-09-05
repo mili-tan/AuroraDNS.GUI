@@ -70,15 +70,24 @@ namespace AuroraGUI
                 if (MyTools.IsBadSoftExist())
                     MessageBox.Show("Tips: AuroraDNS 强烈不建议您使用国产安全软件产品！");
 
-            try
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\AuroraDNS.UrlReged"))
             {
-                UrlReg.Reg("doh");
-                UrlReg.Reg("dns-over-https");
-                UrlReg.Reg("aurora-doh-list");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+                try
+                {
+                    UrlReg.Reg("doh");
+                    UrlReg.Reg("dns-over-https");
+                    UrlReg.Reg("aurora-doh-list");
+
+                    File.Create(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                                "\\AuroraDNS.UrlReged");
+                    File.SetAttributes(
+                        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                        "\\AuroraDNS.UrlReged", FileAttributes.Hidden);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
 
             try
@@ -192,11 +201,14 @@ namespace AuroraGUI
                     UrlReg.UnReg("doh");
                     UrlReg.UnReg("dns-over-https");
                     UrlReg.UnReg("aurora-doh-list");
+                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                                "\\AuroraDNS.UrlReged");
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                 }
+
                 Close();
                 Environment.Exit(Environment.ExitCode);
             });

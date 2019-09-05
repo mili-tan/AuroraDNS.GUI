@@ -218,19 +218,24 @@ namespace AuroraGUI
             };
             bgWorker.RunWorkerCompleted += (o, args) =>
             {
-                DoHUrlText.Items.Clear();
-                SecondDNS.Items.Clear();
                 try
                 {
                     if (dohListStrings != null && dohListStrings.Count != 0)
+                    {
+                        DoHUrlText.Items.Clear();
                         foreach (var item in dohListStrings)
                         {
                             DoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
                             SecondDoHUrlText.Items.Add(item.Split('*', ',')[0].Trim());
                         }
+                    }
+
                     if (dnsListStrings != null && dnsListStrings.Count != 0)
+                    {
+                        SecondDNS.Items.Clear();
                         foreach (var item in dnsListStrings)
                             SecondDNS.Items.Add(item.Split('*', ',')[0].Trim());
+                    }
 
                     if (dohListStrings == null && dnsListStrings == null)
                         Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = @"获取列表内容失败，请检查互联网连接。"});
@@ -250,6 +255,7 @@ namespace AuroraGUI
                 {
                     MyTools.BackgroundLog(@"| Read list failed : " + exception);
                 }
+
                 DoHUrlText.Text = DnsSettings.HttpsDnsUrl;
                 SecondDNS.Text = DnsSettings.SecondDnsIp.ToString();
             };

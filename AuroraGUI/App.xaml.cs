@@ -50,7 +50,7 @@ namespace AuroraGUI
         {
             string setupBasePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             if (e.Args.Length == 0) return;
-            if (e.Args[0].Split(':')[0] == "aurora-doh" || e.Args[0].Split(':')[0] == "doh")
+            if (e.Args[0].Split(':')[0] == "doh" || e.Args[0].Split(':')[0] == "dns-over-https")
             {
                 MessageBoxResult msgResult =
                     MessageBox.Show(

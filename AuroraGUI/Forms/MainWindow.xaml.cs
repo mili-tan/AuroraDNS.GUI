@@ -73,7 +73,7 @@ namespace AuroraGUI
             try
             {
                 UrlReg.Reg("doh");
-                UrlReg.Reg("aurora-doh");
+                UrlReg.Reg("dns-over-https");
                 UrlReg.Reg("aurora-doh-list");
             }
             catch (Exception e)
@@ -190,7 +190,7 @@ namespace AuroraGUI
                 try
                 {
                     UrlReg.UnReg("doh");
-                    UrlReg.Reg("aurora-doh");
+                    UrlReg.UnReg("dns-over-https");
                     UrlReg.UnReg("aurora-doh-list");
                 }
                 catch (Exception e)

@@ -138,7 +138,7 @@ namespace AuroraGUI.Tools
             string[] badSoftProcess =
             {
                 "360Safe", "ZhuDongFangYu", "2345SoftSvc", "2345RTProtect",
-                "BaiduAnSvc", "BaiduHips", "QQPCTray", "QQPCRTP"
+                "QQPCTray", "QQPCRTP", "kxetray", "kxescore"
             };
             int offenseCount = badSoftProcess.Sum(processName => Process.GetProcessesByName(processName).Length);
             return offenseCount != 0;

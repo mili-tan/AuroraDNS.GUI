@@ -31,7 +31,7 @@
                HorizontalAlignment="Left" TextAlignment="Left" Height="17"/>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                             Padding="0" Opacity="0.7"
+                             Padding="0" Opacity="0.65"
                              Margin="15,50,15,0"
                              >
             <Grid>
@@ -44,12 +44,12 @@
 
                 <Image Grid.Row="0" Margin="16 16 16 4" Height="50" Width="50" HorizontalAlignment="Left" Source="../Aurora.png"/>
                 <TextBlock Grid.Row="0" Margin="70,26,365,16" VerticalAlignment="Center"
-                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" Foreground="#FF333333" FontFamily="Roboto"><Italic>A</Italic>uroraDNS</TextBlock>
+                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontFamily="Roboto"><Italic>A</Italic>uroraDNS</TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
                 <TextBlock Grid.Row="2" Margin="16 0 16 8" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF555555" x:Name="VerText"><Run Text="版本 ："/></TextBlock>
+                            x:Name="VerText"><Run Text="版本 ："/></TextBlock>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="16 0 16 8" HorizontalAlignment="Right">
                     <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
                             materialDesign:RippleAssist.IsCentered="True" Click="ButtonAbout_OnClick"  ToolTip="访问项目主页" >

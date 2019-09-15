@@ -195,6 +195,7 @@ namespace AuroraGUI.DnsSvr
                     if (DnsSettings.HTTPStatusNotify)
                         MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                             $"异常 :{Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
+                    if (response.StatusCode == HttpStatusCode.BadRequest) DnsSettings.DnsMsgEnable = true;
                 }
                 catch (Exception exception)
                 {
@@ -355,13 +356,7 @@ namespace AuroraGUI.DnsSvr
                 {
                     BackgroundLog(
                         $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
-
-                    if (response.StatusCode == HttpStatusCode.BadRequest)
-                    {
-                        DnsSettings.DnsMsgEnable = false;
-                        return ResolveOverHttpsByDnsJson(clientIpAddress, domainName, DnsSettings.SecondHttpsDnsUrl,
-                            proxyEnable, wProxy, type);
-                    }
+                    if (response.StatusCode == HttpStatusCode.BadRequest) DnsSettings.DnsMsgEnable = false;
                 }
                 catch (Exception exception)
                 {

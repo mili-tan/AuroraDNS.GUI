@@ -46,7 +46,7 @@
                 <TextBlock Grid.Row="0" Margin="70,26,365,16" VerticalAlignment="Center"
                            Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontFamily="Roboto"><Italic>A</Italic>uroraDNS</TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}" />
-                <TextBlock Grid.Row="2" Margin="16 0 16 8" 
+                <TextBlock Grid.Row="2" Margin="16 0 16 8" Foreground="#575757"
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
                             x:Name="VerText"><Run Text="版本 ："/></TextBlock>

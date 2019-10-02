@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 namespace AuroraGUI.Tools
@@ -48,7 +49,7 @@ namespace AuroraGUI.Tools
         public static List<int> MPing(string ipStr)
         {
             System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
-            byte[] bufferBytes = { 00, 01, 00, 01, 00, 01, 00, 01 };
+            byte[] bufferBytes = Encoding.Default.GetBytes("abcdefghijklmnopqrstuvwabcdefghi");
 
             var times = new List<int>();
             for (int i = 0; i < 2; i++)

@@ -203,6 +203,12 @@ namespace AuroraGUI
                     UrlReg.UnReg("aurora-doh-list");
                     File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                 "\\AuroraDNS.UrlReged");
+                    if (!DnsSettings.AutoCleanLogEnable) return;
+                    foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                        if (item != $"{SetupBasePath}Log" +
+                            $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                            File.Delete(item);
+                    if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
                 }
                 catch (Exception e)
                 {

@@ -60,7 +60,7 @@ namespace AuroraGUI.Tools
         {
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             mWebClient.AllowAutoRedirect = allowRedirect;
-            if (proxyEnable) mWebClient.Proxy = wProxy;
+            mWebClient.Proxy = proxyEnable ? wProxy : new WebProxy();
             return mWebClient.DownloadString(url);
         }
 
@@ -69,7 +69,7 @@ namespace AuroraGUI.Tools
         {
             var mHttp2Handel = new Http2Handler();
             mHttp2Handel.AutomaticRedirection = allowRedirect;
-            if (proxyEnable) mHttp2Handel.Proxy = wProxy;
+            mHttp2Handel.Proxy = proxyEnable ? wProxy : new WebProxy();
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
             return mHttpClient.GetStringAsync(url).Result;
@@ -80,7 +80,7 @@ namespace AuroraGUI.Tools
         {
             MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
             mWebClient.AllowAutoRedirect = allowRedirect;
-            if (proxyEnable) mWebClient.Proxy = wProxy;
+            mWebClient.Proxy = proxyEnable ? wProxy : new WebProxy();
             return mWebClient.DownloadData(url);
         }
 
@@ -89,7 +89,7 @@ namespace AuroraGUI.Tools
         {
             var mHttp2Handel = new Http2Handler {WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseWinHttpProxy};
             mHttp2Handel.AutomaticRedirection = allowRedirect;
-            if (proxyEnable) mHttp2Handel.Proxy = wProxy;
+            mHttp2Handel.Proxy = proxyEnable ? wProxy : new WebProxy();
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
             return mHttpClient.GetByteArrayAsync(url).Result;

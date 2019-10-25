@@ -160,7 +160,7 @@ namespace AuroraGUI.DnsSvr
     class UrlSettings
     {
         public static string GeoIpApi = "https://api.ip.sb/geoip/";
-        public static string WhatMyIpApi = "http://whatismyip.akamai.com/";
+        public static string WhatMyIpApi = "https://api.ipify.org/";
         public static string MDnsList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DNS.list";
         public static string MDohList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DoH.list";
 

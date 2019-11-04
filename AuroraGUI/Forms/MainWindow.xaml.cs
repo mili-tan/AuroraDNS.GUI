@@ -67,8 +67,15 @@ namespace AuroraGUI
                 UrlSettings.MDnsList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-HK.list";
 
             if (!File.Exists($"{SetupBasePath}config.json"))
+            {
                 if (MyTools.IsBadSoftExist())
                     MessageBox.Show("Tips: AuroraDNS 强烈不建议您使用国产安全软件产品！");
+                MessageBoxResult msgResult =
+                    MessageBox.Show(
+                        "Question: 初次启动，是否要将您的系统默认 DNS 服务器设为 AuroraDNS?"
+                        , "Question", MessageBoxButton.OKCancel);
+                if (msgResult == MessageBoxResult.OK) IsSysDns_OnClick(null, null);
+            }
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\AuroraDNS.UrlReged"))
             {
@@ -463,7 +470,6 @@ namespace AuroraGUI
                     });
 
                     IsSysDns.ToolTip = "已设为系统 DNS";
-                    IsSysDns.IsChecked = true;
                 }
             }
             catch (Exception exception)

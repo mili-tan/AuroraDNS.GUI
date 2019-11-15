@@ -8,8 +8,7 @@ https://neatdns.ustclug.org/resolve ,USTC-LUG
 https://dns.dns-over-https.com/dns-query ,NekomimiRouter
 https://dns.rubyfish.cn/dns-query ,Rubyfish
 https://doh.dns.sb/dns-query ,DNS.SB
-https://doh.blahdns.com/dns-query ,Blahdns
+https://doh-jp.blahdns.com/dns-query ,Blahdns-JP
+https://doh-de.blahdns.com/dns-query ,Blahdns-DE
+https://doh-fi.blahdns.com/dns-query ,Blahdns-FI
 https://dns.233py.com/dns-query ,GEEKDNS
-https://dnsp1.mili.one/dns-query/ ,Milkey-KryptUsTest
-https://dnsp2.mili.one/dns-query/ ,Milkey-MoackKrTest
-https://doh.n2o.pw/ ,NETOUCHER-N2OSystems

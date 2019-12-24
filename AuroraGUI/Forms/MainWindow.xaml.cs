@@ -160,7 +160,7 @@ namespace AuroraGUI
                 worker.DoWork += (sender, args) =>
                 {
                     LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
-                    IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
+                    if (!Equals(DnsSettings.EDnsIp, IPAddress.Loopback)) IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
 
                     try
                     {

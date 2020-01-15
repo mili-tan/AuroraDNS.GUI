@@ -301,10 +301,7 @@
     <Resource Include="Resources\nightly.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\sit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\lig.png" />
+    <Resource Include="Resources\wid.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />

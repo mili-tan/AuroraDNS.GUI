@@ -300,7 +300,8 @@ namespace AuroraGUI
                 Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback))
                 new TcpFwder(Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ? IPAddress.Any : IPAddress.Loopback, 53,
                     IPAddress.IPv6Loopback, 53).Run();
-            
+
+            IsSysDns.ToolTip = IsLog.IsChecked == true ? "记录日志:是" : "记录日志:否";
             if (IsSysDns.IsChecked == true) IsSysDns.ToolTip = "已设为系统 DNS";
             if (Equals(DnsSettings.ListenIp, IPAddress.Any)) IsGlobal.ToolTip = "当前监听 : 局域网";
             else if (Equals(DnsSettings.ListenIp, IPAddress.Loopback)) IsGlobal.ToolTip = "当前监听 : 本地";
@@ -338,6 +339,7 @@ namespace AuroraGUI
             DnsSettings.DebugLog = true;
             if (MyTools.PortIsUse(DnsSettings.ListenPort))
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:是"});
+            IsLog.ToolTip = "记录日志 : 是";
         }
 
         private void IsLog_Unchecked(object sender, RoutedEventArgs e)
@@ -345,6 +347,7 @@ namespace AuroraGUI
             DnsSettings.DebugLog = false;
             if (MyTools.PortIsUse(DnsSettings.ListenPort))
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:否"});
+            IsLog.ToolTip = "记录日志 : 否";
         }
 
         private void DnsEnable_Checked(object sender, RoutedEventArgs e)

@@ -316,6 +316,7 @@ namespace AuroraGUI
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
                 MDnsSvrWorker.RunWorkerAsync();
+                IsGlobal.ToolTip = "当前监听 : 局域网";
             }
         }
 
@@ -328,6 +329,7 @@ namespace AuroraGUI
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
                 MDnsSvrWorker.RunWorkerAsync();
+                IsGlobal.ToolTip = "当前监听 : 本地";
             }
         }
 

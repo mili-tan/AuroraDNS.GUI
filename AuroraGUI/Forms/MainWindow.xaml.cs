@@ -238,8 +238,6 @@ namespace AuroraGUI
             NotifyIcon.DoubleClick += MinimizedNormal;
 
             IsSysDns.IsChecked = MyTools.IsNslookupLocDns();
-            if (IsSysDns.IsChecked == true)
-                IsSysDns.ToolTip = "已设为系统 DNS";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -302,6 +300,11 @@ namespace AuroraGUI
                 Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback))
                 new TcpFwder(Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ? IPAddress.Any : IPAddress.Loopback, 53,
                     IPAddress.IPv6Loopback, 53).Run();
+            
+            if (IsSysDns.IsChecked == true) IsSysDns.ToolTip = "已设为系统 DNS";
+            if (Equals(DnsSettings.ListenIp, IPAddress.Any)) IsGlobal.ToolTip = "当前监听 : 局域网";
+            else if (Equals(DnsSettings.ListenIp, IPAddress.Loopback)) IsGlobal.ToolTip = "当前监听 : 本地";
+            else IsGlobal.ToolTip = "当前监听 : " + DnsSettings.ListenIp;
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)

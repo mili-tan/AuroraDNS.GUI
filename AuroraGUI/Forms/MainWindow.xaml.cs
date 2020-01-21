@@ -315,7 +315,7 @@ namespace AuroraGUI
                 MDnsSvrWorker.Dispose();
                 MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Any, DnsSettings.ListenPort), 10, 10);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
-                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 局域网 " + IPAddress.Any});
+                Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "监听地址 : 局域网 " + IPAddress.Any});
                 MDnsSvrWorker.RunWorkerAsync();
                 IsGlobal.ToolTip = "当前监听 : 局域网";
             }
@@ -328,7 +328,7 @@ namespace AuroraGUI
                 MDnsSvrWorker.Dispose();
                 MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Loopback, DnsSettings.ListenPort), 10, 10);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
-                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "监听地址: 本地 " + IPAddress.Loopback});
+                Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "监听地址 : 本地 " + IPAddress.Loopback});
                 MDnsSvrWorker.RunWorkerAsync();
                 IsGlobal.ToolTip = "当前监听 : 本地";
             }
@@ -338,7 +338,7 @@ namespace AuroraGUI
         {
             DnsSettings.DebugLog = true;
             if (MyTools.PortIsUse(DnsSettings.ListenPort))
-                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:是"});
+                Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "记录日志 : 是" });
             IsLog.ToolTip = "记录日志 : 是";
         }
 
@@ -346,7 +346,7 @@ namespace AuroraGUI
         {
             DnsSettings.DebugLog = false;
             if (MyTools.PortIsUse(DnsSettings.ListenPort))
-                Snackbar.MessageQueue.Enqueue(new TextBlock() {Text = "记录日志:否"});
+                Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "记录日志 : 否" });
             IsLog.ToolTip = "记录日志 : 否";
         }
 
@@ -477,9 +477,9 @@ namespace AuroraGUI
 
                     Snackbar.MessageQueue.Enqueue(new TextBlock
                     {
-                        Text = "主DNS:" + IPAddress.Loopback +
+                        Text = "主DNS : " + IPAddress.Loopback +
                                Environment.NewLine +
-                               "辅DNS:" + DnsSettings.SecondDnsIp
+                               "辅DNS : " + DnsSettings.SecondDnsIp
                     });
 
                     IsSysDns.ToolTip = "已设为系统 DNS";

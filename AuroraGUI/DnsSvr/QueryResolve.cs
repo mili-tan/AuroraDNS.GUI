@@ -27,13 +27,11 @@ namespace AuroraGUI.DnsSvr
                 if (!(e.Query is DnsMessage query))
                     return;
 
-                IPAddress clientAddress = e.RemoteEndpoint.Address;
+                string clientAddress = e.RemoteEndpoint.Address.ToString();
                 if (DnsSettings.EDnsCustomize)
-                    clientAddress = Equals(DnsSettings.EDnsIp.Network, IPAddress.Parse("0.0.0.1"))
-                        ? IPAddress.Parse(MainWindow.IntIPAddr.ToString().Substring(
-                            0, MainWindow.IntIPAddr.ToString().LastIndexOf(".", StringComparison.Ordinal)) + ".1") : DnsSettings.EDnsIp.Network;
-                else if (Equals(clientAddress, IPAddress.Loopback) || IpTools.InSameLaNet(clientAddress, MainWindow.LocIPAddr))
-                    clientAddress = MainWindow.IntIPAddr;
+                    clientAddress = DnsSettings.EDnsIp.ToString();
+                else if (Equals(IPAddress.Parse(clientAddress), IPAddress.Loopback) || IpTools.InSameLaNet(IPAddress.Parse(clientAddress), MainWindow.LocIPAddr))
+                    clientAddress = MainWindow.IntIPAddr.ToString();
 
                 DnsMessage response = query.CreateResponseInstance();
 
@@ -62,7 +60,7 @@ namespace AuroraGUI.DnsSvr
                             }
                             else
                             {
-                                response.AnswerRecords.AddRange(ResolveOverHttpsByDnsJson(clientAddress.ToString(),
+                                response.AnswerRecords.AddRange(ResolveOverHttpsByDnsJson(clientAddress,
                                     dnsQuestion.Name.ToString(), "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable,
                                     DnsSettings.WProxy, dnsQuestion.RecordType).list);
                                 if (DnsSettings.DebugLog)

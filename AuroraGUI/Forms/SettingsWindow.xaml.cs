@@ -13,7 +13,6 @@ using System.Windows.Controls;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Forms;
 using AuroraGUI.Tools;
-using LukeSkywalker.IPNetwork;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 
@@ -100,7 +99,7 @@ namespace AuroraGUI
 
                 DnsSettings.HttpsDnsUrl = DoHUrlText.Text.Trim();
                 DnsSettings.SecondHttpsDnsUrl = SecondDoHUrlText.Text.Trim();
-                DnsSettings.EDnsIp = IPNetwork.Parse(EDNSClientIP.Text);
+                DnsSettings.EDnsIp = IPAddress.Parse(EDNSClientIP.Text);
                 DnsSettings.ListenIp = IPAddress.Parse(ListenIP.Text);
 
                 DnsSettings.WProxy = Proxy.IsChecked == true

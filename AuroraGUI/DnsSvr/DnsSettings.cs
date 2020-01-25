@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using ARSoft.Tools.Net;
 using AuroraGUI.Tools;
+using LukeSkywalker.IPNetwork;
 using MojoUnity;
 
 namespace AuroraGUI.DnsSvr
@@ -19,7 +20,7 @@ namespace AuroraGUI.DnsSvr
         public static string SecondHttpsDnsUrl = "https://1.0.0.1/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;
         public static int ListenPort = 53;
-        public static IPAddress EDnsIp = IPAddress.Any;
+        public static IPNetwork EDnsIp = IPNetwork.Parse(IPAddress.Any.ToString());
         public static IPAddress SecondDnsIp = IPAddress.Parse("1.1.1.1");
         public static bool EDnsCustomize = false;
         public static bool ProxyEnable  = false;
@@ -83,7 +84,7 @@ namespace AuroraGUI.DnsSvr
             HttpsDnsUrl = configJson.AsObjectGetString("HttpsDns").Trim();
 
             if (EDnsCustomize)
-                EDnsIp = IPAddress.Parse(configJson.AsObjectGetString("EDnsClientIp"));
+                EDnsIp = IPNetwork.Parse(configJson.AsObjectGetString("EDnsClientIp"));
             if (ProxyEnable)
                 WProxy = new WebProxy(configJson.AsObjectGetString("Proxy"));
         }

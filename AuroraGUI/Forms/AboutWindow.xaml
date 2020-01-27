@@ -72,7 +72,7 @@
                 <TextBlock Grid.Row="0" Margin="16,16,0,5.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575" ><Run Text="© 2018-2019 AuroraDNS Proj 保留所有权利 / 使用 MIT 许可证开放源代码。"/></TextBlock>
+                           Foreground="#FF757575" ><Run Text="© 2018-2020 AuroraDNS Proj 保留所有权利 / 使用 MIT 许可证开放源代码。"/></TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}"/>
                 <TextBlock Grid.Row="2" Margin="16,7.6,0,15.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 

@@ -48,7 +48,7 @@
                     DockPanel.Dock="Left" Margin="0,0,0,-1" >
                         <TextBlock.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Name="TitleTextItem" IsEnabled="False" FontStyle="Italic"/>
+                                <MenuItem Name="TitleTextItem" FontSize="12" Header="User-Agent : AuroraDNSC/0.1" IsEnabled="False" FontStyle="Italic"/>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                         <Italic>A</Italic>uroraDNS

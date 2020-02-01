@@ -13,13 +13,13 @@
         MinWidth="550" MinHeight="370" ResizeMode="NoResize">
     <Grid>
         <Image Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Margin="460,10,10,290"/>
-        <Grid HorizontalAlignment="Center" Height="130" VerticalAlignment="Top" Width="600" Opacity="0.8">
+        <Grid HorizontalAlignment="Center" Height="130" VerticalAlignment="Top" Width="600">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/wid.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/sta.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />

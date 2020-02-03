@@ -36,50 +36,50 @@ namespace AuroraGUI.Tools
                 Socket tcp1 = serverSocket.Accept();
                 Socket tcp2 = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
                 tcp2.Connect(new IPEndPoint(TargetIp, TargetPort));
-                ThreadPool.QueueUserWorkItem(SwapMsg, new thSock
+                ThreadPool.QueueUserWorkItem(SwapMsg, new ThSock
                 {
-                    tcp1 = tcp2,
-                    tcp2 = tcp1
+                    Tcp1 = tcp2,
+                    Tcp2 = tcp1
                 });
-                ThreadPool.QueueUserWorkItem(SwapMsg, new thSock
+                ThreadPool.QueueUserWorkItem(SwapMsg, new ThSock
                 {
-                    tcp1 = tcp1,
-                    tcp2 = tcp2
+                    Tcp1 = tcp1,
+                    Tcp2 = tcp2
                 });
             }
         }
 
         public void SwapMsg(object obj)
         {
-            thSock mSocket = (thSock)obj;
+            ThSock mSocket = (ThSock)obj;
             while (true)
             {
                 try
                 {
                     byte[] result = new byte[1024];
-                    int num = mSocket.tcp2.Receive(result, result.Length, SocketFlags.None);
+                    int num = mSocket.Tcp2.Receive(result, result.Length, SocketFlags.None);
                     if (num == 0) 
                     {
-                        if (mSocket.tcp1.Connected) mSocket.tcp1.Close();
-                        if (mSocket.tcp2.Connected) mSocket.tcp2.Close();
+                        if (mSocket.Tcp1.Connected) mSocket.Tcp1.Close();
+                        if (mSocket.Tcp2.Connected) mSocket.Tcp2.Close();
                         break;
                     }
-                    mSocket.tcp1.Send(result, num, SocketFlags.None);
+                    mSocket.Tcp1.Send(result, num, SocketFlags.None);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    if (mSocket.tcp1.Connected) mSocket.tcp1.Close();
-                    if (mSocket.tcp2.Connected) mSocket.tcp2.Close();
+                    if (mSocket.Tcp1.Connected) mSocket.Tcp1.Close();
+                    if (mSocket.Tcp2.Connected) mSocket.Tcp2.Close();
                     break;
                 }
             }
         }
 
-        public class thSock
+        public class ThSock
         {
-            public Socket tcp1 { get; set; }
-            public Socket tcp2 { get; set; }
+            public Socket Tcp1 { get; set; }
+            public Socket Tcp2 { get; set; }
         }
     }
 }

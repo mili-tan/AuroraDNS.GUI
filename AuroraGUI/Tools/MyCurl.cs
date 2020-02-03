@@ -68,8 +68,9 @@ namespace AuroraGUI.Tools
             bool allowRedirect = true)
         {
             var mHttp2Handel = new Http2Handler();
+            mHttp2Handel.WindowsProxyUsePolicy = !proxyEnable ? WindowsProxyUsePolicy.DoNotUseProxy : WindowsProxyUsePolicy.UseCustomProxy;
             mHttp2Handel.AutomaticRedirection = allowRedirect;
-            mHttp2Handel.Proxy = proxyEnable ? wProxy : new WebProxy();
+            mHttp2Handel.Proxy = proxyEnable ? wProxy : null;
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
             return mHttpClient.GetStringAsync(url).Result;

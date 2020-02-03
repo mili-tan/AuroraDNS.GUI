@@ -199,7 +199,7 @@ namespace AuroraGUI.DnsSvr
                 HttpWebResponse response = (HttpWebResponse) e.Response;
                 try
                 {
-                    BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {response.ResponseUri}");
+                    BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {e.Status} | {domainName} | {response.ResponseUri}");
                     if (DnsSettings.HTTPStatusNotify)
                         MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                             $"异常 :{Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
@@ -207,7 +207,8 @@ namespace AuroraGUI.DnsSvr
                 }
                 catch (Exception exception)
                 {
-                    BackgroundLog($@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl}");
+                    BackgroundLog($@"| - Catch WebException : {exception.Message} | {e.Status} | {domainName} | {dohUrl}" + @"?ct=application/dns-json&" +
+                                  $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
                     if (DnsSettings.HTTPStatusNotify)
                         MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
                             $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);

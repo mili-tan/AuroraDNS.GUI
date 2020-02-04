@@ -364,13 +364,13 @@ namespace AuroraGUI.DnsSvr
                 try
                 {
                     BackgroundLog(
-                        $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {domainName} | {dohUrl} | {dnsBase64String}");
+                        $@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {e.Status} |  {domainName} | {response.ResponseUri} | {dnsBase64String}");
                     if (response.StatusCode == HttpStatusCode.BadRequest) DnsSettings.DnsMsgEnable = false;
                 }
                 catch (Exception exception)
                 {
                     BackgroundLog(
-                        $@"| - Catch WebException : {exception.Message} | {domainName} | {dohUrl} | {dnsBase64String}");
+                        $@"| - Catch WebException : {exception.Message} | {e.Status} | {domainName} | {dohUrl} | {dnsBase64String}");
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);

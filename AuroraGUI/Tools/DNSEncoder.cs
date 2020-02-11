@@ -15,9 +15,9 @@ namespace AuroraGUI.Tools
                     if (mInfo.ToString() == "Int32 Encode(Boolean, Byte[] ByRef)")
                         info = mInfo;
             info.Invoke(dnsQMsg, args);
-
-            if ((args[1] as byte[])[2] == 0) (args[1] as byte[])[2] = 1;
-            return args[1] as byte[];
+            var dnsBytes = args[1] as byte[];
+            if (dnsBytes[2] == 0) dnsBytes[2] = 1;
+            return dnsBytes;
         }
     }
 }

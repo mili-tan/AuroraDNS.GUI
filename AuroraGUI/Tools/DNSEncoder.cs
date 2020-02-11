@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using ARSoft.Tools.Net.Dns;
 
 namespace AuroraGUI.Tools
 {
-    class DNSEncoder
+    internal static class DNSEncoder
     {
         private static MethodInfo info;
 

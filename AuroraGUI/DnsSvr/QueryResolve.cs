@@ -339,7 +339,11 @@ namespace AuroraGUI.DnsSvr
             bool proxyEnable = false, IWebProxy wProxy = null, RecordType type = RecordType.A)
         {
             DnsMessage dnsMsg;
-            var dnsBase64String = Convert.ToBase64String(MyDnsSend.GetQuestionData(domainName.TrimEnd('.'), type)).TrimEnd('=')
+            DnsMessage dnsQMsg = new DnsMessage();
+            dnsQMsg.Questions.Add(new DnsQuestion(DomainName.Parse(domainName), type, RecordClass.INet));
+            dnsQMsg.IsEDnsEnabled = true;
+            dnsQMsg.EDnsOptions.Options.Add(new ClientSubnetOption(24, IPAddress.Parse(clientIpAddress)));
+            var dnsBase64String = Convert.ToBase64String(DNSEncoder.Encode(dnsQMsg)).TrimEnd('=')
                 .Replace('+', '-').Replace('/', '_');
 
             try

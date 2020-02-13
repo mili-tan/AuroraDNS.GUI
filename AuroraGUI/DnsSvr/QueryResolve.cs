@@ -9,7 +9,6 @@ using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.Tools;
 using MojoUnity;
-using OhMyDnsPackage;
 using static AuroraGUI.Tools.MyTools;
 
 // ReSharper disable CollectionNeverUpdated.Global

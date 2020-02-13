@@ -205,9 +205,6 @@
     <Compile Include="Forms\SpeedWindow.xaml.cs">
       <DependentUpon>SpeedWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OhMyDns\MyDnsHeader.cs" />
-    <Compile Include="OhMyDns\MyDnsQuestion.cs" />
-    <Compile Include="OhMyDns\MyDnsSend.cs" />
     <Compile Include="Tools\DNSEncoder.cs" />
     <Compile Include="Tools\Lnk.cs" />
     <Compile Include="Tools\MojoUnityJson.cs" />

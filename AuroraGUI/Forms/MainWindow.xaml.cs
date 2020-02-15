@@ -128,7 +128,7 @@ namespace AuroraGUI
             {
                 MessageBox.Show($"Error: 尝试读取配置文件错误{Environment.NewLine}Original error: {e}");
             }
-
+            
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
             if (DnsSettings.AllowSelfSignedCert)
                 ServicePointManager.ServerCertificateValidationCallback +=
@@ -164,7 +164,7 @@ namespace AuroraGUI
                     {
                         IntIPAddr = IPAddress.Parse(IpTools.GetIntIp());
                         var local = IpTools.GeoIpLocal(IntIPAddr.ToString());
-                        Dispatcher.Invoke(() => { TitleTextItem.Header = $"{IntIPAddr}{Environment.NewLine}{local}"; });
+                        Dispatcher?.Invoke(() => { TitleTextItem.Header = $"{IntIPAddr}{Environment.NewLine}{local}"; });
                     }
 
                     try
@@ -429,7 +429,7 @@ namespace AuroraGUI
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(OpacityProperty));
             fadeInStoryboard.Children.Add(fadeInAnimation);
 
-            Dispatcher.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
+            Dispatcher?.BeginInvoke(new Action(fadeInStoryboard.Begin), DispatcherPriority.Render, null);
         }
 
         private void MinimizedNormal(object sender, EventArgs e)

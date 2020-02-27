@@ -34,9 +34,9 @@ namespace AuroraGUI.Tools
                     }
                     catch (Exception e)
                     {
-                        Thread.Sleep(100);
                         if (!File.Exists(fileName)) File.Create(fileName).Close();
-                        File.AppendAllLines(fileName, new[] {e.Message, log});
+                        Thread.Sleep(500);
+                        File.AppendAllLines(fileName, e is IOException ? new[] {log} : new[] {e.Message, log});
                         Thread.Sleep(100);
                     }
                 };

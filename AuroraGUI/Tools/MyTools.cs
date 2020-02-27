@@ -20,30 +20,32 @@ namespace AuroraGUI.Tools
     {
         public static void BackgroundLog(string log)
         {
-            try
+            using (var worker = new BackgroundWorker())
             {
-                using (BackgroundWorker worker = new BackgroundWorker())
+                worker.DoWork += (o, ea) =>
                 {
-                    worker.DoWork += (o, ea) =>
+                    var fileName =
+                        $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log";
+                    try
                     {
                         if (!Directory.Exists("Log"))
                             Directory.CreateDirectory("Log");
-                        File.AppendAllText($"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log", log + Environment.NewLine);
-                    };
+                        File.AppendAllLines(fileName, new[] {log});
+                    }
+                    catch (Exception e)
+                    {
+                        Thread.Sleep(100);
+                        if (!File.Exists(fileName)) File.Create(fileName).Close();
+                        File.AppendAllLines(fileName, new[] {e.Message, log});
+                        Thread.Sleep(100);
+                    }
+                };
 
-                    worker.RunWorkerAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                Thread.Sleep(100);
-                BackgroundLog(log);
-                Thread.Sleep(100);
-                BackgroundLog(e.ToString());
+                worker.RunWorkerAsync();
             }
         }
 
-        public static void BackgroundWriteCache(CacheItem item,int ttl = 600)
+        public static void BackgroundWriteCache(CacheItem item, int ttl = 600)
         {
             using (BackgroundWorker worker = new BackgroundWorker())
             {
@@ -105,17 +107,21 @@ namespace AuroraGUI.Tools
                 {
                     try
                     {
-                        var jsonStr = Regex.Replace(Encoding.UTF8.GetString(new WebClient { Headers = { ["User-Agent"] = "AuroraDNSC/0.1" } }.DownloadData(
-                            "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest")), @"[\u4e00-\u9fa5|\u3002|\uff0c]", "");
+                        var jsonStr = Regex.Replace(Encoding.UTF8.GetString(
+                                new WebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}}.DownloadData(
+                                    "https://api.github.com/repos/mili-tan/AuroraDNS.GUI/releases/latest")),
+                            @"[\u4e00-\u9fa5|\u3002|\uff0c]", "");
                         var assets = Json.Parse(jsonStr).AsObjectGetArray("assets");
                         var fileTime = File.GetLastWriteTime(filePath);
                         string downloadUrl = assets[0].AsObjectGetString("browser_download_url");
 
                         if (Convert.ToInt32(downloadUrl.Split('/')[7]) >
-                            Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") + fileTime.Day.ToString("00")))
+                            Convert.ToInt32(fileTime.Year - 2000 + fileTime.Month.ToString("00") +
+                                            fileTime.Day.ToString("00")))
                             Process.Start(downloadUrl);
                         else
-                            MessageBox.Show($"当前AuroraDNS.GUI({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00})已是最新版本,无需更新。");
+                            MessageBox.Show(
+                                $"当前AuroraDNS.GUI({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00})已是最新版本,无需更新。");
                     }
                     catch (Exception e)
                     {

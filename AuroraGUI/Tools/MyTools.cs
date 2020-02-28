@@ -28,12 +28,12 @@ namespace AuroraGUI.Tools
                         $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log";
                     try
                     {
-                        if (!Directory.Exists("Log"))
-                            Directory.CreateDirectory("Log");
                         File.AppendAllLines(fileName, new[] {log});
                     }
                     catch (Exception e)
                     {
+                        if (!Directory.Exists($"{MainWindow.SetupBasePath}Log"))
+                            Directory.CreateDirectory($"{MainWindow.SetupBasePath}Log");
                         if (!File.Exists(fileName)) File.Create(fileName).Close();
                         Thread.Sleep(500);
                         File.AppendAllLines(fileName, e is IOException ? new[] {log} : new[] {e.Message, log});

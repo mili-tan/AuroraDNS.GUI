@@ -58,19 +58,25 @@ namespace AuroraGUI.Tools
         public static string GetStringByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null,
             bool allowRedirect = true)
         {
-            MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
-            mWebClient.AllowAutoRedirect = allowRedirect;
-            mWebClient.Proxy = proxyEnable ? wProxy : new WebProxy();
+            MWebClient mWebClient = new MWebClient
+            {
+                Headers = {["User-Agent"] = "AuroraDNSC/0.1"},
+                AllowAutoRedirect = allowRedirect,
+                Proxy = proxyEnable ? wProxy : new WebProxy()
+            };
             return mWebClient.DownloadString(url);
         }
 
         public static string GetStringByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null,
             bool allowRedirect = true)
         {
-            var mHttp2Handel = new Http2Handler();
-            mHttp2Handel.WindowsProxyUsePolicy = !proxyEnable ? WindowsProxyUsePolicy.DoNotUseProxy : WindowsProxyUsePolicy.UseCustomProxy;
-            mHttp2Handel.AutomaticRedirection = allowRedirect;
-            mHttp2Handel.Proxy = proxyEnable ? wProxy : null;
+            var mHttp2Handel = new Http2Handler
+            {
+                WindowsProxyUsePolicy =
+                    !proxyEnable ? WindowsProxyUsePolicy.DoNotUseProxy : WindowsProxyUsePolicy.UseCustomProxy,
+                AutomaticRedirection = allowRedirect,
+                Proxy = !proxyEnable ? null : wProxy
+            };
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
             return mHttpClient.GetStringAsync(url).Result;
@@ -79,18 +85,25 @@ namespace AuroraGUI.Tools
         public static byte[] GetDataByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null,
             bool allowRedirect = true)
         {
-            MWebClient mWebClient = new MWebClient {Headers = {["User-Agent"] = "AuroraDNSC/0.1"}};
-            mWebClient.AllowAutoRedirect = allowRedirect;
-            mWebClient.Proxy = proxyEnable ? wProxy : new WebProxy();
+            MWebClient mWebClient = new MWebClient
+            {
+                Headers = { ["User-Agent"] = "AuroraDNSC/0.1" },
+                AllowAutoRedirect = allowRedirect,
+                Proxy = proxyEnable ? wProxy : new WebProxy()
+            };
             return mWebClient.DownloadData(url);
         }
 
         public static byte[] GetDataByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null,
             bool allowRedirect = true)
         {
-            var mHttp2Handel = new Http2Handler {WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseWinHttpProxy};
-            mHttp2Handel.AutomaticRedirection = allowRedirect;
-            mHttp2Handel.Proxy = proxyEnable ? wProxy : new WebProxy();
+            var mHttp2Handel = new Http2Handler
+            {
+                WindowsProxyUsePolicy =
+                    !proxyEnable ? WindowsProxyUsePolicy.DoNotUseProxy : WindowsProxyUsePolicy.UseCustomProxy,
+                AutomaticRedirection = allowRedirect,
+                Proxy = !proxyEnable ? null : wProxy
+            };
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
             return mHttpClient.GetByteArrayAsync(url).Result;

@@ -18,7 +18,7 @@ namespace AuroraGUI.Tools
                 foreach (var mInfo in dnsQMsg.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic))
                     if (mInfo.ToString() == "Int32 Encode(Boolean, Byte[] ByRef)")
                         info = mInfo;
-            if (info != null) info.Invoke(dnsQMsg, args);
+            info.Invoke(dnsQMsg, args);
             //var dnsBytes = args[1] as byte[];
             //if (dnsBytes[2] == 0) dnsBytes[2] = 1;
             return args[1] as byte[];

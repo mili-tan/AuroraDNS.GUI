@@ -47,7 +47,7 @@ namespace AuroraGUI.Tools
 
         public static void BackgroundWriteCache(CacheItem item, int ttl = 600)
         {
-            using (BackgroundWorker worker = new BackgroundWorker())
+            using (var worker = new BackgroundWorker())
             {
                 worker.DoWork += (o, ea) =>
                 {
@@ -101,7 +101,7 @@ namespace AuroraGUI.Tools
 
         public static void CheckUpdate(string filePath)
         {
-            using (BackgroundWorker worker = new BackgroundWorker())
+            using (var worker = new BackgroundWorker())
             {
                 worker.DoWork += (o, ea) =>
                 {

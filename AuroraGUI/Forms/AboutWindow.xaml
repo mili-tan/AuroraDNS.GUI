@@ -25,7 +25,7 @@
             </Grid.Effect>
         </Grid>
 
-        <Image x:Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Opacity="0.25" Margin="460,10,10,290"/>
+        <Image x:Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Opacity="0.5" Margin="460,10,10,290"/>
 
         <TextBlock Text="Photo by Milkey" Margin="20,20,0,0" 
                VerticalAlignment="Top" Foreground="#FFF"  FontSize="10" Opacity="0.9"

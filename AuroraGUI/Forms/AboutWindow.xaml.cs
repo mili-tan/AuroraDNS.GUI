@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace AuroraGUI
 {
@@ -18,6 +19,7 @@ namespace AuroraGUI
             VerText.Text += $" ({fileTime.Year - 2000}{fileTime.Month:00}{fileTime.Day:00}";
             VerText.Text += IsDebugBuild(GetType().Assembly) ? ".Nightly)" : ".Releases)";
             if (IsDebugBuild(GetType().Assembly)) IsNightly.Visibility = Visibility.Visible;
+            IsNightly.Effect = new BlurEffect { Radius = 2, RenderingBias = RenderingBias.Performance };
         }
 
         private void ButtonCredits_OnClick(object sender, RoutedEventArgs e)

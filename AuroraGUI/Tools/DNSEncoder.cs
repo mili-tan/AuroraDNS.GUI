@@ -12,7 +12,7 @@ namespace AuroraGUI.Tools
         {
             dnsQMsg.IsRecursionAllowed = true;
             dnsQMsg.IsRecursionDesired = true;
-            dnsQMsg.TransactionID = Convert.ToUInt16(new Random(DateTime.Now.Millisecond).Next(10));
+            dnsQMsg.TransactionID = Convert.ToUInt16(new Random(DateTime.Now.Millisecond).Next(1, 10));
             var args = new object[] {false, null};
             if (info == null)
                 foreach (var mInfo in dnsQMsg.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic))

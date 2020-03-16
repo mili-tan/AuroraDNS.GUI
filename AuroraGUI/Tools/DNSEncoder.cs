@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using ARSoft.Tools.Net.Dns;
 
 namespace AuroraGUI.Tools
@@ -15,9 +16,11 @@ namespace AuroraGUI.Tools
             dnsQMsg.TransactionID = Convert.ToUInt16(new Random(DateTime.Now.Millisecond).Next(1, 10));
             var args = new object[] {false, null};
             if (info == null)
-                foreach (var mInfo in dnsQMsg.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic))
+                Parallel.ForEach(new DnsMessage().GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic), mInfo =>
+                {
                     if (mInfo.ToString() == "Int32 Encode(Boolean, Byte[] ByRef)")
                         info = mInfo;
+                });
             info.Invoke(dnsQMsg, args);
             //var dnsBytes = args[1] as byte[];
             //if (dnsBytes[2] == 0) dnsBytes[2] = 1;

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Effects;
@@ -37,16 +38,8 @@ namespace AuroraGUI
 
         private static bool IsDebugBuild(Assembly assembly)
         {
-            foreach (object attribute in assembly.GetCustomAttributes(false))
-            {
-                if (attribute is DebuggableAttribute)
-                {
-                    DebuggableAttribute _attribute = attribute as DebuggableAttribute;
-
-                    return _attribute.IsJITTrackingEnabled;
-                }
-            }
-            return false;
+            return assembly.GetCustomAttributes(false).OfType<DebuggableAttribute>().Select(attribute => attribute)
+                .Select(attribute => attribute.IsJITTrackingEnabled).FirstOrDefault();
         }
     }
 }

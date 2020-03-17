@@ -37,7 +37,7 @@ namespace AuroraGUI.Tools
                 try
                 {
                     TcpClient tcpClient = new TcpClient();
-                    tcpClient.Connect(ResolveNameIpAddress(addressUri.DnsSafeHost), addressUri.Port);
+                    tcpClient.Connect(IPAddress.Parse("1.0.0.1"), 443);
                     return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
                 }
                 catch (Exception exception)
@@ -88,13 +88,39 @@ namespace AuroraGUI.Tools
                         ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(DomainName.Parse(name))
                             .AnswerRecords[0];
 
-                    if (ipMsg.RecordType == RecordType.A && ipMsg is ARecord msg1)
-                        return msg1.Address;
-                    if (ipMsg.RecordType == RecordType.CName)
-                        if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
+                    switch (ipMsg.RecordType)
+                    {
+                        case RecordType.A when ipMsg is ARecord msg1:
+                            return msg1.Address;
+                        case RecordType.CName:
+                        {
+                            if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
+                            break;
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
+                    try
+                    {
+                        var ipMsg = QueryResolve.ResolveOverHttpsByDnsJson(IPAddress.Any.ToString(),
+                            name, "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
+                        switch (ipMsg.RecordType)
+                        {
+                            case RecordType.A when ipMsg is ARecord msg1:
+                                return msg1.Address;
+                            case RecordType.CName:
+                            {
+                                if (ipMsg is CNameRecord msg) name = msg.CanonicalName.ToString();
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        MyTools.BackgroundLog(exception.ToString());
+                        return IPAddress.Any;
+                    }
                     MyTools.BackgroundLog(e.ToString());
                 }
             }

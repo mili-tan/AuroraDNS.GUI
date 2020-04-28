@@ -46,6 +46,16 @@ namespace AuroraGUI.Tools
                 {
                     cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={dnsAddr} validate=no" + Environment.NewLine;
                     cmd += $"netsh interface ip add dns \"{network.Name}\" addr={backupDnsAddr} validate=no" + Environment.NewLine;
+                    if ((Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback) ||
+                         Equals(DnsSettings.ListenIp, IPAddress.IPv6Any)) && IPAddress.IsLoopback(IPAddress.Parse(dnsAddr)))
+                    {
+                        cmd +=
+                            $"netsh interface ipv6 set dnsserver \"{network.Name}\" source=static addr=::1 validate=no" +
+                            Environment.NewLine;
+                        cmd +=
+                            $"netsh interface ipv6 set dnsserver \"{network.Name}\" source=static addr=::ffff:{backupDnsAddr} validate=no" +
+                            Environment.NewLine;
+                    }
                 }
             }
 
@@ -96,6 +106,7 @@ namespace AuroraGUI.Tools
             foreach (var network in GetAllNetworkInterfaces())
             {
                 if (network.OperationalStatus != Up) continue;
+                cmd += $"netsh interface ipv6 delete dns \"{network.Name}\" all" + Environment.NewLine;
                 cmd += $"netsh interface ip delete dns \"{network.Name}\" all" + Environment.NewLine;
                 cmd += $"netsh interface ip set dns \"{network.Name}\" source=dhcp" + Environment.NewLine;
                 try

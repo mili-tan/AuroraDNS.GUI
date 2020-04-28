@@ -6,10 +6,12 @@ https://dns.google/resolve ,Google
 https://dns.twnic.tw/dns-query ,TWNIC-Quad101
 https://neatdns.ustclug.org/resolve ,USTC-LUG
 https://dns.dns-over-https.com/dns-query ,NekomimiRouter
-https://dns.rubyfish.cn/dns-query ,Rubyfish
 https://doh.dns.sb/dns-query ,DNS.SB
 https://223.5.5.5/dns-query ,Alidns
 https://public.dns.iij.jp/dns-query ,IIJ-PublicDNS
 https://doh1.blahdns.com/dns-query ,Blahdns
 https://doh-jp.blahdns.com/dns-query ,Blahdns-JP
 https://i.233py.com/dns-query ,GEEKDNS
+https://dns.rubyfish.cn/dns-query ,Rubyfish
+https://arashi.doh.pp.ua/dns-query ,ArashiDNS-Test
+https://arashi-us.doh.pp.ua/dns-query ,ArashiDNS-TestUS

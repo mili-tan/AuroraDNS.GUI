@@ -304,8 +304,10 @@ namespace AuroraGUI
 
             if (Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ||
                 Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback))
-                new TcpFwder(Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ? IPAddress.Any : IPAddress.Loopback, 53,
-                    IPAddress.IPv6Loopback, 53).Run();
+            {
+                new Fwder(Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ? IPAddress.Any : IPAddress.Loopback, 53,
+                    IPAddress.IPv6Loopback).Run();
+            }
 
             IsLog.ToolTip = IsLog.IsChecked == true ? "记录日志 : 是" : "记录日志 : 否";
             if (IsSysDns.IsChecked == true) IsSysDns.ToolTip = "已设为系统 DNS";

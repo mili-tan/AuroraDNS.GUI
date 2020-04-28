@@ -2,15 +2,18 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
+using ARSoft.Tools.Net.Dns;
 
 namespace AuroraGUI.Tools
 {
-    class TcpFwder
+    // ReSharper disable once UnusedMember.Global
+    internal class TcpFwder
     {
-        int LocalProt { get; }
-        IPAddress LocalIp { get; }
-        int TargetPort { get; }
-        IPAddress TargetIp { get; }
+        private int LocalProt { get; }
+        private IPAddress LocalIp { get; }
+        private int TargetPort { get; }
+        private IPAddress TargetIp { get; }
         public TcpFwder(IPAddress LocalIp, int LocalProt, IPAddress TargetIp, int TargetPort)
         {
             this.LocalIp = LocalIp;
@@ -19,6 +22,7 @@ namespace AuroraGUI.Tools
             this.TargetPort = TargetPort;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public void Run()
         {
             Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -47,6 +51,7 @@ namespace AuroraGUI.Tools
                     Tcp2 = tcp2
                 });
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         public void SwapMsg(object obj)
@@ -80,6 +85,32 @@ namespace AuroraGUI.Tools
         {
             public Socket Tcp1 { get; set; }
             public Socket Tcp2 { get; set; }
+        }
+    }
+
+    internal class Fwder
+    {
+        private int LocalProt { get; }
+        private IPAddress LocalIp { get; }
+        private IPAddress TargetIp { get; }
+        public Fwder(IPAddress LocalIp, int LocalProt, IPAddress TargetIp)
+        {
+            this.LocalIp = LocalIp;
+            this.LocalProt = LocalProt;
+            this.TargetIp = TargetIp;
+        }
+
+        public void Run()
+        {
+            var dns = new DnsServer(new IPEndPoint(LocalIp, LocalProt), 10, 10);
+            dns.QueryReceived += OnDnsOnQueryReceived;
+            Task.Run(dns.Start);
+        }
+
+        private async Task OnDnsOnQueryReceived(object sender, QueryReceivedEventArgs e)
+        {
+            if (!(e.Query is DnsMessage query)) return;
+            e.Response = await new DnsClient(TargetIp, 1000).SendMessageAsync(query);
         }
     }
 }

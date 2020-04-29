@@ -341,6 +341,7 @@ namespace AuroraGUI.DnsSvr
             DnsMessage dnsQMsg = new DnsMessage();
             dnsQMsg.Questions.Add(new DnsQuestion(DomainName.Parse(domainName), type, RecordClass.INet));
             dnsQMsg.IsEDnsEnabled = true;
+            dnsQMsg.IsQuery = true;
             dnsQMsg.EDnsOptions.Options.Add(new ClientSubnetOption(24, IPAddress.Parse(clientIpAddress)));
             var dnsBase64String = Convert.ToBase64String(DNSEncoder.Encode(dnsQMsg)).TrimEnd('=')
                 .Replace('+', '-').Replace('/', '_');

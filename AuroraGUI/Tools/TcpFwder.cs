@@ -109,8 +109,15 @@ namespace AuroraGUI.Tools
 
         private async Task OnDnsOnQueryReceived(object sender, QueryReceivedEventArgs e)
         {
-            if (!(e.Query is DnsMessage query)) return;
-            e.Response = await new DnsClient(TargetIp, 1000).SendMessageAsync(query);
+            try
+            {
+                if (!(e.Query is DnsMessage query)) return;
+                e.Response = await new DnsClient(TargetIp, 1000).SendMessageAsync(query);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
     }
 }

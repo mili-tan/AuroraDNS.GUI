@@ -36,25 +36,15 @@ namespace AuroraGUI.Tools
                 MyTools.BackgroundLog("Try Connect:" + e);
                 try
                 {
-                    try
-                    {
-                        var tcpClient = new TcpClient();
-                        var addressUri = new Uri(DnsSettings.SecondHttpsDnsUrl);
-                        tcpClient.Connect(ResolveNameIpAddress(addressUri.DnsSafeHost), addressUri.Port);
-                        return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
-                    }
-                    catch
-                    {
-                        var tcpClient = new TcpClient();
-                        tcpClient.Connect(DnsSettings.SecondDnsIp, 53);
-                        return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
-                    }
+                    var udpClient = new UdpClient();
+                    udpClient.Connect(DnsSettings.SecondDnsIp, 53);
+                    return ((IPEndPoint) udpClient.Client.LocalEndPoint).Address.ToString();
                 }
-                catch (Exception exception)
+                catch
                 {
                     return MessageBox.Show(
-                               $"Error: 尝试连接远端 DNS over HTTPS 服务器发生错误(DoH-Server){Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。{Environment.NewLine}Original error: "
-                               + exception.Message, @"错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK
+                        $"Error: 尝试连接远端 DNS over HTTPS 服务器发生错误(DoH-Server){Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。" +
+                        $"{Environment.NewLine}Original error: " + e.Message, @"错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK
                         ? GetLocIp() : "192.168.0.1";
                 }
             }

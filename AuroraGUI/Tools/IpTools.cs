@@ -27,7 +27,7 @@ namespace AuroraGUI.Tools
             try
             {
                 var addressUri = new Uri(DnsSettings.HttpsDnsUrl);
-                var tcpClient = new TcpClient();
+                var tcpClient = new TcpClient() {ReceiveTimeout = 3000, SendTimeout = 3000};
                 tcpClient.Connect(addressUri.DnsSafeHost, addressUri.Port);
                 return ((IPEndPoint) tcpClient.Client.LocalEndPoint).Address.ToString();
             }

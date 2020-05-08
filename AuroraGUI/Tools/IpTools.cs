@@ -24,10 +24,10 @@ namespace AuroraGUI.Tools
 
         public static string GetLocIp()
         {
-            var addressUri = new Uri(DnsSettings.HttpsDnsUrl);
             try
             {
-                TcpClient tcpClient = new TcpClient();
+                var addressUri = new Uri(DnsSettings.HttpsDnsUrl);
+                var tcpClient = new TcpClient();
                 tcpClient.Connect(addressUri.DnsSafeHost, addressUri.Port);
                 return ((IPEndPoint) tcpClient.Client.LocalEndPoint).Address.ToString();
             }
@@ -36,9 +36,19 @@ namespace AuroraGUI.Tools
                 MyTools.BackgroundLog("Try Connect:" + e);
                 try
                 {
-                    TcpClient tcpClient = new TcpClient();
-                    tcpClient.Connect(IPAddress.Parse("1.0.0.1"), 443);
-                    return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
+                    try
+                    {
+                        var tcpClient = new TcpClient();
+                        var addressUri = new Uri(DnsSettings.SecondHttpsDnsUrl);
+                        tcpClient.Connect(ResolveNameIpAddress(addressUri.DnsSafeHost), addressUri.Port);
+                        return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
+                    }
+                    catch
+                    {
+                        var tcpClient = new TcpClient();
+                        tcpClient.Connect(DnsSettings.SecondDnsIp, 53);
+                        return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
+                    }
                 }
                 catch (Exception exception)
                 {

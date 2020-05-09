@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using ARSoft.Tools.Net;
@@ -14,7 +15,7 @@ namespace AuroraGUI.Tools
     {
         public static bool IsIp(string ip)
         {
-            return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
+            return IPAddress.TryParse(ip,out _);
         }
 
         public static bool InSameLaNet(IPAddress ipA, IPAddress ipB)

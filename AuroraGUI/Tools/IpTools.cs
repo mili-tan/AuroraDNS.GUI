@@ -24,10 +24,10 @@ namespace AuroraGUI.Tools
 
         public static string GetLocIp()
         {
+            var tcpClient = new TcpClient { ReceiveTimeout = 2500, SendTimeout = 2500 };
+            var addressUri = new Uri(DnsSettings.HttpsDnsUrl);
             try
             {
-                var addressUri = new Uri(DnsSettings.HttpsDnsUrl);
-                var tcpClient = new TcpClient() {ReceiveTimeout = 3000, SendTimeout = 3000};
                 tcpClient.Connect(addressUri.DnsSafeHost, addressUri.Port);
                 return ((IPEndPoint) tcpClient.Client.LocalEndPoint).Address.ToString();
             }
@@ -36,17 +36,42 @@ namespace AuroraGUI.Tools
                 MyTools.BackgroundLog("Try Connect:" + e);
                 try
                 {
-                    var udpClient = new UdpClient();
-                    udpClient.Connect(DnsSettings.SecondDnsIp, 53);
-                    return ((IPEndPoint) udpClient.Client.LocalEndPoint).Address.ToString();
+                    try
+                    {
+                        tcpClient.Connect(ResolveNameIpAddress(addressUri.DnsSafeHost), addressUri.Port);
+                        return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
+                    }
+                    catch
+                    {
+                        addressUri = new Uri(DnsSettings.SecondHttpsDnsUrl);
+                        tcpClient.Connect(ResolveNameIpAddress(addressUri.DnsSafeHost), addressUri.Port);
+                        return ((IPEndPoint)tcpClient.Client.LocalEndPoint).Address.ToString();
+                    }
                 }
                 catch
                 {
                     return MessageBox.Show(
-                        $"Error: 尝试连接远端 DNS over HTTPS 服务器发生错误(DoH-Server){Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用预设地址。" +
+                        $"Error: 尝试连接远端 DNS over HTTPS 服务器发生错误{Environment.NewLine}点击“确定”以重试连接,点击“取消”放弃连接使用备用 DNS 服务器测试。" +
                         $"{Environment.NewLine}Original error: " + e.Message, @"错误", MessageBoxButton.OKCancel) == MessageBoxResult.OK
-                        ? GetLocIp() : "192.168.0.1";
+                        ? GetLocIp() : GetLocIpUdp();
                 }
+            }
+        }
+
+        public static string GetLocIpUdp()
+        {
+            try
+            {
+                var udpClient = new UdpClient();
+                udpClient.Connect(DnsSettings.SecondDnsIp, 53);
+                return ((IPEndPoint)udpClient.Client.LocalEndPoint).Address.ToString();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    $"Error: 尝试连接远端备用 DNS 服务器失败，请检查您的设置与互联网连接。" +
+                    $"{Environment.NewLine}Original error: " + e.Message, @"错误");
+                return "192.168.1.1";
             }
         }
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Windows;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
@@ -13,15 +11,10 @@ namespace AuroraGUI.Tools
 {
     static class IpTools
     {
-        public static bool IsIp(string ip)
-        {
-            return IPAddress.TryParse(ip,out _);
-        }
+        public static bool IsIp(string ip) => IPAddress.TryParse(ip,out _);
 
-        public static bool InSameLaNet(IPAddress ipA, IPAddress ipB)
-        {
-            return ipA.GetHashCode() % 65536L == ipB.GetHashCode() % 65536L;
-        }
+        public static bool InSameLaNet(IPAddress ipA, IPAddress ipB) =>
+            ipA.GetHashCode() % 65536L == ipB.GetHashCode() % 65536L;
 
         public static string GetLocIp()
         {

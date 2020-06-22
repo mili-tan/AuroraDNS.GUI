@@ -13,5 +13,5 @@ https://doh1.blahdns.com/dns-query ,Blahdns
 https://doh-jp.blahdns.com/dns-query ,Blahdns-JP
 https://i.233py.com/dns-query ,GEEKDNS
 https://dns.rubyfish.cn/dns-query ,Rubyfish
-https://arashi.doh.pp.ua/dns-query ,ArashiDNS-Test
-https://arashi-us.doh.pp.ua/dns-query ,ArashiDNS-TestUS
+https://arashi.doh.pp.ua/dns-query ,ArashiDNS
+https://doh.rixcloud.dev/dns-query ,RixCloud

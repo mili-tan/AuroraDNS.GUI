@@ -2,6 +2,7 @@ https://1.1.1.1/dns-query ,Cloudflare
 https://1.0.0.1/dns-query ,Cloudflare
 https://dns.cloudflare.com/dns-query ,Cloudflare
 https://dns.quad9.net/dns-query ,IBM-Quad9
+https://doh.opendns.com/dns-query ,OpenDNS
 https://dns.google/resolve ,Google
 https://dns.twnic.tw/dns-query ,TWNIC-Quad101
 https://neatdns.ustclug.org/resolve ,USTC-LUG

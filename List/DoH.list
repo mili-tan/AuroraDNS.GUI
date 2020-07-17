@@ -7,6 +7,7 @@ https://dns.google/resolve ,Google
 https://ordns.he.net/dns-query ,HE.Net
 https://dns.twnic.tw/dns-query ,TWNIC-Quad101
 https://dns.adguard.com/dns-query ,AdGuard
+https://doh.pub/dns-query ,Tencent-DNSPod-D+
 https://223.5.5.5/dns-query ,Alidns
 https://public.dns.iij.jp/dns-query ,IIJ-PublicDNS
 https://neatdns.ustclug.org/resolve ,USTC-LUG

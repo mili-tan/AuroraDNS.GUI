@@ -58,22 +58,30 @@ namespace AuroraGUI
                         continue;
                     }
 
-                    if (TypeDNS)
+                    try
                     {
-                        delayTime = Ping.MPing(item.Server).Average();
-                        if (delayTime == 0)
-                            delayTime = Ping.Tcping(item.Server, 53).Average();
-                    }
-                    else
-                        delayTime = Ping.Curl(ListStrings[i].Split('*', ',')[0].Trim(), "github.io").Average();
-
-                    bgWorker.ReportProgress(i++,
-                        new SpeedList
+                        if (TypeDNS)
                         {
-                            Server = item.Server, Name = item.Name,
-                            DelayTime = Convert.ToInt32(delayTime),
-                            Asn = IpTools.GeoIpLocal(item.Server).Trim()
-                        });
+                            delayTime = Ping.MPing(item.Server).Average();
+                            if (delayTime == 0)
+                                delayTime = Ping.Tcping(item.Server, 53).Average();
+                        }
+                        else
+                            delayTime = Ping.Tcping(item.Server, 443).Average();
+
+                        bgWorker.ReportProgress(i++,
+                            new SpeedList
+                            {
+                                Server = item.Server,
+                                Name = item.Name,
+                                DelayTime = Convert.ToInt32(delayTime),
+                                Asn = IpTools.GeoIpLocal(item.Server).Trim()
+                            });
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
                 }
             };
             bgWorker.ProgressChanged += (o, args) =>

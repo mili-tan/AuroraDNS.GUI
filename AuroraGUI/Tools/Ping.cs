@@ -16,7 +16,7 @@ namespace AuroraGUI.Tools
             for (int i = 0; i < 4; i++)
             {
                 Socket socks = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
-                    { Blocking = true, ReceiveTimeout = 1000, SendTimeout = 1000 };
+                    { Blocking = true, ReceiveTimeout = 500, SendTimeout = 500 };
                 IPEndPoint point;
                 try
                 {
@@ -31,7 +31,7 @@ namespace AuroraGUI.Tools
                 try
                 {
                     var result = socks.BeginConnect(point, null, null);
-                    if (!result.AsyncWaitHandle.WaitOne(1500, true)) continue;
+                    if (!result.AsyncWaitHandle.WaitOne(500, true)) continue;
                 }
                 catch
                 {

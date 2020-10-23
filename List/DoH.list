@@ -5,6 +5,7 @@ https://dns.quad9.net/dns-query ,IBM-Quad9
 https://doh.opendns.com/dns-query ,Cisco-OpenDNS
 https://dns.google/resolve ,Google
 https://ordns.he.net/dns-query ,HE.Net
+https://doh.xfinity.com/dns-query ,Comcast-Xfinity
 https://dns.twnic.tw/dns-query ,TWNIC-Quad101
 https://dns.adguard.com/dns-query ,AdGuard
 https://doh.pub/dns-query ,Tencent-DNSPod-D+
@@ -19,3 +20,4 @@ https://doh1.blahdns.com/dns-query ,Blahdns
 https://i.233py.com/dns-query ,GEEKDNS
 https://doh.mili.one/dns-query ,Mili.ONE-ArashiDNS
 https://doh.rixcloud.dev/dns-query ,RixCloud
+https://dns.cfiec.net/dns-query ,CFIEC-BiiGroup

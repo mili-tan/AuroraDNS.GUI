@@ -86,7 +86,7 @@ ipconfig /flushdns
 
 > 我一直在使用 ReSharper，它真的可以说是令人惊叹的工具，使我的开发效率提升了数倍。
 
-感谢 [JetBrains](https://www.jetbrains.com/?from=AuroraDNS) 为本项目提供了 [ReSharper](https://www.jetbrains.com/ReSharper/) 开源许可证授权。
+感谢 [JetBrains](https://www.jetbrains.com/?from=AuroraDNS) 为本项目提供了 [ReSharper](https://www.jetbrains.com/ReSharper/?from=AuroraDNS) 开源许可证授权。
 
 ## Credits 
 

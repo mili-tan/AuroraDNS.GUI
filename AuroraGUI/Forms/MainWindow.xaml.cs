@@ -223,20 +223,31 @@ namespace AuroraGUI
                     UrlReg.UnReg("aurora-doh-list");
                     File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                 "\\AuroraDNS.UrlReged");
-                    if (!DnsSettings.AutoCleanLogEnable) return;
-                    foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
-                        if (item != $"{SetupBasePath}Log" +
-                            $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
-                            File.Delete(item);
-                    if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
+                    if (DnsSettings.AutoCleanLogEnable)
+                    {
+                        foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                            if (item != $"{SetupBasePath}Log" +
+                                $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                                File.Delete(item);
+                        if (File.Exists(Path.GetTempPath() + "setdns.cmd"))
+                            File.Delete(Path.GetTempPath() + "setdns.cmd");
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                 }
 
-                Close();
-                Environment.Exit(Environment.ExitCode);
+                try
+                {
+                    Close();
+                    Environment.Exit(0);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
+                }
             });
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) =>
             {
@@ -247,20 +258,31 @@ namespace AuroraGUI
                     UrlReg.UnReg("aurora-doh-list");
                     File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                 "\\AuroraDNS.UrlReged");
-                    if (!DnsSettings.AutoCleanLogEnable) return;
-                    foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
-                        if (item != $"{SetupBasePath}Log" +
-                            $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
-                            File.Delete(item);
-                    if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
+                    if (DnsSettings.AutoCleanLogEnable)
+                    {
+                        foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                            if (item != $"{SetupBasePath}Log" +
+                                $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                                File.Delete(item);
+                        if (File.Exists(Path.GetTempPath() + "setdns.cmd"))
+                            File.Delete(Path.GetTempPath() + "setdns.cmd");
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                 }
 
-                Close();
-                Environment.Exit(Environment.ExitCode);
+                try
+                {
+                    Close();
+                    Environment.Exit(0);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
+                }
             });
 
             NotifyIcon.ContextMenu =

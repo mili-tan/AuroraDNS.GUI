@@ -210,6 +210,34 @@ namespace AuroraGUI
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().Show());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
             WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().Show());
+            WinFormMenuItem exitResetItem = new WinFormMenuItem("退出并重置系统DNS", (sender, args) =>
+            {
+                try
+                {
+                    if (new WindowsPrincipal(WindowsIdentity.GetCurrent())
+                        .IsInRole(WindowsBuiltInRole.Administrator))
+                        SysDnsSet.ResetDns();
+                    else SysDnsSet.ResetDnsCmd();
+                    UrlReg.UnReg("doh");
+                    UrlReg.UnReg("dns-over-https");
+                    UrlReg.UnReg("aurora-doh-list");
+                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                                "\\AuroraDNS.UrlReged");
+                    if (!DnsSettings.AutoCleanLogEnable) return;
+                    foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                        if (item != $"{SetupBasePath}Log" +
+                            $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                            File.Delete(item);
+                    if (File.Exists(Path.GetTempPath() + "setdns.cmd")) File.Delete(Path.GetTempPath() + "setdns.cmd");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                Close();
+                Environment.Exit(Environment.ExitCode);
+            });
             WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) =>
             {
                 try
@@ -238,7 +266,8 @@ namespace AuroraGUI
             NotifyIcon.ContextMenu =
                 new WinFormContextMenu(new[]
                 {
-                    showItem, notepadLogItem, new WinFormMenuItem("-"), abootItem, updateItem, settingsItem, new WinFormMenuItem("-"), restartItem, exitItem
+                    showItem, notepadLogItem, new WinFormMenuItem("-"), abootItem, updateItem, settingsItem,
+                    new WinFormMenuItem("-"), restartItem, exitResetItem, exitItem
                 });
 
             NotifyIcon.DoubleClick += MinimizedNormal;

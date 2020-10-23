@@ -210,7 +210,7 @@ namespace AuroraGUI
             WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().Show());
             WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
             WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().Show());
-            WinFormMenuItem exitResetItem = new WinFormMenuItem("退出并重置系统DNS", (sender, args) =>
+            WinFormMenuItem exitResetItem = new WinFormMenuItem("退出并重置系统 DNS", (sender, args) =>
             {
                 try
                 {

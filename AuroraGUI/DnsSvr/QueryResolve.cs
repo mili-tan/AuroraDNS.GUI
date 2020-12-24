@@ -5,6 +5,7 @@ using System.Net;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ArashiDNS;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.Tools;
@@ -13,7 +14,6 @@ using static AuroraGUI.Tools.MyTools;
 
 // ReSharper disable CollectionNeverUpdated.Global
 #pragma warning disable 649
-#pragma warning disable 1998
 
 namespace AuroraGUI.DnsSvr
 {
@@ -53,8 +53,8 @@ namespace AuroraGUI.DnsSvr
                         {
                             if (!DnsSettings.StartupOverDoH)
                             {
-                                response.AnswerRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
-                                    .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
+                                response.AnswerRecords.AddRange((await new DnsClient(DnsSettings.SecondDnsIp, 5000)
+                                    .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords);
                                 if (DnsSettings.DebugLog)
                                     BackgroundLog($"| -- Startup SecondDns : {DnsSettings.SecondDnsIp}");
                             }
@@ -67,15 +67,14 @@ namespace AuroraGUI.DnsSvr
                                     BackgroundLog("| -- Startup DoH : https://1.0.0.1/dns-query");
                             }
                         }
-                        else if (DnsSettings.DnsCacheEnable && MemoryCache.Default.Contains($"{dnsQuestion.Name}{dnsQuestion.RecordType}"))
+                        else if (DnsSettings.DnsCacheEnable && DnsCache.Contains(query))
                         {
-                            response.AnswerRecords.AddRange(
-                                (List<DnsRecordBase>)MemoryCache.Default.Get($"{dnsQuestion.Name}{dnsQuestion.RecordType}"));
-                            response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0,
-                                "AuroraDNSC Cached"));
-
+                            response.AnswerRecords.AddRange(DnsCache.Get(query).AnswerRecords);
+                            //response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("cache.auroradns.mili.one"), 0,
+                            //    "AuroraDNSC Cached"));
                             if (DnsSettings.DebugLog)
-                                BackgroundLog($@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
+                                BackgroundLog(
+                                    $@"|- CacheContains : {dnsQuestion.Name} | Count : {MemoryCache.Default.Count()}");
                         }
                         else if (DnsSettings.BlackListEnable && DnsSettings.BlackList.Contains(dnsQuestion.Name))
                         {
@@ -90,8 +89,8 @@ namespace AuroraGUI.DnsSvr
                         {
                             List<DnsRecordBase> whiteRecords = new List<DnsRecordBase>();
                             if (!IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
-                                whiteRecords.AddRange(new DnsClient(DnsSettings.SecondDnsIp, 5000)
-                                    .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords);
+                                whiteRecords.AddRange((await new DnsClient(DnsSettings.SecondDnsIp, 5000)
+                                    .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords);
                             else
                                 whiteRecords.Add(new ARecord(dnsQuestion.Name, 10,
                                     IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name])));
@@ -119,10 +118,7 @@ namespace AuroraGUI.DnsSvr
                                         BackgroundLog(@"|- ChinaList - DNSPOD D+");
 
                                     if (DnsSettings.DnsCacheEnable && response.ReturnCode == ReturnCode.NoError)
-                                        BackgroundWriteCache(
-                                            new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}",
-                                                resolvedDnsList),
-                                            resolvedDnsList[0].TimeToLive);
+                                        BackgroundWriteCache(response);
                                 }
                             }
                             catch (Exception exception)
@@ -146,16 +142,13 @@ namespace AuroraGUI.DnsSvr
                                 if (resolvedDnsList != null && resolvedDnsList.Count != 0 && statusCode == ReturnCode.NoError)
                                 {
                                     response.AnswerRecords.AddRange(resolvedDnsList);
-
                                     if (DnsSettings.DnsCacheEnable)
-                                        BackgroundWriteCache(
-                                            new CacheItem($"{dnsQuestion.Name}{dnsQuestion.RecordType}", resolvedDnsList),
-                                            resolvedDnsList[0].TimeToLive);
+                                        BackgroundWriteCache(response);
                                 }
                                 else if (statusCode == ReturnCode.ServerFailure)
                                 {
-                                    response.AnswerRecords = new DnsClient(DnsSettings.SecondDnsIp, 1000)
-                                        .Resolve(dnsQuestion.Name, dnsQuestion.RecordType).AnswerRecords;
+                                    response.AnswerRecords = (await new DnsClient(DnsSettings.SecondDnsIp, 1000)
+                                        .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords;
                                     BackgroundLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
                                 }
                                 else
@@ -171,7 +164,8 @@ namespace AuroraGUI.DnsSvr
                     }
                 }
 
-                if (DnsSettings.TtlRewrite)
+                if (DnsSettings.TtlRewrite &&
+                    response.AnswerRecords.All(item => item.Name != DomainName.Parse("cache.auroradns.mili.one")))
                 {
                     var list = response.AnswerRecords.Where(item =>
                         item.TimeToLive < DnsSettings.TtlMinTime - DateTime.Now.Second).ToList();

@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using ArashiDNS;
+using ARSoft.Tools.Net.Dns;
 using AuroraGUI.DnsSvr;
 using Microsoft.Win32;
 using MojoUnity;
@@ -45,17 +47,11 @@ namespace AuroraGUI.Tools
             }
         }
 
-        public static void BackgroundWriteCache(CacheItem item, int ttl = 600)
+        public static void BackgroundWriteCache(DnsMessage dnsMessage)
         {
             using (var worker = new BackgroundWorker())
             {
-                worker.DoWork += (o, ea) =>
-                {
-                    if (!MemoryCache.Default.Contains(item.Key))
-                        MemoryCache.Default.Add(item,
-                            new CacheItemPolicy {AbsoluteExpiration = DateTimeOffset.Now + TimeSpan.FromSeconds(ttl)});
-                };
-
+                worker.DoWork += (o, ea) => DnsCache.Add(dnsMessage);
                 worker.RunWorkerAsync();
             }
         }

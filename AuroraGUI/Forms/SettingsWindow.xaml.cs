@@ -82,6 +82,7 @@ namespace AuroraGUI
             DnsSettings.AutoCleanLogEnable = Convert.ToBoolean(AutoClean.IsChecked);
             DnsSettings.DnsMsgEnable = Convert.ToBoolean(DNSMsg.IsChecked);
             DnsSettings.Http2Enable = Convert.ToBoolean(HTTP2Client.IsChecked);
+            DnsSettings.TtlRewrite = Convert.ToBoolean(MinimumTTL.IsChecked);
 
             if (!string.IsNullOrWhiteSpace(DoHUrlText.Text) &&
                 !string.IsNullOrWhiteSpace(SecondDoHUrlText.Text) &&

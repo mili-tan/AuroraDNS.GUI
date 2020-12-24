@@ -242,6 +242,7 @@
                         <ContextMenu>
                             <CheckBox Name="DNSMsg" Content="启用 DNS-Message 查询 (RFC8484)"/>
                             <CheckBox Name="HTTP2Client" Content="启用 HTTP2 支持 (实验性、不稳定)"/>
+                            <CheckBox Name="MinimumTTL" Content="Minimum TTL 重写 (实验性)"/>
                         </ContextMenu>
                     </TextBlock.ContextMenu>
                 </TextBlock>

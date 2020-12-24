@@ -38,7 +38,6 @@ namespace AuroraGUI.DnsSvr
 
                 if (query.Questions.Count <= 0)
                     response.ReturnCode = ReturnCode.ServerFailure;
-
                 else
                 {
                     foreach (DnsQuestion dnsQuestion in query.Questions)
@@ -171,6 +170,38 @@ namespace AuroraGUI.DnsSvr
 
                     }
                 }
+
+                if (DnsSettings.TtlRewrite)
+                {
+                    var list = response.AnswerRecords.Where(item =>
+                        item.TimeToLive < DnsSettings.TtlMinTime - DateTime.Now.Second).ToList();
+                    foreach (var item in list)
+                    {
+                        switch (item)
+                        {
+                            case ARecord aRecord:
+                                response.AnswerRecords.Add(
+                                    new ARecord(aRecord.Name, DnsSettings.TtlMinTime, aRecord.Address));
+                                response.AnswerRecords.Remove(item);
+                                break;
+                            case AaaaRecord aaaaRecord:
+                                response.AnswerRecords.Add(
+                                    new ARecord(aaaaRecord.Name, DnsSettings.TtlMinTime, aaaaRecord.Address));
+                                response.AnswerRecords.Remove(item);
+                                break;
+                            case CNameRecord cNameRecord:
+                                response.AnswerRecords.Add(new CNameRecord(cNameRecord.Name, DnsSettings.TtlMinTime,
+                                    cNameRecord.CanonicalName));
+                                response.AnswerRecords.Remove(item);
+                                break;
+                        }
+                    }
+
+                    if (list.Count > 0)
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("ttl.auroradns.mili.one"), 600,
+                            $"Rewrite TTL to {DnsSettings.TtlMinTime}"));
+                }
+
                 e.Response = response;
             }
             catch (Exception exception)

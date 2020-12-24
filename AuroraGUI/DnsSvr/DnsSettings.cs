@@ -37,6 +37,8 @@ namespace AuroraGUI.DnsSvr
         public static bool AllowSelfSignedCert = false;
         public static bool AllowAutoRedirect = true;
         public static bool HTTPStatusNotify = false;
+        public static bool TtlRewrite = false;
+        public static int TtlMinTime = 300;
         public static WebProxy WProxy = new WebProxy("127.0.0.1:1080");
 
         public static void ReadConfig(string path)
@@ -73,6 +75,11 @@ namespace AuroraGUI.DnsSvr
                 Ipv6Disable = configJson.AsObjectGetBool("Ipv6Disable");
             if (configStr.Contains("\"Ipv4Disable\""))
                 Ipv4Disable = configJson.AsObjectGetBool("Ipv4Disable");
+
+            if (configStr.Contains("\"TTLRewrite\""))
+                TtlRewrite = configJson.AsObjectGetBool("TTLRewrite");
+            if (configStr.Contains("\"TTLMinTime\""))
+                TtlMinTime = configJson.AsObjectGetInt("TTLMinTime");
 
             ListenIp = IPAddress.Parse(configJson.AsObjectGetString("Listen"));
             BlackListEnable = configJson.AsObjectGetBool("BlackList");

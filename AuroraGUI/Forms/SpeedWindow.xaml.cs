@@ -62,9 +62,10 @@ namespace AuroraGUI
                     {
                         if (TypeDNS)
                         {
-                            delayTime = Ping.MPing(item.Server).Average();
-                            if (delayTime == 0)
-                                delayTime = Ping.Tcping(item.Server, 53).Average();
+                            //delayTime = Ping.MPing(item.Server).Average();
+                            //if (delayTime == 0)
+                            //    delayTime = Ping.Tcping(item.Server, 53).Average();
+                            delayTime = Ping.DnsTest(item.Server).Average();
                         }
                         else
                             delayTime = Ping.Tcping(item.Server, 443).Average();
@@ -74,7 +75,7 @@ namespace AuroraGUI
                             {
                                 Server = item.Server,
                                 Name = item.Name,
-                                DelayTime = Convert.ToInt32(delayTime),
+                                DelayTime = delayTime,
                                 Asn = IpTools.GeoIpLocal(item.Server).Trim()
                             });
                     }

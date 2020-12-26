@@ -72,14 +72,17 @@ namespace AuroraGUI.Tools
                 stopWatch.Start();
                 try
                 {
-                    new DnsClient(IPAddress.Parse(ipStr), 500).Resolve(DomainName.Parse("example.com"));
+                    var msg = new DnsClient(IPAddress.Parse(ipStr), 500).Resolve(DomainName.Parse("example.com"));
+                    if (msg == null || msg.ReturnCode != ReturnCode.NoError) continue;
                 }
                 catch
                 {
                     continue;
                 }
+
                 stopWatch.Stop();
-                times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));
+                var time = Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds);
+                times.Add(time);
                 Thread.Sleep(100);
             }
             if (times.Count == 0) times.Add(0);
@@ -88,8 +91,9 @@ namespace AuroraGUI.Tools
 
         public static List<int> Curl(string urlStr,string name)
         {
-            var webClient = new MyCurl.MWebClient() { TimeOut = 1000 };
+            var webClient = new MyCurl.MWebClient() { TimeOut = 600 };
             var times = new List<int>();
+            var ok = true;
             for (int i = 0; i < 4; i++)
             {
                 var stopWatch = new Stopwatch();
@@ -100,10 +104,10 @@ namespace AuroraGUI.Tools
                 }
                 catch
                 {
-                    continue;
+                    ok = false;
                 }
                 stopWatch.Stop();
-                times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));
+                if (ok) times.Add(Convert.ToInt32(stopWatch.Elapsed.TotalMilliseconds));
                 Thread.Sleep(50);
             }
             if (times.Count == 0) times.Add(0);

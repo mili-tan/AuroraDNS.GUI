@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/nie.png" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/new.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
@@ -27,7 +27,7 @@
 
         <Image x:Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Opacity="0.5" Margin="460,10,10,290"/>
 
-        <TextBlock Text="Photo by Dale Nibbe" Margin="20,20,0,0" 
+        <TextBlock Text="Photo by Ian Schneider" Margin="20,20,0,0" 
                VerticalAlignment="Top" Foreground="#FFF"  FontSize="10" Opacity="0.9"
                HorizontalAlignment="Left" TextAlignment="Left" Height="17"/>
 
@@ -73,7 +73,7 @@
                 <TextBlock Grid.Row="0" Margin="16,16,0,5.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"
                            Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="#FF757575" ><Run Text="© 2018-2020 AuroraDNS Proj 保留所有权利 / 使用 MIT 许可证开放源代码。"/></TextBlock>
+                           Foreground="#FF757575" ><Run Text="© 2018-2021 AuroraDNS Proj 保留所有权利 / 使用 MIT 许可证开放源代码。"/></TextBlock>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignSeparator}"/>
                 <TextBlock Grid.Row="2" Margin="16,7.6,0,15.4" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 

@@ -67,10 +67,10 @@ namespace AuroraGUI
                             //    delayTime = Ping.Tcping(item.Server, 53).Average();
                             //var dnsDelayTime = Ping.DnsTest(item.Server).Average();
                             //if (dnsDelayTime > delayTime) delayTime = dnsDelayTime;
-                            delayTime = Ping.DnsTest(item.Server).Average();
+                            delayTime = Math.Round(Ping.DnsTest(item.Server).Average(), 2);
                         }
                         else
-                            delayTime = Ping.Tcping(item.Server, 443).Average();
+                            delayTime = Math.Round(Ping.Tcping(item.Server, 443).Average(), 2);
 
                         bgWorker.ReportProgress(i++,
                             new SpeedList

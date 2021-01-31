@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/new.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/eth.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
@@ -27,9 +27,13 @@
 
         <Image x:Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Opacity="0.5" Margin="460,10,10,290"/>
 
-        <TextBlock Text="Photo by Ian Schneider" Margin="20,20,0,0" 
+        <TextBlock Text="Photo by Vidar Nordli Mathisen" Margin="20,18,0,0" 
                VerticalAlignment="Top" Foreground="#FFF"  FontSize="10" Opacity="0.9"
-               HorizontalAlignment="Left" TextAlignment="Left" Height="17"/>
+               HorizontalAlignment="Left" TextAlignment="Left" Height="17">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="15" Color="Gray" Opacity="0.5"/>
+            </TextBlock.Effect>
+        </TextBlock>
 
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0" Opacity="0.65"

@@ -192,8 +192,8 @@ namespace AuroraGUI.DnsSvr
                     }
 
                     if (list.Count > 0)
-                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("ttl.auroradns.mili.one"), 600,
-                            $"Rewrite TTL to {DnsSettings.TtlMinTime}"));
+                        response.AnswerRecords.Add(new TxtRecord(DomainName.Parse("ttl.auroradns.mili.one"),
+                            DnsSettings.TtlMinTime, $"Rewrite TTL to {DnsSettings.TtlMinTime}"));
                 }
 
                 e.Response = response;

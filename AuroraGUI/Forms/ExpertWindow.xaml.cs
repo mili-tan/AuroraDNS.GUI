@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
 using AuroraGUI.DnsSvr;
-using AuroraGUI.Fx;
 using Microsoft.Win32;
 
 namespace AuroraGUI
@@ -19,7 +18,6 @@ namespace AuroraGUI
         public ExpertWindow()
         {
             InitializeComponent();
-            WindowBlur.SetEnabled(this, true);
             Snackbar.IsActive = true;
             Card.Effect = new BlurEffect() { Radius = 10 , RenderingBias = RenderingBias.Performance };
         }

@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         x:Class="AuroraGUI.MainWindow"
+        
+        fw:AcrylicWindow.Enabled="True"
+        fw:AcrylicWindow.AcrylicWindowStyle="None"
 
-        Background="#C8F1F1F1"
         BorderThickness="0.1"
+        Background="#0000"
         BorderBrush="#00655B"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
@@ -20,14 +24,14 @@
         Title="Aurora DNS" 
         MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
         Height="200" Width="300" Loaded="Window_Loaded"
-        StateChanged="Window_StateChanged" ResizeMode="NoResize" WindowStyle="None">
+        StateChanged="Window_StateChanged" ResizeMode="NoResize">
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
             GlassFrameThickness="1"/>
     </WindowChrome.WindowChrome>
 
-    <Grid Opacity="0.85">
+    <Grid Background="#70FFFFFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="161*"/>
             <ColumnDefinition Width="139*"/>

@@ -1,9 +1,11 @@
-﻿<Window x:Class="AuroraGUI.ExpertWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Opacity="1"
-        Title="Expert Mode" Height="770" Width="450" MaxHeight="900" MaxWidth="450"
-        WindowStartupLocation="CenterScreen" Background="#A0FFFFFF" ResizeMode="CanMinimize">
+﻿<fluentWpf:AcrylicWindow x:Class="AuroraGUI.ExpertWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                  xmlns:fluentWpf="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                  Opacity="1" AcrylicWindowStyle="NoIcon"
+                  Title="Expert Mode" Height="770" Width="450" MaxHeight="900" MaxWidth="450"
+                  WindowStartupLocation="CenterScreen" Background="#A0FFFFFF" ResizeMode="CanMinimize">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
@@ -199,4 +201,4 @@
         </materialDesign:Snackbar>
 
     </Grid>
-</Window>
+</fluentWpf:AcrylicWindow>

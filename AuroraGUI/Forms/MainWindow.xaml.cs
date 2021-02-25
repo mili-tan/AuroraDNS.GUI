@@ -11,13 +11,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.DnsSvr;
-using AuroraGUI.Fx;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
 using static System.AppDomain;
@@ -300,13 +298,13 @@ namespace AuroraGUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Hidden;
-            if (Environment.OSVersion.Version.Major == 10)
-                WindowBlur.SetEnabled(this, true);
-            else
-            {
-                NotifyIcon.Icon = Properties.Resources.AuroraBlack;
-                Background = new SolidColorBrush(Colors.White) {Opacity = 1};
-            }
+            //if (Environment.OSVersion.Version.Major == 10)
+            //    WindowBlur.SetEnabled(this, true);
+            //else
+            //{
+            //    NotifyIcon.Icon = Properties.Resources.AuroraBlack;
+            //    Background = new SolidColorBrush(Colors.White) {Opacity = 1};
+            //}
 
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 5;

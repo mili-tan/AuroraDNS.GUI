@@ -1,13 +1,14 @@
-﻿<Window x:Class="AuroraGUI.SettingsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" ResizeMode="CanMinimize"
-        Title="设置" Height="675" Width="450" Background="#F1F1F1"
-        MinHeight="640" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
-    <Grid>
+﻿<fluentWpf:AcrylicWindow x:Class="AuroraGUI.SettingsWindow"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                         xmlns:fluentWpf="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                         mc:Ignorable="d" ResizeMode="CanMinimize" AcrylicWindowStyle="NoIcon"
+                         Title="设置" Height="675" Width="450" Background="#00F1F1F1"
+                         MinHeight="640" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+    <Grid Background="#CCFAFAFA">
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Padding="0"
                              Margin="15,15,15,0">
@@ -313,4 +314,4 @@
             </Grid>
         </materialDesign:Card>
     </Grid>
-</Window>
+</fluentWpf:AcrylicWindow>

@@ -1,24 +1,26 @@
-﻿<Window x:Class="AuroraGUI.AboutWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+﻿<fluentWpf:AcrylicWindow x:Class="AuroraGUI.AboutWindow"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                         xmlns:fluentWpf="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
 
-        mc:Ignorable="d"
-        Background="#FAFAFA"
-        Topmost="True"
+                         mc:Ignorable="d"
+                         Background="#00FAFAFA"
+                         Topmost="True"
+                         AcrylicWindowStyle="NoIcon"
 
-        Title="关于" Height="350" Width="600" WindowStartupLocation="CenterScreen"
-        MinWidth="550" MinHeight="370" ResizeMode="NoResize">
-    <Grid>
+                         Title="关于" Height="350" Width="600" WindowStartupLocation="CenterScreen"
+                         MinWidth="550" MinHeight="370" ResizeMode="NoResize">
+    <Grid Background="#DDFAFAFA">
         <Grid HorizontalAlignment="Center" Height="130" VerticalAlignment="Top" Width="600">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
                 <ColumnDefinition Width="31*"/>
             </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="../Resources/eth.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="../Resources/pot.jpg" TileMode="FlipXY" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect Color="DarkGray"  ShadowDepth="1" Opacity="0.7" />
@@ -27,7 +29,7 @@
 
         <Image x:Name="IsNightly" Visibility="Hidden" Source="../Resources/nightly.png" Opacity="0.5" Margin="460,10,10,290"/>
 
-        <TextBlock Text="Photo by Vidar Nordli Mathisen" Margin="20,18,0,0" 
+        <TextBlock Text="Photo by Anthony Delanoix" Margin="20,18,0,0" 
                VerticalAlignment="Top" Foreground="#FFF"  FontSize="10" Opacity="0.9"
                HorizontalAlignment="Left" TextAlignment="Left" Height="17">
             <TextBlock.Effect>
@@ -95,4 +97,4 @@
             VerticalAlignment="Top" Foreground="#CCC" Width="588" HorizontalAlignment="Center" TextAlignment="Center" Height="20"><Run Text="Made With ❤ By Milkey Tan. | "/><Hyperlink Click="HyperlinkSponsor_OnClick" NavigateUri="https://afdian.net/@AuroraDNS"><Run Text="支持我"/></Hyperlink></TextBlock>
 
     </Grid>
-</Window>
+</fluentWpf:AcrylicWindow>

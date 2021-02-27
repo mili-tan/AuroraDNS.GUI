@@ -272,7 +272,7 @@ namespace AuroraGUI
         {
             if (!MDnsSvrTask.IsCompleted)
                 MDnsServer.Stop();
-            Process.Start(new ProcessStartInfo { FileName = GetType().Assembly.Location });
+            Process.Start(new ProcessStartInfo { FileName = Process.GetCurrentProcess().MainModule.FileName });
             Environment.Exit(Environment.ExitCode);
         }
 

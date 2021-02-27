@@ -34,9 +34,6 @@
     <Resource Include="Resources\nightly.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Fx\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\pot.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +99,10 @@
     <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Remove="Fx\WindowFx.cs" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
+    <TrimmerRootAssembly Include="System.Threading.Tasks" />
+    <TrimmerRootAssembly Include="System.Runtime" />
   </ItemGroup>
 </Project>

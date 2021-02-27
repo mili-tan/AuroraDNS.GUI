@@ -10,14 +10,19 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using ARSoft.Tools.Net.Dns;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
+using SourceChord.FluentWPF;
 using static System.AppDomain;
+using static SourceChord.FluentWPF.AcrylicWindow;
 using MessageBox = System.Windows.MessageBox;
 // ReSharper disable UseObjectOrCollectionInitializer
 // ReSharper disable NotAccessedField.Local
@@ -282,14 +287,14 @@ namespace AuroraGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
-            //if (Environment.OSVersion.Version.Major == 10)
-            //    WindowBlur.SetEnabled(this, true);
-            //else
-            //{
-            //    NotifyIcon.Icon = Properties.Resources.AuroraBlack;
-            //    Background = new SolidColorBrush(Colors.White) {Opacity = 1};
-            //}
+            if (Environment.OSVersion.Version.Major < 10)
+            {
+                TaskbarIcon.IconSource = Imaging.CreateBitmapSourceFromHIcon(
+                    Properties.Resources.AuroraBlack.Handle,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+                Background = new SolidColorBrush(Colors.White) { Opacity = 1 };
+            }
 
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 5;

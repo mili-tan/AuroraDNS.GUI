@@ -141,7 +141,7 @@
                         IconSource="/Resources/AuroraWhite.ico" >
 
             <tb:TaskbarIcon.TrayToolTip>
-                <ToolTip Placement="Mouse">
+                <ToolTip Placement="Mouse" Background="#A000">
                     <TextBlock Name="TaskbarToolTip">AuroraDNS</TextBlock>
                 </ToolTip>
             </tb:TaskbarIcon.TrayToolTip>

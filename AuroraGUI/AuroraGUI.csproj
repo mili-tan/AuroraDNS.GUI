@@ -18,6 +18,9 @@
     <ApplicationIcon>Aurora.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Aurora.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Management.Instrumentation" />
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Aurora.png" />
+    <Resource Include="Resources\Aurora.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AuroraBlack.ico" />

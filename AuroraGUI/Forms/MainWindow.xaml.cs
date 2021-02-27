@@ -289,11 +289,15 @@ namespace AuroraGUI
         {
             if (Environment.OSVersion.Version.Major < 10)
             {
-                TaskbarIcon.IconSource = Imaging.CreateBitmapSourceFromHIcon(
-                    Properties.Resources.AuroraBlack.Handle,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
-                Background = new SolidColorBrush(Colors.White) { Opacity = 1 };
+                try
+                {
+                    TaskbarIcon.IconSource = new BitmapImage(new Uri("pack://application:,,,/Resources/AuroraBlack.ico"));
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.ToString());
+                }
+                Background = new SolidColorBrush(Colors.White) {Opacity = 1};
             }
 
             var desktopWorkingArea = SystemParameters.WorkArea;

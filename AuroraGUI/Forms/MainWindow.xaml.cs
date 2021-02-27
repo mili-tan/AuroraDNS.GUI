@@ -262,8 +262,12 @@ namespace AuroraGUI
         {
             if (File.Exists(
                 $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
-                Process.Start(new ProcessStartInfo(
-                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = "notepad.exe",
+                    Arguments =
+                        $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"
+                });
             else
                 MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
         }
@@ -431,7 +435,7 @@ namespace AuroraGUI
                 MDnsServer.Stop();
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = GetType().Assembly.Location,
+                    FileName = Process.GetCurrentProcess().MainModule.FileName,
                     Verb = "runas"
                 };
 
@@ -470,6 +474,7 @@ namespace AuroraGUI
 
         private void MinimizedNormal(object sender, EventArgs e)
         {
+            GC.Collect();
             if (WindowState == WindowState.Normal)
             {
                 WindowState = WindowState.Minimized;

@@ -300,7 +300,7 @@ namespace AuroraGUI
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = GetType().Assembly.Location,
+                FileName = Process.GetCurrentProcess().MainModule.FileName,
                 Verb = "runas"
             };
             try
@@ -378,15 +378,18 @@ namespace AuroraGUI
             snackbarMsg.ActionClick += (o, args) =>
             {
                 File.Create($"{MainWindow.SetupBasePath}white.list").Close();
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.list"));
+                Process.Start(new ProcessStartInfo()
+                    {FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}white.list"});
                 Snackbar.IsActive = false;
             };
             Snackbar.Message = snackbarMsg;
 
             if (File.Exists($"{MainWindow.SetupBasePath}white.list"))
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.list"));
+                Process.Start(new ProcessStartInfo()
+                    {FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}white.list"});
             else if (File.Exists($"{MainWindow.SetupBasePath}rewrite.list"))
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}rewrite.list"));
+                Process.Start(new ProcessStartInfo()
+                    {FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}rewrite.list"});
             else
                 Snackbar.IsActive = true;
         }
@@ -401,15 +404,18 @@ namespace AuroraGUI
             snackbarMsg.ActionClick += (o, args) =>
             {
                 File.Create($"{MainWindow.SetupBasePath}white.sub.list").Close();
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.sub.list"));
+                Process.Start(new ProcessStartInfo()
+                    { FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}white.sub.list" });
                 Snackbar.IsActive = false;
             };
             Snackbar.Message = snackbarMsg;
 
             if (File.Exists($"{MainWindow.SetupBasePath}white.sub.list"))
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}white.sub.list"));
+                Process.Start(new ProcessStartInfo()
+                    {FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}white.sub.list"});
             else if (File.Exists($"{MainWindow.SetupBasePath}rewrite.sub.list"))
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}rewrite.sub.list"));
+                Process.Start(new ProcessStartInfo()
+                    { FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}rewrite.sub.list" });
             else
                 Snackbar.IsActive = true;
         }
@@ -487,7 +493,8 @@ namespace AuroraGUI
             if (File.Exists($"{MainWindow.SetupBasePath}config.json"))
             {
                 Thread.Sleep(100);
-                Process.Start(new ProcessStartInfo($"{MainWindow.SetupBasePath}config.json"))?.WaitForExit();
+                Process.Start(new ProcessStartInfo()
+                    {FileName = "notepad.exe", Arguments = $"{MainWindow.SetupBasePath}config.json"})?.WaitForExit();
                 if (MessageBox.Show("要读取刚刚在文本编辑器中的更改吗?", "AuroraDNS", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 DnsSettings.ReadConfig($"{MainWindow.SetupBasePath}config.json");
                 new SettingsWindow().Show();
@@ -500,9 +507,14 @@ namespace AuroraGUI
         private void OpenLog_OnClick(object sender, RoutedEventArgs e)
         {
             if (File.Exists(
-                $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
-                Process.Start(new ProcessStartInfo(
-                    $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
+                $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+            )
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = "notepad.exe",
+                    Arguments =
+                        $"{MainWindow.SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"
+                });
             else
                 MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
         }

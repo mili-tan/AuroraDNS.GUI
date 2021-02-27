@@ -20,7 +20,7 @@ namespace AuroraGUI.DnsSvr
         public static IPAddress ListenIp = IPAddress.Loopback;
         public static int ListenPort = 53;
         public static IPAddress EDnsIp = IPAddress.Any;
-        public static IPAddress SecondDnsIp = IPAddress.Parse("1.1.1.1");
+        public static IPAddress SecondDnsIp = IPAddress.Parse("1.0.0.1");
         public static bool EDnsCustomize = false;
         public static bool ProxyEnable  = false;
         public static bool DebugLog = false;

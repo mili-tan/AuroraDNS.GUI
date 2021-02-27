@@ -25,16 +25,16 @@ namespace AuroraGUI
 
         private void ButtonCredits_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start(File.Exists(MainWindow.SetupBasePath + "CREDITS.html")
+            Process.Start("explorer.exe", File.Exists(MainWindow.SetupBasePath + "CREDITS.html")
                 ? $"file://{MainWindow.SetupBasePath}CREDITS.html"
                 : "https://github.com/mili-tan/AuroraDNS.GUI/blob/master/CREDITS.md");
         }
 
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
-            => Process.Start("https://github.com/mili-tan/AuroraDNS.GUI");
+            => Process.Start("explorer.exe", "https://github.com/mili-tan/AuroraDNS.GUI");
 
         private void HyperlinkSponsor_OnClick(object sender, RoutedEventArgs e) 
-            => Process.Start("https://afdian.net/@AuroraDNS");
+            => Process.Start("explorer.exe", "https://afdian.net/@AuroraDNS");
 
         private static bool IsDebugBuild(Assembly assembly)
         {

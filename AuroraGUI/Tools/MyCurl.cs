@@ -20,6 +20,7 @@ namespace AuroraGUI.Tools
                 {
                     webRequest.AllowAutoRedirect = AllowAutoRedirect;
                     webRequest.KeepAlive = true;
+                    webRequest.ProtocolVersion = new Version("1.1");
                 }
 
                 return request;
@@ -41,6 +42,7 @@ namespace AuroraGUI.Tools
                 webRequest.Host = address.DnsSafeHost;
                 webRequest.AllowAutoRedirect = AllowAutoRedirect;
                 webRequest.KeepAlive = true;
+                webRequest.ProtocolVersion = new Version("1.1");
                 return request;
             }
         }

@@ -33,7 +33,7 @@ namespace AuroraGUI
         public static IPAddress IntIPAddr = IPAddress.Any;
         public static IPAddress LocIPAddr = IPAddress.Any;
         private static DnsServer MDnsServer;
-        private Task MDnsSvrTask = new(() => MDnsServer.Start());
+        private Task MDnsSvrTask = new Task(() => MDnsServer.Start());
 
         public MainWindow()
         {
@@ -152,7 +152,7 @@ namespace AuroraGUI
 
             using (BackgroundWorker worker = new BackgroundWorker())
             {
-                worker.DoWork += (_, _) =>
+                worker.DoWork += (a, s) =>
                 {
                     LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
                     if (!(Equals(DnsSettings.EDnsIp, IPAddress.Any) && DnsSettings.EDnsCustomize))
@@ -322,7 +322,7 @@ namespace AuroraGUI
                         Content = "可能已有一个正在运行的实例, 请不要重复启动！",
                         ActionContent = "退出"
                     };
-                    snackbarMsg.ActionClick += (_, _) => Environment.Exit(Environment.ExitCode);
+                    snackbarMsg.ActionClick += (a, s) => Environment.Exit(Environment.ExitCode);
                     Snackbar.Message = snackbarMsg;
                     TaskbarToolTip.Text = @"AuroraDNS - [请不要重复启动]";
                 }
@@ -418,7 +418,7 @@ namespace AuroraGUI
         private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
             var settingsWindow = new SettingsWindow();
-            settingsWindow.Closed += (_, _) =>
+            settingsWindow.Closed += (a, s) =>
             {
                 IsLog.IsChecked = DnsSettings.DebugLog;
                 IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);

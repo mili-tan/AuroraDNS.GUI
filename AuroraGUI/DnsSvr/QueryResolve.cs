@@ -224,18 +224,18 @@ namespace AuroraGUI.DnsSvr
                 try
                 {
                     BackgroundLog($@"| - Catch WebException : {Convert.ToInt32(response.StatusCode)} {response.StatusCode} | {e.Status} | {domainName} | {response.ResponseUri}");
-                    if (DnsSettings.HTTPStatusNotify)
-                        MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
-                            $"异常 :{Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
+                    //if (DnsSettings.HTTPStatusNotify)
+                    //    MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
+                    //        $"异常 :{Convert.ToInt32(response.StatusCode)} {response.StatusCode} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                     if (response.StatusCode == HttpStatusCode.BadRequest) DnsSettings.DnsMsgEnable = true;
                 }
                 catch (Exception exception)
                 {
                     BackgroundLog($@"| - Catch WebException : {exception.Message} | {e.Status} | {domainName} | {dohUrl}" + @"?ct=application/dns-json&" +
                                   $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}");
-                    if (DnsSettings.HTTPStatusNotify)
-                        MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
-                            $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
+                    //if (DnsSettings.HTTPStatusNotify)
+                    //    MainWindow.NotifyIcon.ShowBalloonTip(360, "AuroraDNS - 错误",
+                    //        $"异常 : {exception.Message} {Environment.NewLine} {domainName}", ToolTipIcon.Warning);
                 }
 
                 if (dohUrl != DnsSettings.HttpsDnsUrl) return (new List<DnsRecordBase>(), ReturnCode.ServerFailure);

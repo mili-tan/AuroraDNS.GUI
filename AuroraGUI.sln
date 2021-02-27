@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGUI", "AuroraGUI\AuroraGUI.csproj", "{703E4F90-D3E5-4E13-9C68-59A68246913B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysDnsSet", "SysDnsSet\SysDnsSet.csproj", "{B2987A95-46D1-43E0-8958-547D15864C2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartUpSet", "StartUpSet\StartUpSet.csproj", "{1AB2C0B2-AE97-4DCA-968C-E5D2349C816E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{703E4F90-D3E5-4E13-9C68-59A68246913B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{703E4F90-D3E5-4E13-9C68-59A68246913B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{703E4F90-D3E5-4E13-9C68-59A68246913B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2987A95-46D1-43E0-8958-547D15864C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2987A95-46D1-43E0-8958-547D15864C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2987A95-46D1-43E0-8958-547D15864C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2987A95-46D1-43E0-8958-547D15864C2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AB2C0B2-AE97-4DCA-968C-E5D2349C816E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AB2C0B2-AE97-4DCA-968C-E5D2349C816E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AB2C0B2-AE97-4DCA-968C-E5D2349C816E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AB2C0B2-AE97-4DCA-968C-E5D2349C816E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

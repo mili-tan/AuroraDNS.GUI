@@ -10,7 +10,6 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Threading;
@@ -19,10 +18,8 @@ using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
 using static System.AppDomain;
-using WinFormMenuItem = System.Windows.Forms.MenuItem;
-using WinFormContextMenu = System.Windows.Forms.ContextMenu;
 using MessageBox = System.Windows.MessageBox;
-
+// ReSharper disable UseObjectOrCollectionInitializer
 // ReSharper disable NotAccessedField.Local
 
 namespace AuroraGUI
@@ -35,9 +32,8 @@ namespace AuroraGUI
         public static string SetupBasePath = CurrentDomain.SetupInformation.ApplicationBase;
         public static IPAddress IntIPAddr = IPAddress.Any;
         public static IPAddress LocIPAddr = IPAddress.Any;
-        public static NotifyIcon NotifyIcon;
         private static DnsServer MDnsServer;
-        private Task MDnsSvrTask = new Task(() => MDnsServer.Start());
+        private Task MDnsSvrTask = new(() => MDnsServer.Start());
 
         public MainWindow()
         {
@@ -156,7 +152,7 @@ namespace AuroraGUI
 
             using (BackgroundWorker worker = new BackgroundWorker())
             {
-                worker.DoWork += (sender, args) =>
+                worker.DoWork += (_, _) =>
                 {
                     LocIPAddr = IPAddress.Parse(IpTools.GetLocIp());
                     if (!(Equals(DnsSettings.EDnsIp, IPAddress.Any) && DnsSettings.EDnsCustomize))
@@ -183,116 +179,101 @@ namespace AuroraGUI
                 worker.RunWorkerAsync();
             }
 
-            NotifyIcon = new NotifyIcon()
-            {
-                Text = @"AuroraDNS", Visible = false,
-                Icon = Properties.Resources.AuroraWhite
-            };
-            WinFormMenuItem showItem = new WinFormMenuItem("最小化 / 恢复", MinimizedNormal);
-            WinFormMenuItem restartItem = new WinFormMenuItem("重新启动", (sender, args) =>
-            {
-                if (!MDnsSvrTask.IsCompleted)
-                    MDnsServer.Stop();
-                Process.Start(new ProcessStartInfo {FileName = GetType().Assembly.Location});
-                Environment.Exit(Environment.ExitCode);
-            });
-            WinFormMenuItem notepadLogItem = new WinFormMenuItem("查阅日志", (sender, args) =>
-            {
-                if (File.Exists(
-                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
-                    Process.Start(new ProcessStartInfo(
-                        $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
-                else
-                    MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
-            });
-            WinFormMenuItem abootItem = new WinFormMenuItem("关于…", (sender, args) => new AboutWindow().Show());
-            WinFormMenuItem updateItem = new WinFormMenuItem("检查更新…", (sender, args) => MyTools.CheckUpdate(GetType().Assembly.Location));
-            WinFormMenuItem settingsItem = new WinFormMenuItem("设置…", (sender, args) => new SettingsWindow().Show());
-            WinFormMenuItem exitResetItem = new WinFormMenuItem("退出并重置系统 DNS", (sender, args) =>
-            {
-                try
-                {
-                    if (new WindowsPrincipal(WindowsIdentity.GetCurrent())
-                        .IsInRole(WindowsBuiltInRole.Administrator))
-                        SysDnsSet.ResetDns();
-                    else SysDnsSet.ResetDnsCmd();
-                    UrlReg.UnReg("doh");
-                    UrlReg.UnReg("dns-over-https");
-                    UrlReg.UnReg("aurora-doh-list");
-                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
-                                "\\AuroraDNS.UrlReged");
-                    if (DnsSettings.AutoCleanLogEnable)
-                    {
-                        foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
-                            if (item != $"{SetupBasePath}Log" +
-                                $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
-                                File.Delete(item);
-                        if (File.Exists(Path.GetTempPath() + "setdns.cmd"))
-                            File.Delete(Path.GetTempPath() + "setdns.cmd");
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-
-                try
-                {
-                    Close();
-                    Environment.Exit(0);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
-                }
-            });
-            WinFormMenuItem exitItem = new WinFormMenuItem("退出", (sender, args) =>
-            {
-                try
-                {
-                    UrlReg.UnReg("doh");
-                    UrlReg.UnReg("dns-over-https");
-                    UrlReg.UnReg("aurora-doh-list");
-                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
-                                "\\AuroraDNS.UrlReged");
-                    if (DnsSettings.AutoCleanLogEnable)
-                    {
-                        foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
-                            if (item != $"{SetupBasePath}Log" +
-                                $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
-                                File.Delete(item);
-                        if (File.Exists(Path.GetTempPath() + "setdns.cmd"))
-                            File.Delete(Path.GetTempPath() + "setdns.cmd");
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-
-                try
-                {
-                    Close();
-                    Environment.Exit(0);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
-                }
-            });
-
-            NotifyIcon.ContextMenu =
-                new WinFormContextMenu(new[]
-                {
-                    showItem, notepadLogItem, new WinFormMenuItem("-"), abootItem, updateItem, settingsItem,
-                    new WinFormMenuItem("-"), restartItem, exitResetItem, exitItem
-                });
-
-            NotifyIcon.DoubleClick += MinimizedNormal;
-
             IsSysDns.IsChecked = MyTools.IsNslookupLocDns();
+        }
+
+        private void ExitItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UrlReg.UnReg("doh");
+                UrlReg.UnReg("dns-over-https");
+                UrlReg.UnReg("aurora-doh-list");
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                            "\\AuroraDNS.UrlReged");
+                if (DnsSettings.AutoCleanLogEnable)
+                {
+                    foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                        if (item != $"{SetupBasePath}Log" +
+                            $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                            File.Delete(item);
+                    if (File.Exists(Path.GetTempPath() + "setdns.cmd"))
+                        File.Delete(Path.GetTempPath() + "setdns.cmd");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+
+            try
+            {
+                Close();
+                Environment.Exit(0);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
+            }
+        }
+
+        private void ExitResetItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (new WindowsPrincipal(WindowsIdentity.GetCurrent())
+                    .IsInRole(WindowsBuiltInRole.Administrator))
+                    SysDnsSet.ResetDns();
+                else SysDnsSet.ResetDnsCmd();
+                UrlReg.UnReg("doh");
+                UrlReg.UnReg("dns-over-https");
+                UrlReg.UnReg("aurora-doh-list");
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                            "\\AuroraDNS.UrlReged");
+                if (DnsSettings.AutoCleanLogEnable)
+                {
+                    foreach (var item in Directory.GetFiles($"{SetupBasePath}Log"))
+                        if (item != $"{SetupBasePath}Log" +
+                            $"\\{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log")
+                            File.Delete(item);
+                    if (File.Exists(Path.GetTempPath() + "setdns.cmd"))
+                        File.Delete(Path.GetTempPath() + "setdns.cmd");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+
+            try
+            {
+                Close();
+                Environment.Exit(0);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                Process.GetProcessById(Process.GetCurrentProcess().Id).Kill();
+            }
+        }
+
+        private void NotepadLogItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(
+                $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"))
+                Process.Start(new ProcessStartInfo(
+                    $"{SetupBasePath}Log/{DateTime.Today.Year}{DateTime.Today.Month:00}{DateTime.Today.Day:00}.log"));
+            else
+                MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
+        }
+
+        private void RestartItem_Click(object sender, EventArgs e)
+        {
+            if (!MDnsSvrTask.IsCompleted)
+                MDnsServer.Stop();
+            Process.Start(new ProcessStartInfo { FileName = GetType().Assembly.Location });
+            Environment.Exit(Environment.ExitCode);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -312,7 +293,7 @@ namespace AuroraGUI
 
             FadeIn(0.2);
             Visibility = Visibility.Visible;
-            NotifyIcon.Visible = true;
+            TaskbarIcon.Visibility = Visibility.Visible;
 
             if (!MyTools.PortIsUse(DnsSettings.ListenPort))
             {
@@ -337,14 +318,14 @@ namespace AuroraGUI
                         Content = "可能已有一个正在运行的实例, 请不要重复启动！",
                         ActionContent = "退出"
                     };
-                    snackbarMsg.ActionClick += (o, args) => Environment.Exit(Environment.ExitCode);
+                    snackbarMsg.ActionClick += (_, _) => Environment.Exit(Environment.ExitCode);
                     Snackbar.Message = snackbarMsg;
-                    NotifyIcon.Text = @"AuroraDNS - [请不要重复启动]";
+                    TaskbarToolTip.Text = @"AuroraDNS - [请不要重复启动]";
                 }
                 else
                 {
                     Snackbar.Message = new SnackbarMessage() {Content = $"DNS 服务器无法启动, {DnsSettings.ListenPort}端口被占用。"};
-                    NotifyIcon.Text = @"AuroraDNS - [端口被占用]";
+                    TaskbarToolTip.Text = @"AuroraDNS - [端口被占用]";
                 }
 
                 DnsEnable.IsEnabled = false;
@@ -416,7 +397,7 @@ namespace AuroraGUI
             if (!MDnsSvrTask.IsCompleted)
             {
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
-                NotifyIcon.Text = @"AuroraDNS - Running";
+                TaskbarToolTip.Text = @"AuroraDNS - Running";
             }
         }
 
@@ -426,14 +407,14 @@ namespace AuroraGUI
             if (!MDnsSvrTask.IsCompleted)
             {
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
-                NotifyIcon.Text = @"AuroraDNS - Stop";
+                TaskbarToolTip.Text = @"AuroraDNS - Stop";
             }
         }
 
         private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
             var settingsWindow = new SettingsWindow();
-            settingsWindow.Closed += (o, args) =>
+            settingsWindow.Closed += (_, _) =>
             {
                 IsLog.IsChecked = DnsSettings.DebugLog;
                 IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
@@ -549,6 +530,16 @@ namespace AuroraGUI
             {
                 MessageBox.Show(exception.ToString());
             }
+        }
+
+        private void AboutItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new AboutWindow().Show();
+        }
+
+        private void UpdateItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            MyTools.CheckUpdate(GetType().Assembly.Location);
         }
     }
 }

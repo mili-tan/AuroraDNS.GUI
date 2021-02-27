@@ -29,7 +29,7 @@
 
 从 [Releases](https://github.com/mili-tan/AuroraDNS.GUI/releases) **下载最新版本** 现在体验。
 
-可能需要 Microsoft [.NET Framework 4.6.1](https://docs.microsoft.com/zh-cn/dotnet/framework/install/on-windows-10) 运行环境。
+可能需要 Microsoft [.NET Framework 4.6.2](https://dotnet.microsoft.com/download/dotnet-framework/net462) 运行环境。
 
 *无需复杂配置，开箱即可使用。* 
 

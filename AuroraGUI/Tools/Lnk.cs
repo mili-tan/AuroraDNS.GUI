@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Windows.Interop;
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable SuspiciousTypeConversion.Global
 

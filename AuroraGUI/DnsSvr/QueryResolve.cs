@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using ArashiDNS;
 using ARSoft.Tools.Net;
 using ARSoft.Tools.Net.Dns;

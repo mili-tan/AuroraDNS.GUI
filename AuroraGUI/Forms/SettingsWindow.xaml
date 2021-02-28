@@ -6,7 +6,7 @@
                          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                          xmlns:fluentWpf="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
                          mc:Ignorable="d" ResizeMode="CanMinimize" AcrylicWindowStyle="NoIcon"
-                         Title="设置" Height="675" Width="450" Background="#00F1F1F1"
+                         Title="设置" Height="675" Width="450" Background="#00F1F1F1" Closed="SettingsWindow_OnClosed"
                          MinHeight="640" MinWidth="430" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
     <Grid Background="#CCFAFAFA">
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"

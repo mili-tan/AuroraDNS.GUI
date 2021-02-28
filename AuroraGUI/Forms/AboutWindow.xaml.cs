@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -40,6 +41,11 @@ namespace AuroraGUI
         {
             return assembly.GetCustomAttributes(false).OfType<DebuggableAttribute>().Select(attribute => attribute)
                 .Select(attribute => attribute.IsJITTrackingEnabled).FirstOrDefault();
+        }
+
+        private void AboutWindow_OnClosed(object sender, EventArgs e)
+        {
+            GC.Collect();
         }
     }
 }

@@ -11,6 +11,7 @@
                          Topmost="True"
                          AcrylicWindowStyle="NoIcon"
 
+                         Closed="AboutWindow_OnClosed"
                          Title="关于" Height="350" Width="600" WindowStartupLocation="CenterScreen"
                          MinWidth="550" MinHeight="370" ResizeMode="NoResize">
     <Grid Background="#DDFAFAFA">

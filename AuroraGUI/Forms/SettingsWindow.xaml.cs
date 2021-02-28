@@ -518,5 +518,10 @@ namespace AuroraGUI
             else
                 MessageBox.Show("找不到当前日志文件，或当前未产生日志文件。");
         }
+
+        private void SettingsWindow_OnClosed(object sender, EventArgs e)
+        {
+            GC.Collect();
+        }
     }
 }

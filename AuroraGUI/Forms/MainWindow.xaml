@@ -1,4 +1,4 @@
-﻿<fw:AcrylicWindow
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +9,7 @@
         x:Class="AuroraGUI.MainWindow"
         
         fw:AcrylicWindow.Enabled="True"
-        AcrylicWindowStyle="None"
+        fw:AcrylicWindow.AcrylicWindowStyle="None"
 
         BorderThickness="0.1"
         Background="#0000"
@@ -163,4 +163,4 @@
         </tb:TaskbarIcon>
 
     </Grid>
-</fw:AcrylicWindow>
+</Window>

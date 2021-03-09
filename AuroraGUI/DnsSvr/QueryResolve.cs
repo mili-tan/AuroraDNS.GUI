@@ -130,13 +130,51 @@ namespace AuroraGUI.DnsSvr
                             //Resolve
                             try
                             {
-                                (List<DnsRecordBase> resolvedDnsList, ReturnCode statusCode) = DnsSettings.DnsMsgEnable
-                                    ? ResolveOverHttpsByDnsMsg(clientAddress.ToString(),
-                                        dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
-                                        DnsSettings.WProxy, dnsQuestion.RecordType)
-                                    : ResolveOverHttpsByDnsJson(clientAddress.ToString(),
-                                        dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl, DnsSettings.ProxyEnable,
-                                        DnsSettings.WProxy, dnsQuestion.RecordType);
+                                var resolvedDnsList = new List<DnsRecordBase>();
+                                var statusCode = ReturnCode.NoError;
+
+                                if (false)
+                                {
+                                    var t1 = Task.Run(() =>
+                                    {
+                                        (resolvedDnsList, statusCode) = DnsSettings.DnsMsgEnable
+                                            ? ResolveOverHttpsByDnsMsg(clientAddress.ToString(),
+                                                dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl,
+                                                DnsSettings.ProxyEnable,
+                                                DnsSettings.WProxy, dnsQuestion.RecordType)
+                                            : ResolveOverHttpsByDnsJson(clientAddress.ToString(),
+                                                dnsQuestion.Name.ToString(), DnsSettings.HttpsDnsUrl,
+                                                DnsSettings.ProxyEnable,
+                                                DnsSettings.WProxy, dnsQuestion.RecordType);
+                                    });
+
+                                    var t2 = Task.Run(() =>
+                                    {
+                                        (resolvedDnsList, statusCode) = DnsSettings.DnsMsgEnable
+                                            ? ResolveOverHttpsByDnsMsg(clientAddress.ToString(),
+                                                dnsQuestion.Name.ToString(), DnsSettings.SecondHttpsDnsUrl,
+                                                DnsSettings.ProxyEnable,
+                                                DnsSettings.WProxy, dnsQuestion.RecordType)
+                                            : ResolveOverHttpsByDnsJson(clientAddress.ToString(),
+                                                dnsQuestion.Name.ToString(), DnsSettings.SecondHttpsDnsUrl,
+                                                DnsSettings.ProxyEnable,
+                                                DnsSettings.WProxy, dnsQuestion.RecordType);
+                                    });
+
+                                    Task.WaitAny(new[] { t1, t2 }, 5000);
+                                }
+                                else
+                                {
+                                    (resolvedDnsList, statusCode) = DnsSettings.DnsMsgEnable
+                                        ? ResolveOverHttpsByDnsMsg(clientAddress.ToString(),
+                                            dnsQuestion.Name.ToString(), DnsSettings.SecondHttpsDnsUrl,
+                                            DnsSettings.ProxyEnable,
+                                            DnsSettings.WProxy, dnsQuestion.RecordType)
+                                        : ResolveOverHttpsByDnsJson(clientAddress.ToString(),
+                                            dnsQuestion.Name.ToString(), DnsSettings.SecondHttpsDnsUrl,
+                                            DnsSettings.ProxyEnable,
+                                            DnsSettings.WProxy, dnsQuestion.RecordType);
+                                }
 
                                 if (resolvedDnsList != null && resolvedDnsList.Count != 0 && statusCode == ReturnCode.NoError)
                                 {

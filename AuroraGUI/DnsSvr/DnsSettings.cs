@@ -19,6 +19,7 @@ namespace AuroraGUI.DnsSvr
         public static string SecondHttpsDnsUrl = "https://1.0.0.1/dns-query";
         public static IPAddress ListenIp = IPAddress.Loopback;
         public static int ListenPort = 53;
+        public static int SecondDnsPort = 53;
         public static IPAddress EDnsIp = IPAddress.Any;
         public static IPAddress SecondDnsIp = IPAddress.Parse("1.0.0.1");
         public static bool EDnsCustomize = false;
@@ -60,6 +61,8 @@ namespace AuroraGUI.DnsSvr
                 AutoCleanLogEnable = configJson.AsObjectGetBool("EnableAutoCleanLog");
             if (configStr.Contains("\"Port\""))
                 ListenPort = configJson.AsObjectGetInt("Port", 53);
+            if (configStr.Contains("\"SecondDnsPort\""))
+                SecondDnsPort = configJson.AsObjectGetInt("SecondDnsPort", 53);
             if (configStr.Contains("\"ChinaList\""))
                 ChinaListEnable = configJson.AsObjectGetBool("ChinaList");
             if (configStr.Contains("\"StartupOverDoH\""))

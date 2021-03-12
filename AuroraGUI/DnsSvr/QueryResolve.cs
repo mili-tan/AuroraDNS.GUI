@@ -52,8 +52,9 @@ namespace AuroraGUI.DnsSvr
                         {
                             if (!DnsSettings.StartupOverDoH)
                             {
-                                response.AnswerRecords.AddRange((await new DnsClient(DnsSettings.SecondDnsIp, 5000)
-                                    .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords);
+                                response.AnswerRecords.AddRange(
+                                    (await new DnsClient(DnsSettings.SecondDnsIp, 5000, DnsSettings.SecondDnsPort)
+                                        .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords);
                                 if (DnsSettings.DebugLog)
                                     BackgroundLog($"| -- Startup SecondDns : {DnsSettings.SecondDnsIp}");
                             }
@@ -88,8 +89,9 @@ namespace AuroraGUI.DnsSvr
                         {
                             List<DnsRecordBase> whiteRecords = new List<DnsRecordBase>();
                             if (!IpTools.IsIp(DnsSettings.WhiteList[dnsQuestion.Name]))
-                                whiteRecords.AddRange((await new DnsClient(DnsSettings.SecondDnsIp, 5000)
-                                    .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords);
+                                whiteRecords.AddRange(
+                                    (await new DnsClient(DnsSettings.SecondDnsIp, 5000, DnsSettings.SecondDnsPort)
+                                        .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords);
                             else
                                 whiteRecords.Add(new ARecord(dnsQuestion.Name, 10,
                                     IPAddress.Parse(DnsSettings.WhiteList[dnsQuestion.Name])));
@@ -184,7 +186,8 @@ namespace AuroraGUI.DnsSvr
                                 }
                                 else if (statusCode == ReturnCode.ServerFailure)
                                 {
-                                    response.AnswerRecords = (await new DnsClient(DnsSettings.SecondDnsIp, 1000)
+                                    response.AnswerRecords = (await new DnsClient(DnsSettings.SecondDnsIp, 1000,
+                                            DnsSettings.SecondDnsPort)
                                         .ResolveAsync(dnsQuestion.Name, dnsQuestion.RecordType)).AnswerRecords;
                                     BackgroundLog($"| -- SecondDns : {DnsSettings.SecondDnsIp}");
                                 }

@@ -122,7 +122,7 @@ namespace AuroraGUI
                         "{\n" +
                         $"\"Listen\" : \"{DnsSettings.ListenIp}\",\n" +
                         $"\"SecondDns\" : \"{DnsSettings.SecondDnsIp}\",\n" +
-                        $"\"SecondDnsPort\" : \"{DnsSettings.SecondDnsPort}\",\n" +
+                        $"\"SecondDnsPort\" : {DnsSettings.SecondDnsPort},\n" +
                         $"\"BlackList\" : {DnsSettings.BlackListEnable.ToString().ToLower()},\n" +
                         $"\"ChinaList\" : {DnsSettings.ChinaListEnable.ToString().ToLower()},\n" +
                         $"\"RewriteList\" : {DnsSettings.WhiteListEnable.ToString().ToLower()},\n" +

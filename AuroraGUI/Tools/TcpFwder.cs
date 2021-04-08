@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using ARSoft.Tools.Net.Dns;
+using AuroraGUI.DnsSvr;
 
 namespace AuroraGUI.Tools
 {
@@ -88,36 +89,21 @@ namespace AuroraGUI.Tools
         }
     }
 
-    internal class Fwder
+    internal class IPv4Listener
     {
         private int LocalProt { get; }
         private IPAddress LocalIp { get; }
-        private IPAddress TargetIp { get; }
-        public Fwder(IPAddress LocalIp, int LocalProt, IPAddress TargetIp)
+        public IPv4Listener(IPAddress LocalIp, int LocalProt)
         {
             this.LocalIp = LocalIp;
             this.LocalProt = LocalProt;
-            this.TargetIp = TargetIp;
         }
 
         public void Run()
         {
             var dns = new DnsServer(new IPEndPoint(LocalIp, LocalProt), 10, 10);
-            dns.QueryReceived += OnDnsOnQueryReceived;
+            dns.QueryReceived += QueryResolve.ServerOnQueryReceived;
             Task.Run(dns.Start);
-        }
-
-        private async Task OnDnsOnQueryReceived(object sender, QueryReceivedEventArgs e)
-        {
-            try
-            {
-                if (!(e.Query is DnsMessage query)) return;
-                e.Response = await new DnsClient(TargetIp, 1000).SendMessageAsync(query);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
         }
     }
 }

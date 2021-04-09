@@ -10,7 +10,6 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
@@ -20,9 +19,7 @@ using ARSoft.Tools.Net.Dns;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
-using SourceChord.FluentWPF;
 using static System.AppDomain;
-using static SourceChord.FluentWPF.AcrylicWindow;
 using MessageBox = System.Windows.MessageBox;
 // ReSharper disable UseObjectOrCollectionInitializer
 // ReSharper disable NotAccessedField.Local
@@ -354,7 +351,7 @@ namespace AuroraGUI
             if (IsSysDns.IsChecked == true) IsSysDns.ToolTip = "已设为系统 DNS";
             if (Equals(DnsSettings.ListenIp, IPAddress.Any)) IsGlobal.ToolTip = "当前监听 : 局域网";
             else if (Equals(DnsSettings.ListenIp, IPAddress.Loopback)) IsGlobal.ToolTip = "当前监听 : 本地";
-            else IsGlobal.ToolTip = "当前监听 : " + DnsSettings.ListenIp;
+            else IsGlobal.ToolTip = $"当前监听 : [{DnsSettings.ListenIp}]";
         }
 
         private void IsGlobal_Checked(object sender, RoutedEventArgs e)
@@ -429,6 +426,20 @@ namespace AuroraGUI
             {
                 IsLog.IsChecked = DnsSettings.DebugLog;
                 IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
+
+                if (!Equals(DnsSettings.ListenIp, IPAddress.Any) &&
+                    !Equals(DnsSettings.ListenIp, IPAddress.Loopback) &&
+                    MyTools.PortIsUse(DnsSettings.ListenPort))
+                {
+                    MDnsServer.Stop();
+                    MDnsServer = new DnsServer(new IPEndPoint(DnsSettings.ListenIp, DnsSettings.ListenPort), 10, 10);
+                    MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
+                    Snackbar.MessageQueue.Enqueue(new TextBlock {Text = $"监听地址 : [{DnsSettings.ListenIp}]" });
+                    MDnsSvrTask = new Task(() => MDnsServer.Start());
+                    MDnsSvrTask.Start();
+                    IsGlobal.ToolTip = $"当前监听 : [{DnsSettings.ListenIp}]";
+                }
+
                 //IsLog.ToolTip = IsLog.IsChecked.Value ? "记录日志 : 是" : "记录日志 : 否";
                 //IsGlobal.ToolTip = Equals(DnsSettings.ListenIp, IPAddress.Any) ? "当前监听 : 局域网" : "当前监听 : 本地";
             };

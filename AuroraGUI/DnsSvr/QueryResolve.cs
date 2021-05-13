@@ -61,10 +61,11 @@ namespace AuroraGUI.DnsSvr
                             else
                             {
                                 response.AnswerRecords.AddRange(ResolveOverHttpsByDnsJson(clientAddress.ToString(),
-                                    dnsQuestion.Name.ToString(), "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable,
+                                    dnsQuestion.Name.ToString(), $"https://{DnsSettings.StartupDoHIp}/dns-query",
+                                    DnsSettings.ProxyEnable,
                                     DnsSettings.WProxy, dnsQuestion.RecordType).list);
                                 if (DnsSettings.DebugLog)
-                                    BackgroundLog("| -- Startup DoH : https://1.0.0.1/dns-query");
+                                    BackgroundLog($"| -- Startup DoH : https://{DnsSettings.StartupDoHIp}/dns-query");
                             }
                         }
                         else if (DnsSettings.DnsCacheEnable && DnsCache.Contains(query))

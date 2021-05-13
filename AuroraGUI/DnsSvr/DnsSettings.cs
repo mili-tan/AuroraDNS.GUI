@@ -22,6 +22,7 @@ namespace AuroraGUI.DnsSvr
         public static int SecondDnsPort = 53;
         public static IPAddress EDnsIp = IPAddress.Any;
         public static IPAddress SecondDnsIp = IPAddress.Parse("1.0.0.1");
+        public static IPAddress StartupDoHIp = IPAddress.Parse("1.0.0.1");
         public static bool EDnsCustomize = false;
         public static bool ProxyEnable  = false;
         public static bool DebugLog = false;
@@ -67,6 +68,8 @@ namespace AuroraGUI.DnsSvr
                 ChinaListEnable = configJson.AsObjectGetBool("ChinaList");
             if (configStr.Contains("\"StartupOverDoH\""))
                 StartupOverDoH = configJson.AsObjectGetBool("StartupOverDoH");
+            if (configStr.Contains("\"StartupDoHIp\""))
+                StartupDoHIp = IPAddress.Parse(configJson.AsObjectGetString("StartupDoHIp"));
             if (configStr.Contains("\"AllowSelfSignedCert\""))
                 AllowSelfSignedCert = configJson.AsObjectGetBool("AllowSelfSignedCert");
             if (configStr.Contains("\"AllowAutoRedirect\""))

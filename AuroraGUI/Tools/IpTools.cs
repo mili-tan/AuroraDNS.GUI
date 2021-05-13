@@ -102,7 +102,7 @@ namespace AuroraGUI.Tools
                     DnsRecordBase ipMsg;
                     if (DnsSettings.StartupOverDoH)
                         ipMsg = QueryResolve.ResolveOverHttpsByDnsJson(IPAddress.Any.ToString(),
-                            name, "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
+                            name, $"https://{DnsSettings.StartupDoHIp}/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
                     else
                         ipMsg = new DnsClient(DnsSettings.SecondDnsIp, 5000).Resolve(DomainName.Parse(name))
                             .AnswerRecords[0];
@@ -123,7 +123,7 @@ namespace AuroraGUI.Tools
                     try
                     {
                         var ipMsg = QueryResolve.ResolveOverHttpsByDnsJson(IPAddress.Any.ToString(),
-                            name, "https://1.0.0.1/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
+                            name, $"https://{DnsSettings.StartupDoHIp}/dns-query", DnsSettings.ProxyEnable, DnsSettings.WProxy).list[0];
                         switch (ipMsg.RecordType)
                         {
                             case RecordType.A when ipMsg is ARecord msg1:

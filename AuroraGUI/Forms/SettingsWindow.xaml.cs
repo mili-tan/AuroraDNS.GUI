@@ -139,6 +139,7 @@ namespace AuroraGUI
                         $"\"Ipv6Disable\" : {DnsSettings.Ipv6Disable.ToString().ToLower()},\n" +
                         $"\"Ipv4Disable\" : {DnsSettings.Ipv4Disable.ToString().ToLower()},\n" +
                         $"\"StartupOverDoH\" : {DnsSettings.StartupOverDoH.ToString().ToLower()},\n" +
+                        $"\"StartupDoHIp\" : \"{DnsSettings.StartupDoHIp}\",\n" +
                         $"\"AllowSelfSignedCert\" : {DnsSettings.AllowSelfSignedCert.ToString().ToLower()},\n" +
                         $"\"AllowAutoRedirect\" : {DnsSettings.AllowAutoRedirect.ToString().ToLower()},\n" +
                         $"\"HTTPStatusNotify\" : {DnsSettings.HTTPStatusNotify.ToString().ToLower()},\n" +

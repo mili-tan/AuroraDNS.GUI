@@ -427,6 +427,20 @@ namespace AuroraGUI
                 IsLog.IsChecked = DnsSettings.DebugLog;
                 IsGlobal.IsChecked = Equals(DnsSettings.ListenIp, IPAddress.Any);
 
+                try
+                {
+                    if (IPv4Listener.Running) IPv4Listener.DNS.Stop();
+                    if (Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ||
+                        Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback))
+                        new IPv4Listener(
+                            Equals(DnsSettings.ListenIp, IPAddress.IPv6Any) ? IPAddress.Any : IPAddress.Loopback,
+                            53).Run();
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+
                 if (!Equals(DnsSettings.ListenIp, IPAddress.Any) &&
                     !Equals(DnsSettings.ListenIp, IPAddress.Loopback) &&
                     MyTools.PortIsUse(DnsSettings.ListenPort))

@@ -53,7 +53,7 @@ namespace AuroraGUI.Tools
                             $"netsh interface ipv6 set dnsserver \"{network.Name}\" source=static addr=::1 validate=no" +
                             Environment.NewLine;
                         cmd +=
-                            $"netsh interface ipv6 add dnsserver \"{network.Name}\" source=static addr=::ffff:{backupDnsAddr} validate=no" +
+                            $"netsh interface ipv6 add dnsserver \"{network.Name}\" addr=::ffff:{backupDnsAddr} validate=no" +
                             Environment.NewLine;
                     }
                 }

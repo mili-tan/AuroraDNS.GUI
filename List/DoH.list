@@ -14,9 +14,9 @@ https://public.dns.iij.jp/dns-query ,IIJ-PublicDNS
 https://neatdns.ustclug.org/resolve ,USTC-LUG
 https://101.6.6.6:8443/resolve ,Tsinghua-TUNA
 https://doh.sb/dns-query ,DNS.SB
-https://hk-hkg.doh.sb/dns-query ,DNS.SB-HK
-https://jp-nrt.doh.sb/dns-query ,DNS.SB-JPTokyo
-https://jp-kix.doh.sb/dns-query ,DNS.SB-JPOsaka
+https://hk-hkg.doh.sb/dns-query ,DNS.SB-HongKong
+https://jp-nrt.doh.sb/dns-query ,DNS.SB-Tokyo
+https://jp-kix.doh.sb/dns-query ,DNS.SB-Osaka
 https://dns.rubyfish.cn/dns-query ,Rubyfish
 https://dns.dns-over-https.com/dns-query ,NekomimiRouter
 https://jp.tiar.app/dns-query ,tiar.app

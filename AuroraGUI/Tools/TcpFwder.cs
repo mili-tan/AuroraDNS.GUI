@@ -27,7 +27,7 @@ namespace AuroraGUI.Tools
 
         public void Run()
         {
-            DNS = new DnsServer(new IPEndPoint(LocalIp, LocalProt), 4, 4);
+            DNS = new DnsServer(new IPEndPoint(LocalIp, LocalProt), 8, 8);
             DNS.QueryReceived += QueryResolve.ServerOnQueryReceived;
             var bgw = new BackgroundWorker();
             bgw.DoWork += (o, args) => DNS.Start();

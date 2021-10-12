@@ -147,7 +147,7 @@ namespace AuroraGUI
 //                    break;
 //            }
 
-            MDnsServer = new DnsServer(DnsSettings.ListenIp, 10, 10);
+            MDnsServer = new DnsServer(DnsSettings.ListenIp, 8, 8);
             MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
             //MDnsSvrWorker.DoWork += (sender, args) => MDnsServer.Start();
             //MDnsSvrWorker.Disposed += (sender, args) => MDnsServer.Stop();
@@ -359,7 +359,7 @@ namespace AuroraGUI
             if (MyTools.PortIsUse(DnsSettings.ListenPort))
             {
                 MDnsServer.Stop();
-                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Any, DnsSettings.ListenPort), 10, 10);
+                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Any, DnsSettings.ListenPort), 8, 8);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "监听地址 : 局域网 " + IPAddress.Any});
                 MDnsSvrTask = new Task(() => MDnsServer.Start());
@@ -373,7 +373,7 @@ namespace AuroraGUI
             if (MyTools.PortIsUse(DnsSettings.ListenPort))
             {
                 MDnsServer.Stop();
-                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Loopback, DnsSettings.ListenPort), 10, 10);
+                MDnsServer = new DnsServer(new IPEndPoint(IPAddress.Loopback, DnsSettings.ListenPort), 8, 8);
                 MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                 Snackbar.MessageQueue.Enqueue(new TextBlock {Text = "监听地址 : 本地 " + IPAddress.Loopback});
                 MDnsSvrTask = new Task(() => MDnsServer.Start());
@@ -446,7 +446,7 @@ namespace AuroraGUI
                     MyTools.PortIsUse(DnsSettings.ListenPort))
                 {
                     MDnsServer.Stop();
-                    MDnsServer = new DnsServer(new IPEndPoint(DnsSettings.ListenIp, DnsSettings.ListenPort), 10, 10);
+                    MDnsServer = new DnsServer(new IPEndPoint(DnsSettings.ListenIp, DnsSettings.ListenPort), 8, 8);
                     MDnsServer.QueryReceived += QueryResolve.ServerOnQueryReceived;
                     Snackbar.MessageQueue.Enqueue(new TextBlock {Text = $"监听地址 : [{DnsSettings.ListenIp}]" });
                     MDnsSvrTask = new Task(() => MDnsServer.Start());

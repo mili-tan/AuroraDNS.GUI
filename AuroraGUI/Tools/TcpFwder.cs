@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -26,9 +27,11 @@ namespace AuroraGUI.Tools
 
         public void Run()
         {
-            DNS = new DnsServer(new IPEndPoint(LocalIp, LocalProt), 10, 10);
+            DNS = new DnsServer(new IPEndPoint(LocalIp, LocalProt), 4, 4);
             DNS.QueryReceived += QueryResolve.ServerOnQueryReceived;
-            Task.Run(DNS.Start);
+            var bgw = new BackgroundWorker();
+            bgw.DoWork += (o, args) => DNS.Start();
+            bgw.RunWorkerAsync();
             Running = true;
         }
     }

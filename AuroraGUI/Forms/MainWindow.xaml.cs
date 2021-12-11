@@ -19,6 +19,7 @@ using ARSoft.Tools.Net.Dns;
 using AuroraGUI.DnsSvr;
 using AuroraGUI.Tools;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using static System.AppDomain;
 using MessageBox = System.Windows.MessageBox;
 // ReSharper disable UseObjectOrCollectionInitializer
@@ -284,6 +285,10 @@ namespace AuroraGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            TaskbarIcon.ToolTipText = "AuroraDNS.GUI";
+            if (ThemeIsLight())
+                TaskbarIcon.IconSource = new BitmapImage(new Uri("pack://application:,,,/Resources/AuroraBlack.ico"));
+
             if (Environment.OSVersion.Version.Major < 10)
             {
                 try
@@ -331,11 +336,13 @@ namespace AuroraGUI
                     snackbarMsg.ActionClick += (a, s) => Environment.Exit(Environment.ExitCode);
                     Snackbar.Message = snackbarMsg;
                     TaskbarToolTip.Text = @"AuroraDNS - [请不要重复启动]";
+                    TaskbarIcon.ToolTipText = @"AuroraDNS - [请不要重复启动]";
                 }
                 else
                 {
                     Snackbar.Message = new SnackbarMessage() {Content = $"DNS 服务器无法启动, {DnsSettings.ListenPort}端口被占用。"};
                     TaskbarToolTip.Text = @"AuroraDNS - [端口被占用]";
+                    TaskbarIcon.ToolTipText = @"AuroraDNS - [端口被占用]";
                 }
 
                 DnsEnable.IsEnabled = false;
@@ -406,6 +413,7 @@ namespace AuroraGUI
             {
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已启动" });
                 TaskbarToolTip.Text = @"AuroraDNS - Running";
+                TaskbarIcon.ToolTipText = @"AuroraDNS - Running";
             }
         }
 
@@ -416,6 +424,7 @@ namespace AuroraGUI
             {
                 Snackbar.MessageQueue.Enqueue(new TextBlock() { Text = "DNS 服务器已停止" });
                 TaskbarToolTip.Text = @"AuroraDNS - Stop";
+                TaskbarIcon.ToolTipText = @"AuroraDNS - Stop";
             }
         }
 
@@ -577,6 +586,14 @@ namespace AuroraGUI
         private void UpdateItem_OnClick(object sender, RoutedEventArgs e)
         {
             MyTools.CheckUpdate(GetType().Assembly.Location);
+        }
+
+        private static bool ThemeIsLight()
+        {
+            RegistryKey registry =
+                Registry.CurrentUser.OpenSubKey(
+                    @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            return (int)registry.GetValue("SystemUsesLightTheme") == 1;
         }
     }
 }

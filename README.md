@@ -15,8 +15,6 @@
 
 ----------
 
-
-
 ## 简介
 
 给大家的本地 DNS over HTTPS 客户端。
@@ -24,6 +22,8 @@
 *A*uroraDNS 是一个纯净、~~简陋~~简单的、面向普通用户的，图形化的本地 DoH 客户端。
 
 它在本地将 DNS over HTTPS 转换为传统的 DNS 协议。
+
+> 正在使用 Windows 11？ Windows 11 已经内置了 DNS over HTTPS 支持，也许您应该试试 [ArashiDNS.Dekunua](https://github.com/mili-tan/ArashiDNS.Dekunua)
 
 ## 快速开始
 

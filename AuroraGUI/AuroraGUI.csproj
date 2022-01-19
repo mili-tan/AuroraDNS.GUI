@@ -19,6 +19,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\Aurora.png" />
+    <None Remove="Resources\cat.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Management.Instrumentation" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <Resource Include="Resources\AuroraBlack.ico" />
     <Resource Include="Resources\AuroraWhite.ico" />
+    <Resource Include="Resources\cat.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\nightly.png" />

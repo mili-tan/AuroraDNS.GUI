@@ -174,8 +174,8 @@ namespace AuroraGUI.DnsSvr
     {
         public static string GeoIpApi = "https://api.ip.sb/geoip/";
         public static string WhatMyIpApi = "https://api.ipify.org/";
-        public static string MDnsList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DNS.list";
-        public static string MDohList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DoH.list";
+        public static string MDnsList = "http://gh.mili.one/github.com/mili-tan/AuroraDNS.GUI/blob/master/List/DNS.list";
+        public static string MDohList = "http://gh.mili.one/github.com/mili-tan/AuroraDNS.GUI/blob/master/List/DoH.list";
 
         public static void ReadConfig(string path)
         {

@@ -50,7 +50,7 @@ namespace AuroraGUI
                 //Mainland China PRC
                 DnsSettings.SecondDnsIp = IPAddress.Parse("119.29.29.29");
                 DnsSettings.HttpsDnsUrl = "https://neatdns.ustclug.org/resolve";
-                UrlSettings.MDnsList = "https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-CN.list";
+                UrlSettings.MDnsList = "https://gh.mili.one/github.com/mili-tan/AuroraDNS.GUI/blob/master/List/L10N/DNS-CN.list";
                 UrlSettings.WhatMyIpApi = "https://myip.ustclug.org/";
             }
             else if (TimeZoneInfo.Local.Id.Contains("Taipei Standard Time") && RegionInfo.CurrentRegion.GeoId == 237) 

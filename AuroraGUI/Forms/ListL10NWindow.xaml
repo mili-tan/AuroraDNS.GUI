@@ -36,6 +36,7 @@
                     <ComboBox x:Name="DNSListURL" IsEditable="True"
                         materialDesign:HintAssist.Hint="https://git.io/aurora-dns.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350">
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DNS.list"/>
+                        <ComboBoxItem Content="https://gh.mili.one/github.com/mili-tan/AuroraDNS.GUI/blob/master/List/L10N/DNS-CN.list"/>
                         <ComboBoxItem Content="https://dohlist.checkmails.xyz/mili-tan/AuroraDNS.GUI/master/List/L10N/DNS-CN.list"/>
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-CN.list"/>
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/L10N/DNS-HK.list"/>
@@ -52,6 +53,7 @@
                     <ComboBox x:Name="DoHListURL" IsEditable="True"
                         materialDesign:HintAssist.Hint="https://git.io/aurora-doh.list" Height="30" Margin="0,-5,0,-8.2" VerticalAlignment="Top" Width="350" >
                         <ComboBoxItem Content="https://cdn.jsdelivr.net/gh/mili-tan/AuroraDNS.GUI/List/DoH.list"/>
+                        <ComboBoxItem Content="https://gh.mili.one/github.com/mili-tan/AuroraDNS.GUI/blob/master/List/DoH.list"/>
                         <ComboBoxItem Content="https://dohlist.checkmails.xyz/mili-tan/AuroraDNS.GUI/master/List/DoH.list"/>
                     </ComboBox>
                 </StackPanel>

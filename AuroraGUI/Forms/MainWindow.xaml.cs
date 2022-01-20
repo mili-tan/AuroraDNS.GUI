@@ -590,10 +590,18 @@ namespace AuroraGUI
 
         private static bool ThemeIsLight()
         {
-            RegistryKey registry =
-                Registry.CurrentUser.OpenSubKey(
-                    @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
-            return (int)registry.GetValue("SystemUsesLightTheme") == 1;
+            try
+            {
+                var registry =
+                    Registry.CurrentUser.OpenSubKey(
+                        @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+                return (int)registry.GetValue("SystemUsesLightTheme") == 1;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
     }
 }

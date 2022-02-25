@@ -46,16 +46,21 @@ namespace AuroraGUI.Tools
                 {
                     cmd += $"netsh interface ip set dns \"{network.Name}\" source=static addr={dnsAddr} validate=no" + Environment.NewLine;
                     cmd += $"netsh interface ip add dns \"{network.Name}\" addr={backupDnsAddr} validate=no" + Environment.NewLine;
-                    if ((Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback) ||
-                         Equals(DnsSettings.ListenIp, IPAddress.IPv6Any)) &&
-                        IPAddress.IsLoopback(IPAddress.Parse(dnsAddr)))
+                    if ((!Equals(DnsSettings.ListenIp, IPAddress.IPv6Loopback) &&
+                         !Equals(DnsSettings.ListenIp, IPAddress.IPv6Any)) ||
+                        !IPAddress.IsLoopback(IPAddress.Parse(dnsAddr))) continue;
+                    cmd +=
+                        $"netsh interface ipv6 set dnsserver \"{network.Name}\" source=static addr=::1 validate=no" +
+                        Environment.NewLine;
+                    try
                     {
-                        cmd +=
-                            $"netsh interface ipv6 set dnsserver \"{network.Name}\" source=static addr=::1 validate=no" +
-                            Environment.NewLine;
                         cmd +=
                             $"netsh interface ipv6 add dnsserver \"{network.Name}\" addr={IPAddress.Parse(backupDnsAddr).MapToIPv6()} validate=no" +
                             Environment.NewLine;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
                     }
                 }
             }

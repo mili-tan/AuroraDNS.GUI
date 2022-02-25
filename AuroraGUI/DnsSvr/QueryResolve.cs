@@ -256,7 +256,7 @@ namespace AuroraGUI.DnsSvr
             try
             {
                 dnsStr = MyCurl.GetString(dohUrl + @"?ct=application/dns-json&" +
-                                          $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}",
+                                          $"name={domainName}&type={type.ToString().ToUpper()}&edns_client_subnet={clientIpAddress}/24",
                     DnsSettings.Http2Enable, proxyEnable, wProxy, DnsSettings.AllowAutoRedirect);
             }
             catch (WebException e)

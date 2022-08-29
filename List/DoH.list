@@ -4,6 +4,7 @@ https://dns.cloudflare.com/dns-query ,Cloudflare
 https://dns.quad9.net/dns-query ,IBM-Quad9
 https://doh.opendns.com/dns-query ,Cisco-OpenDNS
 https://dns.google/resolve ,Google
+https://doh.dns.apple.com/dns-query ,Apple
 https://ordns.he.net/dns-query ,HE.Net
 https://dns.twnic.tw/dns-query ,TWNIC-Quad101
 https://private.canadianshield.cira.ca/dns-query ,CIRA-CanadianShield 

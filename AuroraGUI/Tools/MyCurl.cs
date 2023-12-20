@@ -85,11 +85,16 @@ namespace AuroraGUI.Tools
         }
 
         public static byte[] GetDataByMWebClient(string url, bool proxyEnable = false, IWebProxy wProxy = null,
-            bool allowRedirect = true)
+            bool allowRedirect = true, WebHeaderCollection headers = null)
         {
+            if (headers == null)
+            {
+                headers = new WebHeaderCollection();
+            }
+            headers.Add(HttpRequestHeader.UserAgent, "AuroraDNSC/0.1");
             MWebClient mWebClient = new MWebClient
             {
-                Headers = { ["User-Agent"] = "AuroraDNSC/0.1" },
+                Headers = headers,
                 AllowAutoRedirect = allowRedirect,
                 Proxy = proxyEnable ? wProxy : new WebProxy()
             };
@@ -97,7 +102,7 @@ namespace AuroraGUI.Tools
         }
 
         public static byte[] GetDataByHttp2Client(string url, bool proxyEnable = false, IWebProxy wProxy = null,
-            bool allowRedirect = true)
+            bool allowRedirect = true, WebHeaderCollection headers = null)
         {
             var mHttp2Handel = new Http2Handler
             {
@@ -108,6 +113,13 @@ namespace AuroraGUI.Tools
             };
             HttpClient mHttpClient = new HttpClient(mHttp2Handel);
             mHttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("AuroraDNSC/0.1");
+            if (headers != null)
+            {
+                foreach (string key in headers)
+                {
+                    mHttpClient.DefaultRequestHeaders.Add(key, headers[key]);
+                }
+            }
             return mHttpClient.GetByteArrayAsync(url).Result;
         }
 
@@ -118,9 +130,9 @@ namespace AuroraGUI.Tools
                 : GetStringByMWebClient(url, proxyEnable, wProxy, allowRedirect);
 
         public static byte[] GetData(string url, bool http2 = false, bool proxyEnable = false,
-            IWebProxy wProxy = null, bool allowRedirect = true)
+            IWebProxy wProxy = null, bool allowRedirect = true, WebHeaderCollection headers = null)
             => http2
-                ? GetDataByHttp2Client(url, proxyEnable, wProxy, allowRedirect)
-                : GetDataByMWebClient(url, proxyEnable, wProxy, allowRedirect);
+                ? GetDataByHttp2Client(url, proxyEnable, wProxy, allowRedirect, headers)
+                : GetDataByMWebClient(url, proxyEnable, wProxy, allowRedirect, headers);
     }
 }

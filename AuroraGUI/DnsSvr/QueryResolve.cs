@@ -416,7 +416,11 @@ namespace AuroraGUI.DnsSvr
             {
                 var dnsDataBytes = MyCurl.GetData(
                     $"{dohUrl}?ct=application/dns-message&dns={dnsBase64String}",
-                    DnsSettings.Http2Enable, proxyEnable, wProxy, DnsSettings.AllowAutoRedirect);
+                    DnsSettings.Http2Enable, proxyEnable, wProxy, DnsSettings.AllowAutoRedirect,
+                    new WebHeaderCollection
+                    {
+                        [HttpRequestHeader.Accept] = "application/dns-message",
+                    });
                 dnsMsg = DnsMessage.Parse(dnsDataBytes);
 
                 if (DnsSettings.Ipv4Disable || DnsSettings.Ipv6Disable)

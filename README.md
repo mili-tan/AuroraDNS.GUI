@@ -24,7 +24,7 @@
 它在本地将 DNS over HTTPS 转换为传统的 DNS 协议。
 
 > 正在使用 Windows 11？ Windows 11 已经内置了 DNS over HTTPS 支持，也许您应该试试 [ArashiDNS.Dekunua](https://github.com/mili-tan/ArashiDNS.Dekunua)
-> 正在使用 Linux？请试试看更轻量和现代的继任者 [ArashiDNS.C](https://github.com/mili-tan/ArashiDNS.C)
+> 正在使用 Linux 或在寻找 CLI？请试试看更轻量和现代的继任者 [ArashiDNS.C](https://github.com/mili-tan/ArashiDNS.C)
 
 ## 快速开始
 
